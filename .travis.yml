@@ -1,0 +1,7 @@
+language: objective-c
+
+before_install:
+  - sudo gem install xcpretty --no-document --quiet
+  - cd DTModelStorageTests
+    
+script: rake

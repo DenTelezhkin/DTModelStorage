@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA3B07D1185F55C100A95D16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3B07CF185F55C100A95D16 /* InfoPlist.strings */; };
 		AA3B07E9185F55DC00A95D16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3B07E7185F55DC00A95D16 /* InfoPlist.strings */; };
 		AA3B07F1185F561F00A95D16 /* ModelStorageSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */; };
 		AA3B07F2185F561F00A95D16 /* ModelStorageSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */; };
@@ -20,13 +19,12 @@
 		AA3B07BB185F55C100A95D16 /* DTModelStorageTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DTModelStorageTests-Prefix.pch"; sourceTree = "<group>"; };
 		AA3B07BF185F55C100A95D16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AA3B07C5185F55C100A95D16 /* iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA3B07CE185F55C100A95D16 /* DTModelStorageTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTModelStorageTestsTests-Info.plist"; sourceTree = "<group>"; };
-		AA3B07D0185F55C100A95D16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA3B07E0185F55DC00A95D16 /* OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3B07E6185F55DC00A95D16 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OS X Tests-Info.plist"; sourceTree = "<group>"; };
 		AA3B07E8185F55DC00A95D16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA3B07EC185F55DC00A95D16 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
 		AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelStorageSpec.m; sourceTree = "<group>"; };
+		AA3B07F3185F5BA300A95D16 /* DTModelStorageTestsTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "DTModelStorageTestsTests-Info.plist"; path = "iOS Tests/DTModelStorageTestsTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,20 +96,11 @@
 		AA3B07CC185F55C100A95D16 /* iOS Tests */ = {
 			isa = PBXGroup;
 			children = (
-				AA3B07CD185F55C100A95D16 /* Supporting Files */,
+				AA3B07F3185F5BA300A95D16 /* DTModelStorageTestsTests-Info.plist */,
 			);
 			name = "iOS Tests";
 			path = DTModelStorageTestsTests;
 			sourceTree = SOURCE_ROOT;
-		};
-		AA3B07CD185F55C100A95D16 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07CE185F55C100A95D16 /* DTModelStorageTestsTests-Info.plist */,
-				AA3B07CF185F55C100A95D16 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
 		};
 		AA3B07E4185F55DC00A95D16 /* OS X Tests */ = {
 			isa = PBXGroup;
@@ -201,7 +190,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA3B07D1185F55C100A95D16 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,14 +227,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				AA3B07B7185F55C100A95D16 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		AA3B07CF185F55C100A95D16 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AA3B07D0185F55C100A95D16 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -349,7 +329,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "DTModelStorageTestsTests/DTModelStorageTestsTests-Info.plist";
+				INFOPLIST_FILE = "iOS Tests/DTModelStorageTestsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
@@ -367,7 +347,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTModelStorageTests/DTModelStorageTests-Prefix.pch";
-				INFOPLIST_FILE = "DTModelStorageTestsTests/DTModelStorageTestsTests-Info.plist";
+				INFOPLIST_FILE = "iOS Tests/DTModelStorageTestsTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
