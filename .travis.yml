@@ -1,10 +1,9 @@
 language: objective-c
 
 before_install:
-efore_install:
     - sudo gem install cocoapods --no-document --quiet
     - sudo gem install ios_ci --no-document --quiet
     - brew install ios-sim
   	- cd DTModelStorageTests
-    
+
 script: ios_ci cedar --source-root $TRAVIS_BUILD_DIR/DTModelStorageTests --workspace DTModelStorageTests.xcworkspace --scheme CedarUnitTests --build-path Build/Products
