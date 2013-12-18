@@ -7,58 +7,105 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA3B07E9185F55DC00A95D16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3B07E7185F55DC00A95D16 /* InfoPlist.strings */; };
-		AA3B07F1185F561F00A95D16 /* ModelStorageSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */; };
-		AA3B07F2185F561F00A95D16 /* ModelStorageSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */; };
+		02D01EB586904C25979053BB /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */; };
+		95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95B30B9A1861E66100AB82AC /* InfoPlist.strings */; };
+		95B30B9E1861E66100AB82AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B30B9D1861E66100AB82AC /* main.m */; };
+		95B30BA71861E69A00AB82AC /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E178741861B8D300D1B083 /* DTMemoryStorage.m */; };
+		95B30BA81861E69A00AB82AC /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E178771861B8D300D1B083 /* DTSectionModel.m */; };
+		95B30BA91861E69A00AB82AC /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */; };
+		95B30BAA1861E69A00AB82AC /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */; };
+		95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */; };
+		95B30BAD1861E6E300AB82AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA3B07B5185F55C100A95D16 /* DTModelStorageTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTModelStorageTests-Info.plist"; sourceTree = "<group>"; };
-		AA3B07B7185F55C100A95D16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AA3B07B9185F55C100A95D16 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AA3B07BB185F55C100A95D16 /* DTModelStorageTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DTModelStorageTests-Prefix.pch"; sourceTree = "<group>"; };
-		AA3B07BF185F55C100A95D16 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		AA3B07C5185F55C100A95D16 /* iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA3B07E0185F55DC00A95D16 /* OS X Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OS X Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA3B07E6185F55DC00A95D16 /* OS X Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OS X Tests-Info.plist"; sourceTree = "<group>"; };
-		AA3B07E8185F55DC00A95D16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AA3B07EC185F55DC00A95D16 /* OS X Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Tests-Prefix.pch"; sourceTree = "<group>"; };
-		AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelStorageSpec.m; sourceTree = "<group>"; };
-		AA3B07F3185F5BA300A95D16 /* DTModelStorageTestsTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "DTModelStorageTestsTests-Info.plist"; path = "iOS Tests/DTModelStorageTestsTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = "<group>"; };
+		0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B30B901861E66100AB82AC /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CedarUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B30B991861E66100AB82AC /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
+		95B30B9B1861E66100AB82AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		95B30B9D1861E66100AB82AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		95B30B9F1861E66100AB82AC /* CedarUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CedarUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MemoryStorageSpecs.mm; path = ../DTModelStorageTests/MemoryStorageSpecs.mm; sourceTree = "<group>"; };
+		95E178731861B8D300D1B083 /* DTMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMemoryStorage.h; sourceTree = "<group>"; };
+		95E178741861B8D300D1B083 /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
+		95E178751861B8D300D1B083 /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSection.h; sourceTree = "<group>"; };
+		95E178761861B8D300D1B083 /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
+		95E178771861B8D300D1B083 /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
+		95E178781861B8D300D1B083 /* DTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorage.h; sourceTree = "<group>"; };
+		95E178791861B8D300D1B083 /* DTStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdate.h; sourceTree = "<group>"; };
+		95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTStorageUpdate.m; sourceTree = "<group>"; };
+		95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoreDataStorage.h; sourceTree = "<group>"; };
+		95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCoreDataStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AA3B07C2185F55C100A95D16 /* Frameworks */ = {
+		95B30B8D1861E66100AB82AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA3B07DD185F55DC00A95D16 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				02D01EB586904C25979053BB /* libPods-CedarUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		95B30B971861E66100AB82AC /* CedarUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */,
+				95B30B981861E66100AB82AC /* Supporting Files */,
+			);
+			path = CedarUnitTests;
+			sourceTree = "<group>";
+		};
+		95B30B981861E66100AB82AC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				95B30B991861E66100AB82AC /* CedarUnitTests-Info.plist */,
+				95B30B9A1861E66100AB82AC /* InfoPlist.strings */,
+				95B30B9D1861E66100AB82AC /* main.m */,
+				95B30B9F1861E66100AB82AC /* CedarUnitTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		95E178721861B8D300D1B083 /* DTModelStorage */ = {
+			isa = PBXGroup;
+			children = (
+				95E178731861B8D300D1B083 /* DTMemoryStorage.h */,
+				95E178741861B8D300D1B083 /* DTMemoryStorage.m */,
+				95E178751861B8D300D1B083 /* DTSection.h */,
+				95E178761861B8D300D1B083 /* DTSectionModel.h */,
+				95E178771861B8D300D1B083 /* DTSectionModel.m */,
+				95E178781861B8D300D1B083 /* DTStorage.h */,
+				95E178791861B8D300D1B083 /* DTStorageUpdate.h */,
+				95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */,
+				95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */,
+				95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */,
+			);
+			name = DTModelStorage;
+			path = ../DTModelStorage;
+			sourceTree = "<group>";
+		};
 		AA3B07A1185F55C100A95D16 = {
 			isa = PBXGroup;
 			children = (
-				AA3B07B3185F55C100A95D16 /* DTModelStorageTests */,
+				95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */,
+				95E178721861B8D300D1B083 /* DTModelStorage */,
+				95B30B971861E66100AB82AC /* CedarUnitTests */,
 				AA3B07AC185F55C100A95D16 /* Frameworks */,
 				AA3B07AB185F55C100A95D16 /* Products */,
+				0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
 		AA3B07AB185F55C100A95D16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA3B07C5185F55C100A95D16 /* iOS Tests.xctest */,
-				AA3B07E0185F55DC00A95D16 /* OS X Tests.xctest */,
+				95B30B901861E66100AB82AC /* CedarUnitTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,97 +113,32 @@
 		AA3B07AC185F55C100A95D16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AA3B07B3185F55C100A95D16 /* DTModelStorageTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07BF185F55C100A95D16 /* Images.xcassets */,
-				AA3B07B4185F55C100A95D16 /* Supporting Files */,
-				AA3B07F0185F561F00A95D16 /* ModelStorageSpec.m */,
-			);
-			path = DTModelStorageTests;
-			sourceTree = "<group>";
-		};
-		AA3B07B4185F55C100A95D16 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07CC185F55C100A95D16 /* iOS Tests */,
-				AA3B07E4185F55DC00A95D16 /* OS X Tests */,
-				AA3B07B5185F55C100A95D16 /* DTModelStorageTests-Info.plist */,
-				AA3B07B6185F55C100A95D16 /* InfoPlist.strings */,
-				AA3B07B9185F55C100A95D16 /* main.m */,
-				AA3B07BB185F55C100A95D16 /* DTModelStorageTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		AA3B07CC185F55C100A95D16 /* iOS Tests */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07F3185F5BA300A95D16 /* DTModelStorageTestsTests-Info.plist */,
-			);
-			name = "iOS Tests";
-			path = DTModelStorageTestsTests;
-			sourceTree = SOURCE_ROOT;
-		};
-		AA3B07E4185F55DC00A95D16 /* OS X Tests */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07E5185F55DC00A95D16 /* Supporting Files */,
-			);
-			name = "OS X Tests";
-			path = "../OS X Tests";
-			sourceTree = "<group>";
-		};
-		AA3B07E5185F55DC00A95D16 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AA3B07E6185F55DC00A95D16 /* OS X Tests-Info.plist */,
-				AA3B07E7185F55DC00A95D16 /* InfoPlist.strings */,
-				AA3B07EC185F55DC00A95D16 /* OS X Tests-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA3B07C4185F55C100A95D16 /* iOS Tests */ = {
+		95B30B8F1861E66100AB82AC /* CedarUnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA3B07D9185F55C100A95D16 /* Build configuration list for PBXNativeTarget "iOS Tests" */;
+			buildConfigurationList = 95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "CedarUnitTests" */;
 			buildPhases = (
-				AA3B07C1185F55C100A95D16 /* Sources */,
-				AA3B07C2185F55C100A95D16 /* Frameworks */,
-				AA3B07C3185F55C100A95D16 /* Resources */,
+				34FB27B483EC48A4BAA9C8F0 /* Check Pods Manifest.lock */,
+				95B30B8C1861E66100AB82AC /* Sources */,
+				95B30B8D1861E66100AB82AC /* Frameworks */,
+				95B30B8E1861E66100AB82AC /* Resources */,
+				3AEC7C6BED004F13A4E74ED9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "iOS Tests";
-			productName = DTModelStorageTestsTests;
-			productReference = AA3B07C5185F55C100A95D16 /* iOS Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		AA3B07DF185F55DC00A95D16 /* OS X Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA3B07ED185F55DC00A95D16 /* Build configuration list for PBXNativeTarget "OS X Tests" */;
-			buildPhases = (
-				AA3B07DC185F55DC00A95D16 /* Sources */,
-				AA3B07DD185F55DC00A95D16 /* Frameworks */,
-				AA3B07DE185F55DC00A95D16 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "OS X Tests";
-			productName = "OS X Tests";
-			productReference = AA3B07E0185F55DC00A95D16 /* OS X Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = CedarUnitTests;
+			productName = CedarUnitTests;
+			productReference = 95B30B901861E66100AB82AC /* CedarUnitTests.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -179,62 +161,77 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA3B07C4185F55C100A95D16 /* iOS Tests */,
-				AA3B07DF185F55DC00A95D16 /* OS X Tests */,
+				95B30B8F1861E66100AB82AC /* CedarUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AA3B07C3185F55C100A95D16 /* Resources */ = {
+		95B30B8E1861E66100AB82AC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA3B07DE185F55DC00A95D16 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA3B07E9185F55DC00A95D16 /* InfoPlist.strings in Resources */,
+				95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */,
+				95B30BAD1861E6E300AB82AC /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXSourcesBuildPhase section */
-		AA3B07C1185F55C100A95D16 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
+/* Begin PBXShellScriptBuildPhase section */
+		34FB27B483EC48A4BAA9C8F0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA3B07F1185F561F00A95D16 /* ModelStorageSpec.m in Sources */,
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
-		AA3B07DC185F55DC00A95D16 /* Sources */ = {
+		3AEC7C6BED004F13A4E74ED9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-CedarUnitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		95B30B8C1861E66100AB82AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA3B07F2185F561F00A95D16 /* ModelStorageSpec.m in Sources */,
+				95B30BA91861E69A00AB82AC /* DTStorageUpdate.m in Sources */,
+				95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */,
+				95B30BAA1861E69A00AB82AC /* DTCoreDataStorage.m in Sources */,
+				95B30BA71861E69A00AB82AC /* DTMemoryStorage.m in Sources */,
+				95B30BA81861E69A00AB82AC /* DTSectionModel.m in Sources */,
+				95B30B9E1861E66100AB82AC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		AA3B07B6185F55C100A95D16 /* InfoPlist.strings */ = {
+		95B30B9A1861E66100AB82AC /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA3B07B7185F55C100A95D16 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		AA3B07E7185F55DC00A95D16 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AA3B07E8185F55DC00A95D16 /* en */,
+				95B30B9B1861E66100AB82AC /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -242,6 +239,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		95B30BA51861E66200AB82AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/virusvt/Developer/Projects/DTModelStorage/DTModelStorageTests/CedarUnitTests/Frameworks,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		95B30BA61861E66200AB82AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/virusvt/Developer/Projects/DTModelStorage/DTModelStorageTests/CedarUnitTests/Frameworks,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
+				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lstdc++",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		AA3B07D4185F55C100A95D16 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -314,104 +362,23 @@
 			};
 			name = Release;
 		};
-		AA3B07DA185F55C100A95D16 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DTModelStorageTests/DTModelStorageTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "iOS Tests/DTModelStorageTestsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		AA3B07DB185F55C100A95D16 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "DTModelStorageTests/DTModelStorageTests-Prefix.pch";
-				INFOPLIST_FILE = "iOS Tests/DTModelStorageTestsTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		AA3B07EE185F55DC00A95D16 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OS X Tests/OS X Tests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "OS X Tests/OS X Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = macosx;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		AA3B07EF185F55DC00A95D16 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OS X Tests/OS X Tests-Prefix.pch";
-				INFOPLIST_FILE = "OS X Tests/OS X Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = macosx;
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "CedarUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95B30BA51861E66200AB82AC /* Debug */,
+				95B30BA61861E66200AB82AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorageTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA3B07D4185F55C100A95D16 /* Debug */,
 				AA3B07D5185F55C100A95D16 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA3B07D9185F55C100A95D16 /* Build configuration list for PBXNativeTarget "iOS Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA3B07DA185F55C100A95D16 /* Debug */,
-				AA3B07DB185F55C100A95D16 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA3B07ED185F55DC00A95D16 /* Build configuration list for PBXNativeTarget "OS X Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA3B07EE185F55DC00A95D16 /* Debug */,
-				AA3B07EF185F55DC00A95D16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
