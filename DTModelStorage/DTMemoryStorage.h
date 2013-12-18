@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DTStorage.h"
+#import "DTSectionModel.h"
 
 @interface DTMemoryStorage : NSObject <DTStorage>
 
@@ -51,11 +52,12 @@
 
 -(void)deleteSections:(NSIndexSet *)indexSet;
 
-
 -(NSArray *)itemsInSection:(NSInteger)sectionNumber;
 
 -(id)itemAtIndexPath:(NSIndexPath *)indexPath;
 
 -(NSIndexPath *)indexPathForItem:(NSObject *)item;
+
+- (DTSectionModel *)sectionAtIndex:(NSInteger)sectionNumber;
 
 @end

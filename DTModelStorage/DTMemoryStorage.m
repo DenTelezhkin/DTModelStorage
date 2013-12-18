@@ -268,6 +268,15 @@
     return nil;
 }
 
+-(DTSectionModel *)sectionAtIndex:(NSInteger)sectionNumber
+{
+    [self startUpdate];
+    DTSectionModel * section = [self getValidSection:sectionNumber];
+    [self finishUpdate];
+    
+    return section;
+}
+
 #pragma mark - private
 
 -(DTSectionModel *)getValidSection:(NSUInteger)sectionNumber

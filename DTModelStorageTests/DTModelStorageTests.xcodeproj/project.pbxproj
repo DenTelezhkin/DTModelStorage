@@ -245,10 +245,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/virusvt/Developer/Projects/DTModelStorage/DTModelStorageTests/CedarUnitTests/Frameworks,
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -272,10 +268,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/virusvt/Developer/Projects/DTModelStorage/DTModelStorageTests/CedarUnitTests/Frameworks,
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";

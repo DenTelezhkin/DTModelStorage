@@ -18,7 +18,7 @@
 /**
  This method transfers data storage updates to `DTTableViewController` object. Then `DTTableViewController` object is expected to perform all animations required to synchronize datasource and UI.
  
- @param update `DTTableViewUpdate` instance, that incapsulates all changes, happened in data storage.
+ @param update `DTStorageUpdate` instance, that incapsulates all changes, happened in data storage.
  */
 - (void)performUpdate:(DTStorageUpdate *)update;
 
