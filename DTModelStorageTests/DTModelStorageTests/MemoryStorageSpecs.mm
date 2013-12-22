@@ -258,6 +258,15 @@ describe(@"Storage edit specs", ^{
         
         [section supplementaryModelOfKind:@"bar"] should equal(@"foo");
     });
+    
+    it(@"should not call delegate if it doesn't respond to selector", ^{
+       storage.delegate = (id)storage;
+        
+        ^{
+            [storage addItem:@"foo"];
+        } should_not raise_exception();
+        
+    });
 });
 
 

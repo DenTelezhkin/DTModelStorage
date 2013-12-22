@@ -1,6 +1,6 @@
 //
-//  DTCollectionViewMemoryStorage.m
-//  DTCollectionViewManagerExample
+//  DTMemoryStorage.m
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -118,7 +118,7 @@
     if ([section.objects count] < indexPath.row)
     {
         if (self.loggingEnabled) {
-            NSLog(@"DTTableViewMemoryStorage: failed to insert item for indexPath section: %ld, row: %ld, only %lu items in section",
+            NSLog(@"DTMemoryStorage: failed to insert item for section: %ld, row: %ld, only %lu items in section",
                   (long)indexPath.section,
                   (long)indexPath.row,
                   (unsigned long)[section.objects count]);
@@ -161,7 +161,7 @@
     }
     else {
         if (self.loggingEnabled) {
-            NSLog(@"DTCollectionViewMemoryStorage: failed to replace item %@ at indexPath: %@",replacingItem,originalIndexPath);
+            NSLog(@"DTMemoryStorage: failed to replace item %@ at indexPath: %@",replacingItem,originalIndexPath);
         }
         return;
     }
@@ -186,7 +186,7 @@
     }
     else {
         if (self.loggingEnabled) {
-            NSLog(@"DTCollectionViewMemoryStorage: item to delete: %@ was not found in table view",item);
+            NSLog(@"DTMemoryStorage: item to delete: %@ was not found",item);
         }
         return;
     }
@@ -253,7 +253,7 @@
     else {
         if (self.loggingEnabled)
         {
-            NSLog(@"DTCollectionViewMemoryStorage: Section not found while searching for table item");
+            NSLog(@"DTMemoryStorage: Section not found while searching for item");
         }
         return nil;
     }
@@ -263,8 +263,9 @@
         return [section objectAtIndex:indexPath.row];
     }
     else {
-        if (self.loggingEnabled) {
-            NSLog(@"DTCollectionViewMemoryStorage: Row not found while searching for table item");
+        if (self.loggingEnabled)
+        {
+            NSLog(@"DTMemoryStorage: Row not found while searching for item");
         }
         return nil;
     }
@@ -314,7 +315,7 @@
     }
 }
 
-//This implementation is not optimized, and may behave poorly over tables with lot of sections
+//This implementation is not optimized, and may behave poorly with lot of sections
 -(NSArray *)indexPathArrayForItems:(NSArray *)items
 {
     NSMutableArray * indexPaths = [[NSMutableArray alloc] initWithCapacity:[items count]];
@@ -324,8 +325,9 @@
         NSIndexPath * foundIndexPath = [self indexPathForItem:[items objectAtIndex:i]];
         if (!foundIndexPath)
         {
-            if (self.loggingEnabled) {
-                NSLog(@"DTCOllectionViewMemoryStorage: object %@ not found",
+            if (self.loggingEnabled)
+            {
+                NSLog(@"DTMemoryStorage: object %@ not found",
                       [items objectAtIndex:i]);
             }
         }

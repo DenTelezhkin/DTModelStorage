@@ -61,7 +61,10 @@
 
 -(void)finishUpdate
 {
-    [self.delegate performUpdate:self.currentUpdate];
+    if ([self.delegate respondsToSelector:@selector(performUpdate:)])
+    {
+        [self.delegate performUpdate:self.currentUpdate];
+    }
     self.currentUpdate = nil;
 }
 
