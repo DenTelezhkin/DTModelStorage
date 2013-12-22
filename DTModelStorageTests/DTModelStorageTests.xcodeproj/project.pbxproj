@@ -10,13 +10,13 @@
 		02D01EB586904C25979053BB /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */; };
 		95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95B30B9A1861E66100AB82AC /* InfoPlist.strings */; };
 		95B30B9E1861E66100AB82AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B30B9D1861E66100AB82AC /* main.m */; };
-		95B30BA71861E69A00AB82AC /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E178741861B8D300D1B083 /* DTMemoryStorage.m */; };
-		95B30BA81861E69A00AB82AC /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E178771861B8D300D1B083 /* DTSectionModel.m */; };
-		95B30BA91861E69A00AB82AC /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */; };
-		95B30BAA1861E69A00AB82AC /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */; };
 		95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */; };
 		95B30BAD1861E6E300AB82AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */; };
 		9A222BBF18670FD6004481BA /* CoreDataStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */; };
+		9A222BCD186732E0004481BA /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
+		9A222BCE186732E0004481BA /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
+		9A222BCF186732E0004481BA /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
+		9A222BD0186732E0004481BA /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,18 +29,18 @@
 		95B30B9F1861E66100AB82AC /* CedarUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CedarUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MemoryStorageSpecs.mm; path = ../DTModelStorageTests/MemoryStorageSpecs.mm; sourceTree = "<group>"; };
-		95E178731861B8D300D1B083 /* DTMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMemoryStorage.h; sourceTree = "<group>"; };
-		95E178741861B8D300D1B083 /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
-		95E178751861B8D300D1B083 /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSection.h; sourceTree = "<group>"; };
-		95E178761861B8D300D1B083 /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
-		95E178771861B8D300D1B083 /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
-		95E178781861B8D300D1B083 /* DTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorage.h; sourceTree = "<group>"; };
-		95E178791861B8D300D1B083 /* DTStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdate.h; sourceTree = "<group>"; };
-		95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTStorageUpdate.m; sourceTree = "<group>"; };
-		95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoreDataStorage.h; sourceTree = "<group>"; };
-		95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCoreDataStorage.m; sourceTree = "<group>"; };
 		9A222BBD18670B88004481BA /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
 		9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoreDataStorageSpecs.mm; path = DTModelStorageTests/CoreDataStorageSpecs.mm; sourceTree = SOURCE_ROOT; };
+		9A222BC1186732E0004481BA /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSection.h; sourceTree = "<group>"; };
+		9A222BC2186732E0004481BA /* DTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorage.h; sourceTree = "<group>"; };
+		9A222BC3186732E0004481BA /* DTStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdate.h; sourceTree = "<group>"; };
+		9A222BC4186732E0004481BA /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTStorageUpdate.m; sourceTree = "<group>"; };
+		9A222BC6186732E0004481BA /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoreDataStorage.h; sourceTree = "<group>"; };
+		9A222BC7186732E0004481BA /* DTCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCoreDataStorage.m; sourceTree = "<group>"; };
+		9A222BC9186732E0004481BA /* DTMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMemoryStorage.h; sourceTree = "<group>"; };
+		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
+		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
+		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,20 +79,44 @@
 		95E178721861B8D300D1B083 /* DTModelStorage */ = {
 			isa = PBXGroup;
 			children = (
-				95E178731861B8D300D1B083 /* DTMemoryStorage.h */,
-				95E178741861B8D300D1B083 /* DTMemoryStorage.m */,
-				95E178751861B8D300D1B083 /* DTSection.h */,
-				95E178761861B8D300D1B083 /* DTSectionModel.h */,
-				95E178771861B8D300D1B083 /* DTSectionModel.m */,
-				95E178781861B8D300D1B083 /* DTStorage.h */,
-				95E178791861B8D300D1B083 /* DTStorageUpdate.h */,
-				95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */,
-				95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */,
-				95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */,
+				9A222BC0186732E0004481BA /* Core */,
+				9A222BC5186732E0004481BA /* CoreData */,
+				9A222BC8186732E0004481BA /* Memory */,
 				9A222BBD18670B88004481BA /* DTModelStorage.h */,
 			);
 			name = DTModelStorage;
 			path = ../DTModelStorage;
+			sourceTree = "<group>";
+		};
+		9A222BC0186732E0004481BA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9A222BC1186732E0004481BA /* DTSection.h */,
+				9A222BC2186732E0004481BA /* DTStorage.h */,
+				9A222BC3186732E0004481BA /* DTStorageUpdate.h */,
+				9A222BC4186732E0004481BA /* DTStorageUpdate.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9A222BC5186732E0004481BA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9A222BC6186732E0004481BA /* DTCoreDataStorage.h */,
+				9A222BC7186732E0004481BA /* DTCoreDataStorage.m */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		9A222BC8186732E0004481BA /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				9A222BC9186732E0004481BA /* DTMemoryStorage.h */,
+				9A222BCA186732E0004481BA /* DTMemoryStorage.m */,
+				9A222BCB186732E0004481BA /* DTSectionModel.h */,
+				9A222BCC186732E0004481BA /* DTSectionModel.m */,
+			);
+			path = Memory;
 			sourceTree = "<group>";
 		};
 		AA3B07A1185F55C100A95D16 = {
@@ -221,12 +245,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95B30BA91861E69A00AB82AC /* DTStorageUpdate.m in Sources */,
+				9A222BD0186732E0004481BA /* DTSectionModel.m in Sources */,
+				9A222BCD186732E0004481BA /* DTStorageUpdate.m in Sources */,
+				9A222BCE186732E0004481BA /* DTCoreDataStorage.m in Sources */,
+				9A222BCF186732E0004481BA /* DTMemoryStorage.m in Sources */,
 				9A222BBF18670FD6004481BA /* CoreDataStorageSpecs.mm in Sources */,
 				95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */,
-				95B30BAA1861E69A00AB82AC /* DTCoreDataStorage.m in Sources */,
-				95B30BA71861E69A00AB82AC /* DTMemoryStorage.m in Sources */,
-				95B30BA81861E69A00AB82AC /* DTSectionModel.m in Sources */,
 				95B30B9E1861E66100AB82AC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
