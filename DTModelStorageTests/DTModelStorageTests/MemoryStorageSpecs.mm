@@ -71,7 +71,7 @@ describe(@"Storage Add specs", ^{
         [update.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
                                                                    inSection:0]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id argument) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id argument) {
             return [update isEqual:argument];
         }]];
         
@@ -90,7 +90,7 @@ describe(@"Storage Add specs", ^{
         [update.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:2
                                                                    inSection:1]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id argument) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id argument) {
             return [update isEqual:argument];
         }]];
         
@@ -130,7 +130,7 @@ describe(@"Storage edit specs", ^{
         [update.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:2
                                                                    inSection:0]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
            return [update isEqual:obj];
         }]];
         
@@ -142,7 +142,7 @@ describe(@"Storage edit specs", ^{
         [update.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
                                                                    inSection:1]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         
@@ -159,7 +159,7 @@ describe(@"Storage edit specs", ^{
         [update.updatedRowIndexPaths addObject:[NSIndexPath indexPathForRow:1
                                                                   inSection:0]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         
@@ -176,7 +176,7 @@ describe(@"Storage edit specs", ^{
         [update.updatedRowIndexPaths addObject:[NSIndexPath indexPathForRow:1
                                                                   inSection:0]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         
@@ -193,7 +193,7 @@ describe(@"Storage edit specs", ^{
         [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
                                                                   inSection:0]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         [storage removeItem:acc2];
@@ -203,7 +203,7 @@ describe(@"Storage edit specs", ^{
         [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
                                                                   inSection:1]];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         [storage removeItem:acc5];
@@ -224,7 +224,7 @@ describe(@"Storage edit specs", ^{
                                                                   inSection:0]];
         
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         [storage removeItems:@[acc1,acc4,acc3,acc5]];
@@ -242,7 +242,7 @@ describe(@"Storage edit specs", ^{
         DTStorageUpdate * update = [DTStorageUpdate new];
         [update.deletedSectionIndexes addIndex:1];
         
-        [[delegate expect] performUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
         [storage deleteSections:[NSIndexSet indexSetWithIndex:1]];

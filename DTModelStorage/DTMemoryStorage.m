@@ -60,9 +60,9 @@
 
 -(void)finishUpdate
 {
-    if ([self.delegate respondsToSelector:@selector(performUpdate:)])
+    if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
     {
-        [self.delegate performUpdate:self.currentUpdate];
+        [self.delegate storageDidPerformUpdate:self.currentUpdate];
     }
     self.currentUpdate = nil;
 }

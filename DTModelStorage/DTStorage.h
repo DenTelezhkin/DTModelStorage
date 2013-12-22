@@ -38,7 +38,7 @@
  
  @param update `DTStorageUpdate` instance, that incapsulates all changes, happened in data storage.
  */
-- (void)performUpdate:(DTStorageUpdate *)update;
+- (void)storageDidPerformUpdate:(DTStorageUpdate *)update;
 
 @end
 
