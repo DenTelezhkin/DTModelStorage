@@ -1,4 +1,6 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.png?branch=master) &nbsp;
+![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTModelStorage/badge.png) &nbsp; 
+![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 DTModelStorage
 ==============
