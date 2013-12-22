@@ -38,6 +38,7 @@
 		95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTStorageUpdate.m; sourceTree = "<group>"; };
 		95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoreDataStorage.h; sourceTree = "<group>"; };
 		95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCoreDataStorage.m; sourceTree = "<group>"; };
+		9A222BBD18670B88004481BA /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 				95E1787A1861B8D300D1B083 /* DTStorageUpdate.m */,
 				95E1787B1861B8D300D1B083 /* DTCoreDataStorage.h */,
 				95E1787C1861B8D300D1B083 /* DTCoreDataStorage.m */,
+				9A222BBD18670B88004481BA /* DTModelStorage.h */,
 			);
 			name = DTModelStorage;
 			path = ../DTModelStorage;
