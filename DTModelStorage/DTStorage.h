@@ -1,6 +1,6 @@
 //
-//  DTCollectionViewStorage.h
-//  DTCollectionViewManagerExample
+//  DTStorage.h
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -26,13 +26,15 @@
 #import "DTStorageUpdate.h"
 
 /**
- `DTTableViewDataStorageUpdating` protocol is used to transfer data storage updates to `DTTableViewController` object.
+ `DTStorageUpdating` protocol is used to transfer data storage updates.
  */
 
 @protocol DTStorageUpdating <NSObject>
 
+@optional
+
 /**
- This method transfers data storage updates to `DTTableViewController` object. Then `DTTableViewController` object is expected to perform all animations required to synchronize datasource and UI.
+ This method transfers data storage updates. Controller, that implements this method, may react to received update by updating it's UI.
  
  @param update `DTStorageUpdate` instance, that incapsulates all changes, happened in data storage.
  */
@@ -40,20 +42,22 @@
 
 @end
 
+/**
+ `DTStorage` protocol is used to define common interface for storage classes.
+ */
 
 @protocol DTStorage <NSObject>
 
-
 /**
- Array of sections, conforming to DTTableViewSection protocol. Depending on data storage used, section objects may be different.
+ Array of sections, conforming to `DTSection` protocol. Depending on data storage used, section objects may be different.
  
- @return NSArray of id <DTTableViewSection> objects.
+ @return NSArray of <DTSection> objects.
  */
 
 - (NSArray*)sections;
 
 /**
- Returns collection item at concrete indexPath. This method is used for perfomance reasons. For example, when DTTableViewCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
+ Returns item at concrete indexPath. This method is used for perfomance reasons. For example, when DTCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
  
  @param indexPath indexPath of desired item
  
@@ -62,7 +66,7 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- Delegate property used to transfer current data storage changes to `DTTableViewController` object. It is expected to update UI with appropriate animations.
+ Delegate property used to transfer current data storage changes.
  */
 
 @property (nonatomic, weak) id <DTStorageUpdating> delegate;

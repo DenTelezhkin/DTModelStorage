@@ -1,6 +1,6 @@
 //
-//  DTTableViewCoreDataStorage.m
-//  DTTableViewManager
+//  DTCoreDataStorage.m
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 07.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.

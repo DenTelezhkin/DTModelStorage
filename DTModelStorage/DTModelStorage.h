@@ -1,6 +1,6 @@
 //
 //  DTModelStorage.h
-//  DTModelStorageTests
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 22.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.

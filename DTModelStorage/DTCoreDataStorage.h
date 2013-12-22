@@ -1,6 +1,6 @@
 //
-//  DTTableViewCoreDataStorage.h
-//  DTTableViewManager
+//  DTCoreDataStorage.h
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 07.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -27,32 +27,28 @@
 #import <CoreData/CoreData.h>
 
 /**
- This class is used to provide CoreData storage for `DTTableViewController` instance. Storage object will automatically react to NSFetchResultsController changes and will call `DTTableViewController` instance to update UI accordingly.
- 
- ## Searching
- 
- To implement search, subclass `DTTableViewCoreDataStorage` and provide implementation for method `searchingStorageForSearchString:inSearchScope:`. New searching storage should probably contain similar NSFetchedResultsController, but with NSPredicate, filtering results.
+ This class is used to provide CoreData storage. Storage object will automatically react to NSFetchResultsController changes and will call delegate with appropriate DTStorageUpdate object.
  */
 
 @interface DTCoreDataStorage : NSObject <DTStorage,NSFetchedResultsControllerDelegate>
 
 /**
- Use this method to create `DTTableViewCoreDataStorage` object with your NSFetchedResultsController.
+ Use this method to create `DTCoreDataStorage` object with your NSFetchedResultsController.
  
- @param controller NSFetchedResultsController instance, that will be used to populate UITableView.
+ @param controller NSFetchedResultsController instance, that will be used as datasource.
  
- @return `DTTableViewCoreDataStorage` object.
+ @return `DTCoreDataStorage` object.
  */
 
 +(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller;
 
 /**
- Delegate object, that gets notified about data storage updates, in this scenario - NSFetchedResultsController updates. This property is automatically set by `DTTableViewController` instance, when setter for dataStorage property is called.
+ Delegate object, that gets notified about data storage updates, in this scenario - NSFetchedResultsController updates. If delegate does not implement `DTStorageUpdating` protocol, it will not get called.
  */
 @property (nonatomic, weak) id <DTStorageUpdating> delegate;
 
 /**
- NSFetchedResultsController of current `DTTableViewCoreDataStorage` object.
+ NSFetchedResultsController of current `DTCoreDataStorage` object.
  */
 @property (nonatomic, strong, readonly) NSFetchedResultsController * fetchedResultsController;
 
