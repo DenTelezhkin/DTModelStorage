@@ -1,6 +1,6 @@
 //
-//  DTCOllectionViewSectionModel.m
-//  DTCollectionViewManagerExample
+//  DTSectionModel.m
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.

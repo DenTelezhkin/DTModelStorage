@@ -1,6 +1,6 @@
 //
-//  DTCOllectionViewSectionModel.h
-//  DTCollectionViewManagerExample
+//  DTSectionModel.h
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -25,6 +25,9 @@
 
 #import "DTSection.h"
 
+/**
+ This class represents data of the section used by `DTMemoryStorage`.
+ */
 @interface DTSectionModel : NSObject <DTSection>
 
 /**
@@ -32,8 +35,22 @@
  */
 @property (nonatomic, strong) NSMutableArray * objects;
 
+/**
+ Method to retrieve supplementary model for current section. This can be header,footer model, or anything you need.
+ 
+ @param kind Kind of supplementary model
+ 
+ @return supplementary model
+ */
 -(id)supplementaryModelOfKind:(NSString *)kind;
 
+/**
+ Method to set supplementary model for current section. This can be header,footer model, or anything you need. Number of supplementary models is not limited. Any custom kind is accepted.
+ 
+ @param model supplementary model to set
+ 
+ @param kind Kind of supplementary model
+ */
 -(void)setSupplementaryModel:(id)model forKind:(NSString *)kind;
 
 @end

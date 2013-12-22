@@ -1,6 +1,6 @@
 //
-//  DTCollectionViewSection.h
-//  DTCollectionViewManagerExample
+//  DTSection
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.12.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /**
- `DTTableViewSection` protocol defines an interface for sections returned by DTTableViewDataStorage object. For `DTTableViewMemoryStorage`, `DTTableViewSectionModel` is the object, conforming to current protocol. For `DTTableViewCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` objects, that also conform to current protocol.
+ `DTSection` protocol defines an interface for sections returned by DTModelStorage object. For `DTMemoryStorage`, `DTSectionModel` is the object, conforming to current protocol. For `DTCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conform to current protocol. 
  */
 
 @protocol DTSection <NSObject>
