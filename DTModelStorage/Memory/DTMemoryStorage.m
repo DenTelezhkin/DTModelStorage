@@ -51,6 +51,12 @@
     return [sectionModel.objects objectAtIndex:indexPath.row];
 }
 
+-(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
+{
+    DTSectionModel * section = [self getValidSection:sectionNumber];
+    return [section supplementaryModelOfKind:kind];
+}
+
 #pragma mark - Updates
 
 -(void)startUpdate

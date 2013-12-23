@@ -68,7 +68,10 @@
 /**
  Delegate property used to transfer current data storage changes.
  */
-
 @property (nonatomic, weak) id <DTStorageUpdating> delegate;
+
+@optional
+
+- (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber;
 
 @end

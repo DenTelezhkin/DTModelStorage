@@ -91,8 +91,8 @@
 		9A222BC0186732E0004481BA /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9A222BC1186732E0004481BA /* DTSection.h */,
 				9A222BC2186732E0004481BA /* DTStorage.h */,
+				9A222BC1186732E0004481BA /* DTSection.h */,
 				9A222BC3186732E0004481BA /* DTStorageUpdate.h */,
 				9A222BC4186732E0004481BA /* DTStorageUpdate.m */,
 			);

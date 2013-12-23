@@ -259,6 +259,21 @@ describe(@"Storage edit specs", ^{
         [section supplementaryModelOfKind:@"bar"] should equal(@"foo");
     });
     
+    it(@"should not call delegate for optional supplementary method", ^{
+        ^{
+            [storage supplementaryModelOfKind:@"foo" forSectionIndex:1];
+        } should_not raise_exception();
+    });
+    
+    it(@"should be able to retrieve supplementary model via storage method", ^{
+        
+        DTSectionModel * section = [storage sectionAtIndex:0];
+        
+        [section setSupplementaryModel:@"foo" forKind:@"bar"];
+        
+        [storage supplementaryModelOfKind:@"bar" forSectionIndex:0] should equal(@"foo");
+    });
+    
     it(@"should not call delegate if it doesn't respond to selector", ^{
        storage.delegate = (id)storage;
         

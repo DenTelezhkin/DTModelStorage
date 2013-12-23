@@ -29,6 +29,13 @@ describe(@"CoreDataStorageSpecs", ^{
             [storage finishUpdate];
         } should_not raise_exception();
     });
+    
+    
+    it(@"should not call delegate for optional supplementary method", ^{
+        ^{
+            [storage supplementaryModelOfKind:@"foo" forSectionIndex:1];
+        } should_not raise_exception();
+    });
 });
 
 SPEC_END
