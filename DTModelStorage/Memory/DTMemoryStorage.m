@@ -47,14 +47,33 @@
 
 -(id)objectAtIndexPath:(NSIndexPath *)indexPath
 {
-    id <DTSection> sectionModel = [self sections][indexPath.section];
+    id <DTSection> sectionModel = nil;
+    if (indexPath.section >= self.sections.count)
+    {
+        return nil;
+    }
+    else {
+        sectionModel = [self sections][indexPath.section];
+        if (indexPath.item>= [sectionModel numberOfObjects])
+        {
+            return nil;
+        }
+    }
+    
     return [sectionModel.objects objectAtIndex:indexPath.row];
 }
 
 -(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
 {
-    DTSectionModel * section = [self getValidSection:sectionNumber];
-    return [section supplementaryModelOfKind:kind];
+    DTSectionModel * sectionModel = nil;
+    if (sectionNumber >= self.sections.count)
+    {
+        return nil;
+    }
+    else {
+        sectionModel = [self sections][sectionNumber];
+    }
+    return [sectionModel supplementaryModelOfKind:kind];
 }
 
 #pragma mark - Updates
@@ -198,6 +217,27 @@
     }
     [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
     [self finishUpdate];
+}
+
+-(void)removeItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self objectAtIndexPath:indexPath];
+   
+    if (object)
+    {
+        [self startUpdate];
+        
+        DTSectionModel * section = [self getValidSection:indexPath.section];
+        [section.objects removeObjectAtIndex:indexPath.row];
+        [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
+        
+        [self finishUpdate];
+    }
+    else {
+        if (self.loggingEnabled) {
+            NSLog(@"DTMemoryStorage: item to delete was not found at indexPath : %@ ",indexPath);
+        }
+    }
 }
 
 - (void)removeItems:(NSArray *)items

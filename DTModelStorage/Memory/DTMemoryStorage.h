@@ -119,6 +119,13 @@
 - (void)removeItem:(NSObject *)item;
 
 /**
+ Removing item at desired indexPath. If number of objects in section is less that indexPath's item, this method does nothing.
+ 
+ @param indexPath Location of item you wish to remove.
+ */
+- (void)removeItemAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
  Removing items. If some item is not found, it is skipped.
  
  @param items Models you want to remove.

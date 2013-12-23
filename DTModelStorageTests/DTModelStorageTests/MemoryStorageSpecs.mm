@@ -185,7 +185,7 @@ describe(@"Storage edit specs", ^{
         [delegate verify];
     });
     
-    it(@"should remove table item", ^{
+    it(@"should remove item", ^{
         [storage addItems:@[acc2,acc4,acc6]];
         [storage addItem:acc5 toSection:1];
         
@@ -208,6 +208,48 @@ describe(@"Storage edit specs", ^{
         }]];
         [storage removeItem:acc5];
         [delegate verify];
+    });
+    
+    it(@"should remove item at index path", ^{
+        [storage addItems:@[acc2,acc4,acc6]];
+        [storage addItem:acc5 toSection:1];
+        
+        DTStorageUpdate * update = [DTStorageUpdate new];
+        [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
+                                                                  inSection:0]];
+        
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+            return [update isEqual:obj];
+        }]];
+        [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                           inSection:0]];
+        [delegate verify];
+        
+        update = [DTStorageUpdate new];
+        [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
+                                                                  inSection:1]];
+        
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+            return [update isEqual:obj];
+        }]];
+        [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                           inSection:1]];
+        [delegate verify];
+    });
+    
+    it(@"should not crash when removing item at not existing indexPath", ^{
+        [storage addItems:@[acc2,acc4,acc6]];
+        [storage addItem:acc5 toSection:1];
+        
+        ^{
+            [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:5
+                                                               inSection:0]];
+        } should_not raise_exception();
+        
+        ^{
+            [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2
+                                                               inSection:1]];
+        } should_not raise_exception();
     });
     
     it(@"should remove table items", ^{
@@ -279,6 +321,38 @@ describe(@"Storage edit specs", ^{
         
         ^{
             [storage addItem:@"foo"];
+        } should_not raise_exception();
+        
+    });
+    
+    it(@"should get item correctly", ^{
+        [storage addItem:acc1];
+        [storage addItem:acc2 toSection:1];
+        [storage addItem:acc3 toSection:2];
+        
+        id model = [storage objectAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                                  inSection:1]];
+        
+        expect(model).to(equal(acc2));
+
+        model = [storage objectAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                               inSection:2]];
+        expect(model).to(equal(acc3));
+    });
+    
+    it(@"should return nil for not existing index path", ^{
+        ^{
+            id model = [storage objectAtIndexPath:[NSIndexPath indexPathForItem:5 inSection:6]];
+            model should be_nil;
+        } should_not raise_exception();
+        
+    });
+    
+    it(@"should return nil for not existing index path in existing section", ^{
+        ^{
+            [storage addItem:acc1];
+            id model = [storage objectAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+            model should be_nil;
         } should_not raise_exception();
         
     });
