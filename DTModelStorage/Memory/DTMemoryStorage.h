@@ -168,6 +168,9 @@
 /// @name Search
 ///---------------------------------------
 
+
+-(void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
+
 /**
  Returns array with items in section.
  

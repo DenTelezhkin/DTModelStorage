@@ -76,6 +76,27 @@
     return [sectionModel supplementaryModelOfKind:kind];
 }
 
+-(void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind
+{
+    [self startUpdate];
+    if (!supplementaryModels || [supplementaryModels count] == 0)
+    {
+        for (DTSectionModel * section in self.sections)
+        {
+            [section setSupplementaryModel:nil forKind:kind];
+        }
+        return;
+    }
+    [self getValidSection:([supplementaryModels count]-1)];
+    
+    for (int sectionNumber = 0; sectionNumber < [supplementaryModels count]; sectionNumber++)
+    {
+        DTSectionModel * section = self.sections[sectionNumber];
+        [section setSupplementaryModel:supplementaryModels[sectionNumber] forKind:kind];
+    }
+    [self finishUpdate];
+}
+
 #pragma mark - Updates
 
 -(void)startUpdate

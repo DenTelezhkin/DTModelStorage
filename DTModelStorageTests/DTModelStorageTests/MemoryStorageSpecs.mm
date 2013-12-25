@@ -316,6 +316,37 @@ describe(@"Storage edit specs", ^{
         [storage supplementaryModelOfKind:@"bar" forSectionIndex:0] should equal(@"foo");
     });
     
+    it(@"should set supplementaries", ^{
+        NSString * kind = @"foo";
+        [storage setSupplementaries:@[@"1",@"2",@"3"] forKind:kind];
+        
+        [[storage sectionAtIndex:0] supplementaryModelOfKind:kind] should equal(@"1");
+        [[storage sectionAtIndex:1] supplementaryModelOfKind:kind] should equal(@"2");
+        [[storage sectionAtIndex:2] supplementaryModelOfKind:kind] should equal(@"3");
+    });
+    
+    it(@"should nil out supplementaries", ^{
+        NSString * kind = @"foo";
+        [storage setSupplementaries:@[@"1",@"2",@"3"] forKind:kind];
+        
+        [storage setSupplementaries:nil forKind:kind];
+        
+        [[storage sectionAtIndex:0] supplementaryModelOfKind:kind] should be_nil;
+        [[storage sectionAtIndex:1] supplementaryModelOfKind:kind] should be_nil;
+        [[storage sectionAtIndex:2] supplementaryModelOfKind:kind] should be_nil;
+    });
+    
+    it(@"should nil out supplementaries", ^{
+        NSString * kind = @"foo";
+        [storage setSupplementaries:@[@"1",@"2",@"3"] forKind:kind];
+        
+        [storage setSupplementaries:@[] forKind:kind];
+        
+        [[storage sectionAtIndex:0] supplementaryModelOfKind:kind] should be_nil;
+        [[storage sectionAtIndex:1] supplementaryModelOfKind:kind] should be_nil;
+        [[storage sectionAtIndex:2] supplementaryModelOfKind:kind] should be_nil;
+    });
+    
     it(@"should not call delegate if it doesn't respond to selector", ^{
        storage.delegate = (id)storage;
         

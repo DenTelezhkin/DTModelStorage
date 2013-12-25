@@ -56,6 +56,11 @@
 
 -(void)setSupplementaryModel:(id)model forKind:(NSString *)kind
 {
+    if (!model)
+    {
+        [self.supplementaries removeObjectForKey:kind];
+        return;
+    }
     self.supplementaries[kind] = model;
 }
 
