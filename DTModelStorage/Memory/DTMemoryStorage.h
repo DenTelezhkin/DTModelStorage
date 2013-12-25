@@ -164,12 +164,18 @@
  */
 - (DTSectionModel *)sectionAtIndex:(NSInteger)sectionNumber;
 
+/**
+ Set supplementary models of specific kind for sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section supplementary models.
+ 
+ @param supplementaryModels Section header models to use.
+ 
+ @param kind Kind of supplementary models
+ */
+-(void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
+
 ///---------------------------------------
 /// @name Search
 ///---------------------------------------
-
-
--(void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
 
 /**
  Returns array with items in section.
