@@ -221,8 +221,8 @@ describe(@"Storage edit specs", ^{
         [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
-        [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                           inSection:0]];
+        [storage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
+                                                               inSection:0]]];
         [delegate verify];
         
         update = [DTStorageUpdate new];
@@ -232,8 +232,28 @@ describe(@"Storage edit specs", ^{
         [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
             return [update isEqual:obj];
         }]];
-        [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                           inSection:1]];
+        [storage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
+                                                               inSection:1]]];
+        [delegate verify];
+    });
+    
+    it(@"should remove items at index paths", ^{
+        [storage addItems:@[acc2,acc4,acc6]];
+        [storage addItem:acc5 toSection:1];
+        
+        DTStorageUpdate * update = [DTStorageUpdate new];
+        [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
+                                                                  inSection:0]];
+        [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
+                                                                  inSection:1]];
+        
+        [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
+            return [update isEqual:obj];
+        }]];
+        [storage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
+                                                               inSection:0],
+                                           [NSIndexPath indexPathForItem:0
+                                                               inSection:1]]];
         [delegate verify];
     });
     
@@ -242,13 +262,13 @@ describe(@"Storage edit specs", ^{
         [storage addItem:acc5 toSection:1];
         
         ^{
-            [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:5
-                                                               inSection:0]];
+            [storage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:5
+                                                                   inSection:0]]];
         } should_not raise_exception();
         
         ^{
-            [storage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2
-                                                               inSection:1]];
+            [storage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:2
+                                                                   inSection:1]]];
         } should_not raise_exception();
     });
     

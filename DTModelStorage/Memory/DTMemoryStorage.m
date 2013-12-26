@@ -240,25 +240,26 @@
     [self finishUpdate];
 }
 
--(void)removeItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)removeItemsAtIndexPaths:(NSArray *)indexPaths
 {
-    id object = [self objectAtIndexPath:indexPath];
-   
-    if (object)
+    [self startUpdate];
+    for (NSIndexPath * indexPath in indexPaths)
     {
-        [self startUpdate];
+        id object = [self objectAtIndexPath:indexPath];
         
-        DTSectionModel * section = [self getValidSection:indexPath.section];
-        [section.objects removeObjectAtIndex:indexPath.row];
-        [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
-        
-        [self finishUpdate];
-    }
-    else {
-        if (self.loggingEnabled) {
-            NSLog(@"DTMemoryStorage: item to delete was not found at indexPath : %@ ",indexPath);
+        if (object)
+        {
+            DTSectionModel * section = [self getValidSection:indexPath.section];
+            [section.objects removeObjectAtIndex:indexPath.row];
+            [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
+        }
+        else {
+            if (self.loggingEnabled) {
+                NSLog(@"DTMemoryStorage: item to delete was not found at indexPath : %@ ",indexPath);
+            }
         }
     }
+    [self finishUpdate];
 }
 
 - (void)removeItems:(NSArray *)items

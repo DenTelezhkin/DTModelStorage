@@ -123,7 +123,7 @@
  
  @param indexPath Location of item you wish to remove.
  */
-- (void)removeItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)removeItemsAtIndexPaths:(NSArray *)indexPaths;
 
 /**
  Removing items. If some item is not found, it is skipped.
