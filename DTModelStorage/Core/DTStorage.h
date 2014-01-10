@@ -72,6 +72,30 @@
 
 @optional
 
-- (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber;
+/**
+ Storage class may implement this method to define supplementary models for section.
+ 
+ @param kind Kind of supplementary model
+ 
+ @sectionNumber number of section 
+ 
+ @return supplementary model for given kind for given section
+ */
+
+- (id)supplementaryModelOfKind:(NSString *)kind
+               forSectionIndex:(NSInteger)sectionNumber;
+
+/**
+ Method to create filtered data storage, based on current data storage and passed searchString and searchScope.
+ 
+ @param searchString String, used to search in data storage
+ 
+ @param searchScope Search scope for current search.
+ 
+ @return searching data storage.
+ */
+
+- (instancetype)searchingStorageForSearchString:(NSString *)searchString
+                                  inSearchScope:(NSInteger)searchScope;
 
 @end

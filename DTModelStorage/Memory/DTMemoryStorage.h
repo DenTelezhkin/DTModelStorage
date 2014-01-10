@@ -25,7 +25,7 @@
 
 #import "DTStorage.h"
 #import "DTSectionModel.h"
-
+#import "DTModelSearching.h"
 /**
  This class is used to store data models in memory. Generally, for datasource based UI controls, good pattern is to update datasource first, and then update it's UI representation. Updating datasource in current case means calling one of the add/remove/insert etc. methods. Updating UI is outside the scope of current class and is something storage delegate can do, by responding to `performUpdate:` method.
  

@@ -97,6 +97,56 @@
     [self finishUpdate];
 }
 
+#pragma mark - search
+
+-(instancetype)searchingStorageForSearchString:(NSString *)searchString
+                                 inSearchScope:(NSInteger)searchScope
+{
+    DTMemoryStorage * storage = [[self class] storage
+                                          ];
+    
+    for (int sectionNumber = 0; sectionNumber < [self.sections count]; sectionNumber++)
+    {
+        DTSectionModel * searchSection = [self filterSection:self.sections[sectionNumber]
+                                            withSearchString:searchString
+                                                 searchScope:searchScope];
+        if (searchSection)
+        {
+            [storage.sections addObject:searchSection];
+        }
+    }
+    
+    return storage;
+}
+
+-(DTSectionModel *)filterSection:(DTSectionModel*)section
+                withSearchString:(NSString *)searchString
+                     searchScope:(NSInteger)searchScope
+{
+    NSMutableArray * searchResults = [NSMutableArray array];
+    for (int row = 0; row < section.objects.count ; row++)
+    {
+        NSObject <DTModelSearching> * item = section.objects[row];
+        
+        if ([item respondsToSelector:@selector(shouldShowInSearchResultsForSearchString:inScopeIndex:)])
+        {
+            BOOL shouldShow = [item shouldShowInSearchResultsForSearchString:searchString
+                                                                inScopeIndex:searchScope];
+            if (shouldShow)
+            {
+                [searchResults addObject:item];
+            }
+        }
+    }
+    if ([searchResults count])
+    {
+        DTSectionModel * searchSection = [DTSectionModel copy];
+        searchSection.objects = searchResults;
+        return searchSection;
+    }
+    return nil;
+}
+
 #pragma mark - Updates
 
 -(void)startUpdate
