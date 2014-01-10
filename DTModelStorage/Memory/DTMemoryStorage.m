@@ -140,7 +140,7 @@
     }
     if ([searchResults count])
     {
-        DTSectionModel * searchSection = [DTSectionModel copy];
+        DTSectionModel * searchSection = [section copy];
         searchSection.objects = searchResults;
         return searchSection;
     }

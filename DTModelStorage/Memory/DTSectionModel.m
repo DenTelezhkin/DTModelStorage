@@ -69,4 +69,12 @@
     return self.supplementaries[kind];
 }
 
+-(instancetype)copy
+{
+    DTSectionModel * model = [[self class] new];
+    model.objects = self.objects;
+    model.supplementaries = self.supplementaries;
+    return model;
+}
+
 @end
