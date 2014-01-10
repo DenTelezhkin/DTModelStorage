@@ -41,6 +41,8 @@
 		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
 		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
+		AA478956187FEFB900E51667 /* DTModelSearching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelSearching.h; path = Utilities/DTModelSearching.h; sourceTree = "<group>"; };
+		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		95E178721861B8D300D1B083 /* DTModelStorage */ = {
 			isa = PBXGroup;
 			children = (
+				AA478955187FEEBC00E51667 /* Utitlities */,
 				9A222BC0186732E0004481BA /* Core */,
 				9A222BC5186732E0004481BA /* CoreData */,
 				9A222BC8186732E0004481BA /* Memory */,
@@ -145,6 +148,15 @@
 				0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA478955187FEEBC00E51667 /* Utitlities */ = {
+			isa = PBXGroup;
+			children = (
+				AA478956187FEFB900E51667 /* DTModelSearching.h */,
+				AA478957187FEFB900E51667 /* DTModelTransfer.h */,
+			);
+			name = Utitlities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
