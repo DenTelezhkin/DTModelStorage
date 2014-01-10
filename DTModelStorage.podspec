@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'MemoryStorage' do |ss|
     ss.dependency 'DTModelStorage/Core'
-    ss.source_files = 'DTModelStorage/Memory', 'Utilities/DTModelSearching.h'
+    ss.source_files = 'DTModelStorage/Memory', 'DTModelStorage/Utilities/DTModelSearching.h'
   end
 
   s.subspec 'CoreDataStorage' do |ss|
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'ModelTransfer' do |ss|
-    ss.source_files = 'Utilities/DTModelTransfer.h'
+    ss.source_files = 'DTModelStorage/Utilities/DTModelTransfer.h'
   end
 
   s.subspec 'All' do |ss|
