@@ -24,14 +24,15 @@
 // THE SOFTWARE.
 
 /**
- `DTModelSearching` protocol is used to search within models. It is used with `DTMemoryStorage` class. If model does not implement methods of this protocol, it be added to search results. Methods of this protocol are invoked for every model every time search occurs.
- */
+ `DTModelSearching` protocol is deprecated and may be removed in future releases of the framework. Please use Use DTMemoryStorage method setSearchingBlock:forModelClass: instead. */
+
+__deprecated
 
 @protocol DTModelSearching
 
 /**
  
- Use this method to filter models, that should show up, if search string is equal to searchString
+ This method is deprecated. Use DTMemoryStorage method setSearchingBlock:forModelClass: instead.
  
  @param searchString search string
  
@@ -39,6 +40,6 @@
  */
 
 - (BOOL)shouldShowInSearchResultsForSearchString:(NSString*)searchString
-                                    inScopeIndex:(int)scope;
+                                    inScopeIndex:(int)scope __deprecated;
 
 @end

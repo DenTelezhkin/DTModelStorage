@@ -30,6 +30,7 @@
 
 @interface DTMemoryStorage()
 @property (nonatomic, strong) DTStorageUpdate * currentUpdate;
+@property (nonatomic, retain) NSMutableDictionary * searchingBlocks;
 @end
 
 @implementation DTMemoryStorage
@@ -43,6 +44,15 @@
     storage.loggingEnabled = YES;
     
     return storage;
+}
+
+-(NSMutableDictionary *)searchingBlocks
+{
+    if (!_searchingBlocks)
+    {
+        _searchingBlocks = [NSMutableDictionary dictionary];
+    }
+    return _searchingBlocks;
 }
 
 -(id)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -99,6 +109,15 @@
 
 #pragma mark - search
 
+-(void)setSearchingBlock:(BOOL (^)(id, NSString *, NSInteger))searchingBlock
+           forModelClass:(Class)modelClass
+{
+    NSParameterAssert(searchingBlock);
+    NSParameterAssert(modelClass);
+    
+    self.searchingBlocks[NSStringFromClass(modelClass)] = searchingBlock;
+}
+
 -(instancetype)searchingStorageForSearchString:(NSString *)searchString
                                  inSearchScope:(NSInteger)searchScope
 {
@@ -126,17 +145,33 @@
     NSMutableArray * searchResults = [NSMutableArray array];
     for (int row = 0; row < section.objects.count ; row++)
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
         NSObject <DTModelSearching> * item = section.objects[row];
         
-        if ([item respondsToSelector:@selector(shouldShowInSearchResultsForSearchString:inScopeIndex:)])
+        if (self.searchingBlocks[NSStringFromClass(item.class)])
         {
-            BOOL shouldShow = [item shouldShowInSearchResultsForSearchString:searchString
-                                                                inScopeIndex:searchScope];
-            if (shouldShow)
+            BOOL (^searchingBlock)(id,NSString *,NSInteger) = self.searchingBlocks[NSStringFromClass(item.class)];
+            
+            if (searchingBlock(item,searchString,searchScope))
             {
                 [searchResults addObject:item];
             }
         }
+        else { // Check for deprecated DTModelSearching protocol
+            if ([item respondsToSelector:@selector(shouldShowInSearchResultsForSearchString:inScopeIndex:)])
+            {
+                BOOL shouldShow = [item shouldShowInSearchResultsForSearchString:searchString
+                                                                    inScopeIndex:searchScope];
+                if (shouldShow)
+                {
+                    [searchResults addObject:item];
+                }
+            }
+        }
+
+#pragma clang diagnostic pop
     }
     if ([searchResults count])
     {

@@ -178,6 +178,16 @@
 ///---------------------------------------
 
 /**
+ Use this method to add rules for storage to filter models, when using, for example, UISearchBar. This method works similar to deprecated `DTModelSearching` protocol and is a direct replacement for it.
+ 
+ @param searchingBlock Block, that will be executed for all models of modelClass class to filter models for current criteria.
+ 
+ @param modelClass Class of the model, which will use searchingBlock.
+ */
+-(void)setSearchingBlock:(BOOL(^)(id model, NSString * searchString, NSInteger searchScope))searchingBlock
+           forModelClass:(Class)modelClass;
+
+/**
  Returns array with items in section.
  
  @param sectionNumber Number of the section.
