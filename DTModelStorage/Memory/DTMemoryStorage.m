@@ -109,7 +109,7 @@
 
 #pragma mark - search
 
--(void)setSearchingBlock:(BOOL (^)(id, NSString *, NSInteger))searchingBlock
+-(void)setSearchingBlock:(DTModelSearchingBlock)searchingBlock
            forModelClass:(Class)modelClass
 {
     NSParameterAssert(searchingBlock);

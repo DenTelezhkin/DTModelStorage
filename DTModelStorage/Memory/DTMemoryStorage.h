@@ -177,6 +177,8 @@
 /// @name Search
 ///---------------------------------------
 
+typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteger searchScope);
+
 /**
  Use this method to add rules for storage to filter models, when using, for example, UISearchBar. This method works similar to deprecated `DTModelSearching` protocol and is a direct replacement for it.
  
@@ -184,7 +186,7 @@
  
  @param modelClass Class of the model, which will use searchingBlock.
  */
--(void)setSearchingBlock:(BOOL(^)(id model, NSString * searchString, NSInteger searchScope))searchingBlock
+-(void)setSearchingBlock:(DTModelSearchingBlock)searchingBlock
            forModelClass:(Class)modelClass;
 
 /**
