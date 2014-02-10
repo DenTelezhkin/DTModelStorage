@@ -152,9 +152,9 @@
         
         if (self.searchingBlocks[NSStringFromClass(item.class)])
         {
-            BOOL (^searchingBlock)(id,NSString *,NSInteger) = self.searchingBlocks[NSStringFromClass(item.class)];
+            DTModelSearchingBlock block = self.searchingBlocks[NSStringFromClass(item.class)];
             
-            if (searchingBlock(item,searchString,searchScope))
+            if (block(item,searchString,searchScope,section))
             {
                 [searchResults addObject:item];
             }
