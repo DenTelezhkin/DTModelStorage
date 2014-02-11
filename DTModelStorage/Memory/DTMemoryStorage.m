@@ -152,7 +152,7 @@
         
         if (self.searchingBlocks[[self classStringForClass:item.class]])
         {
-            DTModelSearchingBlock block = self.searchingBlocks[NSStringFromClass(item.class)];
+            DTModelSearchingBlock block = self.searchingBlocks[[self classStringForClass:item.class]];
             
             if (block && block(item,searchString,searchScope,section))
             {
