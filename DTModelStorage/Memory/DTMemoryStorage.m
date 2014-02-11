@@ -154,7 +154,7 @@
         {
             DTModelSearchingBlock block = self.searchingBlocks[NSStringFromClass(item.class)];
             
-            if (block(item,searchString,searchScope,section))
+            if (block && block(item,searchString,searchScope,section))
             {
                 [searchResults addObject:item];
             }
