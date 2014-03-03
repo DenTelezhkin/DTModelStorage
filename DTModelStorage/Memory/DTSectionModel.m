@@ -25,13 +25,13 @@
 
 #import "DTSectionModel.h"
 
-@interface DTSectionModel()
+@interface DTSectionModel ()
 @property (nonatomic, strong) NSMutableDictionary * supplementaries;
 @end
 
 @implementation DTSectionModel
 
--(NSMutableArray *)objects
+- (NSMutableArray *)objects
 {
     if (!_objects)
     {
@@ -40,7 +40,7 @@
     return _objects;
 }
 
--(NSMutableDictionary *)supplementaries
+- (NSMutableDictionary *)supplementaries
 {
     if (!_supplementaries)
     {
@@ -49,12 +49,12 @@
     return _supplementaries;
 }
 
--(NSUInteger)numberOfObjects
+- (NSUInteger)numberOfObjects
 {
     return [self.objects count];
 }
 
--(void)setSupplementaryModel:(id)model forKind:(NSString *)kind
+- (void)setSupplementaryModel:(id)model forKind:(NSString *)kind
 {
     if (!model)
     {
@@ -64,12 +64,12 @@
     self.supplementaries[kind] = model;
 }
 
--(id)supplementaryModelOfKind:(NSString *)kind
+- (id)supplementaryModelOfKind:(NSString *)kind
 {
     return self.supplementaries[kind];
 }
 
--(instancetype)copy
+- (instancetype)copy
 {
     DTSectionModel * model = [[self class] new];
     model.objects = self.objects;

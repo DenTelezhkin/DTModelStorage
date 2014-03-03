@@ -83,7 +83,7 @@
  */
 
 - (id)supplementaryModelOfKind:(NSString *)kind
-               forSectionIndex:(NSInteger)sectionNumber;
+               forSectionIndex:(NSUInteger)sectionNumber;
 
 /**
  Method to create filtered data storage, based on current data storage and passed searchString and searchScope.
@@ -96,6 +96,6 @@
  */
 
 - (instancetype)searchingStorageForSearchString:(NSString *)searchString
-                                  inSearchScope:(NSInteger)searchScope;
+                                  inSearchScope:(NSUInteger)searchScope;
 
 @end

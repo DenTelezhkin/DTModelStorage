@@ -27,7 +27,7 @@
 
 @implementation DTStorageUpdate
 
--(NSMutableIndexSet *)deletedSectionIndexes
+- (NSMutableIndexSet *)deletedSectionIndexes
 {
     if (!_deletedSectionIndexes)
     {
@@ -36,7 +36,7 @@
     return _deletedSectionIndexes;
 }
 
--(NSMutableIndexSet *)insertedSectionIndexes
+- (NSMutableIndexSet *)insertedSectionIndexes
 {
     if (!_insertedSectionIndexes)
     {
@@ -45,7 +45,7 @@
     return _insertedSectionIndexes;
 }
 
--(NSMutableIndexSet *)updatedSectionIndexes
+- (NSMutableIndexSet *)updatedSectionIndexes
 {
     if (!_updatedSectionIndexes)
     {
@@ -54,7 +54,7 @@
     return _updatedSectionIndexes;
 }
 
--(NSMutableArray *)deletedRowIndexPaths
+- (NSMutableArray *)deletedRowIndexPaths
 {
     if (!_deletedRowIndexPaths)
     {
@@ -63,7 +63,7 @@
     return _deletedRowIndexPaths;
 }
 
--(NSMutableArray *)insertedRowIndexPaths
+- (NSMutableArray *)insertedRowIndexPaths
 {
     if (!_insertedRowIndexPaths)
     {
@@ -72,7 +72,7 @@
     return _insertedRowIndexPaths;
 }
 
--(NSMutableArray *)updatedRowIndexPaths
+- (NSMutableArray *)updatedRowIndexPaths
 {
     if (!_updatedRowIndexPaths)
     {
@@ -81,7 +81,7 @@
     return _updatedRowIndexPaths;
 }
 
--(BOOL)isEqual:(DTStorageUpdate *)update
+- (BOOL)isEqual:(DTStorageUpdate *)update
 {
     if (![update isKindOfClass:[DTStorageUpdate class]])
     {
@@ -111,7 +111,7 @@
     {
         return NO;
     }
-    
+
     return YES;
 }
 

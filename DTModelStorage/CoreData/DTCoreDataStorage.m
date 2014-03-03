@@ -25,46 +25,46 @@
 
 #import "DTCoreDataStorage.h"
 
-@interface DTCoreDataStorage()
+@interface DTCoreDataStorage ()
 @property (nonatomic, strong) DTStorageUpdate * currentUpdate;
 @property (nonatomic, strong, readwrite) NSFetchedResultsController * fetchedResultsController;
 @end
 
 @implementation DTCoreDataStorage
 
-+(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller
++ (instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller
 {
     DTCoreDataStorage * storage = [self new];
-    
+
     storage.fetchedResultsController = controller;
     storage.fetchedResultsController.delegate = storage;
-    
+
     return storage;
 }
 
--(NSArray *)sections
+- (NSArray *)sections
 {
     return [self.fetchedResultsController sections];
 }
 
--(id)objectAtIndexPath:(NSIndexPath *)indexPath
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
--(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
+- (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
 {
     return nil;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
 
--(void)startUpdate
+- (void)startUpdate
 {
     self.currentUpdate = [DTStorageUpdate new];
 }
 
--(void)finishUpdate
+- (void)finishUpdate
 {
     if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
     {
@@ -73,7 +73,7 @@
     self.currentUpdate = nil;
 }
 
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     [self startUpdate];
 }
@@ -86,45 +86,53 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
-    if (type == NSFetchedResultsChangeInsert) {
-        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section]) {
+    if (type == NSFetchedResultsChangeInsert)
+    {
+        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section])
+        {
             // If we've already been told that we're adding a section for this inserted row we skip it since it will handled by the section insertion.
             return;
         }
-        
+
         [self.currentUpdate.insertedRowIndexPaths addObject:newIndexPath];
-    } else if (type == NSFetchedResultsChangeDelete) {
-        if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section]) {
+    } else if (type == NSFetchedResultsChangeDelete)
+    {
+        if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section])
+        {
             // If we've already been told that we're deleting a section for this deleted row we skip it since it will handled by the section deletion.
             return;
         }
-        
+
         [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
-    } else if (type == NSFetchedResultsChangeMove) {
-        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO) {
+    } else if (type == NSFetchedResultsChangeMove)
+    {
+        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO)
+        {
             [self.currentUpdate.insertedRowIndexPaths addObject:newIndexPath];
         }
-        
-        if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section] == NO) {
+
+        if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section] == NO)
+        {
             [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
         }
-    } else if (type == NSFetchedResultsChangeUpdate) {
+    } else if (type == NSFetchedResultsChangeUpdate)
+    {
         [self.currentUpdate.updatedRowIndexPaths addObject:indexPath];
     }
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id)sectionInfo atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type
 {
-    switch (type) {
+    switch (type)
+    {
         case NSFetchedResultsChangeInsert:
             [self.currentUpdate.insertedSectionIndexes addIndex:sectionIndex];
             break;
         case NSFetchedResultsChangeDelete:
             [self.currentUpdate.deletedSectionIndexes addIndex:sectionIndex];
             break;
-        default:
-            ; // Shouldn't have a default
+        default:; // Shouldn't have a default
             break;
     }
 }

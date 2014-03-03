@@ -71,7 +71,7 @@
  
  @param sectionNumber Section, where item will be added
  */
--(void)addItem:(NSObject *)item toSection:(NSInteger)sectionNumber;
+-(void)addItem:(NSObject *)item toSection:(NSUInteger)sectionNumber;
 
 /**
  Add items to section 0.
@@ -87,7 +87,7 @@
  
  @param sectionNumber Section, where items will be added
  */
--(void)addItems:(NSArray *)items toSection:(NSInteger)sectionNumber;
+-(void)addItems:(NSArray *)items toSection:(NSUInteger)sectionNumber;
 
 /**
  Insert item to indexPath `indexPath`.
@@ -162,7 +162,7 @@
  
  @return DTSectionModel instance for current section
  */
-- (DTSectionModel *)sectionAtIndex:(NSInteger)sectionNumber;
+- (DTSectionModel *)sectionAtIndex:(NSUInteger)sectionNumber;
 
 /**
  Set supplementary models of specific kind for sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section supplementary models.
@@ -196,7 +196,7 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  
  @return array of items in section. If section does not exist - nil.
  */
--(NSArray *)itemsInSection:(NSInteger)sectionNumber;
+-(NSArray *)itemsInSection:(NSUInteger)sectionNumber;
 
 /**
  If item exists at `indexPath`, it will be returned. If section or row does not exist, method will return `nil`.
