@@ -108,6 +108,17 @@ NSArray * itemsInSection = [storage itemsInSection:0];
 DTSectionModel * section = [storage sectionAtIndex:0];
 ```
 
+#### Updating manually
+
+Sometimes you may need to update batch of sections, remove all items, and add new ones. For those massive updates you don't actually need to update interface until update is finished. Wrap your updates in single block and pass it to updateWithoutAnimations method:
+
+```objective-c
+[storage updateWithoutAnimations:^{
+// Add/remove/modify any row or section
+}];
+// Calling reloadData is mandatory after calling this method. or you will get crash runtime
+```
+
 #### Supplementary models
 
 ```objective-c
