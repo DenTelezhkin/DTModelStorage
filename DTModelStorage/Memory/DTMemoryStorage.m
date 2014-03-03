@@ -203,12 +203,12 @@
 
 #pragma mark - Adding items
 
-- (void)addItem:(NSObject *)item
+- (void)addItem:(id)item
 {
     [self addItem:item toSection:0];
 }
 
-- (void)addItem:(NSObject *)item toSection:(NSUInteger)sectionNumber
+- (void)addItem:(id)item toSection:(NSUInteger)sectionNumber
 {
     [self startUpdate];
 
@@ -243,7 +243,7 @@
     [self finishUpdate];
 }
 
-- (void)insertItem:(NSObject *)item toIndexPath:(NSIndexPath *)indexPath
+- (void)insertItem:(id)item toIndexPath:(NSIndexPath *)indexPath
 {
     [self startUpdate];
     // Update datasource
@@ -267,7 +267,7 @@
     [self finishUpdate];
 }
 
-- (void)reloadItem:(NSObject *)item
+- (void)reloadItem:(id)item
 {
     [self startUpdate];
 
@@ -281,8 +281,8 @@
     [self finishUpdate];
 }
 
-- (void)replaceItem:(NSObject *)itemToReplace
-           withItem:(NSObject *)replacingItem
+- (void)replaceItem:(id)itemToReplace
+           withItem:(id)replacingItem
 {
     [self startUpdate];
 
@@ -310,7 +310,7 @@
 
 #pragma mark - Removing items
 
-- (void)removeItem:(NSObject *)item
+- (void)removeItem:(id)item
 {
     [self startUpdate];
 
@@ -436,7 +436,7 @@
     }
 }
 
-- (NSIndexPath *)indexPathForItem:(NSObject *)item
+- (NSIndexPath *)indexPathForItem:(id)item
 {
     for (NSUInteger sectionNumber = 0; sectionNumber < self.sections.count; sectionNumber++)
     {

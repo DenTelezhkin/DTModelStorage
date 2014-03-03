@@ -62,7 +62,7 @@
  
  @param item Model you want to add
  */
--(void)addItem:(NSObject *)item;
+-(void)addItem:(id)item;
 
 /**
  Add item to section with `sectionNumber`.
@@ -71,7 +71,7 @@
  
  @param sectionNumber Section, where item will be added
  */
--(void)addItem:(NSObject *)item toSection:(NSUInteger)sectionNumber;
+-(void)addItem:(id)item toSection:(NSUInteger)sectionNumber;
 
 /**
  Add items to section 0.
@@ -98,7 +98,7 @@
  
  @warning Inserting item at index, that is not occupied, will not throw an exception, and won't do anything, except logging into console about failure
  */
--(void)insertItem:(NSObject *)item toIndexPath:(NSIndexPath *)indexPath;
+-(void)insertItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
 
 ///---------------------------------------
 /// @name Reloading, remove, replace items
@@ -109,14 +109,14 @@
  
  @param item model, which needs to be reloaded in the cell
  */
--(void)reloadItem:(NSObject *)item;
+-(void)reloadItem:(id)item;
 
 /**
  Removing item. If item is not found, this method does nothing.
  
  @param item Model object you want to remove.
  */
-- (void)removeItem:(NSObject *)item;
+- (void)removeItem:(id)item;
 
 /**
  Removing item at desired indexPath. If number of objects in section is less that indexPath's item, this method does nothing.
@@ -139,8 +139,8 @@
  
  @param replacingItem Model object you are replacing it with.
  */
-- (void)replaceItem:(NSObject *)itemToReplace
-           withItem:(NSObject *)replacingItem;
+- (void)replaceItem:(id)itemToReplace
+           withItem:(id)replacingItem;
 
 ///---------------------------------------
 /// @name Managing sections
@@ -215,7 +215,7 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  
  @return indexPath of `item`.
  */
--(NSIndexPath *)indexPathForItem:(NSObject *)item;
+-(NSIndexPath *)indexPathForItem:(id)item;
 
 /**
  Property to enable/disable logging. Logging is on by default, and will print out any critical messages, that DTMemoryStorage is encountering.
