@@ -17,6 +17,7 @@
 		9A222BCE186732E0004481BA /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
 		9A222BCF186732E0004481BA /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
 		9A222BD0186732E0004481BA /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
+		AA35CA3018C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
 		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
+		AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+UpdateWithoutAnimations.h"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.h"; sourceTree = "<group>"; };
+		AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+UpdateWithoutAnimations.m"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.m"; sourceTree = "<group>"; };
 		AA478956187FEFB900E51667 /* DTModelSearching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelSearching.h; path = Utilities/DTModelSearching.h; sourceTree = "<group>"; };
 		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,6 +158,8 @@
 			children = (
 				AA478956187FEFB900E51667 /* DTModelSearching.h */,
 				AA478957187FEFB900E51667 /* DTModelTransfer.h */,
+				AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */,
+				AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				9A222BBF18670FD6004481BA /* CoreDataStorageSpecs.mm in Sources */,
 				95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */,
 				95B30B9E1861E66100AB82AC /* main.m in Sources */,
+				AA35CA3018C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
