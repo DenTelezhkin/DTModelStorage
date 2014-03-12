@@ -40,6 +40,6 @@ __deprecated
  */
 
 - (BOOL)shouldShowInSearchResultsForSearchString:(NSString*)searchString
-                                    inScopeIndex:(int)scope __deprecated;
+                                    inScopeIndex:(NSInteger)scope __deprecated;
 
 @end
