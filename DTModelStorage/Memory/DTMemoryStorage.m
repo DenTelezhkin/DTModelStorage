@@ -147,10 +147,7 @@
     NSMutableArray * searchResults = [NSMutableArray array];
     for (NSUInteger row = 0; row < section.objects.count; row++)
     {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
-        NSObject <DTModelSearching> * item = section.objects[row];
+        NSObject * item = section.objects[row];
 
         if (self.searchingBlocks[[self classStringForClass:item.class]])
         {
@@ -161,20 +158,6 @@
                 [searchResults addObject:item];
             }
         }
-        else
-        { // Check for deprecated DTModelSearching protocol
-            if ([item respondsToSelector:@selector(shouldShowInSearchResultsForSearchString:inScopeIndex:)])
-            {
-                BOOL shouldShow = [item shouldShowInSearchResultsForSearchString:searchString
-                                                                    inScopeIndex:searchScope];
-                if (shouldShow)
-                {
-                    [searchResults addObject:item];
-                }
-            }
-        }
-
-#pragma clang diagnostic pop
     }
     if ([searchResults count])
     {

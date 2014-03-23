@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02D01EB586904C25979053BB /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */; };
+		64090EEFDD5E464D9B026B70 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */; };
 		95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95B30B9A1861E66100AB82AC /* InfoPlist.strings */; };
 		95B30B9E1861E66100AB82AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B30B9D1861E66100AB82AC /* main.m */; };
 		95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */; };
@@ -21,9 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = "<group>"; };
-		0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		95B30B901861E66100AB82AC /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CedarUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
+		5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B30B901861E66100AB82AC /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = CedarUnitTests.app; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B30B991861E66100AB82AC /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
 		95B30B9B1861E66100AB82AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95B30B9D1861E66100AB82AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,7 +44,6 @@
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
 		AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+UpdateWithoutAnimations.h"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.h"; sourceTree = "<group>"; };
 		AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+UpdateWithoutAnimations.m"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.m"; sourceTree = "<group>"; };
-		AA478956187FEFB900E51667 /* DTModelSearching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelSearching.h; path = Utilities/DTModelSearching.h; sourceTree = "<group>"; };
 		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,20 +52,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02D01EB586904C25979053BB /* libPods-CedarUnitTests.a in Frameworks */,
+				64090EEFDD5E464D9B026B70 /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		95B30B971861E66100AB82AC /* CedarUnitTests */ = {
+		95B30B971861E66100AB82AC /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */,
 				95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */,
 				95B30B981861E66100AB82AC /* Supporting Files */,
 			);
+			name = Tests;
 			path = CedarUnitTests;
 			sourceTree = "<group>";
 		};
@@ -130,10 +130,10 @@
 			children = (
 				95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */,
 				95E178721861B8D300D1B083 /* DTModelStorage */,
-				95B30B971861E66100AB82AC /* CedarUnitTests */,
+				95B30B971861E66100AB82AC /* Tests */,
 				AA3B07AC185F55C100A95D16 /* Frameworks */,
 				AA3B07AB185F55C100A95D16 /* Products */,
-				0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */,
+				50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,7 +148,7 @@
 		AA3B07AC185F55C100A95D16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0862BDC254874574A8ED34D1 /* libPods-CedarUnitTests.a */,
+				5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -156,7 +156,6 @@
 		AA478955187FEEBC00E51667 /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
-				AA478956187FEFB900E51667 /* DTModelSearching.h */,
 				AA478957187FEFB900E51667 /* DTModelTransfer.h */,
 				AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */,
 				AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */,
@@ -167,9 +166,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		95B30B8F1861E66100AB82AC /* CedarUnitTests */ = {
+		95B30B8F1861E66100AB82AC /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "CedarUnitTests" */;
+			buildConfigurationList = 95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				34FB27B483EC48A4BAA9C8F0 /* Check Pods Manifest.lock */,
 				95B30B8C1861E66100AB82AC /* Sources */,
@@ -181,7 +180,7 @@
 			);
 			dependencies = (
 			);
-			name = CedarUnitTests;
+			name = Tests;
 			productName = CedarUnitTests;
 			productReference = 95B30B901861E66100AB82AC /* CedarUnitTests.app */;
 			productType = "com.apple.product-type.application";
@@ -207,7 +206,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95B30B8F1861E66100AB82AC /* CedarUnitTests */,
+				95B30B8F1861E66100AB82AC /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -252,7 +251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-CedarUnitTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -289,7 +288,7 @@
 /* Begin XCBuildConfiguration section */
 		95B30BA51861E66200AB82AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */;
+			baseConfigurationReference = 50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -311,7 +310,7 @@
 		};
 		95B30BA61861E66200AB82AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0468A05BA7474096BF5B1EC6 /* Pods-CedarUnitTests.xcconfig */;
+			baseConfigurationReference = 50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -401,7 +400,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "CedarUnitTests" */ = {
+		95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95B30BA51861E66200AB82AC /* Debug */,

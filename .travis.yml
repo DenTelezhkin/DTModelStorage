@@ -6,4 +6,4 @@ before_install:
 - brew install ios-sim
 - cd DTModelStorageTests
 
-script: ios_ci cedar --source-root $TRAVIS_BUILD_DIR/DTModelStorageTests --workspace DTModelStorageTests.xcworkspace --scheme CedarUnitTests --build-path Build/Products
+script: ios_ci cedar --source-root $TRAVIS_BUILD_DIR/DTModelStorageTests --workspace DTModelStorageTests.xcworkspace --scheme Tests --build-path Build/Products
