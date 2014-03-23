@@ -131,15 +131,15 @@ Installation
 ===========
 Both storage classes:
 
-    pod 'DTModelStorage', '~> 0.5.1'
+    pod 'DTModelStorage', '~> 0.6.0'
 
 Only DTCoreDataStorage:
 
-    pod 'DTModelStorage/CoreDataStorage', '~> 0.5.1'
+    pod 'DTModelStorage/CoreDataStorage', '~> 0.6.0'
 
 Only DTMemoryStorage:
 
-    pod 'DTModelStorage/MemoryStorage', '~> 0.5.1'
+    pod 'DTModelStorage/MemoryStorage', '~> 0.6.0'
 
 Requirements
 ============
