@@ -4,6 +4,7 @@ before_install:
 - sudo gem install cocoapods --no-document --quiet
 - sudo gem install ios_ci --no-document --quiet
 - brew install ios-sim
+- export LANG=en_US.UTF-8
 - cd DTModelStorageTests
 
 script: ios_ci cedar --source-root $TRAVIS_BUILD_DIR/DTModelStorageTests --workspace DTModelStorageTests.xcworkspace --scheme Tests --build-path Build/Products
