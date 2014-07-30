@@ -28,6 +28,7 @@
 */
 
 @protocol DTModelTransfer
+
 @required
 
 /**
@@ -46,7 +47,11 @@
 - (id)model;
 
 /**
- This method can be used to retrieve custom cell reuse identifier which can be useful for cells that stored in xib or storyboard. If method doesn't implemented 'NSStringFromClass' will be used as reuse identifier.
+ This method can be used to retrieve custom cell reuse identifier which can be useful for cells that stored in xib or storyboard. If method is not implemented, 'NSStringFromClass' will be used as reuse identifier.
+ 
+ This is particularly useful for Swift classes because of their ugly internal name.
+ 
+ return Reuse identifier to be used by current cell
 */
 - (NSString *)reuseIdentifier;
 
