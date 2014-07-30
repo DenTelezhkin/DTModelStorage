@@ -45,4 +45,9 @@
 */
 - (id)model;
 
+/**
+ This method can be used to retrieve custom cell reuse identifier which can be useful for cells that stored in xib or storyboard. If method doesn't implemented 'NSStringFromClass' will be used as reuse identifier.
+*/
+- (NSString *)reuseIdentifier;
+
 @end
