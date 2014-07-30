@@ -3,9 +3,6 @@
 #import "DTSectionModel.h"
 #import "DTStorage.h"
 
-#import <Cedar-iOS/Cedar-iOS.h>
-#import <Cedar-iOS/SpecHelper.h>
-
 using namespace Cedar::Matchers;
 
 SPEC_BEGIN(MemoryStorageSpecs)
