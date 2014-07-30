@@ -53,6 +53,6 @@
  
  return Reuse identifier to be used by current cell
 */
-- (NSString *)reuseIdentifier;
++ (NSString *)reuseIdentifier;
 
 @end
