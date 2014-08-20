@@ -54,13 +54,12 @@
 
 - (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
 {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    {
+        id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][sectionNumber];
+        return section.name;
+    }
     return nil;
-}
-
--(id)headerModelForSectionIndex:(NSUInteger)index
-{
-    id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][index];
-    return section.name;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
