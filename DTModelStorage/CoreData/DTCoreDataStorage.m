@@ -52,16 +52,6 @@
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
-- (id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
-{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
-    {
-        id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][sectionNumber];
-        return section.name;
-    }
-    return nil;
-}
-
 #pragma mark - NSFetchedResultsControllerDelegate methods
 
 - (void)startUpdate
