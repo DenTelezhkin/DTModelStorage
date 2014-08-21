@@ -52,11 +52,6 @@
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
--(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
-{
-    return nil;
-}
-
 #pragma mark - NSFetchedResultsControllerDelegate methods
 
 - (void)startUpdate
