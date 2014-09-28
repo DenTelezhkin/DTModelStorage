@@ -7,31 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		64090EEFDD5E464D9B026B70 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */; };
-		95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95B30B9A1861E66100AB82AC /* InfoPlist.strings */; };
-		95B30B9E1861E66100AB82AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B30B9D1861E66100AB82AC /* main.m */; };
-		95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */; };
-		95B30BAD1861E6E300AB82AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */; };
-		9A222BBF18670FD6004481BA /* CoreDataStorageSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */; };
-		9A222BCD186732E0004481BA /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
-		9A222BCE186732E0004481BA /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
-		9A222BCF186732E0004481BA /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
-		9A222BD0186732E0004481BA /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
-		AA35CA3018C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
+		9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
+		9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */; };
+		9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
+		9A7D5BB719D860830083673D /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
+		9A7D5BB819D860830083673D /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
+		9A7D5BB919D860830083673D /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
+		9A7D5BBE19D861C10083673D /* MemoryStorageSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */; };
+		9A7D5BC019D862310083673D /* CoreDataStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BBF19D862310083673D /* CoreDataStorageTests.m */; };
+		9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7D5BC319D8A0DA0083673D /* UIKit.framework */; };
+		9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */; };
+		9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */; };
+		C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
+		21E405B0142C62987DD2CE3E /* Pods-XCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTests/Pods-XCTests.release.xcconfig"; sourceTree = "<group>"; };
 		5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		95B30B901861E66100AB82AC /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		95B30B991861E66100AB82AC /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
-		95B30B9B1861E66100AB82AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		95B30B9D1861E66100AB82AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		95B30B9F1861E66100AB82AC /* CedarUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CedarUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		956EFDECAD985DE78441169F /* Pods-XCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTests/Pods-XCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MemoryStorageSpecs.mm; path = ../DTModelStorageTests/MemoryStorageSpecs.mm; sourceTree = "<group>"; };
 		9A222BBD18670B88004481BA /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
-		9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CoreDataStorageSpecs.mm; path = DTModelStorageTests/CoreDataStorageSpecs.mm; sourceTree = SOURCE_ROOT; };
 		9A222BC1186732E0004481BA /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSection.h; sourceTree = "<group>"; };
 		9A222BC2186732E0004481BA /* DTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorage.h; sourceTree = "<group>"; };
 		9A222BC3186732E0004481BA /* DTStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdate.h; sourceTree = "<group>"; };
@@ -42,43 +37,42 @@
 		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
 		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
+		9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTRuntimeHelper.h; path = Utilities/DTRuntimeHelper.h; sourceTree = "<group>"; };
+		9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTRuntimeHelper.m; path = Utilities/DTRuntimeHelper.m; sourceTree = "<group>"; };
+		9A7D5BAB19D860700083673D /* XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A7D5BAE19D860700083673D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
+		9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageSearchTests.m; path = Specs/MemoryStorageSearchTests.m; sourceTree = "<group>"; };
+		9A7D5BBF19D862310083673D /* CoreDataStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataStorageTests.m; path = Specs/CoreDataStorageTests.m; sourceTree = "<group>"; };
+		9A7D5BC319D8A0DA0083673D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageAddTests.m; path = Specs/MemoryStorageAddTests.m; sourceTree = "<group>"; };
+		9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageEditTests.m; path = Specs/MemoryStorageEditTests.m; sourceTree = "<group>"; };
 		AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+UpdateWithoutAnimations.h"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.h"; sourceTree = "<group>"; };
 		AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+UpdateWithoutAnimations.m"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.m"; sourceTree = "<group>"; };
 		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
+		E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XCTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		95B30B8D1861E66100AB82AC /* Frameworks */ = {
+		9A7D5BA819D860700083673D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64090EEFDD5E464D9B026B70 /* libPods-Tests.a in Frameworks */,
+				9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */,
+				C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		95B30B971861E66100AB82AC /* Tests */ = {
+		5370725A31B0009D6A0E32F8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9A222BBE18670FD6004481BA /* CoreDataStorageSpecs.mm */,
-				95E1786F1861B8C000D1B083 /* MemoryStorageSpecs.mm */,
-				95B30B981861E66100AB82AC /* Supporting Files */,
+				956EFDECAD985DE78441169F /* Pods-XCTests.debug.xcconfig */,
+				21E405B0142C62987DD2CE3E /* Pods-XCTests.release.xcconfig */,
 			);
-			name = Tests;
-			path = CedarUnitTests;
-			sourceTree = "<group>";
-		};
-		95B30B981861E66100AB82AC /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				95B30B991861E66100AB82AC /* CedarUnitTests-Info.plist */,
-				95B30B9A1861E66100AB82AC /* InfoPlist.strings */,
-				95B30B9D1861E66100AB82AC /* main.m */,
-				95B30B9F1861E66100AB82AC /* CedarUnitTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		95E178721861B8D300D1B083 /* DTModelStorage */ = {
@@ -125,22 +119,43 @@
 			path = Memory;
 			sourceTree = "<group>";
 		};
+		9A7D5BAC19D860700083673D /* XCTests */ = {
+			isa = PBXGroup;
+			children = (
+				9A7D5BAD19D860700083673D /* Supporting Files */,
+				9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */,
+				9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */,
+				9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */,
+				9A7D5BBF19D862310083673D /* CoreDataStorageTests.m */,
+			);
+			path = XCTests;
+			sourceTree = "<group>";
+		};
+		9A7D5BAD19D860700083673D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9A7D5BAE19D860700083673D /* Info.plist */,
+				9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		AA3B07A1185F55C100A95D16 = {
 			isa = PBXGroup;
 			children = (
 				95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */,
 				95E178721861B8D300D1B083 /* DTModelStorage */,
-				95B30B971861E66100AB82AC /* Tests */,
+				9A7D5BAC19D860700083673D /* XCTests */,
 				AA3B07AC185F55C100A95D16 /* Frameworks */,
 				AA3B07AB185F55C100A95D16 /* Products */,
-				50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */,
+				5370725A31B0009D6A0E32F8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		AA3B07AB185F55C100A95D16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				95B30B901861E66100AB82AC /* Tests.app */,
+				9A7D5BAB19D860700083673D /* XCTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,7 +163,9 @@
 		AA3B07AC185F55C100A95D16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A7D5BC319D8A0DA0083673D /* UIKit.framework */,
 				5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */,
+				E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,6 +176,8 @@
 				AA478957187FEFB900E51667 /* DTModelTransfer.h */,
 				AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */,
 				AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */,
+				9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */,
+				9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -166,24 +185,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		95B30B8F1861E66100AB82AC /* Tests */ = {
+		9A7D5BAA19D860700083673D /* XCTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildConfigurationList = 9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "XCTests" */;
 			buildPhases = (
-				34FB27B483EC48A4BAA9C8F0 /* Check Pods Manifest.lock */,
-				95B30B8C1861E66100AB82AC /* Sources */,
-				95B30B8D1861E66100AB82AC /* Frameworks */,
-				95B30B8E1861E66100AB82AC /* Resources */,
-				3AEC7C6BED004F13A4E74ED9 /* Copy Pods Resources */,
+				8B2D63C6F7F8F14AF242A1CC /* Check Pods Manifest.lock */,
+				9A7D5BA719D860700083673D /* Sources */,
+				9A7D5BA819D860700083673D /* Frameworks */,
+				9A7D5BA919D860700083673D /* Resources */,
+				CB15F481D10F31CF0D64EFE5 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Tests;
-			productName = CedarUnitTests;
-			productReference = 95B30B901861E66100AB82AC /* Tests.app */;
-			productType = "com.apple.product-type.application";
+			name = XCTests;
+			productName = XCTests;
+			productReference = 9A7D5BAB19D860700083673D /* XCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -193,6 +212,11 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Denys Telezhkin";
+				TargetAttributes = {
+					9A7D5BAA19D860700083673D = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+				};
 			};
 			buildConfigurationList = AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorageTests" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -206,25 +230,23 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				95B30B8F1861E66100AB82AC /* Tests */,
+				9A7D5BAA19D860700083673D /* XCTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		95B30B8E1861E66100AB82AC /* Resources */ = {
+		9A7D5BA919D860700083673D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95B30B9C1861E66100AB82AC /* InfoPlist.strings in Resources */,
-				95B30BAD1861E6E300AB82AC /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		34FB27B483EC48A4BAA9C8F0 /* Check Pods Manifest.lock */ = {
+		8B2D63C6F7F8F14AF242A1CC /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,7 +261,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3AEC7C6BED004F13A4E74ED9 /* Copy Pods Resources */ = {
+		CB15F481D10F31CF0D64EFE5 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,79 +273,75 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XCTests/Pods-XCTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		95B30B8C1861E66100AB82AC /* Sources */ = {
+		9A7D5BA719D860700083673D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A222BD0186732E0004481BA /* DTSectionModel.m in Sources */,
-				9A222BCD186732E0004481BA /* DTStorageUpdate.m in Sources */,
-				9A222BCE186732E0004481BA /* DTCoreDataStorage.m in Sources */,
-				9A222BCF186732E0004481BA /* DTMemoryStorage.m in Sources */,
-				9A222BBF18670FD6004481BA /* CoreDataStorageSpecs.mm in Sources */,
-				95B30BAB1861E69A00AB82AC /* MemoryStorageSpecs.mm in Sources */,
-				95B30B9E1861E66100AB82AC /* main.m in Sources */,
-				AA35CA3018C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
+				9A7D5BBE19D861C10083673D /* MemoryStorageSearchTests.m in Sources */,
+				9A7D5BB919D860830083673D /* DTSectionModel.m in Sources */,
+				9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */,
+				9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */,
+				9A7D5BB719D860830083673D /* DTCoreDataStorage.m in Sources */,
+				9A7D5BC019D862310083673D /* CoreDataStorageTests.m in Sources */,
+				9A7D5BB819D860830083673D /* DTMemoryStorage.m in Sources */,
+				9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */,
+				9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */,
+				9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		95B30B9A1861E66100AB82AC /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				95B30B9B1861E66100AB82AC /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		95B30BA51861E66200AB82AC /* Debug */ = {
+		9A7D5BB219D860700083673D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */;
+			baseConfigurationReference = 956EFDECAD985DE78441169F /* Pods-XCTests.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "XCTests/Tests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-lstdc++",
-				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = XCTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		95B30BA61861E66200AB82AC /* Release */ = {
+		9A7D5BB319D860700083673D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50CF104E2D96434FB5A323DD /* Pods-Tests.xcconfig */;
+			baseConfigurationReference = 21E405B0142C62987DD2CE3E /* Pods-XCTests.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
-				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-					"-lstdc++",
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCTests/Tests-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = XCTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -400,11 +418,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		95B30BA41861E66200AB82AC /* Build configuration list for PBXNativeTarget "Tests" */ = {
+		9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "XCTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				95B30BA51861E66200AB82AC /* Debug */,
-				95B30BA61861E66200AB82AC /* Release */,
+				9A7D5BB219D860700083673D /* Debug */,
+				9A7D5BB319D860700083673D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

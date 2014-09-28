@@ -1,16 +1,13 @@
 PODS:
-  - Cedar (0.9.7)
   - Expecta (0.2.4)
   - OCMock (2.2.4)
 
 DEPENDENCIES:
-  - Cedar (~> 0.9.4)
   - Expecta (~> 0.2.3)
   - OCMock (~> 2.2.1)
 
 SPEC CHECKSUMS:
-  Cedar: d704a464f628b39ce763d49f42b5510a9e0b03b9
   Expecta: 112bcafa2304ee0f3c5e586505f24555a47b25d5
   OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1
