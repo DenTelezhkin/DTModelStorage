@@ -13,7 +13,7 @@
 +(NSString *)classStringForClass:(Class)class
 {
     NSString * classString = NSStringFromClass(class);
-    if ([classString containsString:@"."])
+    if ([classString rangeOfString:@"."].location != NSNotFound)
     {
         // Swift class, format <ModuleName>.<ClassName>
         classString = [[classString componentsSeparatedByString:@"."] lastObject];
@@ -38,14 +38,14 @@
     }
     if ([classString isEqualToString:@"__NSDictionaryI"] ||
         [classString isEqualToString:@"__NSDictionaryM"] ||
-        [classString containsString:@"_NativeDictionaryStorageOwner"] ||
+       ([classString rangeOfString:@"_NativeDictionaryStorageOwner"].location != NSNotFound) ||
         class == [NSMutableDictionary class])
     {
         return @"NSDictionary";
     }
     if ([classString isEqualToString:@"__NSArrayI"] ||
         [classString isEqualToString:@"__NSArrayM"] ||
-        [classString containsString:@"_ContiguousArrayStorage"] ||
+        ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
         class == [NSMutableArray class])
     {
         return @"NSArray";
