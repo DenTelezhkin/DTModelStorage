@@ -23,6 +23,12 @@
     expect([DTRuntimeHelper modelStringForClass:[object class]]).to.equal(@"SwiftClass");
 }
 
+-(void)testRenamedSwiftClassIsAcceptable
+{
+    id object = [SwiftProvider renamedClassObject];
+    expect([DTRuntimeHelper modelStringForClass:[object class]]).to.equal(@"RenamedFooClass");
+}
+
 -(void)testSwiftStringClass
 {
     id string = [SwiftProvider swiftString];

@@ -42,4 +42,9 @@ class SwiftProvider: NSObject {
     {
         return SwiftClass()
     }
+    
+    class func renamedClassObject() -> RenamedSwiftClass
+    {
+        return RenamedSwiftClass()
+    }
 }
