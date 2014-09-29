@@ -1,17 +1,15 @@
 Pod::Spec.new do |s|
   s.name     = 'DTModelStorage'
-  s.version  = '0.9.1'
+  s.version  = '1.0.0rc1'
   s.license  = 'MIT'
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenHeadless/DTModelStorage'
   s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin@yandex.ru' }
   s.source   = { :git => 'https://github.com/DenHeadless/DTModelStorage.git', :tag => s.version.to_s }
   s.requires_arc = true
-  s.platform = :ios,'6.0'
-  s.ios.deployment_target = '6.0'
+  s.platform = :ios,'7.0'
+  s.ios.deployment_target = '7.0'
   s.ios.frameworks = 'UIKit', 'Foundation'
-
-  s.source_files = 'DTModelStorage/DTModelStorage.h'
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'DTModelStorage/Core'
@@ -19,7 +17,8 @@ Pod::Spec.new do |s|
 
   s.subspec 'MemoryStorage' do |ss|
     ss.dependency 'DTModelStorage/Core'
-    ss.source_files = 'DTModelStorage/Memory', 'DTModelStorage/Utilities/DTMemoryStorage+UpdateWithoutAnimations.{h,m}'
+    ss.dependency 'DTModelStorage/Utilities'
+    ss.source_files = 'DTModelStorage/Memory'
   end
 
   s.subspec 'CoreDataStorage' do |ss|
@@ -28,14 +27,17 @@ Pod::Spec.new do |s|
     ss.source_files = 'DTModelStorage/CoreData'
   end
 
-  s.subspec 'ModelTransfer' do |ss|
-    ss.source_files = 'DTModelStorage/Utilities/DTModelTransfer.h'
+  s.subspec 'Utilities' do |ss|
+    ss.source_files = 'DTModelStorage/Utilities'
   end
 
   s.subspec 'All' do |ss|
+    ss.source_files = 'DTModelStorage/DTModelStorage.h'
+    
+    ss.dependency 'DTModelStorage/Core'
     ss.dependency 'DTModelStorage/CoreDataStorage'
     ss.dependency 'DTModelStorage/MemoryStorage'
-    ss.dependency 'DTModelStorage/ModelTransfer'
+    ss.dependency 'DTModelStorage/Utilities'
   end
 
   s.default_subspec = 'All'

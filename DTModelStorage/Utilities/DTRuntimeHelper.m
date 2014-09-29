@@ -12,12 +12,49 @@
 
 +(NSString *)classStringForClass:(Class)class
 {
-    return NSStringFromClass(class);
+    NSString * classString = NSStringFromClass(class);
+    if ([classString containsString:@"."])
+    {
+        // Swift class, format <ModuleName>.<ClassName>
+        classString = [[classString componentsSeparatedByString:@"."] lastObject];
+    }
+    return classString;
 }
 
 +(NSString *)modelStringForClass:(Class)class
 {
-    return [self classStringForClass:class];
+    NSString * classString = [self classStringForClass:class];
+    if ([classString isEqualToString:@"__NSCFConstantString"] ||
+        [classString isEqualToString:@"__NSCFString"] ||
+        [classString isEqualToString:@"_NSContiguousString"] ||
+        class == [NSMutableString class])
+    {
+        return @"NSString";
+    }
+    if ([classString isEqualToString:@"__NSCFNumber"] ||
+        [classString isEqualToString:@"__NSCFBoolean"])
+    {
+        return @"NSNumber";
+    }
+    if ([classString isEqualToString:@"__NSDictionaryI"] ||
+        [classString isEqualToString:@"__NSDictionaryM"] ||
+        [classString containsString:@"_NativeDictionaryStorageOwner"] ||
+        class == [NSMutableDictionary class])
+    {
+        return @"NSDictionary";
+    }
+    if ([classString isEqualToString:@"__NSArrayI"] ||
+        [classString isEqualToString:@"__NSArrayM"] ||
+        [classString containsString:@"_ContiguousArrayStorage"] ||
+        class == [NSMutableArray class])
+    {
+        return @"NSArray";
+    }
+    if ([classString isEqualToString:@"__NSDate"] || [classString isEqualToString:@"__NSTaggedDate"] || class == [NSDate class])
+    {
+        return @"NSDate";
+    }
+    return classString;
 }
 
 @end

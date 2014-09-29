@@ -27,6 +27,7 @@
 #import "DTSection.h"
 #import "DTStorageUpdate.h"
 #import "DTSectionModel.h"
+#import "DTRuntimeHelper.h"
 
 @interface DTMemoryStorage ()
 @property (nonatomic, strong) DTStorageUpdate * currentUpdate;
@@ -117,7 +118,7 @@
     NSParameterAssert(searchingBlock);
     NSParameterAssert(modelClass);
 
-    self.searchingBlocks[[self classStringForClass:modelClass]] = searchingBlock;
+    self.searchingBlocks[[DTRuntimeHelper modelStringForClass:modelClass]] = searchingBlock;
 }
 
 - (instancetype)searchingStorageForSearchString:(NSString *)searchString
@@ -149,9 +150,9 @@
     {
         NSObject * item = section.objects[row];
 
-        if (self.searchingBlocks[[self classStringForClass:item.class]])
+        if (self.searchingBlocks[[DTRuntimeHelper modelStringForClass:item.class]])
         {
-            DTModelSearchingBlock block = self.searchingBlocks[[self classStringForClass:item.class]];
+            DTModelSearchingBlock block = self.searchingBlocks[[DTRuntimeHelper modelStringForClass:item.class]];
 
             if (block && block(item, searchString, searchScope, section))
             {
@@ -486,42 +487,6 @@
         }
     }
     return indexPaths;
-}
-
-#pragma mark - helpers
-
-- (NSString *)classStringForClass:(Class)class
-{
-    NSString * classString = NSStringFromClass(class);
-
-    if ([classString isEqualToString:@"__NSCFConstantString"] ||
-            [classString isEqualToString:@"__NSCFString"] ||
-            class == [NSMutableString class])
-    {
-        return @"NSString";
-    }
-    if ([classString isEqualToString:@"__NSCFNumber"] ||
-            [classString isEqualToString:@"__NSCFBoolean"])
-    {
-        return @"NSNumber";
-    }
-    if ([classString isEqualToString:@"__NSDictionaryI"] ||
-            [classString isEqualToString:@"__NSDictionaryM"] ||
-            class == [NSMutableDictionary class])
-    {
-        return @"NSDictionary";
-    }
-    if ([classString isEqualToString:@"__NSArrayI"] ||
-            [classString isEqualToString:@"__NSArrayM"] ||
-            class == [NSMutableArray class])
-    {
-        return @"NSArray";
-    }
-    if ([classString isEqualToString:@"__NSDate"] || class == [NSDate class])
-    {
-        return @"NSDate";
-    }
-    return classString;
 }
 
 @end
