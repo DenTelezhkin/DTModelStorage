@@ -173,11 +173,29 @@
 - (void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
 
 /**
- Set header models for UITableView sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section header models.
+ Set header models for sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section header models.
  
  @param headerModels Section header models to use.
  */
 - (void)setSectionHeaderModels:(NSArray *)headerModels;
+
+/**
+ Set header model for section. `DTSectionModel` object is created automatically, if it doesn't exist already.
+ 
+ @param headerModel Section header model to use.
+ 
+ @param sectionNumber Number of the section
+ */
+- (void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionNumber;
+
+/**
+ Set footer model for section. `DTSectionModel` object is created automatically, if it doesn't exist already.
+ 
+ @param footerModel Section header model to use.
+ 
+ @param sectionNumber Number of the section
+ */
+- (void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionNumber;
 
 /**
  Set footer models for sections. `headerKind` property is used to define kind of header supplementary. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section footer models.

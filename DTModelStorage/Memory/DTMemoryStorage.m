@@ -89,6 +89,24 @@
     return [sectionModel supplementaryModelOfKind:kind];
 }
 
+-(void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionNumber
+{
+    NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method");
+    
+    DTSectionModel * section = [self sectionAtIndex:sectionNumber];
+    
+    [section setSupplementaryModel:headerModel forKind:self.supplementaryHeaderKind];
+}
+
+-(void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionNumber
+{
+    NSAssert(self.supplementaryHeaderKind, @"supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method");
+    
+    DTSectionModel * section = [self sectionAtIndex:sectionNumber];
+    
+    [section setSupplementaryModel:footerModel forKind:self.supplementaryFooterKind];
+}
+
 -(id)headerModelForSectionIndex:(NSInteger)index
 {
     NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method");
