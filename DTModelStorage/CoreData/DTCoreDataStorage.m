@@ -52,6 +52,12 @@
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
+-(id)headerModelForSectionIndex:(NSInteger)index
+{
+    id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][index];
+    return section.name;
+}
+
 #pragma mark - NSFetchedResultsControllerDelegate methods
 
 - (void)startUpdate

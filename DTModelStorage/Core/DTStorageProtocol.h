@@ -24,29 +24,13 @@
 // THE SOFTWARE.
 
 #import "DTStorageUpdate.h"
-
-/**
- `DTStorageUpdating` protocol is used to transfer data storage updates.
- */
-
-@protocol DTStorageUpdating <NSObject>
-
-@optional
-
-/**
- This method transfers data storage updates. Controller, that implements this method, may react to received update by updating it's UI.
- 
- @param update `DTStorageUpdate` instance, that incapsulates all changes, happened in data storage.
- */
-- (void)storageDidPerformUpdate:(DTStorageUpdate *)update;
-
-@end
+#import "DTStorageUpdating.h"
 
 /**
  `DTStorage` protocol is used to define common interface for storage classes.
  */
 
-@protocol DTStorage <NSObject>
+@protocol DTStorageProtocol <NSObject>
 
 /**
  Array of sections, conforming to `DTSection` protocol. Depending on data storage used, section objects may be different.
@@ -57,7 +41,7 @@
 - (NSArray*)sections;
 
 /**
- Returns item at concrete indexPath. This method is used for perfomance reasons. For example, when DTCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
+ Returns item at concrete indexPath. This method is used for perfomance reasons. For example, when DTCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, but we want to fetch only one.
  
  @param indexPath indexPath of desired item
  
@@ -72,6 +56,28 @@
 
 @optional
 
+///-----------------------------------------------------------
+/// @name Setting and getting supplementary models
+///-----------------------------------------------------------
+
+/**
+ Getter method for header model for current section.
+ 
+ @param index Number of section.
+ 
+ @return Header model for section at index.
+ */
+- (id)headerModelForSectionIndex:(NSInteger)index;
+
+/**
+ Getter method for footer model for current section.
+ 
+ @param index Number of section.
+ 
+ @return Footer model for section at index.
+ */
+- (id)footerModelForSectionIndex:(NSInteger)index;
+
 /**
  Storage class may implement this method to define supplementary models for section.
  
@@ -84,6 +90,10 @@
 
 - (id)supplementaryModelOfKind:(NSString *)kind
                forSectionIndex:(NSUInteger)sectionNumber;
+
+///-----------------------------------------------------------
+/// @name Searching
+///-----------------------------------------------------------
 
 /**
  Method to create filtered data storage, based on current data storage and passed searchString and searchScope.

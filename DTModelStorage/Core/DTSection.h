@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /**
- `DTSection` protocol defines an interface for sections returned by DTModelStorage object. For `DTMemoryStorage`, `DTSectionModel` is the object, conforming to current protocol. For `DTCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conform to current protocol. 
+ `DTSection` protocol defines an interface for sections returned by DTModelStorage object. For `DTMemoryStorage`, `DTSectionModel` is the object, conforming to current protocol. For `DTCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol. 
  */
 
 @protocol DTSection <NSObject>

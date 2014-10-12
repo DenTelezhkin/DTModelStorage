@@ -23,14 +23,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTStorage.h"
+#import "DTBaseStorage.h"
 #import <CoreData/CoreData.h>
 
 /**
  This class is used to provide CoreData storage. Storage object will automatically react to NSFetchResultsController changes and will call delegate with appropriate DTStorageUpdate object.
  */
 
-@interface DTCoreDataStorage : NSObject <DTStorage,NSFetchedResultsControllerDelegate>
+@interface DTCoreDataStorage : DTBaseStorage <NSFetchedResultsControllerDelegate,DTStorageProtocol>
 
 /**
  Use this method to create `DTCoreDataStorage` object with your NSFetchedResultsController.
@@ -41,11 +41,6 @@
  */
 
 +(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller;
-
-/**
- Delegate object, that gets notified about data storage updates, in this scenario - NSFetchedResultsController updates. If delegate does not implement `DTStorageUpdating` protocol, it will not get called.
- */
-@property (nonatomic, weak) id <DTStorageUpdating> delegate;
 
 /**
  NSFetchedResultsController of current `DTCoreDataStorage` object.

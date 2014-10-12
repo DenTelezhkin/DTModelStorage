@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTStorage.h"
+#import "DTBaseStorage.h"
 #import "DTSectionModel.h"
 
 /**
@@ -32,7 +32,7 @@
  `DTMemoryStorage` stores data models like array of `DTSectionModel` instances. So it's basically array of sections, where each section has an array of objects, and any supplementary models, that further describe current section, and can be used, for example, like section headers and footers.
  */
 
-@interface DTMemoryStorage : NSObject <DTStorage>
+@interface DTMemoryStorage : DTBaseStorage <DTStorageProtocol>
 
 /**
  Creates `DTMemoryStorage` with default configuration.
@@ -49,10 +49,9 @@
 @property (nonatomic, strong) NSMutableArray * sections;
 
 /**
- Delegate object, that gets notified about data storage updates. If delegate does not respond to optional `DTStorageUpdating` methods, it will not get called.
+ Property to enable/disable logging. Logging is on by default, and will print out any critical messages, that DTMemoryStorage is encountering.
  */
-@property (nonatomic, weak) id <DTStorageUpdating> delegate;
-
+@property (nonatomic, assign) BOOL loggingEnabled;
 ///---------------------------------------
 /// @name Add items
 ///---------------------------------------
@@ -171,7 +170,30 @@
  
  @param kind Kind of supplementary models
  */
--(void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
+- (void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
+
+/**
+ Set header models for UITableView sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section header models.
+ 
+ @param headerModels Section header models to use.
+ */
+- (void)setSectionHeaderModels:(NSArray *)headerModels;
+
+/**
+ Set footer models for sections. `headerKind` property is used to define kind of header supplementary. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section footer models.
+ 
+ @param footerModels Section footer models to use.
+ */
+- (void)setSectionFooterModels:(NSArray *)footerModels;
+
+/**
+ Remove all items in section and replace them with array of items. After replacement is done, storageNeedsReload delegate method is called.
+ 
+ @param items Array of models to replace current section contents
+ 
+ @param sectionNumber number of section
+ */
+- (void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex;
 
 ///---------------------------------------
 /// @name Search
@@ -216,11 +238,5 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  @return indexPath of `item`.
  */
 -(NSIndexPath *)indexPathForItem:(id)item;
-
-/**
- Property to enable/disable logging. Logging is on by default, and will print out any critical messages, that DTMemoryStorage is encountering.
- */
-
-@property (nonatomic, assign) BOOL loggingEnabled;
 
 @end

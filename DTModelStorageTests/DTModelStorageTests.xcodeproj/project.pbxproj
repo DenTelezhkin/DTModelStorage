@@ -22,6 +22,7 @@
 		9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7D5BC319D8A0DA0083673D /* UIKit.framework */; };
 		9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */; };
 		9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */; };
+		9A88F5A419EAAEFE008436C9 /* DTBaseStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */; };
 		C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +33,7 @@
 		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9A222BBD18670B88004481BA /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
 		9A222BC1186732E0004481BA /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSection.h; sourceTree = "<group>"; };
-		9A222BC2186732E0004481BA /* DTStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorage.h; sourceTree = "<group>"; };
+		9A222BC2186732E0004481BA /* DTStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageProtocol.h; sourceTree = "<group>"; };
 		9A222BC3186732E0004481BA /* DTStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdate.h; sourceTree = "<group>"; };
 		9A222BC4186732E0004481BA /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTStorageUpdate.m; sourceTree = "<group>"; };
 		9A222BC6186732E0004481BA /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoreDataStorage.h; sourceTree = "<group>"; };
@@ -57,6 +58,9 @@
 		9A7D5BC319D8A0DA0083673D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageAddTests.m; path = Specs/MemoryStorageAddTests.m; sourceTree = "<group>"; };
 		9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageEditTests.m; path = Specs/MemoryStorageEditTests.m; sourceTree = "<group>"; };
+		9A88F5A119EAA4AF008436C9 /* DTStorageUpdating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdating.h; sourceTree = "<group>"; };
+		9A88F5A219EAAEFE008436C9 /* DTBaseStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTBaseStorage.h; sourceTree = "<group>"; };
+		9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTBaseStorage.m; sourceTree = "<group>"; };
 		AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+UpdateWithoutAnimations.h"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.h"; sourceTree = "<group>"; };
 		AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+UpdateWithoutAnimations.m"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.m"; sourceTree = "<group>"; };
 		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
@@ -101,10 +105,13 @@
 		9A222BC0186732E0004481BA /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9A222BC2186732E0004481BA /* DTStorage.h */,
+				9A88F5A119EAA4AF008436C9 /* DTStorageUpdating.h */,
+				9A222BC2186732E0004481BA /* DTStorageProtocol.h */,
 				9A222BC1186732E0004481BA /* DTSection.h */,
 				9A222BC3186732E0004481BA /* DTStorageUpdate.h */,
 				9A222BC4186732E0004481BA /* DTStorageUpdate.m */,
+				9A88F5A219EAAEFE008436C9 /* DTBaseStorage.h */,
+				9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -334,6 +341,7 @@
 				9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */,
 				9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */,
 				9A24F69919D949A4009DE5D4 /* SwiftClass.swift in Sources */,
+				9A88F5A419EAAEFE008436C9 /* DTBaseStorage.m in Sources */,
 				9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
 				9A24F69B19D94AFD009DE5D4 /* SwiftProvider.swift in Sources */,
 				9A24F69219D9405E009DE5D4 /* RuntimeHelperObjectiveCTests.m in Sources */,

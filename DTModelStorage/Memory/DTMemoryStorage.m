@@ -89,6 +89,22 @@
     return [sectionModel supplementaryModelOfKind:kind];
 }
 
+-(id)headerModelForSectionIndex:(NSInteger)index
+{
+    NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method");
+    
+    return [self supplementaryModelOfKind:self.supplementaryHeaderKind
+                          forSectionIndex:index];
+}
+
+-(id)footerModelForSectionIndex:(NSInteger)index
+{
+    NSAssert(self.supplementaryFooterKind, @"supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method");
+    
+    return [self supplementaryModelOfKind:self.supplementaryFooterKind
+                          forSectionIndex:index];
+}
+
 - (void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind
 {
     [self startUpdate];
@@ -108,6 +124,28 @@
         [section setSupplementaryModel:supplementaryModels[sectionNumber] forKind:kind];
     }
     [self finishUpdate];
+}
+
+- (void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex
+{
+    DTSectionModel * section = [self sectionAtIndex:sectionIndex];
+    [section.objects removeAllObjects];
+    [section.objects addObjectsFromArray:items];
+    [self.delegate storageNeedsReload];
+}
+
+-(void)setSectionHeaderModels:(NSArray *)headerModels
+{
+    NSAssert(self.supplementaryHeaderKind, @"Please set supplementaryHeaderKind property before setting section header models");
+    
+    [self setSupplementaries:headerModels forKind:self.supplementaryHeaderKind];
+}
+
+-(void)setSectionFooterModels:(NSArray *)footerModels
+{
+    NSAssert(self.supplementaryFooterKind, @"Please set supplementaryFooterKind property before setting section header models");
+    
+    [self setSupplementaries:footerModels forKind:self.supplementaryFooterKind];
 }
 
 #pragma mark - search

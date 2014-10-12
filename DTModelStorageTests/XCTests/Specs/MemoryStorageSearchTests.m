@@ -9,7 +9,7 @@
 #import "DTMemoryStorage.h"
 #import "OCMock.h"
 #import "DTSectionModel.h"
-#import "DTStorage.h"
+#import "DTBaseStorage.h"
 
 @interface MemoryStorageTests : XCTestCase
 {
