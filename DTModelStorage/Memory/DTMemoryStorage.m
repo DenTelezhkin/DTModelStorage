@@ -193,6 +193,8 @@
             [storage.sections addObject:searchSection];
         }
     }
+    storage.supplementaryHeaderKind = self.supplementaryHeaderKind;
+    storage.supplementaryFooterKind = self.supplementaryFooterKind;
 
     return storage;
 }
