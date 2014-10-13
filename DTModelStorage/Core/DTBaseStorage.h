@@ -33,14 +33,4 @@ static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSe
  */
 @property (nonatomic, weak) id <DTStorageUpdating> delegate;
 
-/**
- Sets DTTableViewElementSectionHeader and DTTableViewelementSectionFooter as supplementary kinds.
- */
--(void)setupTableViewSupplementaryKinds;
-
-/**
- Sets UICollectionElementKindSectionHeader and UICollectionElementKindSectionFooter as supplementary kinds
- */
--(void)setupCollectionViewSupplementaryKinds;
-
 @end
