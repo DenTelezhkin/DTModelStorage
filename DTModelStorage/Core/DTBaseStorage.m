@@ -10,4 +10,16 @@
 
 @implementation DTBaseStorage
 
+-(void)setupTableViewSupplementaryKinds
+{
+    self.supplementaryHeaderKind = DTTableViewElementSectionHeader;
+    self.supplementaryFooterKind = DTTableViewElementSectionFooter;
+}
+
+-(void)setupCollectionViewSupplementaryKinds
+{
+    self.supplementaryHeaderKind = UICollectionElementKindSectionHeader;
+    self.supplementaryFooterKind = UICollectionElementKindSectionFooter;
+}
+
 @end

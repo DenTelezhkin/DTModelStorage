@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "DTStorageProtocol.h"
 
+static NSString * const DTTableViewElementSectionHeader = @"DTTableViewElementSectionHeader";
+static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSectionFooter";
+
 /**
  DTBaseStorage is a base class for storage classes.
  */
@@ -29,5 +32,15 @@
  Delegate property used to transfer current data storage changes.
  */
 @property (nonatomic, weak) id <DTStorageUpdating> delegate;
+
+/**
+ Sets DTTableViewElementSectionHeader and DTTableViewelementSectionFooter as supplementary kinds.
+ */
+-(void)setupTableViewSupplementaryKinds;
+
+/**
+ Sets UICollectionElementKindSectionHeader and UICollectionElementKindSectionFooter as supplementary kinds
+ */
+-(void)setupCollectionViewSupplementaryKinds;
 
 @end
