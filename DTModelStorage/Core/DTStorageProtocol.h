@@ -79,6 +79,20 @@
 - (id)footerModelForSectionIndex:(NSInteger)index;
 
 /**
+ Set supplementary header kind. For example, for UICollectionViewFlowLayout it would be UICollectionElementKindSectionHeader
+ 
+ @param headerKind supplementary kind
+ */
+- (void)setSupplementaryHeaderKind:(NSString *)headerKind;
+
+/**
+ Set supplementary footer kind. For example, for UICollectionViewFlowLayout it would be UICollectionElementKindSectionFooter
+ 
+ @param footerKind supplementary kind
+ */
+- (void)setSupplementaryFooterKind:(NSString *)footerKind;
+
+/**
  Storage class may implement this method to define supplementary models for section.
  
  @param kind Kind of supplementary model
