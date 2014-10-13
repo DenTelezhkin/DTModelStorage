@@ -19,12 +19,12 @@ static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSe
 @interface DTBaseStorage : NSObject
 
 /**
- Supplementary header kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindHeader.
+ Supplementary header kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindSectionHeader.
  */
 @property (nonatomic, strong) NSString * supplementaryHeaderKind;
 
 /**
- Supplementary footer kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindFooter.
+ Supplementary footer kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindSectionFooter.
  */
 @property (nonatomic, strong) NSString * supplementaryFooterKind;
 
