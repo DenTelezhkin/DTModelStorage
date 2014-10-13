@@ -54,8 +54,28 @@
 
 -(id)headerModelForSectionIndex:(NSInteger)index
 {
-    id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][index];
-    return section.name;
+    NSAssert(self.supplementaryHeaderKind, @"supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method");
+    
+    return [self supplementaryModelOfKind:self.supplementaryHeaderKind
+                          forSectionIndex:index];
+}
+
+-(id)footerModelForSectionIndex:(NSInteger)index
+{
+    NSAssert(self.supplementaryFooterKind, @"supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method");
+    
+    return [self supplementaryModelOfKind:self.supplementaryFooterKind
+                          forSectionIndex:index];
+}
+
+-(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSUInteger)sectionNumber
+{
+    if ([kind isEqualToString:self.supplementaryHeaderKind])
+    {
+        id <NSFetchedResultsSectionInfo> section = [self.fetchedResultsController sections][sectionNumber];
+        return section.name;
+    }
+    return nil;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
