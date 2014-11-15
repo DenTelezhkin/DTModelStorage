@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'DTModelStorage'
-  s.version  = '1.1.0'
+  s.version  = '1.1.1'
   s.license  = 'MIT'
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenHeadless/DTModelStorage'
@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
 
   s.subspec 'MemoryStorage' do |ss|
     ss.dependency 'DTModelStorage/Core'
-    ss.dependency 'DTModelStorage/Utilities'
     ss.source_files = 'DTModelStorage/Memory'
   end
 
