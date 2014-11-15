@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
     ss.dependency 'DTModelStorage/Core'
     ss.dependency 'DTModelStorage/CoreDataStorage'
     ss.dependency 'DTModelStorage/MemoryStorage'
-    ss.dependency 'DTModelStorage/Utilities'
   end
 
   s.default_subspec = 'All'
