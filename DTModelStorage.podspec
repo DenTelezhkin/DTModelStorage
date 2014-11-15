@@ -17,8 +17,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'MemoryStorage' do |ss|
     ss.dependency 'DTModelStorage/Core'
-    ss.source_files = 'DTModelStorage/Memory'
-    ss.source_files = 'DTModelStorage/Utilities'
+    ss.source_files = 'DTModelStorage/Memory', 'DTModelStorage/Utilities'
   end
 
   s.subspec 'CoreDataStorage' do |ss|
