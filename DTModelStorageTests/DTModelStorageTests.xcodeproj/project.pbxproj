@@ -22,6 +22,7 @@
 		9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7D5BC319D8A0DA0083673D /* UIKit.framework */; };
 		9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */; };
 		9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */; };
+		9A808A4F1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */; };
 		9A88F5A419EAAEFE008436C9 /* DTBaseStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */; };
 		C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		9A7D5BC319D8A0DA0083673D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageAddTests.m; path = Specs/MemoryStorageAddTests.m; sourceTree = "<group>"; };
 		9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageEditTests.m; path = Specs/MemoryStorageEditTests.m; sourceTree = "<group>"; };
+		9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageRemovingItemsTests.m; path = Specs/MemoryStorageRemovingItemsTests.m; sourceTree = "<group>"; };
 		9A88F5A119EAA4AF008436C9 /* DTStorageUpdating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdating.h; sourceTree = "<group>"; };
 		9A88F5A219EAAEFE008436C9 /* DTBaseStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTBaseStorage.h; sourceTree = "<group>"; };
 		9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTBaseStorage.m; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */,
 				9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */,
 				9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */,
+				9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */,
 			);
 			name = MemoryStorage;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 			files = (
 				9A7D5BBE19D861C10083673D /* MemoryStorageSearchTests.m in Sources */,
 				9A7D5BB919D860830083673D /* DTSectionModel.m in Sources */,
+				9A808A4F1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m in Sources */,
 				9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */,
 				9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */,
 				9A7D5BB719D860830083673D /* DTCoreDataStorage.m in Sources */,

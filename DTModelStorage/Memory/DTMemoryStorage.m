@@ -378,7 +378,8 @@
 - (void)removeItemsAtIndexPaths:(NSArray *)indexPaths
 {
     [self startUpdate];
-    for (NSIndexPath * indexPath in indexPaths)
+    NSArray *reverseSortedIndexPaths = [[self class] sortedArrayOfIndexPaths:indexPaths ascending:NO];
+    for (NSIndexPath * indexPath in reverseSortedIndexPaths)
     {
         id object = [self objectAtIndexPath:indexPath];
 
@@ -545,6 +546,12 @@
         }
     }
     return indexPaths;
+}
+
++(NSArray *)sortedArrayOfIndexPaths:(NSArray *)indexPaths ascending:(BOOL)ascending
+{
+    NSSortDescriptor * descriptor = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:ascending];
+    return [indexPaths sortedArrayUsingDescriptors:@[descriptor]];
 }
 
 @end

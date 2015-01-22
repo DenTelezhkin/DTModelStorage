@@ -165,9 +165,9 @@
     
     DTStorageUpdate * update = [DTStorageUpdate new];
     [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
-                                                              inSection:0]];
-    [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
                                                               inSection:1]];
+    [update.deletedRowIndexPaths addObject:[NSIndexPath indexPathForRow:0
+                                                              inSection:0]];
     
     [[delegate expect] storageDidPerformUpdate:[OCMArg checkWithBlock:^BOOL(id obj) {
         return [update isEqual:obj];
