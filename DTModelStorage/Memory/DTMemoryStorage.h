@@ -26,6 +26,13 @@
 #import "DTBaseStorage.h"
 #import "DTSectionModel.h"
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  This class is used to store data models in memory. Generally, for datasource based UI controls, good pattern is to update datasource first, and then update it's UI representation. Updating datasource in current case means calling one of the add/remove/insert etc. methods. Updating UI is outside the scope of current class and is something storage delegate can do, by responding to `performUpdate:` method.
  
@@ -78,6 +85,8 @@
  @param items models to add.
  */
 -(void)addItems:(NSArray *)items;
+
+
 
 /**
  Add items to section with `sectionNumber`.
@@ -170,14 +179,14 @@
  
  @param kind Kind of supplementary models
  */
-- (void)setSupplementaries:(NSArray *)supplementaryModels forKind:(NSString *)kind;
+- (void)setSupplementaries:(nullable NSArray *)supplementaryModels forKind:(NSString *)kind;
 
 /**
  Set header models for sections. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section header models.
  
  @param headerModels Section header models to use.
  */
-- (void)setSectionHeaderModels:(NSArray *)headerModels;
+- (void)setSectionHeaderModels:(nullable NSArray *)headerModels;
 
 /**
  Set header model for section. `DTSectionModel` object is created automatically, if it doesn't exist already.
@@ -186,7 +195,7 @@
  
  @param sectionNumber Number of the section
  */
-- (void)setSectionHeaderModel:(id)headerModel forSectionIndex:(NSUInteger)sectionNumber;
+- (void)setSectionHeaderModel:(nullable id)headerModel forSectionIndex:(NSUInteger)sectionNumber;
 
 /**
  Set footer model for section. `DTSectionModel` object is created automatically, if it doesn't exist already.
@@ -195,14 +204,14 @@
  
  @param sectionNumber Number of the section
  */
-- (void)setSectionFooterModel:(id)footerModel forSectionIndex:(NSUInteger)sectionNumber;
+- (void)setSectionFooterModel:(nullable id)footerModel forSectionIndex:(NSUInteger)sectionNumber;
 
 /**
  Set footer models for sections. `headerKind` property is used to define kind of header supplementary. `DTSectionModel` objects are created automatically, if they don't exist already. Pass nil or empty array to this method to clear all section footer models.
  
  @param footerModels Section footer models to use.
  */
-- (void)setSectionFooterModels:(NSArray *)footerModels;
+- (void)setSectionFooterModels:(nullable NSArray *)footerModels;
 
 /**
  Remove all items in section and replace them with array of items. After replacement is done, storageNeedsReload delegate method is called.
@@ -211,7 +220,7 @@
  
  @param sectionNumber number of section
  */
-- (void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionIndex;
+- (void)setItems:(nullable NSArray *)items forSectionIndex:(NSUInteger)sectionIndex;
 
 ///---------------------------------------
 /// @name Search
@@ -236,7 +245,7 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  
  @return array of items in section. If section does not exist - nil.
  */
--(NSArray *)itemsInSection:(NSUInteger)sectionNumber;
+-(nullable NSArray *)itemsInSection:(NSUInteger)sectionNumber;
 
 /**
  If item exists at `indexPath`, it will be returned. If section or row does not exist, method will return `nil`.
@@ -246,7 +255,7 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  @return model at indexPath. If section or row does not exist - `nil`.
  */
 
--(id)itemAtIndexPath:(NSIndexPath *)indexPath;
+-(nullable id)itemAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  Searches for item and returns it's indexPath. If there are many equal items, indexPath of the first one will be returned.
@@ -255,6 +264,12 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
  
  @return indexPath of `item`.
  */
--(NSIndexPath *)indexPathForItem:(id)item;
+-(nullable NSIndexPath *)indexPathForItem:(id)item;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif
+
+

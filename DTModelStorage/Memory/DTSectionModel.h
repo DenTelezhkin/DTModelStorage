@@ -25,6 +25,13 @@
 
 #import "DTSection.h"
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  This class represents data of the section used by `DTMemoryStorage`.
  */
@@ -42,7 +49,7 @@
  
  @return supplementary model
  */
--(id)supplementaryModelOfKind:(NSString *)kind;
+-(nullable id)supplementaryModelOfKind:(NSString *)kind;
 
 /**
  Method to set supplementary model for current section. This can be header,footer model, or anything you need. Number of supplementary models is not limited. Any custom kind is accepted.
@@ -51,6 +58,11 @@
  
  @param kind Kind of supplementary model
  */
--(void)setSupplementaryModel:(id)model forKind:(NSString *)kind;
+-(void)setSupplementaryModel:(nullable id)model forKind:(NSString *)kind;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif
+

@@ -46,6 +46,7 @@
     if ([classString isEqualToString:@"__NSArrayI"] ||
         [classString isEqualToString:@"__NSArrayM"] ||
         [classString isEqualToString:@"_NSSwiftArrayImpl"] ||
+        [classString isEqualToString:@"_SwiftDeferredNSArray"] ||
         ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
         class == [NSMutableArray class])
     {

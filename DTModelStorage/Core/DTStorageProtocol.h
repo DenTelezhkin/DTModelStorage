@@ -26,10 +26,11 @@
 #import "DTStorageUpdate.h"
 #import "DTStorageUpdating.h"
 
+#pragma clang assume_nonnull begin
+
 /**
  `DTStorage` protocol is used to define common interface for storage classes.
  */
-
 @protocol DTStorageProtocol <NSObject>
 
 /**
@@ -47,12 +48,12 @@
  
  @return item at desired indexPath
  */
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
  Delegate property used to transfer current data storage changes.
  */
-@property (nonatomic, weak) id <DTStorageUpdating> delegate;
+@property (nonatomic, weak, nullable) id <DTStorageUpdating> delegate;
 
 @optional
 
@@ -67,7 +68,7 @@
  
  @return Header model for section at index.
  */
-- (id)headerModelForSectionIndex:(NSInteger)index;
+- (nullable id)headerModelForSectionIndex:(NSInteger)index;
 
 /**
  Getter method for footer model for current section.
@@ -76,7 +77,7 @@
  
  @return Footer model for section at index.
  */
-- (id)footerModelForSectionIndex:(NSInteger)index;
+- (nullable id)footerModelForSectionIndex:(NSInteger)index;
 
 /**
  Set supplementary header kind. For example, for UICollectionViewFlowLayout it would be UICollectionElementKindSectionHeader
@@ -102,8 +103,8 @@
  @return supplementary model for given kind for given section
  */
 
-- (id)supplementaryModelOfKind:(NSString *)kind
-               forSectionIndex:(NSUInteger)sectionNumber;
+- (nullable id)supplementaryModelOfKind:(NSString *)kind
+                        forSectionIndex:(NSUInteger)sectionNumber;
 
 ///-----------------------------------------------------------
 /// @name Searching
@@ -123,3 +124,7 @@
                                   inSearchScope:(NSUInteger)searchScope;
 
 @end
+
+#pragma clang assume_nonnull end
+
+

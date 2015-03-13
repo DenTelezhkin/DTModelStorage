@@ -23,6 +23,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  This class encapsulates changes, that happened in <DTStorage> object.
  */
@@ -60,3 +67,8 @@
 @property (nonatomic, strong) NSMutableArray *updatedRowIndexPaths;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif
+

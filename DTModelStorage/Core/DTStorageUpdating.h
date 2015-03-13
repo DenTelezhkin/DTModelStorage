@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "DTStorageUpdate.h"
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  `DTStorageUpdating` protocol is used to transfer data storage updates.
  */
@@ -28,3 +35,7 @@
 - (void)storageNeedsReload;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

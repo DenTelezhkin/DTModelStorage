@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "DTStorageProtocol.h"
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 static NSString * const DTTableViewElementSectionHeader = @"DTTableViewElementSectionHeader";
 static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSectionFooter";
 
@@ -21,16 +28,20 @@ static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSe
 /**
  Supplementary header kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindSectionHeader.
  */
-@property (nonatomic, strong) NSString * supplementaryHeaderKind;
+@property (nonatomic, strong, nullable) NSString * supplementaryHeaderKind;
 
 /**
  Supplementary footer kind, that is used for registration and mapping. For example, for UICollectionView this should be UICollectionElementKindSectionFooter.
  */
-@property (nonatomic, strong) NSString * supplementaryFooterKind;
+@property (nonatomic, strong, nullable) NSString * supplementaryFooterKind;
 
 /**
  Delegate property used to transfer current data storage changes.
  */
-@property (nonatomic, weak) id <DTStorageUpdating> delegate;
+@property (nonatomic, weak, nullable) id <DTStorageUpdating> delegate;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

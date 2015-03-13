@@ -30,7 +30,7 @@
 {
     [super setUp];
     
-    storage = [DTCoreDataStorage storageWithFetchResultsController:nil];
+    storage = [DTCoreDataStorage storageWithFetchResultsController:[NSFetchedResultsController new]];
     storage.delegate = (id)storage;
 }
 
