@@ -23,12 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#endif
 
 /**
  `DTSection` protocol defines an interface for sections returned by DTModelStorage object. For `DTMemoryStorage`, `DTSectionModel` is the object, conforming to current protocol. For `DTCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol. 
@@ -54,6 +49,4 @@
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif

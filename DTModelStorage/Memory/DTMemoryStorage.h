@@ -26,12 +26,7 @@
 #import "DTBaseStorage.h"
 #import "DTSectionModel.h"
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#endif
 
 /**
  This class is used to store data models in memory. Generally, for datasource based UI controls, good pattern is to update datasource first, and then update it's UI representation. Updating datasource in current case means calling one of the add/remove/insert etc. methods. Updating UI is outside the scope of current class and is something storage delegate can do, by responding to `performUpdate:` method.
@@ -268,8 +263,4 @@ typedef BOOL (^DTModelSearchingBlock)(id model, NSString * searchString, NSInteg
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif
-
-

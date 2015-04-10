@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DTStorageProtocol.h"
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#endif
 
 static NSString * const DTTableViewElementSectionHeader = @"DTTableViewElementSectionHeader";
 static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSectionFooter";
@@ -42,6 +37,4 @@ static NSString * const DTTableViewElementSectionFooter = @"DTTableViewElementSe
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif

@@ -26,12 +26,7 @@
 #import "DTBaseStorage.h"
 #import <CoreData/CoreData.h>
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#endif
 
 /**
  This class is used to provide CoreData storage. Storage object will automatically react to NSFetchResultsController changes and will call delegate with appropriate DTStorageUpdate object.
@@ -56,7 +51,4 @@
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif
-

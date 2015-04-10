@@ -25,12 +25,7 @@
 
 #import "DTSection.h"
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#endif
 
 /**
  This class represents data of the section used by `DTMemoryStorage`.
@@ -62,7 +57,4 @@
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif
-

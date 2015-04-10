@@ -131,18 +131,19 @@ Installation
 ===========
 Both storage classes:
 
-    pod 'DTModelStorage', '~> 1.1.1'
+    pod 'DTModelStorage', '~> 1.2.0'
 
 Only DTCoreDataStorage:
 
-    pod 'DTModelStorage/CoreDataStorage', '~> 1.1.1'
+    pod 'DTModelStorage/CoreDataStorage', '~> 1.2.0'
 
 Only DTMemoryStorage:
 
-    pod 'DTModelStorage/MemoryStorage', '~> 1.1.1'
+    pod 'DTModelStorage/MemoryStorage', '~> 1.2.0'
 
 Requirements
 ============
 
+* XCode 6.3 and higher
 * iOS 7
 * ARC
