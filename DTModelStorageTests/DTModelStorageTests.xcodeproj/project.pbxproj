@@ -29,6 +29,7 @@
 		9A2A38831AEE24F10021E97D /* DTMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC9186732E0004481BA /* DTMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A2A38841AEE24F10021E97D /* DTSectionModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BCB186732E0004481BA /* DTSectionModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A2A38851AEE24F10021E97D /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BBD18670B88004481BA /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38E51AEE2E170021E97D /* DTStorageProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC2186732E0004481BA /* DTStorageProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
 		9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */; };
 		9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
@@ -271,6 +272,7 @@
 				9A2A38811AEE24F10021E97D /* DTBaseStorage.h in Headers */,
 				9A2A38821AEE24F10021E97D /* DTCoreDataStorage.h in Headers */,
 				9A2A38831AEE24F10021E97D /* DTMemoryStorage.h in Headers */,
+				9A2A38E51AEE2E170021E97D /* DTStorageProtocol.h in Headers */,
 				9A2A38841AEE24F10021E97D /* DTSectionModel.h in Headers */,
 				9A2A38851AEE24F10021E97D /* DTModelStorage.h in Headers */,
 			);
@@ -632,6 +634,7 @@
 				9A2A386F1AEE24350021E97D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "XCTests" */ = {
 			isa = XCConfigurationList;
