@@ -1,6 +1,7 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.png?branch=master) &nbsp;
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTModelStorage/badge.png) &nbsp; 
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 DTModelStorage
 ==============
@@ -140,6 +141,10 @@ Only DTCoreDataStorage:
 Only DTMemoryStorage:
 
     pod 'DTModelStorage/MemoryStorage', '~> 1.2.0'
+    
+Using Carthage
+    
+    github "DenHeadless/DTModelStorage"
 
 Requirements
 ============
