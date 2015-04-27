@@ -23,8 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+@import UIKit;
+@import CoreData;
 #import "DTBaseStorage.h"
-#import <CoreData/CoreData.h>
 
 #pragma clang assume_nonnull begin
 

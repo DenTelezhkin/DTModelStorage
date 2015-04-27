@@ -11,6 +11,24 @@
 		9A24F69919D949A4009DE5D4 /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F69819D949A4009DE5D4 /* SwiftClass.swift */; };
 		9A24F69B19D94AFD009DE5D4 /* SwiftProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F69A19D94AFD009DE5D4 /* SwiftProvider.swift */; };
 		9A24F6A119DA0354009DE5D4 /* RenamedSwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F6A019DA0354009DE5D4 /* RenamedSwiftClass.swift */; };
+		9A2A38741AEE24790021E97D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
+		9A2A38751AEE24790021E97D /* DTRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */; };
+		9A2A38761AEE24790021E97D /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
+		9A2A38771AEE24790021E97D /* DTBaseStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */; };
+		9A2A38781AEE24790021E97D /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
+		9A2A38791AEE24790021E97D /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
+		9A2A387A1AEE24790021E97D /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
+		9A2A387B1AEE24F10021E97D /* DTModelTransfer.h in Headers */ = {isa = PBXBuildFile; fileRef = AA478957187FEFB900E51667 /* DTModelTransfer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A387C1AEE24F10021E97D /* DTMemoryStorage+UpdateWithoutAnimations.h in Headers */ = {isa = PBXBuildFile; fileRef = AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A387D1AEE24F10021E97D /* DTRuntimeHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A387E1AEE24F10021E97D /* DTStorageUpdating.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A88F5A119EAA4AF008436C9 /* DTStorageUpdating.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A387F1AEE24F10021E97D /* DTSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC1186732E0004481BA /* DTSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38801AEE24F10021E97D /* DTStorageUpdate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC3186732E0004481BA /* DTStorageUpdate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38811AEE24F10021E97D /* DTBaseStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A88F5A219EAAEFE008436C9 /* DTBaseStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38821AEE24F10021E97D /* DTCoreDataStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC6186732E0004481BA /* DTCoreDataStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38831AEE24F10021E97D /* DTMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC9186732E0004481BA /* DTMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38841AEE24F10021E97D /* DTSectionModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BCB186732E0004481BA /* DTSectionModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A2A38851AEE24F10021E97D /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BBD18670B88004481BA /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
 		9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */; };
 		9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
@@ -19,7 +37,6 @@
 		9A7D5BB919D860830083673D /* DTSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCC186732E0004481BA /* DTSectionModel.m */; };
 		9A7D5BBE19D861C10083673D /* MemoryStorageSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */; };
 		9A7D5BC019D862310083673D /* CoreDataStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BBF19D862310083673D /* CoreDataStorageTests.m */; };
-		9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7D5BC319D8A0DA0083673D /* UIKit.framework */; };
 		9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */; };
 		9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */; };
 		9A808A4F1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */; };
@@ -44,11 +61,12 @@
 		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSectionModel.h; sourceTree = "<group>"; };
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTSectionModel.m; sourceTree = "<group>"; };
 		9A24F69119D9405E009DE5D4 /* RuntimeHelperObjectiveCTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RuntimeHelperObjectiveCTests.m; path = Specs/RuntimeHelperObjectiveCTests.m; sourceTree = "<group>"; };
-		9A24F69619D94185009DE5D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9A24F69819D949A4009DE5D4 /* SwiftClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftClass.swift; path = Fixtures/SwiftClass.swift; sourceTree = "<group>"; };
 		9A24F69A19D94AFD009DE5D4 /* SwiftProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftProvider.swift; path = Helpers/SwiftProvider.swift; sourceTree = "<group>"; };
 		9A24F69C19D96D97009DE5D4 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		9A24F6A019DA0354009DE5D4 /* RenamedSwiftClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenamedSwiftClass.swift; path = Fixtures/RenamedSwiftClass.swift; sourceTree = "<group>"; };
+		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A2A38B61AEE26980021E97D /* DTModelStorage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTModelStorage-Info.plist"; sourceTree = "<group>"; };
 		9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTRuntimeHelper.h; path = Utilities/DTRuntimeHelper.h; sourceTree = "<group>"; };
 		9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTRuntimeHelper.m; path = Utilities/DTRuntimeHelper.m; sourceTree = "<group>"; };
 		9A7D5BAB19D860700083673D /* XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,7 +74,6 @@
 		9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		9A7D5BBD19D861C10083673D /* MemoryStorageSearchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageSearchTests.m; path = Specs/MemoryStorageSearchTests.m; sourceTree = "<group>"; };
 		9A7D5BBF19D862310083673D /* CoreDataStorageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataStorageTests.m; path = Specs/CoreDataStorageTests.m; sourceTree = "<group>"; };
-		9A7D5BC319D8A0DA0083673D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9A7D5BC519D8A16E0083673D /* MemoryStorageAddTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageAddTests.m; path = Specs/MemoryStorageAddTests.m; sourceTree = "<group>"; };
 		9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageEditTests.m; path = Specs/MemoryStorageEditTests.m; sourceTree = "<group>"; };
 		9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryStorageRemovingItemsTests.m; path = Specs/MemoryStorageRemovingItemsTests.m; sourceTree = "<group>"; };
@@ -70,11 +87,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9A2A38571AEE24340021E97D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A7D5BA819D860700083673D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A7D5BC419D8A0DA0083673D /* UIKit.framework in Frameworks */,
 				C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +215,7 @@
 		AA3B07A1185F55C100A95D16 = {
 			isa = PBXGroup;
 			children = (
+				9A2A38B61AEE26980021E97D /* DTModelStorage-Info.plist */,
 				95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */,
 				95E178721861B8D300D1B083 /* DTModelStorage */,
 				9A7D5BAC19D860700083673D /* XCTests */,
@@ -205,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				9A7D5BAB19D860700083673D /* XCTests.xctest */,
+				9A2A385B1AEE24340021E97D /* DTModelStorage.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,8 +237,6 @@
 		AA3B07AC185F55C100A95D16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9A24F69619D94185009DE5D4 /* Foundation.framework */,
-				9A7D5BC319D8A0DA0083673D /* UIKit.framework */,
 				5EEFC0BEA1574F979AF3A62C /* libPods-Tests.a */,
 				E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */,
 			);
@@ -234,7 +257,46 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		9A2A38581AEE24340021E97D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A2A387B1AEE24F10021E97D /* DTModelTransfer.h in Headers */,
+				9A2A387C1AEE24F10021E97D /* DTMemoryStorage+UpdateWithoutAnimations.h in Headers */,
+				9A2A387D1AEE24F10021E97D /* DTRuntimeHelper.h in Headers */,
+				9A2A387E1AEE24F10021E97D /* DTStorageUpdating.h in Headers */,
+				9A2A387F1AEE24F10021E97D /* DTSection.h in Headers */,
+				9A2A38801AEE24F10021E97D /* DTStorageUpdate.h in Headers */,
+				9A2A38811AEE24F10021E97D /* DTBaseStorage.h in Headers */,
+				9A2A38821AEE24F10021E97D /* DTCoreDataStorage.h in Headers */,
+				9A2A38831AEE24F10021E97D /* DTMemoryStorage.h in Headers */,
+				9A2A38841AEE24F10021E97D /* DTSectionModel.h in Headers */,
+				9A2A38851AEE24F10021E97D /* DTModelStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		9A2A385A1AEE24340021E97D /* DTModelStorage iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage iOS" */;
+			buildPhases = (
+				9A2A38561AEE24340021E97D /* Sources */,
+				9A2A38571AEE24340021E97D /* Frameworks */,
+				9A2A38581AEE24340021E97D /* Headers */,
+				9A2A38591AEE24340021E97D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DTModelStorage iOS";
+			productName = "DTModelStorage iOS";
+			productReference = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		9A7D5BAA19D860700083673D /* XCTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "XCTests" */;
@@ -263,6 +325,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Denys Telezhkin";
 				TargetAttributes = {
+					9A2A385A1AEE24340021E97D = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					9A7D5BAA19D860700083673D = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
@@ -281,11 +346,19 @@
 			projectRoot = "";
 			targets = (
 				9A7D5BAA19D860700083673D /* XCTests */,
+				9A2A385A1AEE24340021E97D /* DTModelStorage iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9A2A38591AEE24340021E97D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A7D5BA919D860700083673D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,6 +402,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9A2A38561AEE24340021E97D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A2A38741AEE24790021E97D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
+				9A2A38751AEE24790021E97D /* DTRuntimeHelper.m in Sources */,
+				9A2A38761AEE24790021E97D /* DTStorageUpdate.m in Sources */,
+				9A2A38771AEE24790021E97D /* DTBaseStorage.m in Sources */,
+				9A2A38781AEE24790021E97D /* DTCoreDataStorage.m in Sources */,
+				9A2A38791AEE24790021E97D /* DTMemoryStorage.m in Sources */,
+				9A2A387A1AEE24790021E97D /* DTSectionModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A7D5BA719D860700083673D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,6 +442,63 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		9A2A386E1AEE24350021E97D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/DTModelStorage-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = DTModelStorage;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9A2A386F1AEE24350021E97D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "$(SRCROOT)/DTModelStorage-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = DTModelStorage;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		9A7D5BB219D860700083673D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 956EFDECAD985DE78441169F /* Pods-XCTests.debug.xcconfig */;
@@ -440,7 +584,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -472,7 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -481,6 +625,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A2A386E1AEE24350021E97D /* Debug */,
+				9A2A386F1AEE24350021E97D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "XCTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
