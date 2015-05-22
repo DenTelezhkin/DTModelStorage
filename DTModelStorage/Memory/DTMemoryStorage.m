@@ -36,15 +36,17 @@
 
 @implementation DTMemoryStorage
 
+-(instancetype)init
+{
+    self = [super init];
+    self.sections = [NSMutableArray array];
+    self.loggingEnabled = YES;
+    return self;
+}
+
 + (instancetype)storage
 {
-    DTMemoryStorage * storage = [self new];
-
-    storage.sections = [NSMutableArray array];
-
-    storage.loggingEnabled = YES;
-
-    return storage;
+    return [self new];
 }
 
 - (NSMutableDictionary *)searchingBlocks
@@ -180,8 +182,7 @@
 - (instancetype)searchingStorageForSearchString:(NSString *)searchString
                                   inSearchScope:(NSUInteger)searchScope
 {
-    DTMemoryStorage * storage = [[self class] storage
-    ];
+    DTMemoryStorage * storage = [[self class] new];
 
     for (NSUInteger sectionNumber = 0; sectionNumber < [self.sections count]; sectionNumber++)
     {

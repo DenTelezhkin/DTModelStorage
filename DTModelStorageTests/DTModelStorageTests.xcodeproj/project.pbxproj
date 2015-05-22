@@ -31,7 +31,6 @@
 		9A2A38851AEE24F10021E97D /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BBD18670B88004481BA /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A2A38E51AEE2E170021E97D /* DTStorageProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A222BC2186732E0004481BA /* DTStorageProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */; };
-		9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */; };
 		9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC4186732E0004481BA /* DTStorageUpdate.m */; };
 		9A7D5BB719D860830083673D /* DTCoreDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BC7186732E0004481BA /* DTCoreDataStorage.m */; };
 		9A7D5BB819D860830083673D /* DTMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A222BCA186732E0004481BA /* DTMemoryStorage.m */; };
@@ -42,6 +41,8 @@
 		9A7D5BC819D8A22C0083673D /* MemoryStorageEditTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7D5BC719D8A22C0083673D /* MemoryStorageEditTests.m */; };
 		9A808A4F1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A808A4E1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m */; };
 		9A88F5A419EAAEFE008436C9 /* DTBaseStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */; };
+		9A8FC0DA1B0F425300A55C81 /* TestConstructors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8FC0D91B0F425300A55C81 /* TestConstructors.swift */; };
+		9A8FC0DC1B0F492C00A55C81 /* MemoryStorageSubclassing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8FC0DB1B0F492C00A55C81 /* MemoryStorageSubclassing.swift */; };
 		C22A88696901596441D3AB3D /* libPods-XCTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B33D6FFCD9F4C66024650B /* libPods-XCTests.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,8 @@
 		9A88F5A119EAA4AF008436C9 /* DTStorageUpdating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStorageUpdating.h; sourceTree = "<group>"; };
 		9A88F5A219EAAEFE008436C9 /* DTBaseStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTBaseStorage.h; sourceTree = "<group>"; };
 		9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTBaseStorage.m; sourceTree = "<group>"; };
+		9A8FC0D91B0F425300A55C81 /* TestConstructors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestConstructors.swift; path = Subclassing/TestConstructors.swift; sourceTree = "<group>"; };
+		9A8FC0DB1B0F492C00A55C81 /* MemoryStorageSubclassing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageSubclassing.swift; path = Specs/MemoryStorageSubclassing.swift; sourceTree = "<group>"; };
 		AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+UpdateWithoutAnimations.h"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.h"; sourceTree = "<group>"; };
 		AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+UpdateWithoutAnimations.m"; path = "Utilities/DTMemoryStorage+UpdateWithoutAnimations.m"; sourceTree = "<group>"; };
 		AA478957187FEFB900E51667 /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = Utilities/DTModelTransfer.h; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 				9A24F69A19D94AFD009DE5D4 /* SwiftProvider.swift */,
 				9A24F69819D949A4009DE5D4 /* SwiftClass.swift */,
 				9A24F6A019DA0354009DE5D4 /* RenamedSwiftClass.swift */,
+				9A8FC0DB1B0F492C00A55C81 /* MemoryStorageSubclassing.swift */,
 			);
 			name = Runtime;
 			sourceTree = "<group>";
@@ -199,6 +203,7 @@
 				9A24F69E19DA032C009DE5D4 /* MemoryStorage */,
 				9A24F69D19DA0322009DE5D4 /* Runtime */,
 				9A7D5BAD19D860700083673D /* Supporting Files */,
+				9A8FC0D91B0F425300A55C81 /* TestConstructors.swift */,
 			);
 			path = XCTests;
 			sourceTree = "<group>";
@@ -429,11 +434,12 @@
 				9A7D5BB619D860830083673D /* DTStorageUpdate.m in Sources */,
 				9A7D5BB719D860830083673D /* DTCoreDataStorage.m in Sources */,
 				9A24F6A119DA0354009DE5D4 /* RenamedSwiftClass.swift in Sources */,
+				9A8FC0DA1B0F425300A55C81 /* TestConstructors.swift in Sources */,
 				9A7D5BC019D862310083673D /* CoreDataStorageTests.m in Sources */,
 				9A7D5BB819D860830083673D /* DTMemoryStorage.m in Sources */,
-				9A7D5BB519D860830083673D /* DTRuntimeHelper.m in Sources */,
 				9A7D5BC619D8A16E0083673D /* MemoryStorageAddTests.m in Sources */,
 				9A24F69919D949A4009DE5D4 /* SwiftClass.swift in Sources */,
+				9A8FC0DC1B0F492C00A55C81 /* MemoryStorageSubclassing.swift in Sources */,
 				9A88F5A419EAAEFE008436C9 /* DTBaseStorage.m in Sources */,
 				9A7D5BB419D860830083673D /* DTMemoryStorage+UpdateWithoutAnimations.m in Sources */,
 				9A24F69B19D94AFD009DE5D4 /* SwiftProvider.swift in Sources */,

@@ -22,7 +22,7 @@
 - (void)setUp {
     [super setUp];
     
-    storage = [DTMemoryStorage storage];
+    storage = [DTMemoryStorage new];
     storage.delegate = [OCMockObject niceMockForProtocol:@protocol(DTStorageUpdating)];
 }
 

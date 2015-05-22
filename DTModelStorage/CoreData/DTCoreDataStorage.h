@@ -42,8 +42,17 @@
  
  @return `DTCoreDataStorage` object.
  */
+-(instancetype)initWithFetchResultsController:(NSFetchedResultsController *)controller NS_DESIGNATED_INITIALIZER;
 
-+(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller;
+/**
+ Use this method to create `DTCoreDataStorage` object with your NSFetchedResultsController.
+ 
+ @param controller NSFetchedResultsController instance, that will be used as datasource.
+ 
+ @return `DTCoreDataStorage` object.
+ */
+
++(instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller __deprecated;
 
 /**
  NSFetchedResultsController of current `DTCoreDataStorage` object.

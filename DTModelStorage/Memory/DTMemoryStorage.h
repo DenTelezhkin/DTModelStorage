@@ -42,8 +42,14 @@
  
  @return DTMemoryStorage instance
  */
+-(id)init NS_DESIGNATED_INITIALIZER;
 
-+(instancetype)storage;
+/**
+ Creates `DTMemoryStorage` with default configuration.
+ 
+ @return DTMemoryStorage instance
+ */
++(instancetype)storage __deprecated;
 
 /**
  Contains array of DTSectionModel's. Every DTSectionModel contains NSMutableArray of objects - all models are stored there. Every DTSectionModel also contains optional supplementary models - for example, it can be headers or footers for UITableView or UICollectionView. Number of supplementary models is not limited to just 2.

@@ -32,14 +32,17 @@
 
 @implementation DTCoreDataStorage
 
+-(instancetype)initWithFetchResultsController:(NSFetchedResultsController * )controller
+{
+    self = [super init];
+    self.fetchedResultsController = controller;
+    self.fetchedResultsController.delegate = self;
+    return self;
+}
+
 + (instancetype)storageWithFetchResultsController:(NSFetchedResultsController *)controller
 {
-    DTCoreDataStorage * storage = [self new];
-
-    storage.fetchedResultsController = controller;
-    storage.fetchedResultsController.delegate = storage;
-
-    return storage;
+    return [[self alloc] initWithFetchResultsController:controller];
 }
 
 - (NSArray *)sections

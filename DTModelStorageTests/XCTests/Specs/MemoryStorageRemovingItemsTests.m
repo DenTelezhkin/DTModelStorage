@@ -22,7 +22,7 @@
 
 -(void)setUp
 {
-    self.storage = [DTMemoryStorage storage];
+    self.storage = [DTMemoryStorage new];
 }
 
 -(void)testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly
