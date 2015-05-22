@@ -12,8 +12,8 @@
 
 @interface DTRuntimeHelper : NSObject
 
-+ (NSString *)classStringForClass:(Class)class;
-+ (NSString *)modelStringForClass:(Class)class;
++ (NSString *)classStringForClass:(Class)klass;
++ (NSString *)modelStringForClass:(Class)klass;
 
 @end
 

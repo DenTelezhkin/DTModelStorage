@@ -10,9 +10,9 @@
 
 @implementation DTRuntimeHelper
 
-+(NSString *)classStringForClass:(Class)class
++(NSString *)classStringForClass:(Class)klass
 {
-    NSString * classString = NSStringFromClass(class);
+    NSString * classString = NSStringFromClass(klass);
     if ([classString rangeOfString:@"."].location != NSNotFound)
     {
         // Swift class, format <ModuleName>.<ClassName>
@@ -21,13 +21,13 @@
     return classString;
 }
 
-+(NSString *)modelStringForClass:(Class)class
++(NSString *)modelStringForClass:(Class)klass
 {
-    NSString * classString = [self classStringForClass:class];
+    NSString * classString = [self classStringForClass:klass];
     if ([classString isEqualToString:@"__NSCFConstantString"] ||
         [classString isEqualToString:@"__NSCFString"] ||
         [classString isEqualToString:@"_NSContiguousString"] ||
-        class == [NSMutableString class])
+        klass == [NSMutableString class])
     {
         return @"NSString";
     }
@@ -39,7 +39,7 @@
     if ([classString isEqualToString:@"__NSDictionaryI"] ||
         [classString isEqualToString:@"__NSDictionaryM"] ||
        ([classString rangeOfString:@"_NativeDictionaryStorageOwner"].location != NSNotFound) ||
-        class == [NSMutableDictionary class])
+        klass == [NSMutableDictionary class])
     {
         return @"NSDictionary";
     }
@@ -48,11 +48,11 @@
         [classString isEqualToString:@"_NSSwiftArrayImpl"] ||
         [classString isEqualToString:@"_SwiftDeferredNSArray"] ||
         ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
-        class == [NSMutableArray class])
+        klass == [NSMutableArray class])
     {
         return @"NSArray";
     }
-    if ([classString isEqualToString:@"__NSDate"] || [classString isEqualToString:@"__NSTaggedDate"] || class == [NSDate class])
+    if ([classString isEqualToString:@"__NSDate"] || [classString isEqualToString:@"__NSTaggedDate"] || klass == [NSDate class])
     {
         return @"NSDate";
     }
