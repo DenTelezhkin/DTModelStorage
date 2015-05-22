@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import "DTStorageUpdate.h"
 
 #pragma clang assume_nonnull begin
