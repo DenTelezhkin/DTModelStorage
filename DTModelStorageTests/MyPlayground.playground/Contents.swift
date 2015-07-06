@@ -2,7 +2,7 @@
 
 import UIKit
 
-protocol AssociatedModelTransfer
+protocol ModelTransfer
 {
     typealias CellModel
     
@@ -10,24 +10,24 @@ protocol AssociatedModelTransfer
 }
 
 
-class FooCell : UIView, AssociatedModelTransfer
+class IntCell : UIView, ModelTransfer
 {
     func updateWithModel(model: Int) {
-        print("hi model \(model)")
+        println("hi model \(model)")
     }
 }
 
-class BarCell : UIView, AssociatedModelTransfer
+class StringCell : UIView, ModelTransfer
 {
     func updateWithModel(model: String) {
-        print(model)
+        println(model)
     }
 }
 
 typealias anyBlock = (Any,Any) -> ()
 var updateBlocks = [anyBlock]()
 
-func map<T:AssociatedModelTransfer>(cellType : T.Type)
+func registerCellClass<T:ModelTransfer>(cellType : T.Type)
 {
     let type = T.CellModel.self
     let updateBlock: (Any,Any) -> Void = { view, model in
@@ -36,27 +36,23 @@ func map<T:AssociatedModelTransfer>(cellType : T.Type)
     updateBlocks.append(updateBlock)
 }
 
-func updateWithModel<T:AssociatedModelTransfer>(cell: T, model: T.CellModel)
-{
-    cell.updateWithModel(model)
-}
+//let ref = reflect(Int.self)
+//let ref2 = reflect(String.self)
+//
+//var dict = [ref.summary : IntCell.self, ref2.summary : StringCell.self]
+//////
+//////
+//let type = dict[reflect(5.dynamicType).summary]
+//type!.dynamicType
+//
+//let view: UIView = StringCell()
+//let model: Any = 5
 
-let ref = reflect(Int.self)
-let ref2 = reflect(String.self)
+registerCellClass(StringCell.self)
+registerCellClass(IntCell.self)
 
-var dict = [ref.summary : FooCell.self, ref2.summary : BarCell.self]
-////
-////
-let type = dict[reflect(5.dynamicType).summary]
-type!.dynamicType
-
-let view: UIView = BarCell()
-let model: Any = 5
-
-map(BarCell.self)
-map(FooCell.self)
-
-updateBlocks[0](view,"56")
+updateBlocks[0](StringCell(),"56")
+updateBlocks[1](IntCell(),42)
 
 //let array = [AssociatedModelTransfer]()
 //if BarCell.self is AssociatedModelTransfer
