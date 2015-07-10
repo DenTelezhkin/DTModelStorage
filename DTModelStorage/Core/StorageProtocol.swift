@@ -10,7 +10,7 @@ import Foundation
 
 protocol StorageProtocol
 {
-    func sections() -> [Section]
+    var sections : [Section] { get }
     
     func objectAtIndexPath(path : NSIndexPath) -> Any?
 }
@@ -19,13 +19,14 @@ protocol HeaderFooterStorageProtocol
 {
     func headerModelForSectionIndex(index: Int) -> Any?
     func footerModelForSectionIndex(index: Int) -> Any?
+    
+    var supplementaryHeaderKind : String? { get set }
+    var supplementaryFooterKind : String?  { get set }
 }
 
 protocol SupplementaryStorageProtocol
 {
     func supplementaryModelOfKind(kind: String, sectionIndex : Int) -> Any?
-    func setSupplementaryHeaderKind(kind: String)
-    func setSupplementaryFooterKind(kind: String)
 }
 
 protocol StorageUpdating : class

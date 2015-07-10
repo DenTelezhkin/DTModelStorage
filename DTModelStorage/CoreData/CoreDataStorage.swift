@@ -28,18 +28,19 @@ class CoreDataStorage : BaseStorage
         if self.currentUpdate != nil { self.delegate?.storageDidPerformUpdate(self.currentUpdate!) }
         self.currentUpdate = nil
     }
-}
-
-extension CoreDataStorage : StorageProtocol
-{
-    func sections() -> [Section] {
+    
+    var sections : [Section]
+    {
         if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo]
         {
             return sections.map { $0 as! Section }
         }
         return []
     }
-    
+}
+
+extension CoreDataStorage : StorageProtocol
+{
     func objectAtIndexPath(path: NSIndexPath) -> Any? {
         return fetchedResultsController.objectAtIndexPath(path)
     }
@@ -80,17 +81,64 @@ extension CoreDataStorage : SupplementaryStorageProtocol
         }
         return nil
     }
-    
-    func setSupplementaryHeaderKind(kind: String) {
-        
-    }
-    
-    func setSupplementaryFooterKind(kind: String) {
-        
-    }
 }
 
 extension CoreDataStorage : NSFetchedResultsControllerDelegate
 {
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.startUpdate()
+    }
     
+    func controller(controller: NSFetchedResultsController,
+        didChangeObject anObject: AnyObject,
+        atIndexPath indexPath: NSIndexPath?,
+        forChangeType type: NSFetchedResultsChangeType,
+        newIndexPath: NSIndexPath?)
+    {
+        if self.currentUpdate == nil { return }
+        
+        switch type
+        {
+        case .Insert:
+            if self.currentUpdate!.insertedSectionIndexes.containsIndex(newIndexPath!.section) {
+                // If we've already been told that we're adding a section for this inserted row we skip it since it will handled by the section insertion.
+                return
+            }
+            self.currentUpdate!.insertedRowIndexPaths.append(newIndexPath!)
+        case .Delete:
+            if self.currentUpdate!.deletedSectionIndexes.containsIndex(indexPath!.section) {
+                // If we've already been told that we're deleting a section for this deleted row we skip it since it will handled by the section deletion.
+                return
+            }
+            self.currentUpdate?.deletedRowIndexPaths.append(indexPath!)
+        case .Move:
+            if !self.currentUpdate!.insertedSectionIndexes.containsIndex(newIndexPath!.section)
+            {
+                self.currentUpdate!.insertedRowIndexPaths.append(newIndexPath!)
+            }
+            if !self.currentUpdate!.deletedSectionIndexes.containsIndex(indexPath!.section) {
+                self.currentUpdate!.deletedRowIndexPaths.append(indexPath!)
+            }
+        case .Update:
+            self.currentUpdate?.updatedRowIndexPaths.append(indexPath!)
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    {
+        if self.currentUpdate == nil { return }
+        
+        switch type
+        {
+        case .Insert:
+            self.currentUpdate!.insertedSectionIndexes.addIndex(sectionIndex)
+        case .Delete:
+            self.currentUpdate!.deletedSectionIndexes.addIndex(sectionIndex)
+        default: ()
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.finishUpdate()
+    }
 }

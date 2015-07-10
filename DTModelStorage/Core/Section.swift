@@ -10,7 +10,6 @@ import Foundation
 
 protocol Section
 {
-    func objects() -> [Any]
-    
-    func numberOfObjects() -> UInt
+    var objects : [Any] { get }
+    var numberOfObjects : Int { get }
 }

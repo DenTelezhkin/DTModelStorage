@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "XCTests-Swift.h"
-#import "DTRuntimeHelper.h"
 
 @interface RuntimeHelperObjectiveCTests : XCTestCase
 
