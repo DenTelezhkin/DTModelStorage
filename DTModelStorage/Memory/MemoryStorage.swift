@@ -9,12 +9,12 @@
 import UIKit
 import Swift
 
-class MemoryStorage: BaseStorage, StorageProtocol
+public class MemoryStorage: BaseStorage, StorageProtocol
 {
-    var sections: [Section] = [SectionModel]()
-    private var currentUpdate :StorageUpdate?
+    public var sections: [Section] = [SectionModel]()
+    private var currentUpdate : StorageUpdate?
     
-    func objectAtIndexPath(path: NSIndexPath) -> Any? {
+    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         let sectionModel : SectionModel
         if path.section >= self.sections.count {
             return nil
@@ -41,19 +41,19 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.currentUpdate = nil
     }
     
-    func setSectionHeaderModel(model: Any?, forSectionIndex sectionIndex: Int)
+    public func setSectionHeaderModel(model: Any?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
         self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
     }
     
-    func setSectionFooterModel(model: Any?, forSectionIndex sectionIndex: Int)
+    public func setSectionFooterModel(model: Any?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
         self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
     }
     
-    func setSupplementaries(models : [Any], forKind kind: String)
+    public func setSupplementaries(models : [Any], forKind kind: String)
     {
         self.startUpdate()
         
@@ -74,19 +74,19 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func setSectionHeaderModels(models : [Any])
+    public func setSectionHeaderModels(models : [Any])
     {
         assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
         self.setSupplementaries(models, forKind: self.supplementaryHeaderKind!)
     }
     
-    func setSectionFooterModels(models : [Any])
+    public func setSectionFooterModels(models : [Any])
     {
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
         self.setSupplementaries(models, forKind: self.supplementaryFooterKind!)
     }
     
-    func setItems(items: [Any], forSectionIndex index: Int)
+    public func setItems(items: [Any], forSectionIndex index: Int)
     {
         let section = self.sectionAtIndex(index)
         section.objects.removeAll(keepCapacity: false)
@@ -94,7 +94,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.delegate?.storageNeedsReloading()
     }
     
-    func addItems(items: [Any], toSection index: Int = 0)
+    public func addItems(items: [Any], toSection index: Int = 0)
     {
         self.startUpdate()
         let section = self.getValidSection(index)
@@ -107,7 +107,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func addItem(item: Any, toSection index: Int = 0)
+    public func addItem(item: Any, toSection index: Int = 0)
     {
         self.startUpdate()
         let section = self.getValidSection(index)
@@ -117,7 +117,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func insertItem(item: Any, toIndexPath indexPath: NSIndexPath)
+    public func insertItem(item: Any, toIndexPath indexPath: NSIndexPath)
     {
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
@@ -131,7 +131,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func reloadItem<T:Equatable>(item: T)
+    public func reloadItem<T:Equatable>(item: T)
     {
         self.startUpdate()
         if let indexPath = self.indexPathForItem(item) {
@@ -140,13 +140,13 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func replaceItem<T: Equatable, U:Equatable>(itemToReplace: T, replacingItem: U)
+    public func replaceItem<T: Equatable, U:Equatable>(itemToReplace: T, replacingItem: U)
     {
         self.startUpdate()
         // MARK: TODO - Use guard and defer in Swift 2
         let originalIndexPath = self.indexPathForItem(itemToReplace)
         if originalIndexPath != nil {
-            let section = self.getValidSection(originalIndexPath!.item)
+            let section = self.getValidSection(originalIndexPath!.section)
             section.objects[originalIndexPath!.item] = replacingItem
         }
         else {
@@ -159,7 +159,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func removeItem<T:Equatable>(item: T)
+    public func removeItem<T:Equatable>(item: T)
     {
         self.startUpdate()
         
@@ -176,7 +176,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func removeItems<T:Equatable>(items: [T])
+    public func removeItems<T:Equatable>(items: [T])
     {
         self.startUpdate()
         let indexPaths = self.indexPathArrayForItems(items)
@@ -190,7 +190,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func removeItemsAtIndexPaths(indexPaths : [NSIndexPath])
+    public func removeItemsAtIndexPaths(indexPaths : [NSIndexPath])
     {
         self.startUpdate()
         
@@ -207,7 +207,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    func deleteSections(sections : NSIndexSet)
+    public func deleteSections(sections : NSIndexSet)
     {
         self.startUpdate()
 
@@ -223,7 +223,7 @@ class MemoryStorage: BaseStorage, StorageProtocol
 // MARK: - Searching in storage
 extension MemoryStorage
 {
-    func itemsInSection(section: Int) -> [Any]?
+    public func itemsInSection(section: Int) -> [Any]?
     {
         if self.sections.count > section {
             return self.sections[section].objects
@@ -231,7 +231,7 @@ extension MemoryStorage
         return nil
     }
     
-    func itemAtIndexPath(indexPath: NSIndexPath) -> Any?
+    public func itemAtIndexPath(indexPath: NSIndexPath) -> Any?
     {
         let sectionObjects : [Any]
         if indexPath.section < self.sections.count
@@ -247,7 +247,7 @@ extension MemoryStorage
         return nil
     }
     
-    func indexPathForItem<T: Equatable>(searchableItem : T) -> NSIndexPath?
+    public func indexPathForItem<T: Equatable>(searchableItem : T) -> NSIndexPath?
     {
         for sectionIndex in 0..<self.sections.count
         {
@@ -265,7 +265,7 @@ extension MemoryStorage
         return nil
     }
     
-    func sectionAtIndex(sectionIndex : Int) -> SectionModel
+    public func sectionAtIndex(sectionIndex : Int) -> SectionModel
     {
         self.startUpdate()
         let section = self.getValidSection(sectionIndex)
@@ -311,11 +311,11 @@ extension MemoryStorage
 
 extension MemoryStorage : HeaderFooterStorageProtocol
 {
-    func headerModelForSectionIndex(index: Int) -> Any? {
+    public func headerModelForSectionIndex(index: Int) -> Any? {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
-    
+  public   
     func footerModelForSectionIndex(index: Int) -> Any? {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
         return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
@@ -324,7 +324,7 @@ extension MemoryStorage : HeaderFooterStorageProtocol
 
 extension MemoryStorage : SupplementaryStorageProtocol
 {
-    func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any? {
+    public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any? {
         let sectionModel : SectionModel
         if sectionIndex >= self.sections.count {
             return nil

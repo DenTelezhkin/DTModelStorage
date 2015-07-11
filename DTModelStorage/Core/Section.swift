@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Section
+public protocol Section
 {
     var objects : [Any] { get }
     var numberOfObjects : Int { get }

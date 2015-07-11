@@ -1,9 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 inhibit_all_warnings!
+use_frameworks!
 
 target "XCTests" do
-platform :ios, 6.1
+platform :ios, 8
 pod 'OCMock', '~> 2.2.1'
 pod 'Expecta', '~> 0.2.3'
+pod 'Nimble'
 end

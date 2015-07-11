@@ -11,12 +11,12 @@ import Foundation
 public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
-class BaseStorage
+public class BaseStorage
 {
-    var supplementaryHeaderKind : String?
-    var supplementaryFooterKind : String?
+    public var supplementaryHeaderKind : String?
+    public var supplementaryFooterKind : String?
     
-    weak var delegate : StorageUpdating?
+    public weak var delegate : StorageUpdating?
     
-    init(){}
+    public init(){}
 }

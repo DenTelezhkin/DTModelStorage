@@ -8,23 +8,23 @@
 
 import Foundation
 
-class SectionModel : Section
+public class SectionModel : Section
 {
-    var objects = [Any]()
-    var numberOfObjects: Int {
+    public var objects = [Any]()
+    public var numberOfObjects: Int {
         return self.objects.count
     }
     
     private var supplementaries = [String:Any]()
     
-    init() {}
+    public init() {}
     
-    func supplementaryModelOfKind(kind: String) -> Any?
+    public func supplementaryModelOfKind(kind: String) -> Any?
     {
         return self.supplementaries[kind]
     }
     
-    func setSupplementaryModel(model : Any?, forKind kind: String)
+    public func setSupplementaryModel(model : Any?, forKind kind: String)
     {
         self.supplementaries[kind] = model
     }

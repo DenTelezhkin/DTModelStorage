@@ -8,18 +8,20 @@
 
 import Foundation
 
-struct StorageUpdate : Equatable
+public struct StorageUpdate : Equatable
 {
-    var deletedSectionIndexes = NSMutableIndexSet()
-    var insertedSectionIndexes = NSMutableIndexSet()
-    var updatedSectionIndexes = NSMutableIndexSet()
+    public var deletedSectionIndexes = NSMutableIndexSet()
+    public var insertedSectionIndexes = NSMutableIndexSet()
+    public var updatedSectionIndexes = NSMutableIndexSet()
     
-    var deletedRowIndexPaths = [NSIndexPath]()
-    var insertedRowIndexPaths = [NSIndexPath]()
-    var updatedRowIndexPaths = [NSIndexPath]()
+    public var deletedRowIndexPaths = [NSIndexPath]()
+    public var insertedRowIndexPaths = [NSIndexPath]()
+    public var updatedRowIndexPaths = [NSIndexPath]()
+    
+    public init(){}
 }
 
-func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
+public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
 {
     if !left.deletedSectionIndexes.isEqualToIndexSet(right.deletedSectionIndexes) { return false }
     if !left.insertedSectionIndexes.isEqualToIndexSet(right.insertedSectionIndexes) { return false }

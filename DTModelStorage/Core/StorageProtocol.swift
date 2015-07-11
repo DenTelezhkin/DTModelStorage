@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol StorageProtocol
+public protocol StorageProtocol
 {
     var sections : [Section] { get }
     
     func objectAtIndexPath(path : NSIndexPath) -> Any?
 }
 
-protocol HeaderFooterStorageProtocol
+public protocol HeaderFooterStorageProtocol
 {
     func headerModelForSectionIndex(index: Int) -> Any?
     func footerModelForSectionIndex(index: Int) -> Any?
@@ -24,12 +24,12 @@ protocol HeaderFooterStorageProtocol
     var supplementaryFooterKind : String?  { get set }
 }
 
-protocol SupplementaryStorageProtocol
+public protocol SupplementaryStorageProtocol
 {
     func supplementaryModelOfKind(kind: String, sectionIndex : Int) -> Any?
 }
 
-protocol StorageUpdating : class
+public protocol StorageUpdating : class
 {
     func storageDidPerformUpdate(update : StorageUpdate)
     func storageNeedsReloading()

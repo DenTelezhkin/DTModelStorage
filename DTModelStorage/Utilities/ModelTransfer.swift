@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ModelTransfer
+public protocol ModelTransfer
 {
     typealias CellModel
     
