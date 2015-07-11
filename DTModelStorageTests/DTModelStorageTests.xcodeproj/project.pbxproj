@@ -20,6 +20,8 @@
 		9A063C5E1B4B1B8A00A49FF3 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C5C1B4B1B8A00A49FF3 /* BaseStorage.swift */; };
 		9A063C601B4B1D1500A49FF3 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C5F1B4B1D1500A49FF3 /* CoreDataStorage.swift */; };
 		9A063C611B4B1D1500A49FF3 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C5F1B4B1D1500A49FF3 /* CoreDataStorage.swift */; };
+		9A063C671B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C661B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
+		9A063C681B5152BA00A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C661B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9A24F69219D9405E009DE5D4 /* RuntimeHelperObjectiveCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F69119D9405E009DE5D4 /* RuntimeHelperObjectiveCTests.m */; };
 		9A24F69919D949A4009DE5D4 /* SwiftClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F69819D949A4009DE5D4 /* SwiftClass.swift */; };
 		9A24F69B19D94AFD009DE5D4 /* SwiftProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A24F69A19D94AFD009DE5D4 /* SwiftProvider.swift */; };
@@ -76,6 +78,7 @@
 		9A063C581B4B19E400A49FF3 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageUpdate.swift; sourceTree = "<group>"; };
 		9A063C5C1B4B1B8A00A49FF3 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStorage.swift; sourceTree = "<group>"; };
 		9A063C5F1B4B1D1500A49FF3 /* CoreDataStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		9A063C661B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+UpdateWithoutAnimations.swift"; path = "Utilities/MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
 		9A222BBD18670B88004481BA /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
 		9A222BC1186732E0004481BA /* DTSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTSection.h; path = Core/DTSection.h; sourceTree = "<group>"; };
 		9A222BC2186732E0004481BA /* DTStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTStorageProtocol.h; path = Core/DTStorageProtocol.h; sourceTree = "<group>"; };
@@ -83,8 +86,8 @@
 		9A222BC4186732E0004481BA /* DTStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTStorageUpdate.m; path = Core/DTStorageUpdate.m; sourceTree = "<group>"; };
 		9A222BC6186732E0004481BA /* DTCoreDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCoreDataStorage.h; path = CoreData/DTCoreDataStorage.h; sourceTree = "<group>"; };
 		9A222BC7186732E0004481BA /* DTCoreDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCoreDataStorage.m; path = CoreData/DTCoreDataStorage.m; sourceTree = "<group>"; };
-		9A222BC9186732E0004481BA /* DTMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMemoryStorage.h; sourceTree = "<group>"; };
-		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTMemoryStorage.m; sourceTree = "<group>"; };
+		9A222BC9186732E0004481BA /* DTMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTMemoryStorage.h; path = Memory/DTMemoryStorage.h; sourceTree = "<group>"; };
+		9A222BCA186732E0004481BA /* DTMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTMemoryStorage.m; path = Memory/DTMemoryStorage.m; sourceTree = "<group>"; };
 		9A222BCB186732E0004481BA /* DTSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTSectionModel.h; path = Memory/DTSectionModel.h; sourceTree = "<group>"; };
 		9A222BCC186732E0004481BA /* DTSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTSectionModel.m; path = Memory/DTSectionModel.m; sourceTree = "<group>"; };
 		9A24F69119D9405E009DE5D4 /* RuntimeHelperObjectiveCTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RuntimeHelperObjectiveCTests.m; path = Specs/RuntimeHelperObjectiveCTests.m; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 		9A063C5B1B4B1B4000A49FF3 /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
+				9A222BC9186732E0004481BA /* DTMemoryStorage.h */,
+				9A222BCA186732E0004481BA /* DTMemoryStorage.m */,
 				AA478957187FEFB900E51667 /* DTModelTransfer.h */,
 				9A222BC6186732E0004481BA /* DTCoreDataStorage.h */,
 				9A222BC7186732E0004481BA /* DTCoreDataStorage.m */,
@@ -175,6 +180,10 @@
 				9A88F5A319EAAEFE008436C9 /* DTBaseStorage.m */,
 				9A222BCB186732E0004481BA /* DTSectionModel.h */,
 				9A222BCC186732E0004481BA /* DTSectionModel.m */,
+				9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */,
+				9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */,
+				AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */,
+				AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */,
 			);
 			name = Legacy;
 			sourceTree = "<group>";
@@ -208,8 +217,6 @@
 		9A222BC8186732E0004481BA /* Memory */ = {
 			isa = PBXGroup;
 			children = (
-				9A222BC9186732E0004481BA /* DTMemoryStorage.h */,
-				9A222BCA186732E0004481BA /* DTMemoryStorage.m */,
 				9AFE80A01B500E7C006B11B7 /* MemoryStorage.swift */,
 				9AFE809B1B500B34006B11B7 /* SectionModel.swift */,
 			);
@@ -306,11 +313,8 @@
 		AA478955187FEEBC00E51667 /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
-				AA35CA2E18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.h */,
-				AA35CA2F18C483B3003858F8 /* DTMemoryStorage+UpdateWithoutAnimations.m */,
-				9A7D5BA419D85DC80083673D /* DTRuntimeHelper.h */,
-				9A7D5BA519D85DC80083673D /* DTRuntimeHelper.m */,
 				9A063C4F1B4B153B00A49FF3 /* ModelTransfer.swift */,
+				9A063C661B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -477,6 +481,7 @@
 				9A2A38771AEE24790021E97D /* DTBaseStorage.m in Sources */,
 				9A063C5A1B4B19E400A49FF3 /* StorageUpdate.swift in Sources */,
 				9A063C511B4B153B00A49FF3 /* ModelTransfer.swift in Sources */,
+				9A063C681B5152BA00A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9AFE80A21B500E7C006B11B7 /* MemoryStorage.swift in Sources */,
 				9A2A38781AEE24790021E97D /* DTCoreDataStorage.m in Sources */,
 				9A063C5E1B4B1B8A00A49FF3 /* BaseStorage.swift in Sources */,
@@ -491,6 +496,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A063C601B4B1D1500A49FF3 /* CoreDataStorage.swift in Sources */,
+				9A063C671B5152B800A49FF3 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9A7D5BBE19D861C10083673D /* MemoryStorageSearchTests.m in Sources */,
 				9A7D5BB919D860830083673D /* DTSectionModel.m in Sources */,
 				9A808A4F1A70F974007F1B11 /* MemoryStorageRemovingItemsTests.m in Sources */,
