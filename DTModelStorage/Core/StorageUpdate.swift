@@ -31,3 +31,15 @@ public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
     if !(left.updatedRowIndexPaths == right.updatedRowIndexPaths) { return false }
     return true
 }
+
+extension StorageUpdate : Printable
+{
+    public var description : String {
+        return "Deleted section indexes: \(deletedSectionIndexes)\n" +
+            "Inserted section indexes : \(insertedSectionIndexes)\n" +
+            "Updated section indexes : \(updatedSectionIndexes)\n" +
+            "Deleted row indexPaths: \(deletedRowIndexPaths)\n" +
+            "Inserted row indexPaths: \(insertedRowIndexPaths)\n" +
+            "Updated row indexPaths: \(updatedRowIndexPaths)\n"
+    }
+}
