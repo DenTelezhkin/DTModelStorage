@@ -134,4 +134,89 @@ class MemoryStorageEditSpecs: XCTestCase {
         var update = StorageUpdate()
         update.deletedRowIndexPaths = [indexPath(0, 0),indexPath(1, 1),indexPath(1, 0)]
     }
+    
+    func testShouldDeleteSections()
+    {
+        storage.addItem(1, toSection: 0)
+        storage.addItem(2, toSection: 1)
+        storage.addItem(3, toSection: 2)
+        
+        storage.deleteSections(NSIndexSet(index: 1))
+        
+        var update = StorageUpdate()
+        update.deletedSectionIndexes.addIndex(1)
+        
+        expect(self.delegate.update) == update
+    }
+    
+    func testShouldSafelySetAndRetrieveSupplementaryModel()
+    {
+        let section = SectionModel()
+        section.setSupplementaryModel("foo", forKind: "bar")
+        
+        expect(section.supplementaryModelOfKind("bar") as? String).to(equal("foo"))
+    }
+    
+    func testShouldNotCallDelegateForOptionalMethod()
+    {
+        storage.supplementaryModelOfKind("foo", sectionIndex: 1)
+    }
+    
+    func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
+    {
+        let section = storage.sectionAtIndex(0)
+        section.setSupplementaryModel("foo", forKind: "bar")
+        expect(self.storage.supplementaryModelOfKind("bar", sectionIndex: 0) as? String).to(equal("foo"))
+    }
+    
+    func testShouldSetSupplementaries()
+    {
+        let kind = "foo"
+        storage.setSupplementaries([1,2,3], forKind: kind)
+        
+        expect(self.storage.sectionAtIndex(0).supplementaryModelOfKind(kind) as? Int) == 1
+        expect(self.storage.sectionAtIndex(1).supplementaryModelOfKind(kind) as? Int) == 2
+        expect(self.storage.sectionAtIndex(2).supplementaryModelOfKind(kind) as? Int) == 3
+    }
+    
+    func testShouldNilOutSupplementaries()
+    {
+        let kind = "foo"
+        storage.setSupplementaries([1,2,3], forKind: kind)
+        
+        storage.setSupplementaries([], forKind: kind)
+        
+        expect(self.storage.sectionAtIndex(0).supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(1).supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(2).supplementaryModelOfKind(kind) as? Int).to(beNil())
+    }
+    
+    func testShouldGetItemCorrectly()
+    {
+        storage.addItem(1, toSection: 0)
+        storage.addItem(2, toSection: 1)
+        storage.addItem(3, toSection: 2)
+        
+        var model = storage.objectAtIndexPath(indexPath(0, 1))
+        
+        expect(model as? Int) == 2
+        
+        model = storage.objectAtIndexPath(indexPath(0, 2))
+        
+        expect(model as? Int) == 3
+    }
+    
+    func testShouldReturnNilForNotExistingIndexPath()
+    {
+        let model = storage.objectAtIndexPath(indexPath(5, 6))
+        expect(model as? Int).to(beNil())
+    }
+    
+    func testShouldReturnNilForNotExistingIndexPathInExistingSection()
+    {
+        storage.addItem(1, toSection: 0)
+        let model = storage.objectAtIndexPath(indexPath(1, 0))
+        
+        expect(model as? Int).to(beNil())
+    }
 }

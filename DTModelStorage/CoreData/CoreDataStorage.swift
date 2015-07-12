@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-class CoreDataStorage : BaseStorage
+public class CoreDataStorage : BaseStorage
 {
-    let fetchedResultsController : NSFetchedResultsController
+    public let fetchedResultsController : NSFetchedResultsController
     private var currentUpdate : StorageUpdate?
     
-    init(fetchedResultsController: NSFetchedResultsController)
+    public init(fetchedResultsController: NSFetchedResultsController)
     {
         self.fetchedResultsController = fetchedResultsController
     }
@@ -30,8 +30,9 @@ class CoreDataStorage : BaseStorage
         self.currentUpdate = nil
     }
     
-    var sections : [Section]
+    public var sections : [Section]
     {
+        
         if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo]
         {
             return sections.map { $0 as! Section }
@@ -42,14 +43,14 @@ class CoreDataStorage : BaseStorage
 
 extension CoreDataStorage : StorageProtocol
 {
-    func objectAtIndexPath(path: NSIndexPath) -> Any? {
+    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         return fetchedResultsController.objectAtIndexPath(path)
     }
 }
 
 extension CoreDataStorage : HeaderFooterStorageProtocol
 {
-    func headerModelForSectionIndex(index: Int) -> Any?
+    public func headerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryHeaderKind != nil, "Supplementary header kind must be set before retrieving header model for section index")
         
@@ -58,7 +59,7 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
     
-    func footerModelForSectionIndex(index: Int) -> Any?
+    public func footerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryFooterKind != nil, "Supplementary footer kind must be set before retrieving header model for section index")
         
@@ -70,7 +71,7 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
 
 extension CoreDataStorage : SupplementaryStorageProtocol
 {
-    func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any?
+    public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any?
     {
         if kind == self.supplementaryHeaderKind
         {
@@ -86,11 +87,11 @@ extension CoreDataStorage : SupplementaryStorageProtocol
 
 extension CoreDataStorage : NSFetchedResultsControllerDelegate
 {
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.startUpdate()
     }
     
-    func controller(controller: NSFetchedResultsController,
+    public func controller(controller: NSFetchedResultsController,
         didChangeObject anObject: AnyObject,
         atIndexPath indexPath: NSIndexPath?,
         forChangeType type: NSFetchedResultsChangeType,
@@ -125,7 +126,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
     {
         if self.currentUpdate == nil { return }
         
@@ -139,7 +140,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.finishUpdate()
     }
 }

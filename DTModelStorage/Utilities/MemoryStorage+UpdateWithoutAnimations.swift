@@ -10,7 +10,7 @@ import Foundation
 
 extension MemoryStorage
 {
-    func updateWithoutAnimations(block: () -> Void)
+    public func updateWithoutAnimations(block: () -> Void)
     {
         let delegate = self.delegate
         self.delegate = nil

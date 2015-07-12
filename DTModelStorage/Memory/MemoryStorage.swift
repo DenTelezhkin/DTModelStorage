@@ -58,7 +58,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.startUpdate()
         
         if models.count == 0 {
-            for section in self.sections as! [SectionModel] {
+            for index in 0..<self.sections.count {
+                let section = self.sections[index] as! SectionModel
                 section.setSupplementaryModel(nil, forKind: kind)
             }
             return
@@ -315,8 +316,8 @@ extension MemoryStorage : HeaderFooterStorageProtocol
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
-  public   
-    func footerModelForSectionIndex(index: Int) -> Any? {
+  
+    public func footerModelForSectionIndex(index: Int) -> Any? {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
         return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
     }
