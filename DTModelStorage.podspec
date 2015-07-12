@@ -11,12 +11,12 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'Foundation', 'CoreData'
 
   s.subspec 'ObjectiveC' do |ss|
-    ss.source_files = 'DTModelStorage/ObjectiveC/**'
+    ss.source_files = 'DTModelStorage/ObjectiveC/**/*.{h,m}'
     ss.platform = :ios, 7.0
   end
 
   s.subspec 'Swift' do |ss|
-    ss.source_files = 'DTModelStorage/Swift/**'
+    ss.source_files = 'DTModelStorage/Swift/**/*.swift'
     ss.platform = :ios, 8.0
   end
 
