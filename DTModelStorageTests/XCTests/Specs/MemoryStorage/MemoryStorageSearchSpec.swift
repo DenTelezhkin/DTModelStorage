@@ -53,5 +53,4 @@ class MemoryStorageSearchSpec: XCTestCase {
         expect(section0) == [1,2]
         expect(section1) == [3,4]
     }
-
 }

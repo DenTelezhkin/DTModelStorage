@@ -219,4 +219,53 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(model as? Int).to(beNil())
     }
+    
+}
+
+class SectionSupplementariesTestCase : XCTestCase
+{
+    var storage : MemoryStorage!
+    
+    override func setUp() {
+        super.setUp()
+        self.storage = MemoryStorage()
+        self.storage.supplementaryHeaderKind = DTTableViewElementSectionHeader
+        self.storage.supplementaryFooterKind = DTTableViewElementSectionFooter
+    }
+    
+    func testSectionHeaderModelsSetter()
+    {
+        storage.setSectionHeaderModels([1,2,3])
+        
+        expect(self.storage.sections.count) == 3
+        expect(self.storage.headerModelForSectionIndex(0) as? Int) == 1
+        expect(self.storage.headerModelForSectionIndex(1) as? Int) == 2
+        expect(self.storage.headerModelForSectionIndex(2) as? Int) == 3
+    }
+    
+    func testSectionFooterModelsSetter()
+    {
+        storage.setSectionFooterModels([1,2,3])
+        
+        expect(self.storage.sections.count) == 3
+        expect(self.storage.footerModelForSectionIndex(0) as? Int) == 1
+        expect(self.storage.footerModelForSectionIndex(1) as? Int) == 2
+        expect(self.storage.footerModelForSectionIndex(2) as? Int) == 3
+    }
+    
+    func testNillifySectionHeaders()
+    {
+        storage.setSectionHeaderModels([1,2,3])
+        storage.setSectionHeaderModels([])
+        
+        expect(self.storage.headerModelForSectionIndex(1) as? Int).to(beNil())
+    }
+    
+    func testNillifySectionFooters()
+    {
+        storage.setSectionFooterModels([1,2,3])
+        storage.setSectionFooterModels([])
+        
+        expect(self.storage.footerModelForSectionIndex(1) as? Int).to(beNil())
+    }
 }
