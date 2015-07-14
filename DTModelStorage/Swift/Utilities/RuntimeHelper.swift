@@ -8,9 +8,9 @@
 
 import Foundation
 
-final class RuntimeHelper
+public final class RuntimeHelper
 {
-    class func classNameFromReflectionSummary(summary: String) -> String
+    public class func classNameFromReflectionSummary(summary: String) -> String
     {
         if (contains(summary,"."))
         {
@@ -19,7 +19,7 @@ final class RuntimeHelper
         return summary
     }
     
-    class func classNameFromReflection(reflection: MirrorType) -> String
+    public class func classNameFromReflection(reflection: MirrorType) -> String
     {
         if (contains(reflection.summary,"."))
         {
