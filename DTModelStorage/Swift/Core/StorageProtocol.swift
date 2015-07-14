@@ -13,6 +13,8 @@ public protocol StorageProtocol
     var sections : [Section] { get }
     
     func objectAtIndexPath(path : NSIndexPath) -> Any?
+    
+    weak var delegate  : StorageUpdating? {get set}
 }
 
 public protocol HeaderFooterStorageProtocol
