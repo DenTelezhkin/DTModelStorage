@@ -8,7 +8,6 @@
 
 import UIKit
 import XCTest
-import OCMock
 import DTModelStorage
 import Nimble
 

@@ -229,8 +229,8 @@ class SectionSupplementariesTestCase : XCTestCase
     override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
-        self.storage.supplementaryHeaderKind = DTTableViewElementSectionHeader
-        self.storage.supplementaryFooterKind = DTTableViewElementSectionFooter
+        self.storage.supplementaryHeaderKind = DTModelStorage.DTTableViewElementSectionHeader
+        self.storage.supplementaryFooterKind = DTModelStorage.DTTableViewElementSectionFooter
     }
     
     func testSectionHeaderModelsSetter()

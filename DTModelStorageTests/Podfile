@@ -5,7 +5,10 @@ use_frameworks!
 
 target "XCTests" do
 platform :ios, 8
-pod 'OCMock', '~> 2.2.1'
-pod 'Expecta', '~> 0.2.3'
 pod 'Nimble'
+end
+
+target "XCTestsLegacy" do
+    pod 'OCMock', '~> 2.2.1'
+    pod 'Expecta', '~> 0.2.3'
 end

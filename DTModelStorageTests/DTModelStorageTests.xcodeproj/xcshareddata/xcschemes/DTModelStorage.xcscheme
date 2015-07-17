@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0630"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,21 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
                BuildableName = "DTModelStorage.framework"
-               BlueprintName = "DTModelStorage iOS"
-               ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A2A38641AEE24340021E97D"
-               BuildableName = "DTModelStorage iOSTests.xctest"
-               BlueprintName = "DTModelStorage iOSTests"
+               BlueprintName = "DTModelStorage"
                ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
-            BuildableName = "DTModelStorage.framework"
-            BlueprintName = "DTModelStorage iOS"
-            ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -67,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
             BuildableName = "DTModelStorage.framework"
-            BlueprintName = "DTModelStorage iOS"
+            BlueprintName = "DTModelStorage"
             ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,7 +62,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
             BuildableName = "DTModelStorage.framework"
-            BlueprintName = "DTModelStorage iOS"
+            BlueprintName = "DTModelStorage"
             ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

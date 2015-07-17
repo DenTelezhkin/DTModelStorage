@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "XCTests-Swift.h"
+#import "XCTestsLegacy-Swift.h"
 
 @interface RuntimeHelperObjectiveCTests : XCTestCase
 
