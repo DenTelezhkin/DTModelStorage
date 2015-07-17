@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 
 public extension UINib {
-    public class func nibExistsWithNibName(nibName :String) -> Bool
+    public class func nibExistsWithNibName(nibName :String,
+        inBundle bundle: NSBundle = NSBundle.mainBundle()) -> Bool
     {
-        if let _ = NSBundle(forClass: self).pathForResource(nibName, ofType: "nib")
+        if let _ = bundle.pathForResource(nibName, ofType: "nib")
         {
             return true
         }
