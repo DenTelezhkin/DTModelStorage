@@ -27,4 +27,65 @@ public final class RuntimeHelper
         }
         return reflection.summary
     }
+    
+    public class func recursivelyUnwrapAnyValue(any: Any) -> Any?
+    {
+        let mirror = reflect(any)
+        if mirror.disposition != .Optional
+        {
+            return any
+        }
+        if mirror.count == 0
+        {
+            return nil
+        }
+        let (_,some) = mirror[0]
+        return recursivelyUnwrapAnyValue(some.value)
+    }
+    
+    public class func classClusterReflectionFromMirrorType(mirror: MirrorType) -> MirrorType
+    {
+        if mirror.disposition != .Aggregate {
+            return mirror
+        }
+        let typeReflection = reflect(mirror.value).summary
+        switch typeReflection
+        {
+        case "__NSCFBoolean": fallthrough
+        case "__NSCFNumber":
+            return reflect(NSNumber)
+            
+        case "__NSCFConstantString": fallthrough
+        case "Swift.String": fallthrough
+        case "__NSCFString":
+            return reflect(NSString)
+            
+        case "NSConcreteAttributedString": fallthrough
+        case "NSConcreteMutableAttributedString":
+            return reflect(NSAttributedString)
+            
+        case "__NSDictionaryM": fallthrough
+        case "__NSDictionaryI":
+            return reflect(NSDictionary)
+            
+        case "__NSArrayM": fallthrough
+        case "__NSArrayI":
+            return reflect(NSArray)
+            
+        case "__NSSetM": fallthrough
+        case "__NSSetI":
+            return reflect(NSSet)
+            
+        case "__NSOrderedSetM": fallthrough
+        case "__NSOrderedSetI":
+            return reflect(NSOrderedSet)
+            
+        case "__NSTaggedDate": fallthrough
+        case "__NSDate":
+            return reflect(NSDate)
+            
+        default:
+            return mirror
+        }
+    }
 }

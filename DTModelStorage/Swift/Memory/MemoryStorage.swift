@@ -12,7 +12,7 @@ import Swift
 public class MemoryStorage: BaseStorage, StorageProtocol
 {
     public var sections: [Section] = [SectionModel]()
-    private var currentUpdate : StorageUpdate?
+    internal var currentUpdate : StorageUpdate?
     
     public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         let sectionModel : SectionModel
@@ -274,7 +274,7 @@ extension MemoryStorage
         return section
     }
     
-    private func getValidSection(sectionIndex : Int) -> SectionModel
+    func getValidSection(sectionIndex : Int) -> SectionModel
     {
         if sectionIndex < self.sections.count
         {

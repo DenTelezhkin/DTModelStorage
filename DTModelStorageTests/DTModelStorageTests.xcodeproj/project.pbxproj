@@ -19,6 +19,7 @@
 		9A27AB031B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27AB001B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9A27AB051B526F86002EFB47 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27AB011B526F86002EFB47 /* ModelTransfer.swift */; };
 		9A4618781B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */; };
+		9A52DD701B5AB1CB0048F535 /* MemoryStorage+AnimatedUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+AnimatedUpdates.swift */; };
 		9A75CECD1B55B6FE007FB06C /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */; };
 		9A75CED01B55B724007FB06C /* UINib+Existance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CECE1B55B724007FB06C /* UINib+Existance.swift */; };
 		9AF8E4B11B527C44005A2406 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8E4AC1B527C44005A2406 /* BaseStorage.swift */; };
@@ -109,6 +110,7 @@
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2A38B61AEE26980021E97D /* DTModelStorage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTModelStorage-Info.plist"; sourceTree = "<group>"; };
 		9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageRemovingItemsSpecs.swift; path = Specs/MemoryStorage/MemoryStorageRemovingItemsSpecs.swift; sourceTree = "<group>"; };
+		9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+AnimatedUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+AnimatedUpdates.swift"; path = "Swift/Utilities/MemoryStorage+AnimatedUpdates.swift"; sourceTree = "<group>"; };
 		9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelper.swift; path = Swift/Utilities/RuntimeHelper.swift; sourceTree = "<group>"; };
 		9A75CECE1B55B724007FB06C /* UINib+Existance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINib+Existance.swift"; path = "Swift/Utilities/UINib+Existance.swift"; sourceTree = "<group>"; };
 		9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelperTestCase.swift; path = Specs/RuntimeHelperTestCase.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				9A27AB011B526F86002EFB47 /* ModelTransfer.swift */,
 				9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */,
 				9A75CECE1B55B724007FB06C /* UINib+Existance.swift */,
+				9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+AnimatedUpdates.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A52DD701B5AB1CB0048F535 /* MemoryStorage+AnimatedUpdates.swift in Sources */,
 				9A75CED01B55B724007FB06C /* UINib+Existance.swift in Sources */,
 				9A27AB031B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9A0601541B527BFA00B0F699 /* SectionModel.swift in Sources */,
