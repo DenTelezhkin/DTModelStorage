@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
-               BuildableName = "DTModelStorage.framework"
-               BlueprintName = "DTModelStorage"
+               BuildableName = "ModelStorage.framework"
+               BlueprintName = "ModelStorage"
                ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
-            BuildableName = "DTModelStorage.framework"
-            BlueprintName = "DTModelStorage"
+            BuildableName = "ModelStorage.framework"
+            BlueprintName = "ModelStorage"
             ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9A2A385A1AEE24340021E97D"
-            BuildableName = "DTModelStorage.framework"
-            BlueprintName = "DTModelStorage"
+            BuildableName = "ModelStorage.framework"
+            BlueprintName = "ModelStorage"
             ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
