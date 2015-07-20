@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import DTModelStorage
+import ModelStorage
 import Nimble
 
 class MemoryStorageEditSpecs: XCTestCase {
@@ -229,8 +229,8 @@ class SectionSupplementariesTestCase : XCTestCase
     override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
-        self.storage.supplementaryHeaderKind = DTModelStorage.DTTableViewElementSectionHeader
-        self.storage.supplementaryFooterKind = DTModelStorage.DTTableViewElementSectionFooter
+        self.storage.supplementaryHeaderKind = ModelStorage.DTTableViewElementSectionHeader
+        self.storage.supplementaryFooterKind = ModelStorage.DTTableViewElementSectionFooter
     }
     
     func testSectionHeaderModelsSetter()
