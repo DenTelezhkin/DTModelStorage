@@ -18,5 +18,8 @@ DerivedData
 *.xccheckout
 *.xcworkspace
 
-#CocoaPods
+# CocoaPods
 Pods
+
+# Carthage
+Carthage/Build

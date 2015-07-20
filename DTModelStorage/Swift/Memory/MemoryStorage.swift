@@ -123,7 +123,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
         
-        if section.objects.count < indexPath.item {
+        if section.objects.count <= indexPath.item {
             // MARK: - TODO - throw an error in Swift 2.
             return
         }
