@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 
-import Foundation
-
 extension MemoryStorage
 {
     public func updateWithoutAnimations(block: () -> Void)

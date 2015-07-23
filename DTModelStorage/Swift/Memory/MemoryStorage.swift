@@ -6,9 +6,6 @@
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 
-import UIKit
-import Swift
-
 public class MemoryStorage: BaseStorage, StorageProtocol
 {
     public var sections: [Section] = [SectionModel]()

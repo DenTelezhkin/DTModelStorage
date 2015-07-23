@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 
-import Foundation
-
 public class SectionModel : Section
 {
     public var objects = [Any]()

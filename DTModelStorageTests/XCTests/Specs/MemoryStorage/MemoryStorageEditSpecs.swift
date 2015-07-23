@@ -43,6 +43,16 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.delegate.update) == update
     }
+    
+    func testInsertionOfStructs()
+    {
+        storage.addItems([2,4,6], toSection: 0)
+        
+        storage.insertItem(1, toIndexPath: indexPath(0, 0))
+        
+        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 1
+        expect(self.storage.objectAtIndexPath(indexPath(1, 0)) as? Int) == 2
+    }
 
     func testShouldReloadRows()
     {

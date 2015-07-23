@@ -56,7 +56,6 @@ public final class RuntimeHelper
             return reflect(NSNumber)
             
         case "__NSCFConstantString": fallthrough
-        case "Swift.String": fallthrough
         case "__NSCFString":
             return reflect(NSString)
             
