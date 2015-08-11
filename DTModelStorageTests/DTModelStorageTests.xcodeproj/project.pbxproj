@@ -129,7 +129,6 @@
 		9AF8E4AF1B527C44005A2406 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Swift/Core/StorageUpdate.swift; sourceTree = "<group>"; };
 		9AF9315E1B594F7500456503 /* ModelStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ModelStorage.h; path = Swift/ModelStorage.h; sourceTree = "<group>"; };
 		9AF931731B59502F00456503 /* XCTests copy.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "XCTests copy.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AF931741B59502F00456503 /* XCTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "XCTests copy-Info.plist"; path = "/Users/Denys/Developer/Projects/DTModelStorage/DTModelStorageTests/XCTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModelTestCase.swift; path = Specs/MemoryStorage/SectionModelTestCase.swift; sourceTree = "<group>"; };
 		B107D4502845E82BA14A8882 /* Pods-XCTestsLegacy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTestsLegacy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTestsLegacy/Pods-XCTestsLegacy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -338,7 +337,6 @@
 				95E178721861B8D300D1B083 /* DTModelStorage */,
 				9A7D5BAC19D860700083673D /* XCTests */,
 				AA3B07AB185F55C100A95D16 /* Products */,
-				9AF931741B59502F00456503 /* XCTests copy-Info.plist */,
 				F5750F5FF3E0E19A645F2EAD /* Pods */,
 				02AC1D4E57B0009357078FF1 /* Frameworks */,
 			);

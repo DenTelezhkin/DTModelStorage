@@ -35,7 +35,8 @@ class MemoryStorageAddSpec: XCTestCase {
     
     func testShouldReceiveCorrectUpdateCallWhenAddingItems()
     {
-        storage.addItems([1,2,3], toSection: 1)
+        let foo = [1,2,3]
+        storage.addItems(foo, toSection: 1)
         
         var update = StorageUpdate()
         update.insertedSectionIndexes.addIndexesInRange(NSMakeRange(0, 2))

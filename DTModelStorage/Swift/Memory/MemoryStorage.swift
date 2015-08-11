@@ -38,19 +38,19 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.currentUpdate = nil
     }
     
-    public func setSectionHeaderModel(model: Any?, forSectionIndex sectionIndex: Int)
+    public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
         self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
     }
     
-    public func setSectionFooterModel(model: Any?, forSectionIndex sectionIndex: Int)
+    public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
         self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
     }
     
-    public func setSupplementaries(models : [Any], forKind kind: String)
+    public func setSupplementaries<T>(models : [T], forKind kind: String)
     {
         self.startUpdate()
         
@@ -72,27 +72,27 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func setSectionHeaderModels(models : [Any])
+    public func setSectionHeaderModels<T>(models : [T])
     {
         assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
         self.setSupplementaries(models, forKind: self.supplementaryHeaderKind!)
     }
     
-    public func setSectionFooterModels(models : [Any])
+    public func setSectionFooterModels<T>(models : [T])
     {
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
         self.setSupplementaries(models, forKind: self.supplementaryFooterKind!)
     }
     
-    public func setItems(items: [Any], forSectionIndex index: Int)
+    public func setItems<T>(items: [T], forSectionIndex index: Int)
     {
         let section = self.sectionAtIndex(index)
         section.objects.removeAll(keepCapacity: false)
-        section.objects.extend(items)
+        for item in items { section.objects.append(item)}
         self.delegate?.storageNeedsReloading()
     }
     
-    public func addItems(items: [Any], toSection index: Int = 0)
+    public func addItems<T>(items: [T], toSection index: Int = 0)
     {
         self.startUpdate()
         let section = self.getValidSection(index)
@@ -105,7 +105,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func addItem(item: Any, toSection index: Int = 0)
+    public func addItem<T>(item: T, toSection index: Int = 0)
     {
         self.startUpdate()
         let section = self.getValidSection(index)
@@ -115,7 +115,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func insertItem(item: Any, toIndexPath indexPath: NSIndexPath)
+    public func insertItem<T>(item: T, toIndexPath indexPath: NSIndexPath)
     {
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)

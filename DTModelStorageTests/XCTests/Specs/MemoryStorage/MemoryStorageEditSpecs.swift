@@ -194,7 +194,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let kind = "foo"
         storage.setSupplementaries([1,2,3], forKind: kind)
         
-        storage.setSupplementaries([], forKind: kind)
+        storage.setSupplementaries([Int](), forKind: kind)
         
         expect(self.storage.sectionAtIndex(0).supplementaryModelOfKind(kind) as? Int).to(beNil())
         expect(self.storage.sectionAtIndex(1).supplementaryModelOfKind(kind) as? Int).to(beNil())
@@ -266,7 +266,7 @@ class SectionSupplementariesTestCase : XCTestCase
     func testNillifySectionHeaders()
     {
         storage.setSectionHeaderModels([1,2,3])
-        storage.setSectionHeaderModels([])
+        storage.setSectionHeaderModels([Int]())
         
         expect(self.storage.headerModelForSectionIndex(1) as? Int).to(beNil())
     }
@@ -274,7 +274,7 @@ class SectionSupplementariesTestCase : XCTestCase
     func testNillifySectionFooters()
     {
         storage.setSectionFooterModels([1,2,3])
-        storage.setSectionFooterModels([])
+        storage.setSectionFooterModels([Int]())
         
         expect(self.storage.footerModelForSectionIndex(1) as? Int).to(beNil())
     }
