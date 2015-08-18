@@ -90,10 +90,19 @@
 
 - (void)finishUpdate
 {
-    if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
+    if (self.currentUpdate.insertedRowIndexPaths.count > 0
+        || self.currentUpdate.updatedRowIndexPaths.count > 0
+        || self.currentUpdate.deletedRowIndexPaths.count > 0
+        || self.currentUpdate.insertedSectionIndexes.count > 0
+        || self.currentUpdate.updatedSectionIndexes.count > 0
+        || self.currentUpdate.deletedSectionIndexes.count > 0)
     {
-        [self.delegate storageDidPerformUpdate:self.currentUpdate];
+        if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
+        {
+            [self.delegate storageDidPerformUpdate:self.currentUpdate];
+        }
     }
+    
     self.currentUpdate = nil;
 }
 
