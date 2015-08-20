@@ -32,7 +32,18 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     
     func finishUpdate()
     {
-        if self.currentUpdate != nil {
+        if self.currentUpdate != nil
+        {
+            if self.currentUpdate!.insertedRowIndexPaths.isEmpty &&
+                self.currentUpdate!.updatedRowIndexPaths.isEmpty &&
+                self.currentUpdate!.deletedRowIndexPaths.isEmpty &&
+                self.currentUpdate!.insertedSectionIndexes.count == 0 &&
+                self.currentUpdate!.updatedSectionIndexes.count == 0 &&
+                self.currentUpdate!.deletedSectionIndexes.count == 0
+            {
+                self.currentUpdate = nil
+                return
+            }
             self.delegate?.storageDidPerformUpdate(self.currentUpdate!)
         }
         self.currentUpdate = nil
