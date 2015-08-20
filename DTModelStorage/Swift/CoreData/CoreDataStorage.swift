@@ -9,6 +9,16 @@
 import Foundation
 import CoreData
 
+private struct DTFetchedResultsSectionInfoWrapper : Section
+{
+    let fetchedObjects : [AnyObject]
+    let numberOfObjects: Int
+    
+    var objects : [Any] {
+        return fetchedObjects.map { $0 }
+    }
+}
+
 public class CoreDataStorage : BaseStorage
 {
     public let fetchedResultsController : NSFetchedResultsController
@@ -32,10 +42,9 @@ public class CoreDataStorage : BaseStorage
     
     public var sections : [Section]
     {
-        
         if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo]
         {
-            return sections.map { $0 as! Section }
+            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects, numberOfObjects: $0.numberOfObjects) }
         }
         return []
     }
@@ -65,7 +74,7 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
         
         if self.supplementaryFooterKind == nil { return nil }
         
-        return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
+        return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
     }
 }
 

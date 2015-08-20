@@ -7,9 +7,19 @@
 //
 
 import Foundation
+import CoreData
 
 public final class RuntimeHelper
 {
+    public class func mirrorFromModel(model: Any) -> MirrorType
+    {
+        if let managedModel = model as? NSManagedObject {
+            return reflect(managedModel.classForCoder)
+        }
+        
+        return reflect(model.dynamicType)
+    }
+    
     public class func classNameFromReflectionSummary(summary: String) -> String
     {
         if (contains(summary,"."))
