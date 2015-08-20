@@ -27,6 +27,8 @@ public class CoreDataStorage : BaseStorage
     public init(fetchedResultsController: NSFetchedResultsController)
     {
         self.fetchedResultsController = fetchedResultsController
+        super.init()
+        self.fetchedResultsController.delegate = self
     }
     
     func startUpdate()
