@@ -32,7 +32,7 @@ public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
     return true
 }
 
-extension StorageUpdate : Printable
+extension StorageUpdate : CustomStringConvertible
 {
     public var description : String {
         return "Deleted section indexes: \(deletedSectionIndexes)\n" +

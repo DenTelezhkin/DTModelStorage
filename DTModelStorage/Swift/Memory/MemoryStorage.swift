@@ -206,7 +206,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let reverseSortedIndexPaths = self.dynamicType.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         for indexPath in reverseSortedIndexPaths
         {
-            if let object = self.objectAtIndexPath(indexPath)
+            if let _ = self.objectAtIndexPath(indexPath)
             {
                 self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
                 self.currentUpdate?.deletedRowIndexPaths.append(indexPath)
@@ -312,7 +312,7 @@ extension MemoryStorage
     
     class func sortedArrayOfIndexPaths(indexPaths: [NSIndexPath], ascending: Bool) -> [NSIndexPath]
     {
-        var unsorted = NSMutableArray(array: indexPaths)
+        let unsorted = NSMutableArray(array: indexPaths)
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArrayUsingDescriptors([descriptor]) as! [NSIndexPath]
     }

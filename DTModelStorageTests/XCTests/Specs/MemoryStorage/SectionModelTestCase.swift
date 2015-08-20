@@ -14,7 +14,7 @@ class SectionModelTestCase: XCTestCase {
 
     func testSectionModelSupplementaryModelChange()
     {
-        var section = SectionModel()
+        let section = SectionModel()
         section.setSupplementaryModel("bar", forKind: "foo")
         
         XCTAssertEqual(section.supplementaryModelOfKind("foo") as? String ?? "", "bar")

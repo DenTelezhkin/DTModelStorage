@@ -5,7 +5,7 @@ use_frameworks!
 
 target "XCTests" do
 platform :ios, 8
-pod 'Nimble'
+pod 'Nimble', git: "https://github.com/Quick/Nimble", branch: "swift-2.0"
 end
 
 target "XCTestsLegacy" do

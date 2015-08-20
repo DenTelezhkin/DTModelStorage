@@ -9,6 +9,6 @@
 import Foundation
 
 @objc(RenamedFooClass)
-class RenamedSwiftClass {
+class RenamedSwiftClass : NSObject {
     
 }

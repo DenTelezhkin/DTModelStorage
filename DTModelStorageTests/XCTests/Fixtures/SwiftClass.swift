@@ -9,6 +9,6 @@
 import Foundation
 
 @objc
-class SwiftClass {
+class SwiftClass : NSObject {
     
 }

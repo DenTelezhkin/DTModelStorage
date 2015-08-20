@@ -1,16 +1,26 @@
 PODS:
   - Expecta (0.2.4)
-  - Nimble (1.0.0)
+  - Nimble (2.0.0-rc.2)
   - OCMock (2.2.4)
 
 DEPENDENCIES:
   - Expecta (~> 0.2.3)
-  - Nimble
+  - Nimble (from `https://github.com/Quick/Nimble`, branch `swift-2.0`)
   - OCMock (~> 2.2.1)
+
+EXTERNAL SOURCES:
+  Nimble:
+    :branch: swift-2.0
+    :git: https://github.com/Quick/Nimble
+
+CHECKOUT OPTIONS:
+  Nimble:
+    :commit: dbfc4ebd53395361c14eb2c9b13f629fc541bba2
+    :git: https://github.com/Quick/Nimble
 
 SPEC CHECKSUMS:
   Expecta: cfaf1d3e2e194ca704a25e997093d30a1ce70b61
-  Nimble: 8bee528e5fcc403653076545db562d2b5db7bb87
+  Nimble: e3cf5e73a491daf21c2bc88783dbfc55ce8b8e02
   OCMock: a6a7dc0e3997fb9f35d99f72528698ebf60d64f2
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

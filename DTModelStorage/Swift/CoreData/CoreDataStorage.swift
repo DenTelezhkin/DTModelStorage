@@ -44,9 +44,9 @@ public class CoreDataStorage : BaseStorage
     
     public var sections : [Section]
     {
-        if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo]
+        if let sections = self.fetchedResultsController.sections
         {
-            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects, numberOfObjects: $0.numberOfObjects) }
+            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects!, numberOfObjects: $0.numberOfObjects) }
         }
         return []
     }
@@ -86,7 +86,7 @@ extension CoreDataStorage : SupplementaryStorageProtocol
     {
         if kind == self.supplementaryHeaderKind
         {
-            if let sections = self.fetchedResultsController.sections as? [NSFetchedResultsSectionInfo]
+            if let sections = self.fetchedResultsController.sections
             {
                 return sections[sectionIndex].name
             }
@@ -98,11 +98,11 @@ extension CoreDataStorage : SupplementaryStorageProtocol
 
 extension CoreDataStorage : NSFetchedResultsControllerDelegate
 {
-    public func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    @objc public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.startUpdate()
     }
     
-    public func controller(controller: NSFetchedResultsController,
+    @objc public func controller(controller: NSFetchedResultsController,
         didChangeObject anObject: AnyObject,
         atIndexPath indexPath: NSIndexPath?,
         forChangeType type: NSFetchedResultsChangeType,
@@ -136,7 +136,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
             self.currentUpdate?.updatedRowIndexPaths.append(indexPath!)
         }
     }
-    
+   @objc
     public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
     {
         if self.currentUpdate == nil { return }
@@ -150,7 +150,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         default: ()
         }
     }
-    
+   @objc  
     public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.finishUpdate()
     }

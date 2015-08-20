@@ -17,14 +17,14 @@ class RuntimeHelperTestCase: XCTestCase {
 
     func testSummaryOfObjectiveCClasses()
     {
-        let mirror = reflect(UITableViewCell)
+        let mirror = _reflect(UITableViewCell)
         expect(RuntimeHelper.classNameFromReflection(mirror)) == "UITableViewCell"
         expect(RuntimeHelper.classNameFromReflectionSummary(mirror.summary)) == "UITableViewCell"
     }
     
     func testSummaryOfSwiftCells()
     {
-        let mirror = reflect(SwiftCell)
+        let mirror = _reflect(SwiftCell)
         expect(RuntimeHelper.classNameFromReflection(mirror)) == "SwiftCell"
         expect(RuntimeHelper.classNameFromReflectionSummary(mirror.summary)) == "SwiftCell"
     }

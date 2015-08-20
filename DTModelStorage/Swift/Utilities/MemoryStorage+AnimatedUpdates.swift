@@ -41,14 +41,14 @@ public extension MemoryStorage
         // MARK: - Replace with guard on Swift 2
         let item = self.objectAtIndexPath(sourceIndexPath)
         if item == nil {
-            println("DTTableViewManager: source indexPath should not be nil when moving table item")
+            print("DTTableViewManager: source indexPath should not be nil when moving table item")
             return
         }
         
         let sourceSection = self.getValidSection(sourceIndexPath.section)
         let destinationSection = self.getValidSection(destinationIndexPath.section)
         if destinationSection.objects.count < destinationIndexPath.row {
-            println("DTTableViewManager: failed moving item to indexPath: %@, only %@ items in section")
+            print("DTTableViewManager: failed moving item to indexPath: %@, only %@ items in section")
             self.currentUpdate = nil
             return
         }

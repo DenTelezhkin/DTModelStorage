@@ -11,27 +11,27 @@ import CoreData
 
 public final class RuntimeHelper
 {
-    public class func mirrorFromModel(model: Any) -> MirrorType
+    public class func mirrorFromModel(model: Any) -> _MirrorType
     {
         if let managedModel = model as? NSManagedObject {
-            return reflect(managedModel.classForCoder)
+            return _reflect(managedModel.classForCoder)
         }
         
-        return reflect(model.dynamicType)
+        return _reflect(model.dynamicType)
     }
     
     public class func classNameFromReflectionSummary(summary: String) -> String
     {
-        if (contains(summary,"."))
+        if let _ = summary.rangeOfString(".")
         {
             return summary.componentsSeparatedByString(".").last!
         }
         return summary
     }
     
-    public class func classNameFromReflection(reflection: MirrorType) -> String
+    public class func classNameFromReflection(reflection: _MirrorType) -> String
     {
-        if (contains(reflection.summary,"."))
+        if let _ = reflection.summary.rangeOfString(".")
         {
             return reflection.summary.componentsSeparatedByString(".").last!
         }
@@ -40,7 +40,7 @@ public final class RuntimeHelper
     
     public class func recursivelyUnwrapAnyValue(any: Any) -> Any?
     {
-        let mirror = reflect(any)
+        let mirror = _reflect(any)
         if mirror.disposition != .Optional
         {
             return any
@@ -53,45 +53,45 @@ public final class RuntimeHelper
         return recursivelyUnwrapAnyValue(some.value)
     }
     
-    public class func classClusterReflectionFromMirrorType(mirror: MirrorType) -> MirrorType
+    public class func classClusterReflectionFromMirrorType(mirror: _MirrorType) -> _MirrorType
     {
         if mirror.disposition != .Aggregate {
             return mirror
         }
-        let typeReflection = reflect(mirror.value).summary
+        let typeReflection = _reflect(mirror.value).summary
         switch typeReflection
         {
         case "__NSCFBoolean": fallthrough
         case "__NSCFNumber":
-            return reflect(NSNumber)
+            return _reflect(NSNumber)
             
         case "__NSCFConstantString": fallthrough
         case "__NSCFString":
-            return reflect(NSString)
+            return _reflect(NSString)
             
         case "NSConcreteAttributedString": fallthrough
         case "NSConcreteMutableAttributedString":
-            return reflect(NSAttributedString)
+            return _reflect(NSAttributedString)
             
         case "__NSDictionaryM": fallthrough
         case "__NSDictionaryI":
-            return reflect(NSDictionary)
+            return _reflect(NSDictionary)
             
         case "__NSArrayM": fallthrough
         case "__NSArrayI":
-            return reflect(NSArray)
+            return _reflect(NSArray)
             
         case "__NSSetM": fallthrough
         case "__NSSetI":
-            return reflect(NSSet)
+            return _reflect(NSSet)
             
         case "__NSOrderedSetM": fallthrough
         case "__NSOrderedSetI":
-            return reflect(NSOrderedSet)
+            return _reflect(NSOrderedSet)
             
         case "__NSTaggedDate": fallthrough
         case "__NSDate":
-            return reflect(NSDate)
+            return _reflect(NSDate)
             
         default:
             return mirror

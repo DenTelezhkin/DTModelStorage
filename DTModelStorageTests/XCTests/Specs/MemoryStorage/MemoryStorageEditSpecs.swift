@@ -153,7 +153,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.deleteSections(NSIndexSet(index: 1))
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.deletedSectionIndexes.addIndex(1)
         
         expect(self.delegate.update) == update
