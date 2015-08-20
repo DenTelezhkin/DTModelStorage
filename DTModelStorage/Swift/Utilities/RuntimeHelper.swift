@@ -74,11 +74,13 @@ public final class RuntimeHelper
             return _reflect(NSAttributedString)
             
         case "__NSDictionaryM": fallthrough
-        case "__NSDictionaryI":
+        case "__NSDictionaryI": fallthrough
+        case "__NSDictionary0":
             return _reflect(NSDictionary)
             
         case "__NSArrayM": fallthrough
-        case "__NSArrayI":
+        case "__NSArrayI": fallthrough
+        case "__NSArray0":
             return _reflect(NSArray)
             
         case "__NSSetM": fallthrough
