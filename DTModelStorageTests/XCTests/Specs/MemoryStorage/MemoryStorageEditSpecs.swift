@@ -28,7 +28,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2,4,6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
-        storage.insertItem(1, toIndexPath: storage.indexPathForItem(6)!)
+        
+        try! storage.insertItem(1, toIndexPath: storage.indexPathForItem(6)!)
         
         var update = StorageUpdate()
         update.insertedRowIndexPaths = [indexPath(2,0)]
@@ -36,7 +37,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(self.delegate.update) == update
         
         
-        storage.insertItem(3, toIndexPath: storage.indexPathForItem(5)!)
+        try! storage.insertItem(3, toIndexPath: storage.indexPathForItem(5)!)
         
         update = StorageUpdate()
         update.insertedRowIndexPaths = [indexPath(0, 1)]
@@ -48,10 +49,23 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         storage.addItems([2,4,6], toSection: 0)
         
-        storage.insertItem(1, toIndexPath: indexPath(0, 0))
+        try! storage.insertItem(1, toIndexPath: indexPath(0, 0))
         
         expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 1
         expect(self.storage.objectAtIndexPath(indexPath(1, 0)) as? Int) == 2
+    }
+    
+    func testInsertionThrows()
+    {
+        do {
+          try storage.insertItem(1, toIndexPath: indexPath(1, 0))
+        }
+        catch MemoryStorageErrors.Insertion.IndexPathTooBig {
+            
+        }
+        catch {
+            XCTFail()
+        }
     }
 
     func testShouldReloadRows()
@@ -69,7 +83,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldReplaceRows()
     {
         storage.addItems([2,4,6])
-        storage.replaceItem(4, replacingItem: 5)
+        try! storage.replaceItem(4, replacingItem: 5)
         
         var update = StorageUpdate()
         update.updatedRowIndexPaths = [indexPath(1, 0)]
@@ -77,22 +91,50 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(self.delegate.update) == update
     }
     
+    func testShouldReplaceRowsThrows()
+    {
+        do {
+            try storage.replaceItem(1, replacingItem: "foo")
+        }
+        catch MemoryStorageErrors.Replacement.ItemNotFound
+        {
+            
+        }
+        catch {
+            XCTFail()
+        }
+    }
+    
     func testShouldRemoveItem()
     {
         storage.addItems([2,4,6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
-        storage.removeItem(2)
+        try! storage.removeItem(2)
         
         var update = StorageUpdate()
         update.deletedRowIndexPaths = [indexPath(0, 0)]
         
         expect(self.delegate.update) == update
         
-        storage.removeItem(5)
+        try! storage.removeItem(5)
         update.deletedRowIndexPaths = [indexPath(0, 1)]
         
         expect(self.delegate.update) == update
+    }
+    
+    func testShouldRemoveItemThrows()
+    {
+        do {
+            try storage.removeItem(3)
+        }
+        catch MemoryStorageErrors.Removal.ItemNotFound
+        {
+            
+        }
+        catch {
+            XCTFail()
+        }
     }
     
     func testShouldRemoveItemAtIndexPath()
@@ -132,7 +174,6 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2,4,6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
-        // MARK : TODO - check for error in Swift 2
         storage.removeItemsAtIndexPaths([indexPath(5, 0), indexPath(2, 1)])
     }
     

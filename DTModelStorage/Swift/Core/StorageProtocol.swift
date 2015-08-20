@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public protocol StorageProtocol
 {
@@ -35,4 +36,37 @@ public protocol StorageUpdating : class
 {
     func storageDidPerformUpdate(update : StorageUpdate)
     func storageNeedsReloading()
+}
+
+public extension StorageProtocol
+{
+    public func objectForCell<T:ModelTransfer where T: UITableViewCell>(cell: T?, atIndexPath indexPath: NSIndexPath)-> T.CellModel?
+    {
+        return self.objectAtIndexPath(indexPath) as? T.CellModel
+    }
+    
+    public func objectForCell<T:ModelTransfer where T: UICollectionViewCell>(cell: T?, atIndexPath indexPath: NSIndexPath)-> T.CellModel?
+    {
+        return self.objectAtIndexPath(indexPath) as? T.CellModel
+    }
+    
+    public func objectForTableHeader<T:ModelTransfer where T:UIView>(headerView: T?, atSectionIndex sectionIndex: Int) -> T.CellModel?
+    {
+        return (self as? HeaderFooterStorageProtocol)?.headerModelForSectionIndex(sectionIndex) as? T.CellModel
+    }
+    
+    public func objectForTableFooter<T:ModelTransfer where T:UIView>(footerView: T?, atSectionIndex sectionIndex: Int) -> T.CellModel?
+    {
+        return (self as? HeaderFooterStorageProtocol)?.footerModelForSectionIndex(sectionIndex) as? T.CellModel
+    }
+    
+    public func objectForCollectionHeader<T:ModelTransfer where T:UICollectionReusableView>(headerView: T?, atSectionIndex sectionIndex: Int) -> T.CellModel?
+    {
+        return (self as? HeaderFooterStorageProtocol)?.headerModelForSectionIndex(sectionIndex) as? T.CellModel
+    }
+    
+    public func objectForCollectionFooter<T:ModelTransfer where T:UICollectionReusableView>(footerView: T?, atSectionIndex sectionIndex: Int) -> T.CellModel?
+    {
+        return (self as? HeaderFooterStorageProtocol)?.footerModelForSectionIndex(sectionIndex) as? T.CellModel
+    }
 }

@@ -6,10 +6,27 @@
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 
+public struct MemoryStorageErrors
+{
+    public enum Insertion: ErrorType
+    {
+        case IndexPathTooBig
+    }
+    
+    public enum Replacement: ErrorType
+    {
+        case ItemNotFound
+    }
+    
+    public enum Removal : ErrorType
+    {
+        case ItemNotFound
+    }
+}
+
 public class MemoryStorage: BaseStorage, StorageProtocol
 {
     public var sections: [Section] = [SectionModel]()
-    internal var currentUpdate : StorageUpdate?
     
     public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         let sectionModel : SectionModel
@@ -23,30 +40,6 @@ public class MemoryStorage: BaseStorage, StorageProtocol
             }
         }
         return sectionModel.objects[path.item]
-    }
-    
-    func startUpdate()
-    {
-        self.currentUpdate = StorageUpdate()
-    }
-    
-    func finishUpdate()
-    {
-        if self.currentUpdate != nil
-        {
-            if self.currentUpdate!.insertedRowIndexPaths.isEmpty &&
-                self.currentUpdate!.updatedRowIndexPaths.isEmpty &&
-                self.currentUpdate!.deletedRowIndexPaths.isEmpty &&
-                self.currentUpdate!.insertedSectionIndexes.count == 0 &&
-                self.currentUpdate!.updatedSectionIndexes.count == 0 &&
-                self.currentUpdate!.deletedSectionIndexes.count == 0
-            {
-                self.currentUpdate = nil
-                return
-            }
-            self.delegate?.storageDidPerformUpdate(self.currentUpdate!)
-        }
-        self.currentUpdate = nil
     }
     
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
@@ -126,15 +119,13 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func insertItem<T>(item: T, toIndexPath indexPath: NSIndexPath)
+    public func insertItem<T>(item: T, toIndexPath indexPath: NSIndexPath) throws
     {
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
         
-        if section.objects.count <= indexPath.item {
-            // MARK: - TODO - throw an error in Swift 2.
-            return
-        }
+        guard section.objects.count > indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
+        
         section.objects.insert(item, atIndex: indexPath.item)
         self.currentUpdate?.insertedRowIndexPaths.append(indexPath)
         self.finishUpdate()
@@ -149,40 +140,32 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func replaceItem<T: Equatable, U:Equatable>(itemToReplace: T, replacingItem: U)
+    public func replaceItem<T: Equatable, U:Equatable>(itemToReplace: T, replacingItem: U) throws
     {
         self.startUpdate()
-        // MARK: TODO - Use guard and defer in Swift 2
-        let originalIndexPath = self.indexPathForItem(itemToReplace)
-        if originalIndexPath != nil {
-            let section = self.getValidSection(originalIndexPath!.section)
-            section.objects[originalIndexPath!.item] = replacingItem
-        }
-        else {
-            // MARK: TODO - Throw an error in Swift 2
-            self.finishUpdate()
-            return
-        }
-        self.currentUpdate?.updatedRowIndexPaths.append(originalIndexPath!)
+        defer { self.finishUpdate() }
         
-        self.finishUpdate()
+        guard let originalIndexPath = self.indexPathForItem(itemToReplace) else {
+            throw MemoryStorageErrors.Replacement.ItemNotFound
+        }
+        
+        let section = self.getValidSection(originalIndexPath.section)
+        section.objects[originalIndexPath.item] = replacingItem
+
+        self.currentUpdate?.updatedRowIndexPaths.append(originalIndexPath)
     }
     
-    public func removeItem<T:Equatable>(item: T)
+    public func removeItem<T:Equatable>(item: T) throws
     {
         self.startUpdate()
+        defer { self.finishUpdate() }
         
-        // MARK: TODO - Use guard and defer in Swift 2
-        let indexPath = self.indexPathForItem(item)
-        if indexPath != nil {
-            self.getValidSection(indexPath!.section).objects.removeAtIndex(indexPath!.item)
+        guard let indexPath = self.indexPathForItem(item) else {
+            throw MemoryStorageErrors.Removal.ItemNotFound
         }
-        else {
-            // MARK: TODO - Throw an error in Swift 2
-            return
-        }
-        self.currentUpdate?.deletedRowIndexPaths.append(indexPath!)
-        self.finishUpdate()
+        self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+        
+        self.currentUpdate?.deletedRowIndexPaths.append(indexPath)
     }
     
     public func removeItems<T:Equatable>(items: [T])

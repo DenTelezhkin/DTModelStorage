@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import ModelStorage
+@testable import ModelStorage
 import Nimble
 
 class MemoryStorageRemovingItemsSpecs: XCTestCase {
@@ -54,25 +54,23 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         expect(self.storage.sectionAtIndex(1).objects.count) == 1
     }
     
-    // MARK: TODO Testable in Swift 2
+    func testSortingOfIndexPathsInSingleSection()
+    {
+        let indexPaths = [indexPath(0, 0),indexPath(5, 0),indexPath(3, 0)]
+        let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+        
+        expect(sortedIndexPaths.first?.item) == 5
+        expect(sortedIndexPaths.last?.item) == 0
+        expect(sortedIndexPaths.count) == 3
+    }
     
-//    func testSortingOfIndexPathsInSingleSection()
-//    {
-//        let indexPaths = [indexPath(0, 0),indexPath(5, 0),indexPath(3, 0)]
-//        let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
-//        
-//        expect(sortedIndexPaths.first?.item) == 5
-//        expect(sortedIndexPaths.last?.item) == 0
-//        expect(sortedIndexPaths.count) == 3
-//    }
-//    
-//    func testSortingOfIndexPathsInDifferentSections()
-//    {
-//        let indexPaths = [indexPath(0, 0),indexPath(3, 0),indexPath(3,2),indexPath(2, 2),indexPath(1, 1)]
-//        let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
-//        
-//        let expectedIndexPaths = [indexPath(3, 2),indexPath(2, 2),indexPath(1, 1),indexPath(3, 0),indexPath(0, 0)]
-//        
-//        expect(sortedIndexPaths) == expectedIndexPaths
-//    }
+    func testSortingOfIndexPathsInDifferentSections()
+    {
+        let indexPaths = [indexPath(0, 0),indexPath(3, 0),indexPath(3,2),indexPath(2, 2),indexPath(1, 1)]
+        let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+        
+        let expectedIndexPaths = [indexPath(3, 2),indexPath(2, 2),indexPath(1, 1),indexPath(3, 0),indexPath(0, 0)]
+        
+        expect(sortedIndexPaths) == expectedIndexPaths
+    }
 }

@@ -22,24 +22,12 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 public class CoreDataStorage : BaseStorage
 {
     public let fetchedResultsController : NSFetchedResultsController
-    private var currentUpdate : StorageUpdate?
     
     public init(fetchedResultsController: NSFetchedResultsController)
     {
         self.fetchedResultsController = fetchedResultsController
         super.init()
         self.fetchedResultsController.delegate = self
-    }
-    
-    func startUpdate()
-    {
-        self.currentUpdate = StorageUpdate()
-    }
-    
-    func finishUpdate()
-    {
-        if self.currentUpdate != nil { self.delegate?.storageDidPerformUpdate(self.currentUpdate!) }
-        self.currentUpdate = nil
     }
     
     public var sections : [Section]
