@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ModelStorage
+import DTModelStorage
 
 func indexPath(item:Int,_ section:Int) -> NSIndexPath
 {

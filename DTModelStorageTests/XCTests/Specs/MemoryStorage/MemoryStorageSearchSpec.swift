@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-@testable import ModelStorage
+@testable import DTModelStorage
 import Nimble
 
 class MemoryStorageSearchSpec: XCTestCase {

@@ -8,5 +8,5 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT double ModelStorageVersionNumber;
-FOUNDATION_EXPORT const unsigned char ModelStorageVersionString[];
+FOUNDATION_EXPORT double DTModelStorageVersionNumber;
+FOUNDATION_EXPORT const unsigned char DTModelStorageVersionString[];
