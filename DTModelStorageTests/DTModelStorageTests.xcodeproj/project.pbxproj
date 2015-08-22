@@ -42,9 +42,7 @@
 
 /* Begin PBXFileReference section */
 		021F6E6FB11267DA92AF1C4B /* Pods-XCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTests/Pods-XCTests.release.xcconfig"; sourceTree = "<group>"; };
-		07CAF64816EA76ED79179EBF /* Pods-XCTestsLegacy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTestsLegacy.release.xcconfig"; path = "Pods/Target Support Files/Pods-XCTestsLegacy/Pods-XCTestsLegacy.release.xcconfig"; sourceTree = "<group>"; };
 		511C52FCBAAC25E386DBED7A /* Pods_XCTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		615764CF560CD5C94D06B01E /* Pods_XCTestsLegacy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCTestsLegacy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B184A0B59DAA2E7FB431B /* Pods-XCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTests/Pods-XCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		9A06014C1B527BF400B0F699 /* CoreDataStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStorage.swift; path = Swift/CoreData/CoreDataStorage.swift; sourceTree = "<group>"; };
@@ -54,7 +52,6 @@
 		9A063C721B51639900A49FF3 /* MemoryStorageAddSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageAddSpec.swift; path = Specs/MemoryStorage/MemoryStorageAddSpec.swift; sourceTree = "<group>"; };
 		9A063C741B51667E00A49FF3 /* StorageUpdatesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdatesObserver.swift; path = Helpers/StorageUpdatesObserver.swift; sourceTree = "<group>"; };
 		9A063C761B5169C300A49FF3 /* MemoryStorageEditSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageEditSpecs.swift; path = Specs/MemoryStorage/MemoryStorageEditSpecs.swift; sourceTree = "<group>"; };
-		9A24F69C19D96D97009DE5D4 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		9A27AB001B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+UpdateWithoutAnimations.swift"; path = "Swift/Utilities/MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
 		9A27AB011B526F86002EFB47 /* ModelTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelTransfer.swift; path = Swift/Utilities/ModelTransfer.swift; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +70,6 @@
 		9AF8E4AF1B527C44005A2406 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Swift/Core/StorageUpdate.swift; sourceTree = "<group>"; };
 		9AF9315E1B594F7500456503 /* DTModelStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTModelStorage.h; path = Swift/DTModelStorage.h; sourceTree = "<group>"; };
 		9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModelTestCase.swift; path = Specs/MemoryStorage/SectionModelTestCase.swift; sourceTree = "<group>"; };
-		B107D4502845E82BA14A8882 /* Pods-XCTestsLegacy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTestsLegacy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTestsLegacy/Pods-XCTestsLegacy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				511C52FCBAAC25E386DBED7A /* Pods_XCTests.framework */,
-				615764CF560CD5C94D06B01E /* Pods_XCTestsLegacy.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,7 +140,6 @@
 			children = (
 				9A7D5BAE19D860700083673D /* Info.plist */,
 				9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */,
-				9A24F69C19D96D97009DE5D4 /* BridgingHeader.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -217,8 +211,6 @@
 			children = (
 				822B184A0B59DAA2E7FB431B /* Pods-XCTests.debug.xcconfig */,
 				021F6E6FB11267DA92AF1C4B /* Pods-XCTests.release.xcconfig */,
-				B107D4502845E82BA14A8882 /* Pods-XCTestsLegacy.debug.xcconfig */,
-				07CAF64816EA76ED79179EBF /* Pods-XCTestsLegacy.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
