@@ -61,7 +61,7 @@ class MemoryStorageSearchSpec: XCTestCase {
      
         expect(model as? String) == "4"
         
-        model = storage.itemAtIndexPath(indexPath(0, 0))
+        model = storage.objectAtIndexPath(indexPath(0, 0))
         
         expect(model as? String) == "1"
     }

@@ -9,14 +9,24 @@
 import Foundation
 import UIKit
 
+/// Suggested supplementary kind for UITableView header
 public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
+/// Suggested supplementary kind for UITableView footer
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
+/// Base class for MemoryStorage and CoreDataStorage
 public class BaseStorage : NSObject
 {
+    /// Supplementary kind for header in current storage
     public var supplementaryHeaderKind : String?
+    
+    /// Supplementary kind for footer in current storage
     public var supplementaryFooterKind : String?
+    
+    /// Current update
     internal var currentUpdate: StorageUpdate?
+    
+    /// Delegate for storage updates
     public weak var delegate : StorageUpdating?
 }
 
@@ -45,12 +55,14 @@ extension BaseStorage
         self.currentUpdate = nil
     }
     
+    /// This method will configure storage for using with UITableView
     public func configureForTableViewUsage()
     {
         self.supplementaryHeaderKind = DTTableViewElementSectionHeader
         self.supplementaryFooterKind = DTTableViewElementSectionFooter
     }
     
+    /// This method will configure storage for using with UICollectionViewFlowLayout
     public func configureForCollectionViewFlowLayoutUsage()
     {
         self.supplementaryHeaderKind = UICollectionElementKindSectionHeader

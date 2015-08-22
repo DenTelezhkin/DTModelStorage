@@ -19,10 +19,15 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
     }
 }
 
+/// This class represents model storage in CoreData
+/// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
 public class CoreDataStorage : BaseStorage
 {
+    /// Fetched results controller of storage
     public let fetchedResultsController : NSFetchedResultsController
     
+    /// Initialize CoreDataStorage with NSFetchedResultsController
+    /// - Parameter fetchedResultsController: fetch results controller
     public init(fetchedResultsController: NSFetchedResultsController)
     {
         self.fetchedResultsController = fetchedResultsController
@@ -30,6 +35,9 @@ public class CoreDataStorage : BaseStorage
         self.fetchedResultsController.delegate = self
     }
     
+    /// Sections of fetched results controller as required by StorageProtocol
+    /// - SeeAlso: `StorageProtocol`
+    /// - SeeAlso: `MemoryStorage`
     public var sections : [Section]
     {
         if let sections = self.fetchedResultsController.sections
@@ -42,6 +50,9 @@ public class CoreDataStorage : BaseStorage
 
 extension CoreDataStorage : StorageProtocol
 {
+    /// Retrieve object at index path from `CoreDataStorage`
+    /// - Parameter path: NSIndexPath for object
+    /// - Returns: model at indexPath or nil, if item not found
     public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         return fetchedResultsController.objectAtIndexPath(path)
     }
@@ -49,6 +60,10 @@ extension CoreDataStorage : StorageProtocol
 
 extension CoreDataStorage : HeaderFooterStorageProtocol
 {
+    /// Header model for section.
+    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
+    /// - Parameter index: index of section
+    /// - Returns: header model for section, or nil if there are no model
     public func headerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryHeaderKind != nil, "Supplementary header kind must be set before retrieving header model for section index")
@@ -58,6 +73,10 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
     
+    /// Footer model for section.
+    /// - Requires: supplementaryFooterKind to be set prior to calling this method
+    /// - Parameter index: index of section
+    /// - Returns: footer model for section, or nil if there are no model
     public func footerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryFooterKind != nil, "Supplementary footer kind must be set before retrieving header model for section index")
@@ -70,6 +89,11 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
 
 extension CoreDataStorage : SupplementaryStorageProtocol
 {
+    /// Retrieve supplementary model of specific kind for section.
+    /// - Parameter kind: kind of supplementary model
+    /// - Parameter sectionIndex: index of section
+    /// - SeeAlso: `headerModelForSectionIndex`
+    /// - SeeAlso: `footerModelForSectionIndex`
     public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any?
     {
         if kind == self.supplementaryHeaderKind
@@ -86,10 +110,12 @@ extension CoreDataStorage : SupplementaryStorageProtocol
 
 extension CoreDataStorage : NSFetchedResultsControllerDelegate
 {
+    /// NSFetchedResultsController is about to start changing content - we'll start monitoring for updates.
     @objc public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.startUpdate()
     }
     
+    /// React to specific change in NSFetchedResultsController
     @objc public func controller(controller: NSFetchedResultsController,
         didChangeObject anObject: AnyObject,
         atIndexPath indexPath: NSIndexPath?,
@@ -124,6 +150,8 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
             self.currentUpdate?.updatedRowIndexPaths.append(indexPath!)
         }
     }
+    
+    /// React to changed section in NSFetchedResultsController
    @objc
     public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
     {
@@ -138,6 +166,8 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         default: ()
         }
     }
+    
+    /// Finish update from NSFetchedResultsController
    @objc  
     public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.finishUpdate()
