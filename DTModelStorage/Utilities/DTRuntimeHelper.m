@@ -38,6 +38,7 @@
     }
     if ([classString isEqualToString:@"__NSDictionaryI"] ||
         [classString isEqualToString:@"__NSDictionaryM"] ||
+        [classString isEqualToString:@"__NSDictionary0"] ||
        ([classString rangeOfString:@"_NativeDictionaryStorageOwner"].location != NSNotFound) ||
         klass == [NSMutableDictionary class])
     {
@@ -45,6 +46,7 @@
     }
     if ([classString isEqualToString:@"__NSArrayI"] ||
         [classString isEqualToString:@"__NSArrayM"] ||
+        [classString isEqualToString:@"__NSArray0"] ||
         [classString isEqualToString:@"_NSSwiftArrayImpl"] ||
         [classString isEqualToString:@"_SwiftDeferredNSArray"] ||
         ([classString rangeOfString:@"_ContiguousArrayStorage"].location != NSNotFound) ||
