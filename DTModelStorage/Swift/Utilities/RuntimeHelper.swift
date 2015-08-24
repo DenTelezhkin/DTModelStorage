@@ -86,19 +86,23 @@ public final class RuntimeHelper
     /// - Returns: mirror of class cluster ancestor.
     public class func classClusterReflectionFromMirrorType(mirror: _MirrorType) -> _MirrorType
     {
-//        print(_reflect(mirror.valueType).summary)
+        print(_reflect(mirror.valueType).summary)
         switch _reflect(mirror.valueType).summary
         {
         case "UIPlaceholderColor": fallthrough
         case "UIDeviceRGBColor": fallthrough
         case "UICachedDeviceRGBColor": return _reflect(UIColor)
+            
+        case "Swift.Array<Swift.AnyObject>": return _reflect(NSArray)
+            
+        case "Swift.Dictionary<NSObject, Swift.AnyObject>": return _reflect(NSDictionary)
         default: ()
         }
         
         if mirror.disposition != .Aggregate {
             return mirror
         }
-        let typeReflection = _reflect(mirror.valueType).summary
+        let typeReflection = _reflect(mirror.value).summary
         switch typeReflection
         {
         case "__NSCFBoolean": fallthrough
