@@ -31,23 +31,24 @@ class RuntimeHelperTestCase: XCTestCase {
     
     func testClassClusterUIColor()
     {
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(UIColor())).summary) == _reflect(UIColor.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(UIColor.cyanColor())).summary) == _reflect(UIColor.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(UIColor(red: 0.5, green: 0.3, blue: 0.2, alpha: 0.8))).summary) == _reflect(UIColor.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(UIColor.self)).summary) == "UIColor"
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(UIColor())).summary) == "UIColor"
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(UIColor.cyanColor())).summary) == "UIColor"
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(UIColor(red: 0.5, green: 0.3, blue: 0.2, alpha: 0.8))).summary) == "UIColor"
     }
     
     func testClassClusterNSArray()
     {
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSArray())).summary) == _reflect(NSArray.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSMutableArray())).summary) == _reflect(NSArray.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSArray(array: [1,""]))).summary) == _reflect(NSArray.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSArray())).summary) == _reflect(NSArray.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSMutableArray())).summary) == _reflect(NSArray.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSArray(array: [1,""]))).summary) == _reflect(NSArray.self).summary
     }
     
     func testClassClusterNSDictionary()
     {
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSDictionary())).summary) == _reflect(NSDictionary.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSMutableDictionary())).summary) == _reflect(NSDictionary.self).summary
-        expect(RuntimeHelper.classClusterReflectionFromMirrorType(_reflect(NSDictionary(dictionary: [1:"2"]))).summary) == _reflect(NSDictionary.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSDictionary())).summary) == _reflect(NSDictionary.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSMutableDictionary())).summary) == _reflect(NSDictionary.self).summary
+        expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSDictionary(dictionary: [1:"2"]))).summary) == _reflect(NSDictionary.self).summary
     }
 
 }

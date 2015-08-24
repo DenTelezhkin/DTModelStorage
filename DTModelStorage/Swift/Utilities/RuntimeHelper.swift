@@ -86,8 +86,8 @@ public final class RuntimeHelper
     /// - Returns: mirror of class cluster ancestor.
     public class func classClusterReflectionFromMirrorType(mirror: _MirrorType) -> _MirrorType
     {
-        print(_reflect(mirror.valueType).summary)
-        switch _reflect(mirror.valueType).summary
+//        print(_reflect(mirror.value).summary)
+        switch _reflect(mirror.value).summary
         {
         case "UIPlaceholderColor": fallthrough
         case "UIDeviceRGBColor": fallthrough
