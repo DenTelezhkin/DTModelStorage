@@ -85,7 +85,7 @@ public extension MemoryStorage
     
     /// Move table view section
     /// - Parameter sourceSection: index of section, from which we'll be moving
-    /// - Parameter destionationSection: index of section, where we'll be moving
+    /// - Parameter destinationSection: index of section, where we'll be moving
     public func moveTableViewSection(sourceSection: Int, toSection destinationSection: Int)
     {
         guard delegate is TableViewStorageUpdating else { return }
