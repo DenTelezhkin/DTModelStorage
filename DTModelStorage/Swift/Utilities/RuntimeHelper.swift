@@ -25,6 +25,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 /// This class is used to introspect Swift and Objective-C types, providing necessary mapping information.
 public final class RuntimeHelper
@@ -85,10 +86,19 @@ public final class RuntimeHelper
     /// - Returns: mirror of class cluster ancestor.
     public class func classClusterReflectionFromMirrorType(mirror: _MirrorType) -> _MirrorType
     {
+//        print(_reflect(mirror.valueType).summary)
+        switch _reflect(mirror.valueType).summary
+        {
+        case "UIPlaceholderColor": fallthrough
+        case "UIDeviceRGBColor": fallthrough
+        case "UICachedDeviceRGBColor": return _reflect(UIColor)
+        default: ()
+        }
+        
         if mirror.disposition != .Aggregate {
             return mirror
         }
-        let typeReflection = _reflect(mirror.value).summary
+        let typeReflection = _reflect(mirror.valueType).summary
         switch typeReflection
         {
         case "__NSCFBoolean": fallthrough
