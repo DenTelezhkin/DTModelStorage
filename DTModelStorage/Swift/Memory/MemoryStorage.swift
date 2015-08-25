@@ -250,7 +250,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
                 self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
             }
         }
-        self.currentUpdate?.deletedRowIndexPaths.extend(indexPaths)
+        self.currentUpdate?.deletedRowIndexPaths.appendContentsOf(indexPaths)
         self.finishUpdate()
     }
     
