@@ -8,7 +8,12 @@ DTModelStorage 2
 
 > This is a child-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenHeadless/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
 
-DTModelStorage 2 is completely rewritten in Swift 2, allowing to use any Swift data structure - classes, structs, enums, tuples. It is purely protocol and generic-based, allowing safe, compile-time type detection. It also takes advantage of powerful Swift 2 error handling model, providing developer feedback about failures, that might happen.
+- [x] Written in Swift 2
+- [x] Support for any data structure - class, struct, enum, tuple
+- [x] Protocol-oriented implementation with generic and associated types
+- [x] Swift 2 error-handling model
+- [x] Using Swift reflection API to introspect types
+- [x] High test coverage
 
 What this is all about?
 ==============
