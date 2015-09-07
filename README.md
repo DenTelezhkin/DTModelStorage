@@ -3,10 +3,12 @@
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
-DTModelStorage
-==============
+DTModelStorage 2
+================
 
 > This is a child-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenHeadless/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
+
+DTModelStorage 2 is completely rewritten in Swift 2, allowing to use any Swift data structure - classes, structs, enums, tuples. It is purely protocol and generic-based, allowing safe, compile-time type detection. It also takes advantage of powerful Swift 2 error handling model, providing developer feedback about failures, that might happen.
 
 What this is all about?
 ==============
@@ -68,11 +70,11 @@ try? storage.insertItem(model, toIndexPath: indexPath)
 #### Remove / replace / Reload
 
 ```swift
-storage.removeItem(model)
+try? storage.removeItem(model)
 storage.removeItems([model1,model2])
 storage.removeItemsAtIndexPaths(indexPaths)
 
-storage.replaceItem(model1, withItem: model2)
+try? storage.replaceItem(model1, withItem: model2)
 
 storage.reloadItem(model1)
 ```	
@@ -113,6 +115,23 @@ let section = storage.sectionAtIndex(0)
 section.setSupplementaryModel("foo", forKind: UICollectionElementKindSectionHeader)
 let model = section.supplementaryModelOfKind(UICollectionElementKindSectionHeader)
 ```
+
+#### Transferring model
+
+`DTModelStorage` defines `ModelTransfer` protocol, that allows transferring your data model to interested parties. This can be used for example for updating `UITableViewCell`. Thanks to associated `ModelType` of the protocol it is possible to transfer your model without any type casts.
+
+#### Generic model getters
+
+`DTModelStorage` provides several `UITableView` and `UICollectionView`-extended methods for retrieving your data model of correct type, for example, you can retrieve model for passed `UITableViewCell` subclass:
+
+```swift
+func objectForCell<T:ModelTransfer where T: UITableViewCell>(cell: T?, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
+
+let cell = FooCell...
+let object = storage.objectForCell(cell, atIndexPath: indexPath)
+```
+
+And because your `UITableViewCell` subclass will be implementing `ModelTransfer` protocol, we'll be able to gather associated type `ModelType` and cast model to it dynamically. This allows to completely remove all type casts from your `UITableView` and `UICollectionView` code.
 
 Installation
 ===========
