@@ -63,6 +63,11 @@
  */
 @property (nonatomic, strong) NSMutableArray *updatedRowIndexPaths;
 
+/**
+ Returns, whether this update is empty or not
+ */
+-(BOOL)isEmpty;
+
 @end
 
 #pragma clang assume_nonnull end

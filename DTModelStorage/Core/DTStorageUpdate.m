@@ -115,4 +115,14 @@
     return YES;
 }
 
+-(BOOL)isEmpty
+{
+    return self.insertedRowIndexPaths.count == 0 &&
+            self.updatedRowIndexPaths.count == 0 &&
+            self.deletedRowIndexPaths.count == 0 &&
+            self.insertedSectionIndexes.count == 0 &&
+            self.updatedSectionIndexes.count == 0 &&
+            self.deletedSectionIndexes.count == 0;
+}
+
 @end
