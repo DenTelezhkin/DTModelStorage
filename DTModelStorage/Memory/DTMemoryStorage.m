@@ -237,12 +237,7 @@
 
 - (void)finishUpdate
 {
-    if (self.currentUpdate.insertedRowIndexPaths.count > 0
-        || self.currentUpdate.updatedRowIndexPaths.count > 0
-        || self.currentUpdate.deletedRowIndexPaths.count > 0
-        || self.currentUpdate.insertedSectionIndexes.count > 0
-        || self.currentUpdate.updatedSectionIndexes.count > 0
-        || self.currentUpdate.deletedSectionIndexes.count > 0)
+    if (!self.currentUpdate.isEmpty)
     {
         if ([self.delegate respondsToSelector:@selector(storageDidPerformUpdate:)])
         {
