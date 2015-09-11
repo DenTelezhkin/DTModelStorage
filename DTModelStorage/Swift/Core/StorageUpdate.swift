@@ -37,6 +37,15 @@ public struct StorageUpdate : Equatable
     public var updatedRowIndexPaths = [NSIndexPath]()
     
     public init(){}
+    
+    public func isEmpty() -> Bool {
+        return deletedSectionIndexes.count == 0 &&
+            insertedSectionIndexes.count == 0 &&
+            updatedSectionIndexes.count == 0 &&
+            deletedRowIndexPaths.count == 0 &&
+            insertedRowIndexPaths.count == 0 &&
+            updatedRowIndexPaths.count == 0
+    }
 }
 
 public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
