@@ -130,10 +130,12 @@ let model = section.supplementaryModelOfKind(UICollectionElementKindSectionHeade
 `DTModelStorage` provides several `UITableView` and `UICollectionView`-extended methods for retrieving your data model of correct type, for example, you can retrieve model for passed `UITableViewCell` subclass:
 
 ```swift
-func objectForCell<T:ModelTransfer where T: UITableViewCell>(cell: T?, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
+func objectForCellClass<T:ModelTransfer where T: UITableViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
 
-let cell = FooCell...
-let object = storage.objectForCell(cell, atIndexPath: indexPath)
+// Usage: 
+if let object = storage.objectForCell(FooCell.self, atIndexPath: indexPath) {
+	// Do something
+}
 ```
 
 And because your `UITableViewCell` subclass will be implementing `ModelTransfer` protocol, we'll be able to gather associated type `ModelType` and cast model to it dynamically. This allows to completely remove all type casts from your `UITableView` and `UICollectionView` code.
@@ -159,4 +161,4 @@ Requirements
 Objective-C
 ============
 
-Due to generic implementation of DTModelStorage currently there are no plans to support Objective-C. If you want to use `DTModelStorage` in Objective-C project, you can use [latest compatible release](https://github.com/DenHeadless/DTModelStorage/releases/tag/1.2.6) of the framework, that was previously written in Objective-C.
+Due to generic implementation of DTModelStorage currently there are no plans to support Objective-C. If you want to use `DTModelStorage` in Objective-C project, you can use [latest compatible release](https://github.com/DenHeadless/DTModelStorage/releases/tag/1.3.1) of the framework, that was previously written in Objective-C.
