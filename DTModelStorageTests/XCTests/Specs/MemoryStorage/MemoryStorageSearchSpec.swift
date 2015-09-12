@@ -35,7 +35,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     func testObjectAtIndexPath()
     {
         storage.addItem(1)
-        if let _ = storage.objectForCell(TableCell(), atIndexPath: indexPath(0, 0)) {
+        if let _ = storage.objectForCellClass(TableCell.self, atIndexPath: indexPath(0, 0)) {
             
         }
         else {
@@ -46,7 +46,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     func testCollectionObjectAtIndexPath()
     {
         storage.addItem(2)
-        if let _ = storage.objectForCell(CollectionCell(), atIndexPath: indexPath(0, 0)) {
+        if let _ = storage.objectForCellClass(CollectionCell.self, atIndexPath: indexPath(0, 0)) {
             
         }
         else {

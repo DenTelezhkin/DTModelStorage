@@ -39,15 +39,13 @@ public extension MemoryStorage
     /// - Note: method will call .reloadData() when finishes.
     public func removeAllTableItems()
     {
-        guard delegate is TableViewStorageUpdating else { return }
+        guard let tableViewDelegate = delegate as? TableViewStorageUpdating else { return }
         
         for section in self.sections {
             (section as! SectionModel).objects.removeAll(keepCapacity: false)
         }
-        if let delegate = self.delegate as? TableViewStorageUpdating {
-            delegate.performAnimatedUpdate({ (tableView) -> Void in
-                tableView.reloadData()
-            })
+        tableViewDelegate.performAnimatedUpdate { tableView in
+            tableView.reloadData()
         }
     }
    

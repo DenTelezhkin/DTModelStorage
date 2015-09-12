@@ -10,8 +10,10 @@ import UIKit
 import XCTest
 import DTModelStorage
 import Nimble
+import CoreData
 
 class SwiftCell:UITableViewCell{}
+class ManagedClass: NSManagedObject {}
 
 class RuntimeHelperTestCase: XCTestCase {
 
@@ -102,4 +104,15 @@ class RuntimeHelperTestCase: XCTestCase {
         expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSAttributedString(string: "foo"))).summary) == "NSAttributedString"
         expect(RuntimeHelper.classClusterReflectionFromMirrorType(RuntimeHelper.mirrorFromModel(NSMutableAttributedString(string: "foo"))).summary) == "NSAttributedString"
     }
+    
+//    func testRuntimeHelperCorrectlyGetsNSManagedObjectRepresentation()
+//    {
+//        expect(RuntimeHelper.classNameFromReflection(_reflect(ManagedClass))) == "ManagedClass"
+//        let context = NSManagedObjectContext()
+//        let entityDescription = NSEntityDescription.entityForName("Foo", inManagedObjectContext: context)
+//        
+//        let instance = NSManagedObject(entity: entityDescription!, insertIntoManagedObjectContext: nil)
+//        
+//        expect(RuntimeHelper.mirrorFromModel(instance).summary) == "ManagedClass"
+//    }
 }

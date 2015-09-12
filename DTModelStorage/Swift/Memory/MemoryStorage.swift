@@ -381,7 +381,8 @@ extension MemoryStorage
     }
 }
 
-extension MemoryStorage : HeaderFooterStorageProtocol
+// MARK: - HeaderFooterStorageProtocol
+extension MemoryStorage :HeaderFooterStorageProtocol
 {
     /// Header model for section.
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method
@@ -402,6 +403,7 @@ extension MemoryStorage : HeaderFooterStorageProtocol
     }
 }
 
+// MARK: - SupplementaryStorageProtocol
 extension MemoryStorage : SupplementaryStorageProtocol
 {
     /// Retrieve supplementary model of specific kind for section. 

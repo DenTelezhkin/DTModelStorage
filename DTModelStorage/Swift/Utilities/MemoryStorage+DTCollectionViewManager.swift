@@ -18,6 +18,21 @@ public protocol CollectionViewStorageUpdating
 
 extension MemoryStorage
 {
+    /// Remove all items from UICollectionView.
+    /// - Note: method will call .reloadData() when finishes.
+    public func removeAllCollectionItems()
+    {
+        guard let collectionViewDelegate = delegate as? CollectionViewStorageUpdating else { return }
+        
+        for section in self.sections {
+            (section as! SectionModel).objects.removeAll(keepCapacity: false)
+        }
+        
+        collectionViewDelegate.performAnimatedUpdate { collectionView in
+            collectionView.reloadData()
+        }
+    }
+    
     /// Move collection item from `sourceIndexPath` to `destinationIndexPath`.
     /// - Parameter sourceIndexPath: indexPath from which we need to move
     /// - Parameter toIndexPath: destination index path for table item
