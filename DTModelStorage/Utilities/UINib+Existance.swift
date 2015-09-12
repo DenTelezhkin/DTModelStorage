@@ -1,9 +1,9 @@
 //
-//  DTSection
-//  DTModelStorage
+//  UINib+Existance.swift
+//  DTModelStorageTests
 //
-//  Created by Denys Telezhkin on 15.12.13.
-//  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
+//  Created by Denys Telezhkin on 15.07.15.
+//  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,32 +23,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+import Foundation
+import UIKit
 
-#pragma clang assume_nonnull begin
-
-/**
- `DTSection` protocol defines an interface for sections returned by DTModelStorage object. For `DTMemoryStorage`, `DTSectionModel` is the object, conforming to current protocol. For `DTCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol. 
- */
-
-@protocol DTSection <NSObject>
-
-/**
- Array of objects in section.
- 
- @return Array of objects in current section.
- */
-
-- (NSArray *)objects;
-
-/**
- Number of objects in current section.
- 
- @return Number of objects in current section
- */
-
-- (NSUInteger)numberOfObjects;
-
-@end
-
-#pragma clang assume_nonnull end
+public extension UINib {
+    
+    /// Check whether nib with name exists in bundle
+    /// - Parameter nibName: Name of xib file
+    /// - Parameter inBundle: bundle to search in
+    /// - Returns: true, if nib exists, false - if not.
+    public class func nibExistsWithNibName(nibName :String,
+        inBundle bundle: NSBundle = NSBundle.mainBundle()) -> Bool
+    {
+        if let _ = bundle.pathForResource(nibName, ofType: "nib")
+        {
+            return true
+        }
+        return false
+    }
+}

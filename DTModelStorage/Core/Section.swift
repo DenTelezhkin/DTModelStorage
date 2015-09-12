@@ -1,9 +1,9 @@
 //
-//  DTModelTransfer.h
-//  DTModelStorage
+//  Section.swift
+//  DTModelStorageTests
 //
-//  Created by Denys Telezhkin on 10/24/13.
-//  Copyright (c) 2013 MLSDev. All rights reserved.
+//  Created by Denys Telezhkin on 06.07.15.
+//  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,33 +23,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-#pragma clang assume_nonnull begin
-
-/**
- `DTModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every cell or supplementary view subclass you have should conform to this protocol.
-*/
-
-@protocol DTModelTransfer
-
-@required
-
-/**
-  This method will be called, when controller needs to display model on current cell
- 
-  @param model Model object to display on current cell
- 
-*/
-- (void)updateWithModel:(id)model;
-
-@optional
-
-/**
- This method can be used to retrieve cell model from the cell. It is up to cell to decide, if it wants to store and get back the model. 
-*/
-- (id)model;
-
-@end
-
-#pragma clang assume_nonnull end
+/// `Section` protocol defines an interface for sections returned by DTModelStorage object. For `MemoryStorage`, `SectionModel` is the object, conforming to current protocol. For `CoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol.
+public protocol Section
+{
+    ///  Array of objects in section.
+    var objects : [Any] { get }
+    
+    ///  Number of objects in current section.
+    var numberOfObjects : Int { get }
+}

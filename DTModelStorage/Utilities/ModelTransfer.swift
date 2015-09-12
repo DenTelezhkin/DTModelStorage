@@ -1,8 +1,8 @@
 //
-//  DTModelStorage.h
+//  ModelTransfer.swift
 //  DTModelStorageTests
 //
-//  Created by Denys Telezhkin on 17.07.15.
+//  Created by Denys Telezhkin on 06.07.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,7 +23,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
-FOUNDATION_EXPORT double DTModelStorageVersionNumber;
-FOUNDATION_EXPORT const unsigned char DTModelStorageVersionString[];
+/// `ModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every cell or supplementary view subclass you have should conform to this protocol.
+/// 
+/// - Note: `ModelType` is associated type, that works like generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.
+public protocol ModelTransfer
+{
+    /// This is a placeholder for your model type
+    typealias ModelType
+    
+    /// Update your view with model
+    /// - Parameter model: model of ModelType type
+    func updateWithModel(model : ModelType)
+}
