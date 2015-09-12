@@ -8,25 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		09205E56F6021D638C8EF3EB /* Pods_XCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 511C52FCBAAC25E386DBED7A /* Pods_XCTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		9A06014E1B527BF400B0F699 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06014C1B527BF400B0F699 /* CoreDataStorage.swift */; };
-		9A0601521B527BFA00B0F699 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A06014F1B527BFA00B0F699 /* MemoryStorage.swift */; };
-		9A0601541B527BFA00B0F699 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0601501B527BFA00B0F699 /* SectionModel.swift */; };
 		9A063C711B5155E400A49FF3 /* MemoryStorageSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C701B5155E400A49FF3 /* MemoryStorageSearchSpec.swift */; };
 		9A063C731B51639900A49FF3 /* MemoryStorageAddSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C721B51639900A49FF3 /* MemoryStorageAddSpec.swift */; };
 		9A063C751B51667E00A49FF3 /* StorageUpdatesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C741B51667E00A49FF3 /* StorageUpdatesObserver.swift */; };
 		9A063C771B5169C300A49FF3 /* MemoryStorageEditSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C761B5169C300A49FF3 /* MemoryStorageEditSpecs.swift */; };
-		9A27AB031B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27AB001B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
-		9A27AB051B526F86002EFB47 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A27AB011B526F86002EFB47 /* ModelTransfer.swift */; };
 		9A4618781B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */; };
-		9A52DD701B5AB1CB0048F535 /* MemoryStorage+DTTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+DTTableViewManager.swift */; };
-		9A75CECD1B55B6FE007FB06C /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */; };
-		9A75CED01B55B724007FB06C /* UINib+Existance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CECE1B55B724007FB06C /* UINib+Existance.swift */; };
-		9AB1FFED1B5D31A6008B6828 /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AF9315E1B594F7500456503 /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9ADFC8C31B8B402B00AB4CD9 /* MemoryStorage+DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C21B8B402B00AB4CD9 /* MemoryStorage+DTCollectionViewManager.swift */; };
-		9AF8E4B11B527C44005A2406 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8E4AC1B527C44005A2406 /* BaseStorage.swift */; };
-		9AF8E4B31B527C44005A2406 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8E4AD1B527C44005A2406 /* Section.swift */; };
-		9AF8E4B51B527C44005A2406 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8E4AE1B527C44005A2406 /* StorageProtocol.swift */; };
-		9AF8E4B71B527C44005A2406 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8E4AF1B527C44005A2406 /* StorageUpdate.swift */; };
+		9AB0F1F11BA455ED00D1BE42 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1ED1BA455ED00D1BE42 /* BaseStorage.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1F21BA455ED00D1BE42 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EE1BA455ED00D1BE42 /* Section.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1F31BA455ED00D1BE42 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1F41BA455ED00D1BE42 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1FD1BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1FE1BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F1FF1BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2001BA4560300D1BE42 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2011BA4560300D1BE42 /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2021BA4560300D1BE42 /* UINib+Existance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FC1BA4560300D1BE42 /* UINib+Existance.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2051BA4560C00D1BE42 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2031BA4560C00D1BE42 /* MemoryStorage.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2061BA4560C00D1BE42 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2041BA4560C00D1BE42 /* SectionModel.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2081BA4561300D1BE42 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2071BA4561300D1BE42 /* CoreDataStorage.swift */; settings = {ASSET_TAGS = (); }; };
+		9AB0F2091BA4562400D1BE42 /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AB0F1F51BA455F500D1BE42 /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9AF931811B59511D00456503 /* RuntimeHelperTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */; };
 		9AFE809F1B500D5A006B11B7 /* SectionModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -46,31 +46,31 @@
 		511C52FCBAAC25E386DBED7A /* Pods_XCTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		822B184A0B59DAA2E7FB431B /* Pods-XCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XCTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XCTests/Pods-XCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		9A06014C1B527BF400B0F699 /* CoreDataStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStorage.swift; path = Swift/CoreData/CoreDataStorage.swift; sourceTree = "<group>"; };
-		9A06014F1B527BFA00B0F699 /* MemoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorage.swift; path = Swift/Memory/MemoryStorage.swift; sourceTree = "<group>"; };
-		9A0601501B527BFA00B0F699 /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModel.swift; path = Swift/Memory/SectionModel.swift; sourceTree = "<group>"; };
 		9A063C701B5155E400A49FF3 /* MemoryStorageSearchSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageSearchSpec.swift; path = Specs/MemoryStorage/MemoryStorageSearchSpec.swift; sourceTree = "<group>"; };
 		9A063C721B51639900A49FF3 /* MemoryStorageAddSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageAddSpec.swift; path = Specs/MemoryStorage/MemoryStorageAddSpec.swift; sourceTree = "<group>"; };
 		9A063C741B51667E00A49FF3 /* StorageUpdatesObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdatesObserver.swift; path = Helpers/StorageUpdatesObserver.swift; sourceTree = "<group>"; };
 		9A063C761B5169C300A49FF3 /* MemoryStorageEditSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageEditSpecs.swift; path = Specs/MemoryStorage/MemoryStorageEditSpecs.swift; sourceTree = "<group>"; };
-		9A27AB001B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+UpdateWithoutAnimations.swift"; path = "Swift/Utilities/MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
-		9A27AB011B526F86002EFB47 /* ModelTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelTransfer.swift; path = Swift/Utilities/ModelTransfer.swift; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A2A38B61AEE26980021E97D /* DTModelStorage-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTModelStorage-Info.plist"; sourceTree = "<group>"; };
 		9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageRemovingItemsSpecs.swift; path = Specs/MemoryStorage/MemoryStorageRemovingItemsSpecs.swift; sourceTree = "<group>"; };
-		9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+DTTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTTableViewManager.swift"; path = "Swift/Utilities/MemoryStorage+DTTableViewManager.swift"; sourceTree = "<group>"; };
-		9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelper.swift; path = Swift/Utilities/RuntimeHelper.swift; sourceTree = "<group>"; };
-		9A75CECE1B55B724007FB06C /* UINib+Existance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINib+Existance.swift"; path = "Swift/Utilities/UINib+Existance.swift"; sourceTree = "<group>"; };
 		9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelperTestCase.swift; path = Specs/RuntimeHelperTestCase.swift; sourceTree = "<group>"; };
 		9A7D5BAB19D860700083673D /* XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7D5BAE19D860700083673D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		9ADFC8C21B8B402B00AB4CD9 /* MemoryStorage+DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTCollectionViewManager.swift"; path = "Swift/Utilities/MemoryStorage+DTCollectionViewManager.swift"; sourceTree = "<group>"; };
-		9AF8E4AC1B527C44005A2406 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseStorage.swift; path = Swift/Core/BaseStorage.swift; sourceTree = "<group>"; };
-		9AF8E4AD1B527C44005A2406 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Section.swift; path = Swift/Core/Section.swift; sourceTree = "<group>"; };
-		9AF8E4AE1B527C44005A2406 /* StorageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocol.swift; path = Swift/Core/StorageProtocol.swift; sourceTree = "<group>"; };
-		9AF8E4AF1B527C44005A2406 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Swift/Core/StorageUpdate.swift; sourceTree = "<group>"; };
-		9AF9315E1B594F7500456503 /* DTModelStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTModelStorage.h; path = Swift/DTModelStorage.h; sourceTree = "<group>"; };
+		9AB0F1ED1BA455ED00D1BE42 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseStorage.swift; path = Core/BaseStorage.swift; sourceTree = "<group>"; };
+		9AB0F1EE1BA455ED00D1BE42 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Section.swift; path = Core/Section.swift; sourceTree = "<group>"; };
+		9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocol.swift; path = Core/StorageProtocol.swift; sourceTree = "<group>"; };
+		9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Core/StorageUpdate.swift; sourceTree = "<group>"; };
+		9AB0F1F51BA455F500D1BE42 /* DTModelStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTModelStorage.h; sourceTree = "<group>"; };
+		9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTCollectionViewManager.swift"; path = "Utilities/MemoryStorage+DTCollectionViewManager.swift"; sourceTree = "<group>"; };
+		9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTTableViewManager.swift"; path = "Utilities/MemoryStorage+DTTableViewManager.swift"; sourceTree = "<group>"; };
+		9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+UpdateWithoutAnimations.swift"; path = "Utilities/MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
+		9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelTransfer.swift; path = Utilities/ModelTransfer.swift; sourceTree = "<group>"; };
+		9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelper.swift; path = Utilities/RuntimeHelper.swift; sourceTree = "<group>"; };
+		9AB0F1FC1BA4560300D1BE42 /* UINib+Existance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UINib+Existance.swift"; path = "Utilities/UINib+Existance.swift"; sourceTree = "<group>"; };
+		9AB0F2031BA4560C00D1BE42 /* MemoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorage.swift; path = Memory/MemoryStorage.swift; sourceTree = "<group>"; };
+		9AB0F2041BA4560C00D1BE42 /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModel.swift; path = Memory/SectionModel.swift; sourceTree = "<group>"; };
+		9AB0F2071BA4561300D1BE42 /* CoreDataStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStorage.swift; path = CoreData/CoreDataStorage.swift; sourceTree = "<group>"; };
 		9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModelTestCase.swift; path = Specs/MemoryStorage/SectionModelTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,7 +108,7 @@
 				9AF8E4B91B527C80005A2406 /* CoreData */,
 				AA478955187FEEBC00E51667 /* Utitlities */,
 				9AF8E4B81B527C69005A2406 /* Core */,
-				9AF9315E1B594F7500456503 /* DTModelStorage.h */,
+				9AB0F1F51BA455F500D1BE42 /* DTModelStorage.h */,
 			);
 			name = DTModelStorage;
 			path = ../DTModelStorage;
@@ -149,10 +149,10 @@
 		9AF8E4B81B527C69005A2406 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				9AF8E4AC1B527C44005A2406 /* BaseStorage.swift */,
-				9AF8E4AD1B527C44005A2406 /* Section.swift */,
-				9AF8E4AE1B527C44005A2406 /* StorageProtocol.swift */,
-				9AF8E4AF1B527C44005A2406 /* StorageUpdate.swift */,
+				9AB0F1ED1BA455ED00D1BE42 /* BaseStorage.swift */,
+				9AB0F1EE1BA455ED00D1BE42 /* Section.swift */,
+				9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */,
+				9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 		9AF8E4B91B527C80005A2406 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9A06014C1B527BF400B0F699 /* CoreDataStorage.swift */,
+				9AB0F2071BA4561300D1BE42 /* CoreDataStorage.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -168,8 +168,8 @@
 		9AF8E4BA1B527C91005A2406 /* Memory */ = {
 			isa = PBXGroup;
 			children = (
-				9A06014F1B527BFA00B0F699 /* MemoryStorage.swift */,
-				9A0601501B527BFA00B0F699 /* SectionModel.swift */,
+				9AB0F2031BA4560C00D1BE42 /* MemoryStorage.swift */,
+				9AB0F2041BA4560C00D1BE42 /* SectionModel.swift */,
 			);
 			name = Memory;
 			sourceTree = "<group>";
@@ -199,12 +199,12 @@
 		AA478955187FEEBC00E51667 /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
-				9A27AB001B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift */,
-				9A27AB011B526F86002EFB47 /* ModelTransfer.swift */,
-				9A75CECB1B55B6FE007FB06C /* RuntimeHelper.swift */,
-				9A75CECE1B55B724007FB06C /* UINib+Existance.swift */,
-				9A52DD6F1B5AB1CB0048F535 /* MemoryStorage+DTTableViewManager.swift */,
-				9ADFC8C21B8B402B00AB4CD9 /* MemoryStorage+DTCollectionViewManager.swift */,
+				9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */,
+				9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */,
+				9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */,
+				9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */,
+				9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */,
+				9AB0F1FC1BA4560300D1BE42 /* UINib+Existance.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -225,7 +225,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AB1FFED1B5D31A6008B6828 /* DTModelStorage.h in Headers */,
+				9AB0F2091BA4562400D1BE42 /* DTModelStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,19 +378,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A52DD701B5AB1CB0048F535 /* MemoryStorage+DTTableViewManager.swift in Sources */,
-				9A75CED01B55B724007FB06C /* UINib+Existance.swift in Sources */,
-				9A27AB031B526F86002EFB47 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
-				9A0601541B527BFA00B0F699 /* SectionModel.swift in Sources */,
-				9AF8E4B31B527C44005A2406 /* Section.swift in Sources */,
-				9ADFC8C31B8B402B00AB4CD9 /* MemoryStorage+DTCollectionViewManager.swift in Sources */,
-				9A0601521B527BFA00B0F699 /* MemoryStorage.swift in Sources */,
-				9A75CECD1B55B6FE007FB06C /* RuntimeHelper.swift in Sources */,
-				9AF8E4B71B527C44005A2406 /* StorageUpdate.swift in Sources */,
-				9AF8E4B51B527C44005A2406 /* StorageProtocol.swift in Sources */,
-				9AF8E4B11B527C44005A2406 /* BaseStorage.swift in Sources */,
-				9A27AB051B526F86002EFB47 /* ModelTransfer.swift in Sources */,
-				9A06014E1B527BF400B0F699 /* CoreDataStorage.swift in Sources */,
+				9AB0F1F21BA455ED00D1BE42 /* Section.swift in Sources */,
+				9AB0F2021BA4560300D1BE42 /* UINib+Existance.swift in Sources */,
+				9AB0F1F31BA455ED00D1BE42 /* StorageProtocol.swift in Sources */,
+				9AB0F1F41BA455ED00D1BE42 /* StorageUpdate.swift in Sources */,
+				9AB0F2011BA4560300D1BE42 /* RuntimeHelper.swift in Sources */,
+				9AB0F2001BA4560300D1BE42 /* ModelTransfer.swift in Sources */,
+				9AB0F2061BA4560C00D1BE42 /* SectionModel.swift in Sources */,
+				9AB0F2051BA4560C00D1BE42 /* MemoryStorage.swift in Sources */,
+				9AB0F1FF1BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
+				9AB0F1F11BA455ED00D1BE42 /* BaseStorage.swift in Sources */,
+				9AB0F1FD1BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift in Sources */,
+				9AB0F1FE1BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift in Sources */,
+				9AB0F2081BA4561300D1BE42 /* CoreDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
