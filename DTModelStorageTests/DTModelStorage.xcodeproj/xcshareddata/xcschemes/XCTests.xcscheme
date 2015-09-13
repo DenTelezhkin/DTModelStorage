@@ -17,7 +17,7 @@
                BlueprintIdentifier = "9A7D5BAA19D860700083673D"
                BuildableName = "XCTests.xctest"
                BlueprintName = "XCTests"
-               ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
+               ReferencedContainer = "container:DTModelStorage.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "9A7D5BAA19D860700083673D"
                BuildableName = "XCTests.xctest"
                BlueprintName = "XCTests"
-               ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
+               ReferencedContainer = "container:DTModelStorage.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -46,7 +46,7 @@
             BlueprintIdentifier = "9A7D5BAA19D860700083673D"
             BuildableName = "XCTests.xctest"
             BlueprintName = "XCTests"
-            ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
+            ReferencedContainer = "container:DTModelStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "9A7D5BAA19D860700083673D"
             BuildableName = "XCTests.xctest"
             BlueprintName = "XCTests"
-            ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
+            ReferencedContainer = "container:DTModelStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -86,7 +86,7 @@
             BlueprintIdentifier = "9A7D5BAA19D860700083673D"
             BuildableName = "XCTests.xctest"
             BlueprintName = "XCTests"
-            ReferencedContainer = "container:DTModelStorageTests.xcodeproj">
+            ReferencedContainer = "container:DTModelStorage.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -290,7 +290,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorageTests" */;
+			buildConfigurationList = AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorage" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -629,7 +629,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorageTests" */ = {
+		AA3B07A5185F55C100A95D16 /* Build configuration list for PBXProject "DTModelStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA3B07D4185F55C100A95D16 /* Debug */,
