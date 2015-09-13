@@ -1,7 +1,7 @@
 require 'xcpretty'
 require 'cocoapods'
- 
-workspace_file = "DTModelStorageTests.xcworkspace"
+
+workspace_file = "DTModelStorage.xcworkspace"
 scheme_name = "XCTests"
 
 def run(command, min_exit_status = 0)
@@ -9,19 +9,19 @@ def run(command, min_exit_status = 0)
   system(command)
   return $?.exitstatus
 end
- 
+
 desc "install dependencies"
 task :dependencies do
   run("pod install")
 end
- 
+
 desc "Run #{scheme_name} tests"
 task :run_tests do
   $tests_success = run("xcodebuild -scheme \"#{scheme_name}\" -workspace \"#{workspace_file}\" -destination 'name=iPhone 6' clean test | xcpretty -tc; exit ${PIPESTATUS[0]}")
 end
-  
+
 desc "Test and compile #{scheme_name}"
-task :ci =>  ['dependencies','run_tests'] do 
+task :ci =>  ['dependencies','run_tests'] do
   puts "\033[0;31m! #{scheme_name} unit tests failed" unless $tests_success == 0
   if ($tests_success == 0)
     puts "\033[0;32m** All is good!"
@@ -29,5 +29,5 @@ task :ci =>  ['dependencies','run_tests'] do
     exit(-1)
   end
 end
- 
+
 task default: 'ci'

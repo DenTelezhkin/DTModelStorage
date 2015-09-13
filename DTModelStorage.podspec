@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.platform = :ios,'8.0'
   s.ios.deployment_target = '8.0'
-  s.ios.frameworks = 'UIKit', 'Foundation'
-  s.ios.frameworks = 'Foundation', 'CoreData'
-  ss.source_files = 'DTModelStorage/**/*.swift'  
+  s.ios.frameworks = 'UIKit', 'Foundation', 'CoreData'
+  ss.source_files = 'DTModelStorage/**/*.{h,swift}'
 end
