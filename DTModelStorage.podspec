@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.platform = :ios,'8.0'
   s.ios.deployment_target = '8.0'
   s.ios.frameworks = 'UIKit', 'Foundation', 'CoreData'
-  ss.source_files = 'DTModelStorage/**/*.{h,swift}'
+  s.source_files = 'DTModelStorage/**/*.{h,swift}'
 end
