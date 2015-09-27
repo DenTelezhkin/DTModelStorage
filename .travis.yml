@@ -1,14 +1,22 @@
 osx_image: xcode7
 language: objective-c
+sudo: false
 
+env:
+  matrix:
+      - DESTINATION="OS=9.0,name=iPad 2" SDK=iphonesimulator9.0
+      - DESTINATION="OS=9.0,name=iPad Air" SDK=iphonesimulator9.0
+      - DESTINATION="OS=9.0,name=iPhone 5" SDK=iphonesimulator9.0
+      - DESTINATION="OS=9.0,name=iPhone 6s" SDK=iphonesimulator9.0
 before_install:
-- gem install cocoapods --no-document
 - gem install xcpretty --no-document
 - cd DTModelStorageTests
-- pod install
 
 script:
-    - xcodebuild test -workspace DTModelStorage.xcworkspace -scheme XCTests -configuration Debug -destination "platform=iOS Simulator,name=iPhone 4s" -destination "platform=iOS Simulator,name=iPhone 6 Plus" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES | xcpretty -c
+    - set -o pipefail
+    - git submodule update --init --recursive
+    - xcodebuild -version
+    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme DTModelStorage -configuration Debug -sdk "$SDK" -destination "$DESTINATION" test -enableCodeCoverage YES | xcpretty -tc
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

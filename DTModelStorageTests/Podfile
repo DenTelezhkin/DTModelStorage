@@ -1,9 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
-inhibit_all_warnings!
-use_frameworks!
-
-target "XCTests" do
-platform :ios, 8
-pod 'Nimble', git: "https://github.com/Quick/Nimble", branch: "swift-2.0"
-end
