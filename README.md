@@ -1,5 +1,5 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.png?branch=master) &nbsp;
-![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTModelStorage/badge.png) &nbsp; 
+[![codecov.io](http://codecov.io/github/DenHeadless/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenHeadless/DTModelStorage?branch=master)
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
@@ -24,7 +24,7 @@ The goal of the project is to provide storage classes for datasource based contr
 * items in sections
 * section headers and footers
 
-Now, if we look on `UICollectionView`, that stuff does not change. And probably any kind of datasource based control can be adapted to use the same terminology. So, instead of reinventing the wheel every time, let's try to implement universal storage classes, that would fit any control. 
+Now, if we look on `UICollectionView`, that stuff does not change. And probably any kind of datasource based control can be adapted to use the same terminology. So, instead of reinventing the wheel every time, let's try to implement universal storage classes, that would fit any control.
 
 `DTModelStorage` supports 2 kinds of storage classes:
 * Memory storage
@@ -32,10 +32,10 @@ Now, if we look on `UICollectionView`, that stuff does not change. And probably 
 
 Internal structure of these will be different, but we need a common interface and pattern to interact with them. This pattern is actually very simple, and contains two simple steps.
 
-1. Update storage 
+1. Update storage
 2. Notify delegate about changes in storage
 
-Memory storage classes will provide convinience methods to update storage, CoreData storage classes will rely on updates from `NSFetchedResultsControllerDelegate` sprotocol. So the first step will be different, but the second step stays the same. And delegate for storage classes will receive the same message, and it will not actually care, which storage is used. They will look the same from its point of view. 
+Memory storage classes will provide convinience methods to update storage, CoreData storage classes will rely on updates from `NSFetchedResultsControllerDelegate` sprotocol. So the first step will be different, but the second step stays the same. And delegate for storage classes will receive the same message, and it will not actually care, which storage is used. They will look the same from its point of view.
 
 `DTModelStorage` does not force any specific use, and does not imply, which UI components are compatible with it. However, storage classes are designed to work with "sections" and "items", which generally means some kind of table or collection of items.
 
@@ -46,11 +46,11 @@ CoreDataStorage
 
 ```swift
 let storage = CoreDataStorage(fetchedResultsController: controller)
-```	
+```
 
 Any section in `CoreDataStorage` conform to `NSFetchedResultsSectionInfo` protocol, however `DTModelStorage` extends them to be `Section` protocol compatible. This way CoreData sections and memory sections have the same interface.
 
-For perfomance reasons, you should not retrieve objects via `objects` property, if you don't need to. Objects may not be fetched from CoreData database, and if you need to retrieve only one specific item, it's better to call -`objectAtIndexPath:` method instead. This way only one item will be actually fetched from database. 
+For perfomance reasons, you should not retrieve objects via `objects` property, if you don't need to. Objects may not be fetched from CoreData database, and if you need to retrieve only one specific item, it's better to call -`objectAtIndexPath:` method instead. This way only one item will be actually fetched from database.
 
 MemoryStorage
 ================
@@ -60,7 +60,7 @@ MemoryStorage
 let storage = MemoryStorage()
 ```
 
-#### Adding items 
+#### Adding items
 
 ```swift
 storage.addItem(model)
@@ -82,9 +82,9 @@ storage.removeItemsAtIndexPaths(indexPaths)
 try? storage.replaceItem(model1, withItem: model2)
 
 storage.reloadItem(model1)
-```	
+```
 
-#### Managing sections 
+#### Managing sections
 
 ```swift
 storage.deleteSections(NSIndexSet(index: 1))
@@ -132,7 +132,7 @@ let model = section.supplementaryModelOfKind(UICollectionElementKindSectionHeade
 ```swift
 func objectForCellClass<T:ModelTransfer where T: UITableViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
 
-// Usage: 
+// Usage:
 if let object = storage.objectForCell(FooCell.self, atIndexPath: indexPath) {
 	// Do something
 }
@@ -148,7 +148,7 @@ Installation
     pod 'DTModelStorage', '~> 2.0.0'
 
 [Carthage](https://github.com/Carthage/Carthage)
-    
+
     github "DenHeadless/DTModelStorage"
 
 Requirements
