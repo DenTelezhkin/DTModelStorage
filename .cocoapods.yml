@@ -1,4 +1,5 @@
 try:
     install:
-        pre:
-            - git submodule update --init --recursive
+    pre:
+        - echo "DTModelStorage tests require Nimble.framework, updating git submodules..."
+        - git submodule update --init --recursive
