@@ -4,10 +4,10 @@ sudo: false
 
 env:
   matrix:
-      - DESTINATION="OS=9.0,name=iPad 2" SDK=iphonesimulator9.0
-      - DESTINATION="OS=9.0,name=iPad Air" SDK=iphonesimulator9.0
-      - DESTINATION="OS=9.0,name=iPhone 5" SDK=iphonesimulator9.0
-      - DESTINATION="OS=9.0,name=iPhone 6s" SDK=iphonesimulator9.0
+      - DESTINATION="OS=9.0,name=iPad 2"
+      - DESTINATION="OS=9.0,name=iPad Air"
+      - DESTINATION="OS=9.0,name=iPhone 5"
+      - DESTINATION="OS=9.0,name=iPhone 6s"
 before_install:
 - gem install xcpretty --no-document
 - cd DTModelStorageTests
@@ -16,7 +16,7 @@ script:
     - set -o pipefail
     - git submodule update --init --recursive
     - xcodebuild -version
-    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme DTModelStorage -configuration Debug -sdk "$SDK" -destination "$DESTINATION" test -enableCodeCoverage YES | xcpretty -tc
+    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme DTModelStorage -configuration Debug -sdk iphonesimulator -destination "$DESTINATION" test -enableCodeCoverage YES | xcpretty -tc
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
