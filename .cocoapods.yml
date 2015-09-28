@@ -1,3 +1,4 @@
 try:
     install:
-        - git submodule update --init --recursive
+        pre:
+            - git submodule update --init --recursive
