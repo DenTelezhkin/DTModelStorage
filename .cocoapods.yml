@@ -3,3 +3,4 @@ try:
     pre:
         - echo "DTModelStorage tests require Nimble.framework, updating git submodules..."
         - git submodule update --init --recursive
+    project: 'DTModelStorage.xcworkspace'
