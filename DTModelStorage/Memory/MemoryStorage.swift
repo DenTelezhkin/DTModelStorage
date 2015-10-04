@@ -138,7 +138,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// Set items for specific section. This will reload UI after updating.
     /// - Parameter items: items to set for section
     /// - Parameter forSectionIndex: index of section to update
-    public func setItems<T>(items: [T], forSectionIndex index: Int)
+    public func setItems<T>(items: [T], forSectionIndex index: Int = 0)
     {
         let section = self.sectionAtIndex(index)
         section.objects.removeAll(keepCapacity: false)
