@@ -99,4 +99,10 @@ class MemoryStorageSearchSpec: XCTestCase {
         let indexPathArray = storage.indexPathArrayForItems([1,5,9])
         expect(indexPathArray) == [indexPath(0, 0),indexPath(1, 1),indexPath(2, 2)]
     }
+    
+    func testUpdateWithoutAnimations() {
+        storage.updateWithoutAnimations {
+            expect(self.storage.delegate).to(beNil())
+        }
+    }
 }

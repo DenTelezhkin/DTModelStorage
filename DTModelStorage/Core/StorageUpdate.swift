@@ -28,13 +28,15 @@ import Foundation
 /// Object representing update in storage.
 public struct StorageUpdate : Equatable
 {
-    public var deletedSectionIndexes = NSMutableIndexSet()
-    public var insertedSectionIndexes = NSMutableIndexSet()
-    public var updatedSectionIndexes = NSMutableIndexSet()
+    public var deletedSectionIndexes = Set<Int>()
+    public var insertedSectionIndexes = Set<Int>()
+    public var updatedSectionIndexes = Set<Int>()
+    public var movedSectionIndexes = [[Int]]()
     
-    public var deletedRowIndexPaths = [NSIndexPath]()
-    public var insertedRowIndexPaths = [NSIndexPath]()
-    public var updatedRowIndexPaths = [NSIndexPath]()
+    public var deletedRowIndexPaths = Set<NSIndexPath>()
+    public var insertedRowIndexPaths = Set<NSIndexPath>()
+    public var updatedRowIndexPaths = Set<NSIndexPath>()
+    public var movedRowIndexPaths = [[NSIndexPath]]()
     
     public init(){}
     
@@ -42,20 +44,24 @@ public struct StorageUpdate : Equatable
         return deletedSectionIndexes.count == 0 &&
             insertedSectionIndexes.count == 0 &&
             updatedSectionIndexes.count == 0 &&
+            movedSectionIndexes.count == 0 &&
             deletedRowIndexPaths.count == 0 &&
             insertedRowIndexPaths.count == 0 &&
-            updatedRowIndexPaths.count == 0
+            updatedRowIndexPaths.count == 0 &&
+            movedRowIndexPaths.count == 0
     }
 }
 
 public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
 {
-    if !left.deletedSectionIndexes.isEqualToIndexSet(right.deletedSectionIndexes) { return false }
-    if !left.insertedSectionIndexes.isEqualToIndexSet(right.insertedSectionIndexes) { return false }
-    if !left.updatedSectionIndexes.isEqualToIndexSet(right.updatedSectionIndexes) { return false }
+    if !(left.deletedSectionIndexes == right.deletedSectionIndexes) { return false }
+    if !(left.insertedSectionIndexes == right.insertedSectionIndexes) { return false }
+    if !(left.updatedSectionIndexes == right.updatedSectionIndexes) { return false }
+    if !(left.movedSectionIndexes == right.movedSectionIndexes) { return false }
     if !(left.deletedRowIndexPaths == right.deletedRowIndexPaths) { return false }
     if !(left.insertedRowIndexPaths == right.insertedRowIndexPaths) { return false }
     if !(left.updatedRowIndexPaths == right.updatedRowIndexPaths) { return false }
+    if !(left.movedRowIndexPaths == right.movedRowIndexPaths) { return false }
     return true
 }
 
@@ -68,5 +74,19 @@ extension StorageUpdate : CustomStringConvertible
             "Deleted row indexPaths: \(deletedRowIndexPaths)\n" +
             "Inserted row indexPaths: \(insertedRowIndexPaths)\n" +
             "Updated row indexPaths: \(updatedRowIndexPaths)\n"
+    }
+}
+
+public protocol NSIndexSetConvertible {}
+extension Int: NSIndexSetConvertible {}
+
+public extension Set where Element : NSIndexSetConvertible
+{
+    func makeNSIndexSet() -> NSIndexSet {
+        let indexSet = NSMutableIndexSet()
+        for element in self {
+            indexSet.addIndex(element as! Int)
+        }
+        return NSIndexSet(indexSet: indexSet)
     }
 }

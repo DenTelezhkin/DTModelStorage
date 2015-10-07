@@ -144,27 +144,27 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         switch type
         {
         case .Insert:
-            if self.currentUpdate!.insertedSectionIndexes.containsIndex(newIndexPath!.section) {
+            if self.currentUpdate!.insertedSectionIndexes.contains(newIndexPath!.section) {
                 // If we've already been told that we're adding a section for this inserted row we skip it since it will handled by the section insertion.
                 return
             }
-            self.currentUpdate!.insertedRowIndexPaths.append(newIndexPath!)
+            self.currentUpdate!.insertedRowIndexPaths.insert(newIndexPath!)
         case .Delete:
-            if self.currentUpdate!.deletedSectionIndexes.containsIndex(indexPath!.section) {
+            if self.currentUpdate!.deletedSectionIndexes.contains(indexPath!.section) {
                 // If we've already been told that we're deleting a section for this deleted row we skip it since it will handled by the section deletion.
                 return
             }
-            self.currentUpdate?.deletedRowIndexPaths.append(indexPath!)
+            self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
         case .Move:
-            if !self.currentUpdate!.insertedSectionIndexes.containsIndex(newIndexPath!.section)
+            if !self.currentUpdate!.insertedSectionIndexes.contains(newIndexPath!.section)
             {
-                self.currentUpdate!.insertedRowIndexPaths.append(newIndexPath!)
+                self.currentUpdate!.insertedRowIndexPaths.insert(newIndexPath!)
             }
-            if !self.currentUpdate!.deletedSectionIndexes.containsIndex(indexPath!.section) {
-                self.currentUpdate!.deletedRowIndexPaths.append(indexPath!)
+            if !self.currentUpdate!.deletedSectionIndexes.contains(indexPath!.section) {
+                self.currentUpdate!.deletedRowIndexPaths.insert(indexPath!)
             }
         case .Update:
-            self.currentUpdate?.updatedRowIndexPaths.append(indexPath!)
+            self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)
         }
     }
     
@@ -177,9 +177,11 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         switch type
         {
         case .Insert:
-            self.currentUpdate!.insertedSectionIndexes.addIndex(sectionIndex)
+            self.currentUpdate!.insertedSectionIndexes.insert(sectionIndex)
         case .Delete:
-            self.currentUpdate!.deletedSectionIndexes.addIndex(sectionIndex)
+            self.currentUpdate!.deletedSectionIndexes.insert(sectionIndex)
+        case .Update:
+            self.currentUpdate!.updatedSectionIndexes.insert(sectionIndex)
         default: ()
         }
     }

@@ -45,6 +45,22 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(self.delegate.update) == update
     }
     
+    func testSetItems() {
+        storage.addItems([1,2,3])
+        storage.setItems([4,5,6])
+        
+        expect(self.storage.sectionAtIndex(0).objects.map { $0 as! Int} ) == [4,5,6]
+    }
+    
+    func testSetSectionSupplementariesModel()
+    {
+        storage.configureForTableViewUsage()
+        storage.setSectionHeaderModel(1, forSectionIndex: 0)
+        storage.setSectionFooterModel(2, forSectionIndex: 1)
+        expect(self.storage.headerModelForSectionIndex(0) as? Int) == 1
+        expect(self.storage.footerModelForSectionIndex(1) as? Int) == 2
+    }
+    
     func testInsertionOfStructs()
     {
         storage.addItems([2,4,6], toSection: 0)
@@ -194,8 +210,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.deleteSections(NSIndexSet(index: 1))
         
-        let update = StorageUpdate()
-        update.deletedSectionIndexes.addIndex(1)
+        var update = StorageUpdate()
+        update.deletedSectionIndexes.insert(1)
         
         expect(self.delegate.update) == update
     }
@@ -271,6 +287,54 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(model as? Int).to(beNil())
     }
     
+    func testMovingSections()
+    {
+        storage.addItems([1])
+        storage.addItems([1,1], toSection: 1)
+        storage.addItems([1,1,1], toSection: 2)
+        
+        storage.moveSection(0, toSection: 1)
+        expect(self.storage.sectionAtIndex(0).objects.count) == 2
+        expect(self.storage.sectionAtIndex(1).objects.count) == 1
+        expect(self.delegate.update?.movedSectionIndexes) == [[0,1]]
+    }
+    
+    func testMovingItem()
+    {
+        storage.addItems([1])
+        storage.addItems([2,3], toSection: 1)
+        storage.addItems([4,5,6], toSection: 2)
+        
+        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(1, 1))
+        
+        expect(self.storage.objectAtIndexPath(indexPath(1, 1)) as? Int) == 1
+        
+        expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(1,1)]]
+    }
+    
+    func testMovingItemIntoNonExistingSection()
+    {
+        storage.addItems([1])
+        
+        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
+        
+        expect(self.storage.objectAtIndexPath(indexPath(0, 1)) as? Int) == 1
+        
+        expect(self.delegate.update?.insertedSectionIndexes) == Set(arrayLiteral: 1)
+        expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(0,1)]]
+    }
+    
+    func testMovingNotExistingIndexPath()
+    {
+        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
+    }
+    
+    func testMovingItemIntoTooBigSection()
+    {
+        storage.addItem(1)
+        
+        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(5, 0))
+    }
 }
 
 class SectionSupplementariesTestCase : XCTestCase

@@ -25,8 +25,8 @@ class MemoryStorageAddSpec: XCTestCase {
 
     func testShouldReceiveCorrectUpdateCallWhenAddingItem() {
         var update = StorageUpdate()
-        update.insertedSectionIndexes.addIndex(0)
-        update.insertedRowIndexPaths.append(indexPath(0, 0))
+        update.insertedSectionIndexes.insert(0)
+        update.insertedRowIndexPaths.insert(indexPath(0, 0))
         
         storage.addItem("")
         
@@ -39,10 +39,10 @@ class MemoryStorageAddSpec: XCTestCase {
         storage.addItems(foo, toSection: 1)
         
         var update = StorageUpdate()
-        update.insertedSectionIndexes.addIndexesInRange(NSMakeRange(0, 2))
-        update.insertedRowIndexPaths.append(indexPath(0, 1))
-        update.insertedRowIndexPaths.append(indexPath(1, 1))
-        update.insertedRowIndexPaths.append(indexPath(2, 1))
+        update.insertedSectionIndexes.unionInPlace([0,1])
+        update.insertedRowIndexPaths.insert(indexPath(0, 1))
+        update.insertedRowIndexPaths.insert(indexPath(1, 1))
+        update.insertedRowIndexPaths.insert(indexPath(2, 1))
         
         expect(self.delegate.update) == update
     }

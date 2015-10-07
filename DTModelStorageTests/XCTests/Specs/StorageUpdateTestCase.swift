@@ -22,43 +22,66 @@ class StorageUpdateTestCase: XCTestCase {
     
     func testInsertedSectionIndexesStorageUpdateEqual()
     {
-        storage.insertedSectionIndexes.addIndex(3)
+        storage.insertedSectionIndexes.insert(3)
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testDeletedSectionIndexesStorageUpdateEqual()
     {
-        storage.deletedSectionIndexes.addIndex(2)
+        storage.deletedSectionIndexes.insert(2)
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testUpdatedSectionIndexesStorageUpdateEqual()
     {
-        storage.updatedSectionIndexes.addIndex(2)
+        storage.updatedSectionIndexes.insert(2)
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testInsertedRowsStorageUpdateEqual()
     {
-        storage.insertedRowIndexPaths.append(indexPath(0, 0))
+        storage.insertedRowIndexPaths.insert(indexPath(0, 0))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testDeletedRowsStorageUpdateEqual()
     {
-        storage.deletedRowIndexPaths.append(indexPath(0, 0))
+        storage.deletedRowIndexPaths.insert(indexPath(0, 0))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testUpdatedRowsStorageUpdateEqual()
     {
-        storage.updatedRowIndexPaths.append(indexPath(0, 0))
+        storage.updatedRowIndexPaths.insert(indexPath(0, 0))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
+    }
+    
+    func testMovedRowsStorageUpdateEqual()
+    {
+        storage.movedRowIndexPaths.append([indexPath(0, 0),indexPath(1, 1)])
+        
+        expect(self.emptyStorage == self.storage).to(beFalse())
+    }
+    
+    func testMovedSectionsStorageUpdateEqual()
+    {
+        storage.movedSectionIndexes.append([0,1])
+        
+        expect(self.emptyStorage == self.storage).to(beFalse())
+    }
+    
+    func testNSIndexSetCreation()
+    {
+        let set = Set(arrayLiteral: 1,2,3)
+        let indexSet = set.makeNSIndexSet()
+        expect(indexSet.containsIndex(1)).to(beTrue())
+        expect(indexSet.containsIndex(2)).to(beTrue())
+        expect(indexSet.containsIndex(3)).to(beTrue())
     }
 }

@@ -157,7 +157,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         for item in items {
             let numberOfItems = section.numberOfObjects
             section.objects.append(item)
-            self.currentUpdate?.insertedRowIndexPaths.append(NSIndexPath(forItem: numberOfItems, inSection: index))
+            self.currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: numberOfItems, inSection: index))
         }
         self.finishUpdate()
     }
@@ -171,7 +171,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let section = self.getValidSection(index)
         let numberOfItems = section.numberOfObjects
         section.objects.append(item)
-        self.currentUpdate?.insertedRowIndexPaths.append(NSIndexPath(forItem: numberOfItems, inSection: index))
+        self.currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: numberOfItems, inSection: index))
         self.finishUpdate()
     }
     
@@ -187,7 +187,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         guard section.objects.count > indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
         
         section.objects.insert(item, atIndex: indexPath.item)
-        self.currentUpdate?.insertedRowIndexPaths.append(indexPath)
+        self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
         self.finishUpdate()
     }
     
@@ -197,7 +197,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     {
         self.startUpdate()
         if let indexPath = self.indexPathForItem(item) {
-            self.currentUpdate?.updatedRowIndexPaths.append(indexPath)
+            self.currentUpdate?.updatedRowIndexPaths.insert(indexPath)
         }
         self.finishUpdate()
     }
@@ -218,7 +218,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let section = self.getValidSection(originalIndexPath.section)
         section.objects[originalIndexPath.item] = replacingItem
 
-        self.currentUpdate?.updatedRowIndexPaths.append(originalIndexPath)
+        self.currentUpdate?.updatedRowIndexPaths.insert(originalIndexPath)
     }
     
     /// Remove item `item`.
@@ -234,7 +234,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         }
         self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
         
-        self.currentUpdate?.deletedRowIndexPaths.append(indexPath)
+        self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
     }
     
     /// Remove items
@@ -243,14 +243,13 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func removeItems<T:Equatable>(items: [T])
     {
         self.startUpdate()
-        let indexPaths = self.indexPathArrayForItems(items)
         for item in items
         {
             if let indexPath = self.indexPathForItem(item) {
                 self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+                self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
             }
         }
-        self.currentUpdate?.deletedRowIndexPaths.appendContentsOf(indexPaths)
         self.finishUpdate()
     }
     
@@ -266,7 +265,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
             if let _ = self.objectAtIndexPath(indexPath)
             {
                 self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
-                self.currentUpdate?.deletedRowIndexPaths.append(indexPath)
+                self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
             }
         }
         
@@ -281,10 +280,59 @@ public class MemoryStorage: BaseStorage, StorageProtocol
 
         for var i = sections.lastIndex; i != NSNotFound; i = sections.indexLessThanIndex(i) {
             self.sections.removeAtIndex(i)
+            self.currentUpdate?.deletedSectionIndexes.insert(i)
         }
-        self.currentUpdate?.deletedSectionIndexes.addIndexes(sections)
-        
+    
         self.finishUpdate()
+    }
+    
+    public func moveSection(sourceSectionIndex: Int, toSection destinationSectionIndex: Int) {
+        self.startUpdate()
+        let validSectionFrom = getValidSection(sourceSectionIndex)
+        let _ = getValidSection(destinationSectionIndex)
+        sections.removeAtIndex(sourceSectionIndex)
+        sections.insert(validSectionFrom, atIndex: destinationSectionIndex)
+        currentUpdate?.movedSectionIndexes.append([sourceSectionIndex,destinationSectionIndex])
+        self.finishUpdate()
+    }
+    
+    public func moveItemFromIndexPath(source: NSIndexPath, toIndexPath destination: NSIndexPath)
+    {
+        self.startUpdate()
+        defer { self.finishUpdate() }
+        
+        guard let sourceItem = objectAtIndexPath(source) else {
+            print("MemoryStorage: source indexPath should not be nil when moving item")
+            return
+        }
+        let sourceSection = getValidSection(source.section)
+        let destinationSection = getValidSection(destination.section)
+        
+        if destinationSection.objects.count < destination.row {
+            print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection.objects.count) items in section")
+            return
+        }
+        sourceSection.objects.removeAtIndex(source.row)
+        destinationSection.objects.insert(sourceItem, atIndex: destination.item)
+        currentUpdate?.movedRowIndexPaths.append([source,destination])
+    }
+    
+    public func removeAllItems()
+    {
+        guard delegate is TableViewStorageUpdating || delegate is CollectionViewStorageUpdating else {
+            return
+        }
+        
+        for section in self.sections {
+            (section as! SectionModel).objects.removeAll(keepCapacity: false)
+        }
+        
+        (delegate as? TableViewStorageUpdating)?.performAnimatedUpdate({ tableView in
+            tableView.reloadData()
+        })
+        (delegate as? CollectionViewStorageUpdating)?.performAnimatedUpdate({ collectionView in
+            collectionView.reloadData()
+        })
     }
 }
 
@@ -352,7 +400,7 @@ extension MemoryStorage
         else {
             for i in self.sections.count...sectionIndex {
                 self.sections.append(SectionModel())
-                self.currentUpdate?.insertedSectionIndexes.addIndex(i)
+                self.currentUpdate?.insertedSectionIndexes.insert(i)
             }
         }
         return self.sections.last as! SectionModel
