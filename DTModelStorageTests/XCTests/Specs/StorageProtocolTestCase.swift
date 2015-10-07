@@ -36,4 +36,16 @@ class StorageProtocolTestCase: XCTestCase {
         expect(self.storage.objectForFooterClass(FooView.self, atSectionIndex: 0)) == "Bar"
     }
     
+    
+    func testCollectionViewFlowLayoutUsage() {
+        storage.configureForCollectionViewFlowLayoutUsage()
+        
+        expect(self.storage.supplementaryHeaderKind) == UICollectionElementKindSectionHeader
+        expect(self.storage.supplementaryFooterKind) == UICollectionElementKindSectionFooter
+        
+        storage.configureForTableViewUsage()
+        
+        expect(self.storage.supplementaryHeaderKind) == DTTableViewElementSectionHeader
+        expect(self.storage.supplementaryFooterKind) == DTTableViewElementSectionFooter
+    }
 }

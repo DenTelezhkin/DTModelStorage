@@ -115,4 +115,33 @@ class RuntimeHelperTestCase: XCTestCase {
 //        
 //        expect(RuntimeHelper.mirrorFromModel(instance).summary) == "ManagedClass"
 //    }
+    
+    func testRuntimeHelperIsAbleToRecursivelyUnwrapImplicitlyUnwrappedOptional()
+    {
+        let implicitlyUnwrapped : Int! = 3
+        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped)
+        expect(RuntimeHelper.mirrorFromModel(unwrapped!).summary) == "Swift.Int"
+    }
+    
+    func testRuntimeHelperIsAbleToRecursivelyUnwrapOptional()
+    {
+        let implicitlyUnwrapped : Int??? = 3
+        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped)
+        expect(RuntimeHelper.mirrorFromModel(unwrapped!).summary) == "Swift.Int"
+    }
+    
+    func testRuntimeHelperIsAbleToRecursivelyUnwrapButReturnNil()
+    {
+        let implicitlyUnwrapped : Int? = nil
+        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped)
+        expect(unwrapped).to(beNil())
+    }
+    
+    func testImplicitlyUnwrappedNil() {
+        let label = UILabel()
+        label.text = "Foo"
+        let labelText: String! = label.text
+        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(labelText)
+        expect(RuntimeHelper.mirrorFromModel(unwrapped!).summary) == "Swift.String"
+    }
 }
