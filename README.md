@@ -50,11 +50,11 @@ let storage = CoreDataStorage(fetchedResultsController: controller)
 
 Any section in `CoreDataStorage` conform to `NSFetchedResultsSectionInfo` protocol, however `DTModelStorage` extends them to be `Section` protocol compatible. This way CoreData sections and memory sections have the same interface.
 
-For perfomance reasons, you should not retrieve objects via `objects` property, if you don't need to. Objects may not be fetched from CoreData database, and if you need to retrieve only one specific item, it's better to call -`objectAtIndexPath:` method instead. This way only one item will be actually fetched from database.
+For perfomance reasons, you should not retrieve items via `items` property, if you don't need to. Items may not be fetched from CoreData database, and if you need to retrieve only one specific item, it's better to call -`itemAtIndexPath:` method instead. This way only one item will be actually fetched from database.
 
 MemoryStorage
 ================
-`MemoryStorage` encapsulates storage of data models in memory. It's basically NSArray of `SectionModel` objects, which contain array of objects for current section, and supplementary models of any kind, that add additional information for section. Good example would be UITableView headers and footers, or UICollectionView with UICollectionViewFlowLayout.
+`MemoryStorage` encapsulates storage of data models in memory. It's basically NSArray of `SectionModel` items, which contain array of items for current section, and supplementary models of any kind, that add additional information for section. Good example would be UITableView headers and footers, or UICollectionView with UICollectionViewFlowLayout.
 
 ```swift
 let storage = MemoryStorage()
@@ -130,10 +130,10 @@ let model = section.supplementaryModelOfKind(UICollectionElementKindSectionHeade
 `DTModelStorage` provides several `UITableView` and `UICollectionView`-extended methods for retrieving your data model of correct type, for example, you can retrieve model for passed `UITableViewCell` subclass:
 
 ```swift
-func objectForCellClass<T:ModelTransfer where T: UITableViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
+func itemForCellClass<T:ModelTransfer where T: UITableViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
 
 // Usage:
-if let object = storage.objectForCell(FooCell.self, atIndexPath: indexPath) {
+if let item = storage.itemForCell(FooCell.self, atIndexPath: indexPath) {
 	// Do something
 }
 ```
