@@ -49,7 +49,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1,2,3])
         storage.setItems([4,5,6])
         
-        expect(self.storage.sectionAtIndex(0).objects.map { $0 as! Int} ) == [4,5,6]
+        expect(self.storage.sectionAtIndex(0)?.items.map { $0 as! Int} ) == [4,5,6]
     }
     
     func testSetSectionSupplementariesModel()
@@ -67,8 +67,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         try! storage.insertItem(1, toIndexPath: indexPath(0, 0))
         
-        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.objectAtIndexPath(indexPath(1, 0)) as? Int) == 2
+        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Int) == 1
+        expect(self.storage.itemAtIndexPath(indexPath(1, 0)) as? Int) == 2
     }
     
     func testInsertionThrows()
@@ -231,8 +231,8 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
     {
-        let section = storage.sectionAtIndex(0)
-        section.setSupplementaryModel("foo", forKind: "bar")
+        storage.addItem(1)
+        storage.sectionAtIndex(0)?.setSupplementaryModel("foo", forKind: "bar")
         expect(self.storage.supplementaryModelOfKind("bar", sectionIndex: 0) as? String).to(equal("foo"))
     }
     
@@ -241,9 +241,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         let kind = "foo"
         storage.setSupplementaries([1,2,3], forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0).supplementaryModelOfKind(kind) as? Int) == 1
-        expect(self.storage.sectionAtIndex(1).supplementaryModelOfKind(kind) as? Int) == 2
-        expect(self.storage.sectionAtIndex(2).supplementaryModelOfKind(kind) as? Int) == 3
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind) as? Int) == 1
+        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind) as? Int) == 2
+        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind) as? Int) == 3
     }
     
     func testShouldNilOutSupplementaries()
@@ -253,9 +253,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.setSupplementaries([Int](), forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0).supplementaryModelOfKind(kind) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(1).supplementaryModelOfKind(kind) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(2).supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
     }
     
     func testShouldGetItemCorrectly()
@@ -264,25 +264,25 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(2, toSection: 1)
         storage.addItem(3, toSection: 2)
         
-        var model = storage.objectAtIndexPath(indexPath(0, 1))
+        var model = storage.itemAtIndexPath(indexPath(0, 1))
         
         expect(model as? Int) == 2
         
-        model = storage.objectAtIndexPath(indexPath(0, 2))
+        model = storage.itemAtIndexPath(indexPath(0, 2))
         
         expect(model as? Int) == 3
     }
     
     func testShouldReturnNilForNotExistingIndexPath()
     {
-        let model = storage.objectAtIndexPath(indexPath(5, 6))
+        let model = storage.itemAtIndexPath(indexPath(5, 6))
         expect(model as? Int).to(beNil())
     }
     
     func testShouldReturnNilForNotExistingIndexPathInExistingSection()
     {
         storage.addItem(1, toSection: 0)
-        let model = storage.objectAtIndexPath(indexPath(1, 0))
+        let model = storage.itemAtIndexPath(indexPath(1, 0))
         
         expect(model as? Int).to(beNil())
     }
@@ -294,8 +294,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1,1,1], toSection: 2)
         
         storage.moveSection(0, toSection: 1)
-        expect(self.storage.sectionAtIndex(0).objects.count) == 2
-        expect(self.storage.sectionAtIndex(1).objects.count) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 2
+        expect(self.storage.sectionAtIndex(1)?.items.count) == 1
         expect(self.delegate.update?.movedSectionIndexes) == [[0,1]]
     }
     
@@ -305,9 +305,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2,3], toSection: 1)
         storage.addItems([4,5,6], toSection: 2)
         
-        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(1, 1))
+        storage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(1, 1))
         
-        expect(self.storage.objectAtIndexPath(indexPath(1, 1)) as? Int) == 1
+        expect(self.storage.itemAtIndexPath(indexPath(1, 1)) as? Int) == 1
         
         expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(1,1)]]
     }
@@ -316,9 +316,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         storage.addItems([1])
         
-        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
+        storage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
         
-        expect(self.storage.objectAtIndexPath(indexPath(0, 1)) as? Int) == 1
+        expect(self.storage.itemAtIndexPath(indexPath(0, 1)) as? Int) == 1
         
         expect(self.delegate.update?.insertedSectionIndexes) == Set(arrayLiteral: 1)
         expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(0,1)]]
@@ -326,14 +326,14 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testMovingNotExistingIndexPath()
     {
-        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
+        storage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(0, 1))
     }
     
     func testMovingItemIntoTooBigSection()
     {
         storage.addItem(1)
         
-        storage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(5, 0))
+        storage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(5, 0))
     }
 }
 

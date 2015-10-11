@@ -26,7 +26,7 @@ extension MemoryStorage
     /// Move collection item from `sourceIndexPath` to `destinationIndexPath`.
     /// - Parameter sourceIndexPath: indexPath from which we need to move
     /// - Parameter toIndexPath: destination index path for table item
-    @available(*, unavailable, renamed="moveItemFromIndexPath(_:toIndexPath:)")
+    @available(*, unavailable, renamed="moveItemAtIndexPath(_:toIndexPath:)")
     public func moveCollectionItemAtIndexPath(sourceIndexPath: NSIndexPath, toIndexPath: NSIndexPath){}
     
     /// Move collection view section

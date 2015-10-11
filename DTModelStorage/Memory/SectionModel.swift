@@ -27,11 +27,21 @@
 public class SectionModel : Section
 {
     /// Items for current section
+    @available(*, unavailable, renamed="items")
     public var objects = [Any]()
     
+    // Items for current section
+    public var items = [Any]()
+    
     /// Number of items in current section
+    @available(*, unavailable, renamed="numberOfItems")
     public var numberOfObjects: Int {
-        return self.objects.count
+        return self.items.count
+    }
+    
+    /// Number of items in current section
+    public var numberOfItems: Int {
+        return self.items.count
     }
     
     private var supplementaries = [String:Any]()

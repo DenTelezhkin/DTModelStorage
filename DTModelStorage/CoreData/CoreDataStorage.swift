@@ -29,9 +29,9 @@ import CoreData
 private struct DTFetchedResultsSectionInfoWrapper : Section
 {
     let fetchedObjects : [AnyObject]
-    let numberOfObjects: Int
+    let numberOfItems: Int
     
-    var objects : [Any] {
+    var items : [Any] {
         return fetchedObjects.map { $0 }
     }
 }
@@ -59,7 +59,7 @@ public class CoreDataStorage : BaseStorage
     {
         if let sections = self.fetchedResultsController.sections
         {
-            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects!, numberOfObjects: $0.numberOfObjects) }
+            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects!, numberOfItems: $0.numberOfObjects) }
         }
         return []
     }
@@ -70,7 +70,7 @@ extension CoreDataStorage : StorageProtocol
     /// Retrieve object at index path from `CoreDataStorage`
     /// - Parameter path: NSIndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
-    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
+    public func itemAtIndexPath(path: NSIndexPath) -> Any? {
         return fetchedResultsController.objectAtIndexPath(path)
     }
 }

@@ -28,9 +28,9 @@ import Foundation
 /// `Section` protocol defines an interface for sections returned by DTModelStorage object. For `MemoryStorage`, `SectionModel` is the object, conforming to current protocol. For `CoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol.
 public protocol Section
 {
-    ///  Array of objects in section.
-    var objects : [Any] { get }
+    ///  Array of items in section.
+    var items : [Any] { get }
     
-    ///  Number of objects in current section.
-    var numberOfObjects : Int { get }
+    ///  Number of items in current section.
+    var numberOfItems : Int { get }
 }

@@ -26,14 +26,14 @@ class StorageProtocolTestCase: XCTestCase {
         storage.setSectionFooterModels(["Bar"])
     }
     
-    func testHeaderClassObjectGetter()
+    func testHeaderClassItemGetter()
     {
-        expect(self.storage.objectForHeaderClass(FooView.self, atSectionIndex: 0)) == "Foo"
+        expect(self.storage.itemForHeaderClass(FooView.self, atSectionIndex: 0)) == "Foo"
     }
 
-    func testFooterClassObjectGetter()
+    func testFooterClassItemGetter()
     {
-        expect(self.storage.objectForFooterClass(FooView.self, atSectionIndex: 0)) == "Bar"
+        expect(self.storage.itemForFooterClass(FooView.self, atSectionIndex: 0)) == "Bar"
     }
     
     

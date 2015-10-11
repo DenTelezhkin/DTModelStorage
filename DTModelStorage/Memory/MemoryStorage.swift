@@ -55,21 +55,26 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// sections of MemoryStorage
     public var sections: [Section] = [SectionModel]()
     
-    /// Retrieve object at index path from `MemoryStorage`
-    /// - Parameter path: NSIndexPath for object
-    /// - Returns: model at indexPath or nil, if item not found
+    @available(*,unavailable,renamed="itemAtIndexPath")
     public func objectAtIndexPath(path: NSIndexPath) -> Any? {
+        return self.itemAtIndexPath(path)
+    }
+    
+    /// Retrieve item at index path from `MemoryStorage`
+    /// - Parameter path: NSIndexPath for item
+    /// - Returns: model at indexPath or nil, if item not found
+    public func itemAtIndexPath(path: NSIndexPath) -> Any? {
         let sectionModel : SectionModel
         if path.section >= self.sections.count {
             return nil
         }
         else {
             sectionModel = self.sections[path.section] as! SectionModel
-            if path.item >= sectionModel.numberOfObjects {
+            if path.item >= sectionModel.numberOfItems {
                 return nil
             }
         }
-        return sectionModel.objects[path.item]
+        return sectionModel.items[path.item]
     }
     
     /// Set section header model for MemoryStorage
@@ -79,7 +84,10 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
+        startUpdate()
+        getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
+        currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
+        finishUpdate()
     }
     
     /// Set section footer model for MemoryStorage
@@ -89,7 +97,10 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        self.sectionAtIndex(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
+        startUpdate()
+        getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
+        currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
+        finishUpdate()
     }
     
     /// Set supplementaries for specific kind. Usually it's header or footer kinds.
@@ -140,9 +151,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// - Parameter forSectionIndex: index of section to update
     public func setItems<T>(items: [T], forSectionIndex index: Int = 0)
     {
-        let section = self.sectionAtIndex(index)
-        section.objects.removeAll(keepCapacity: false)
-        for item in items { section.objects.append(item) }
+        let section = self.getValidSection(index)
+        section.items.removeAll(keepCapacity: false)
+        for item in items { section.items.append(item) }
         self.delegate?.storageNeedsReloading()
     }
     
@@ -155,8 +166,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let section = self.getValidSection(index)
         
         for item in items {
-            let numberOfItems = section.numberOfObjects
-            section.objects.append(item)
+            let numberOfItems = section.numberOfItems
+            section.items.append(item)
             self.currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: numberOfItems, inSection: index))
         }
         self.finishUpdate()
@@ -169,8 +180,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     {
         self.startUpdate()
         let section = self.getValidSection(index)
-        let numberOfItems = section.numberOfObjects
-        section.objects.append(item)
+        let numberOfItems = section.numberOfItems
+        section.items.append(item)
         self.currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: numberOfItems, inSection: index))
         self.finishUpdate()
     }
@@ -184,9 +195,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
         
-        guard section.objects.count > indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
+        guard section.items.count > indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
         
-        section.objects.insert(item, atIndex: indexPath.item)
+        section.items.insert(item, atIndex: indexPath.item)
         self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
         self.finishUpdate()
     }
@@ -216,7 +227,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         }
         
         let section = self.getValidSection(originalIndexPath.section)
-        section.objects[originalIndexPath.item] = replacingItem
+        section.items[originalIndexPath.item] = replacingItem
 
         self.currentUpdate?.updatedRowIndexPaths.insert(originalIndexPath)
     }
@@ -232,7 +243,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         guard let indexPath = self.indexPathForItem(item) else {
             throw MemoryStorageErrors.Removal.ItemNotFound
         }
-        self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+        self.getValidSection(indexPath.section).items.removeAtIndex(indexPath.item)
         
         self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
     }
@@ -247,7 +258,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let indexPaths = indexPathArrayForItems(items)
         for indexPath in self.dynamicType.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         {
-            self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+            self.getValidSection(indexPath.section).items.removeAtIndex(indexPath.item)
             self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
         }
         self.finishUpdate()
@@ -262,9 +273,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         let reverseSortedIndexPaths = self.dynamicType.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         for indexPath in reverseSortedIndexPaths
         {
-            if let _ = self.objectAtIndexPath(indexPath)
+            if let _ = self.itemAtIndexPath(indexPath)
             {
-                self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+                self.getValidSection(indexPath.section).items.removeAtIndex(indexPath.item)
                 self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
             }
         }
@@ -296,24 +307,24 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
-    public func moveItemFromIndexPath(source: NSIndexPath, toIndexPath destination: NSIndexPath)
+    public func moveItemAtIndexPath(source: NSIndexPath, toIndexPath destination: NSIndexPath)
     {
         self.startUpdate()
         defer { self.finishUpdate() }
         
-        guard let sourceItem = objectAtIndexPath(source) else {
+        guard let sourceItem = itemAtIndexPath(source) else {
             print("MemoryStorage: source indexPath should not be nil when moving item")
             return
         }
         let sourceSection = getValidSection(source.section)
         let destinationSection = getValidSection(destination.section)
         
-        if destinationSection.objects.count < destination.row {
-            print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection.objects.count) items in section")
+        if destinationSection.items.count < destination.row {
+            print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection.items.count) items in section")
             return
         }
-        sourceSection.objects.removeAtIndex(source.row)
-        destinationSection.objects.insert(sourceItem, atIndex: destination.item)
+        sourceSection.items.removeAtIndex(source.row)
+        destinationSection.items.insert(sourceItem, atIndex: destination.item)
         currentUpdate?.movedRowIndexPaths.append([source,destination])
     }
     
@@ -324,7 +335,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         }
         
         for section in self.sections {
-            (section as! SectionModel).objects.removeAll(keepCapacity: false)
+            (section as! SectionModel).items.removeAll(keepCapacity: false)
         }
         
         (delegate as? TableViewStorageUpdating)?.performAnimatedUpdate({ tableView in
@@ -345,17 +356,9 @@ extension MemoryStorage
     public func itemsInSection(section: Int) -> [Any]?
     {
         if self.sections.count > section {
-            return self.sections[section].objects
+            return self.sections[section].items
         }
         return nil
-    }
-    
-    /// Retrieve object at index path from `MemoryStorage`
-    /// - Parameter path: NSIndexPath for object
-    /// - Returns: model at indexPath or nil, if item not found
-    public func itemAtIndexPath(indexPath: NSIndexPath) -> Any?
-    {
-        return self.objectAtIndexPath(indexPath)
     }
     
     /// Find index path of specific item in MemoryStorage
@@ -365,7 +368,7 @@ extension MemoryStorage
     {
         for sectionIndex in 0..<self.sections.count
         {
-            let rows = self.sections[sectionIndex].objects
+            let rows = self.sections[sectionIndex].items
             
             for rowIndex in 0..<rows.count {
                 if let item = rows[rowIndex] as? T {
@@ -382,12 +385,14 @@ extension MemoryStorage
     /// Retrieve section model for specific section.
     /// - Parameter sectionIndex: index of section
     /// - Note: if section did not exist prior to calling this, it will be created, and UI updated.
-    public func sectionAtIndex(sectionIndex : Int) -> SectionModel
+    public func sectionAtIndex(sectionIndex : Int) -> SectionModel?
     {
-        self.startUpdate()
-        let section = self.getValidSection(sectionIndex)
-        self.finishUpdate()
-        return section
+        if sections.count > sectionIndex {
+            return sections[sectionIndex] as? SectionModel
+        }
+        else {
+            return nil
+        }
     }
     
     /// Find-or-create section

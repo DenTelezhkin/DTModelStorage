@@ -26,7 +26,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {
         storage.addItems([1,2,3], toSection: 0)
         storage.removeItemsAtIndexPaths([indexPath(0, 0),indexPath(1, 0)])
-        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int).to(equal(3))
+        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Int).to(equal(3))
     }
     
     func testRemovingSubsequentItemsWorksInDifferentSections()
@@ -36,11 +36,11 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         self.storage.removeItemsAtIndexPaths([indexPath(1, 0), indexPath(2, 0),indexPath(0, 1),indexPath(2, 1)])
         
-        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.objectAtIndexPath(indexPath(0, 1)) as? Int) == 5
+        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Int) == 1
+        expect(self.storage.itemAtIndexPath(indexPath(0, 1)) as? Int) == 5
         
-        expect(self.storage.sectionAtIndex(0).objects.count) == 1
-        expect(self.storage.sectionAtIndex(1).objects.count) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 1
+        expect(self.storage.sectionAtIndex(1)?.items.count) == 1
     }
     
     func testRemovingItemsWorksWithSubsequentItems()
@@ -50,11 +50,11 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         self.storage.removeItems([2,3,4,5])
         
-        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.objectAtIndexPath(indexPath(0, 1)) as? Int) == 6
+        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Int) == 1
+        expect(self.storage.itemAtIndexPath(indexPath(0, 1)) as? Int) == 6
         
-        expect(self.storage.sectionAtIndex(0).objects.count) == 1
-        expect(self.storage.sectionAtIndex(1).objects.count) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 1
+        expect(self.storage.sectionAtIndex(1)?.items.count) == 1
     }
     
     func testSortingOfIndexPathsInSingleSection()
@@ -82,9 +82,9 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         storage.addItems([1,2,3,4,5])
         storage.removeItems([1,3,4,6])
         
-        expect(self.storage.sectionAtIndex(0).objects.count) == 2
-        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 2
-        expect(self.storage.objectAtIndexPath(indexPath(1, 0)) as? Int) == 5
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 2
+        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Int) == 2
+        expect(self.storage.itemAtIndexPath(indexPath(1, 0)) as? Int) == 5
         
         expect(self.storageUpdatesObserver.update?.deletedRowIndexPaths) == Set([indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)])
     }

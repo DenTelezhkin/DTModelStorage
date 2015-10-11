@@ -43,7 +43,7 @@ public extension MemoryStorage
     /// Move table item from `sourceIndexPath` to `destinationIndexPath`.
     /// - Parameter sourceIndexPath: indexPath from which we need to move
     /// - Parameter toIndexPath: destination index path for table item
-    @available(*, unavailable, renamed="moveItemFromIndexPath(_:toIndexPath:)")
+    @available(*, unavailable, renamed="moveItemAtIndexPath(_:toIndexPath:)")
     public func moveTableItemAtIndexPath(sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath){}
     
     /// Move table view section

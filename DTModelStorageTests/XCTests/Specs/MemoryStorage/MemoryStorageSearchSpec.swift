@@ -32,10 +32,10 @@ class MemoryStorageSearchSpec: XCTestCase {
         self.storage = MemoryStorage()
     }
     
-    func testObjectAtIndexPath()
+    func testItemAtIndexPath()
     {
         storage.addItem(1)
-        if let _ = storage.objectForCellClass(TableCell.self, atIndexPath: indexPath(0, 0)) {
+        if let _ = storage.itemForCellClass(TableCell.self, atIndexPath: indexPath(0, 0)) {
             
         }
         else {
@@ -43,10 +43,10 @@ class MemoryStorageSearchSpec: XCTestCase {
         }
     }
     
-    func testCollectionObjectAtIndexPath()
+    func testCollectionItemAtIndexPath()
     {
         storage.addItem(2)
-        if let _ = storage.objectForCellClass(CollectionCell.self, atIndexPath: indexPath(0, 0)) {
+        if let _ = storage.itemForCellClass(CollectionCell.self, atIndexPath: indexPath(0, 0)) {
             
         }
         else {
@@ -61,7 +61,7 @@ class MemoryStorageSearchSpec: XCTestCase {
      
         expect(model as? String) == "4"
         
-        model = storage.objectAtIndexPath(indexPath(0, 0))
+        model = storage.itemAtIndexPath(indexPath(0, 0))
         
         expect(model as? String) == "1"
     }
