@@ -144,13 +144,15 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         switch type
         {
         case .Insert:
-            self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!)
+            if newIndexPath != nil { self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!) }
         case .Delete:
-            self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
+            if indexPath != nil { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!) }
         case .Move:
-            self.currentUpdate?.movedRowIndexPaths.append([indexPath!,newIndexPath!])
+            if indexPath != nil && newIndexPath != nil && indexPath != newIndexPath {
+                self.currentUpdate?.movedRowIndexPaths.append([indexPath!,newIndexPath!])
+            }
         case .Update:
-            self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)
+            if indexPath != nil { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!) }
         }
     }
     
