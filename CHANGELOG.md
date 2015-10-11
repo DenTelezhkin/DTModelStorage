@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [2.1.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.1)
 
 #### Added
-* `insertSection(_:atIndex:)` that allows to insert `SectionModel` directly, with items and supplementary headers.
+* `insertSection(_:atIndex:)` method that allows to insert `SectionModel` directly, with items and supplementary models.
 
 ## [2.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.0)
 
