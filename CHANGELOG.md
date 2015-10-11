@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [2.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.0)
 
 #### Updated
-* `StorageUpdate` class was rewritten from scratch using Swift Set.
-* `StorageUpdate` now contains movedRowIndexPaths and movedSectionIndexes properties
+* `StorageUpdate` class was rewritten from scratch using Swift `Set`.
+* `StorageUpdate` now contains `movedRowIndexPaths` and `movedSectionIndexes` properties.
 
 #### Fixed
 * `removeItems` method should no longer skip items, if their indexPath is reduced when removing previous item
