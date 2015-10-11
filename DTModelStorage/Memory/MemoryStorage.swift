@@ -55,11 +55,6 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// sections of MemoryStorage
     public var sections: [Section] = [SectionModel]()
     
-    @available(*,unavailable,renamed="itemAtIndexPath")
-    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
-        return self.itemAtIndexPath(path)
-    }
-    
     /// Retrieve item at index path from `MemoryStorage`
     /// - Parameter path: NSIndexPath for item
     /// - Returns: model at indexPath or nil, if item not found
@@ -297,6 +292,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
+    /// Move section from `sourceSectionIndex` to `destinationSectionIndex`.
+    /// - Parameter sourceSectionIndex: index of section, from which we'll be moving
+    /// - Parameter destinationSectionIndex: index of section, where we'll be moving
     public func moveSection(sourceSectionIndex: Int, toSection destinationSectionIndex: Int) {
         self.startUpdate()
         let validSectionFrom = getValidSection(sourceSectionIndex)
@@ -307,6 +305,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.finishUpdate()
     }
     
+    /// Move item from `source` indexPath to `destination` indexPath.
+    /// - Parameter source: indexPath from which we need to move
+    /// - Parameter toIndexPath: destination index path for item
     public func moveItemAtIndexPath(source: NSIndexPath, toIndexPath destination: NSIndexPath)
     {
         self.startUpdate()
@@ -328,6 +329,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         currentUpdate?.movedRowIndexPaths.append([source,destination])
     }
     
+    /// Remove all items.
+    /// - Note: method will call .reloadData() when it finishes.
     public func removeAllItems()
     {
         guard delegate is TableViewStorageUpdating || delegate is CollectionViewStorageUpdating else {
@@ -473,5 +476,14 @@ extension MemoryStorage : SupplementaryStorageProtocol
             sectionModel = self.sections[sectionIndex] as! SectionModel
         }
         return sectionModel.supplementaryModelOfKind(kind)
+    }
+}
+
+// MARK: - DEPRECATED 
+extension MemoryStorage
+{
+    @available(*,unavailable,renamed="itemAtIndexPath")
+    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
+        return self.itemAtIndexPath(path)
     }
 }

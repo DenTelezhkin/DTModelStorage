@@ -144,7 +144,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         switch type
         {
         case .Insert:
-            self.currentUpdate!.insertedRowIndexPaths.insert(newIndexPath!)
+            self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!)
         case .Delete:
             self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
         case .Move:
@@ -163,11 +163,11 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         switch type
         {
         case .Insert:
-            self.currentUpdate!.insertedSectionIndexes.insert(sectionIndex)
+            self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
         case .Delete:
-            self.currentUpdate!.deletedSectionIndexes.insert(sectionIndex)
+            self.currentUpdate?.deletedSectionIndexes.insert(sectionIndex)
         case .Update:
-            self.currentUpdate!.updatedSectionIndexes.insert(sectionIndex)
+            self.currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
         default: ()
         }
     }

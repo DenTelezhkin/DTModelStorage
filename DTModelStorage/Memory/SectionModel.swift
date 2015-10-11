@@ -26,18 +26,8 @@
 /// Class represents data of the section used by `MemoryStorage`.
 public class SectionModel : Section
 {
-    /// Items for current section
-    @available(*, unavailable, renamed="items")
-    public var objects = [Any]()
-    
     // Items for current section
     public var items = [Any]()
-    
-    /// Number of items in current section
-    @available(*, unavailable, renamed="numberOfItems")
-    public var numberOfObjects: Int {
-        return self.items.count
-    }
     
     /// Number of items in current section
     public var numberOfItems: Int {
@@ -62,5 +52,17 @@ public class SectionModel : Section
     public func setSupplementaryModel(model : Any?, forKind kind: String)
     {
         self.supplementaries[kind] = model
+    }
+    
+    // MARK: - DEPRECATED
+    
+    /// Items for current section
+    @available(*, unavailable, renamed="items")
+    public var objects = [Any]()
+    
+    /// Number of items in current section
+    @available(*, unavailable, renamed="numberOfItems")
+    public var numberOfObjects: Int {
+        return self.items.count
     }
 }
