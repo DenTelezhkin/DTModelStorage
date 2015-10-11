@@ -243,12 +243,12 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func removeItems<T:Equatable>(items: [T])
     {
         self.startUpdate()
-        for item in items
+        
+        let indexPaths = indexPathArrayForItems(items)
+        for indexPath in self.dynamicType.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         {
-            if let indexPath = self.indexPathForItem(item) {
-                self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
-                self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
-            }
+            self.getValidSection(indexPath.section).objects.removeAtIndex(indexPath.item)
+            self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
         }
         self.finishUpdate()
     }

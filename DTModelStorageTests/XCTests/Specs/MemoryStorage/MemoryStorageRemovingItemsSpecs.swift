@@ -14,10 +14,13 @@ import Nimble
 class MemoryStorageRemovingItemsSpecs: XCTestCase {
 
     var storage : MemoryStorage!
+    var storageUpdatesObserver : StorageUpdatesObserver!
     
     override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
+        storageUpdatesObserver = StorageUpdatesObserver()
+        storage.delegate = storageUpdatesObserver
     }
 
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {
@@ -72,5 +75,17 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         let expectedIndexPaths = [indexPath(3, 2),indexPath(2, 2),indexPath(1, 1),indexPath(3, 0),indexPath(0, 0)]
         
         expect(sortedIndexPaths) == expectedIndexPaths
+    }
+    
+    func testRemovingAndEnumerating()
+    {
+        storage.addItems([1,2,3,4,5])
+        storage.removeItems([1,3,4,6])
+        
+        expect(self.storage.sectionAtIndex(0).objects.count) == 2
+        expect(self.storage.objectAtIndexPath(indexPath(0, 0)) as? Int) == 2
+        expect(self.storage.objectAtIndexPath(indexPath(1, 0)) as? Int) == 5
+        
+        expect(self.storageUpdatesObserver.update?.deletedRowIndexPaths) == Set([indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)])
     }
 }
