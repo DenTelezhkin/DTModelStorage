@@ -340,11 +340,13 @@ class MemoryStorageEditSpecs: XCTestCase {
 class SectionSupplementariesTestCase : XCTestCase
 {
     var storage : MemoryStorage!
-    
+    var updatesObserver : StorageUpdatesObserver!
     override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
         self.storage.configureForTableViewUsage()
+        updatesObserver = StorageUpdatesObserver()
+        storage.delegate = updatesObserver
     }
     
     func testSectionHeaderModelsSetter()
@@ -381,5 +383,29 @@ class SectionSupplementariesTestCase : XCTestCase
         storage.setSectionFooterModels([Int]())
         
         expect(self.storage.footerModelForSectionIndex(1) as? Int).to(beNil())
+    }
+    
+    func testInsertingSection()
+    {
+        let section = SectionModel()
+        section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader)
+        section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter)
+        section.items = [1,2,3]
+        storage.insertSection(section, atIndex: 0)
+        
+        expect(self.updatesObserver.update?.insertedSectionIndexes) == Set([0])
+        expect(self.updatesObserver.update?.insertedRowIndexPaths) == Set([indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)])
+        
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionHeader) as? String) == "Foo"
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionFooter) as? String) == "Bar"
+        expect(self.storage.sectionAtIndex(0)?.items.first as? Int) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.last as? Int) == 3
+    }
+    
+    func testInsertingSectionAtWrongIndexPathDoesNotWork()
+    {
+        let section = SectionModel()
+        
+        storage.insertSection(section, atIndex: 1)
     }
 }

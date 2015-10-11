@@ -152,6 +152,20 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.delegate?.storageNeedsReloading()
     }
     
+    /// Insert section. This method is assumed to be used, when you need to insert section with items and supplementaries in one batch operation. If you need to simply add items, use `addItems` or `setItems` instead.
+    /// - Parameter section: section to insert
+    /// - Parameter atIndex: index of section to insert. If `atIndex` is larger than number of sections, method does nothing.
+    public func insertSection(section: SectionModel, atIndex sectionIndex: Int) {
+        guard sectionIndex <= sections.count else { return }
+        startUpdate()
+        sections.insert(section, atIndex: sectionIndex)
+        currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
+        for item in 0..<section.numberOfItems {
+            currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: item, inSection: sectionIndex))
+        }
+        finishUpdate()
+    }
+    
     /// Add items to section with `toSection` number.
     /// - Parameter items: items to add
     /// - Parameter toSection: index of section to add items
