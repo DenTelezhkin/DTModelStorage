@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [2.1.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.1)
 
 #### Added
-* `insertSection(_:atIndex:)` that allows to insert `SectionModel` directly, with items and supplementary headers. 
+* `insertSection(_:atIndex:)` that allows to insert `SectionModel` directly, with items and supplementary headers.
 
 ## [2.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.0)
 
@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 * `StorageUpdate` class was rewritten from scratch using Swift Set.
 * `StorageUpdate` now contains movedRowIndexPaths and movedSectionIndexes properties
 * All method names and properties, that contained `object` term in their name, have been renamed to read 'item' instead
+* `MemoryStorage` `sectionAtIndex(_:)` method now returns optional value instead of always returning `SectionModel`. This method no longer inserts new sections, when called.
 
 #### Fixed
 * `removeItems` method should no longer skip items, if their indexPath is reduced when removing previous item
