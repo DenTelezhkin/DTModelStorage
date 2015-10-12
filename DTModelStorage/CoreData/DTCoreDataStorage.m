@@ -134,6 +134,10 @@
         [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
     } else if (type == NSFetchedResultsChangeMove)
     {
+        if ([indexPath compare:newIndexPath] == NSOrderedSame)
+        {
+            return;
+        }
         if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO)
         {
             [self.currentUpdate.insertedRowIndexPaths addObject:newIndexPath];
