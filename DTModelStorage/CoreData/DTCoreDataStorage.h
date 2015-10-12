@@ -43,7 +43,7 @@
  
  @return `DTCoreDataStorage` object.
  */
--(instancetype)initWithFetchResultsController:(NSFetchedResultsController *)controller NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithFetchResultsController:(NSFetchedResultsController *)controller;
 
 /**
  Use this method to create `DTCoreDataStorage` object with your NSFetchedResultsController.
