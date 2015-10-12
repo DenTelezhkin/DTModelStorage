@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.2)
+
+### Added
+
+* `setSection(_:forSectionIndex:)` method to set specific section with supplementaries and reloadData
+
+### Updated
+
+* Explicitly call storageNeedsReloading from methods `setSupplementaries`, `setSectionHeaderModels` and `setSectionFooterModels`
+
 ## [2.1.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.1)
 
 #### Added

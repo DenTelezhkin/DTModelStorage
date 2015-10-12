@@ -45,9 +45,9 @@ public struct MemoryStorageErrors
     }
 }
 
-/// This class represents model storage in memory. 
+/// This class represents model storage in memory.
 ///
-/// `MemoryStorage` stores data models like array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c. 
+/// `MemoryStorage` stores data models like array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
 public class MemoryStorage: BaseStorage, StorageProtocol
@@ -79,10 +79,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        startUpdate()
         getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
-        currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
-        finishUpdate()
+        delegate?.storageNeedsReloading()
     }
     
     /// Set section footer model for MemoryStorage
@@ -92,10 +90,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        startUpdate()
         getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
-        currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
-        finishUpdate()
+        delegate?.storageNeedsReloading()
     }
     
     /// Set supplementaries for specific kind. Usually it's header or footer kinds.
@@ -103,7 +99,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// - Parameter kind: supplementary kind
     public func setSupplementaries<T>(models : [T], forKind kind: String)
     {
-        self.startUpdate()
+        defer {
+            self.delegate?.storageNeedsReloading()
+        }
         
         if models.count == 0 {
             for index in 0..<self.sections.count {
@@ -113,14 +111,12 @@ public class MemoryStorage: BaseStorage, StorageProtocol
             return
         }
         
-        self.getValidSection(models.count - 1)
+        getValidSection(models.count - 1)
         
         for index in 0..<models.count {
             let section = self.sections[index] as! SectionModel
             section.setSupplementaryModel(models[index], forKind: kind)
         }
-        
-        self.finishUpdate()
     }
     
     /// Set section header models.
@@ -150,6 +146,16 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         section.items.removeAll(keepCapacity: false)
         for item in items { section.items.append(item) }
         self.delegate?.storageNeedsReloading()
+    }
+    
+    /// Set section for specific index. This will reload UI after updating
+    /// - Parameter section: section to set for specific index
+    /// - Parameter forSectionIndex: index of section
+    public func setSection(section: SectionModel, forSectionIndex index: Int)
+    {
+        let _ = self.getValidSection(index)
+        sections.replaceRange(index...index, with: [section as Section])
+        delegate?.storageNeedsReloading()
     }
     
     /// Insert section. This method is assumed to be used, when you need to insert section with items and supplementaries in one batch operation. If you need to simply add items, use `addItems` or `setItems` instead.
@@ -237,7 +243,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         
         let section = self.getValidSection(originalIndexPath.section)
         section.items[originalIndexPath.item] = replacingItem
-
+        
         self.currentUpdate?.updatedRowIndexPaths.insert(originalIndexPath)
     }
     
@@ -297,12 +303,12 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func deleteSections(sections : NSIndexSet)
     {
         self.startUpdate()
-
+        
         for var i = sections.lastIndex; i != NSNotFound; i = sections.indexLessThanIndex(i) {
             self.sections.removeAtIndex(i)
             self.currentUpdate?.deletedSectionIndexes.insert(i)
         }
-    
+        
         self.finishUpdate()
     }
     
@@ -462,7 +468,7 @@ extension MemoryStorage :HeaderFooterStorageProtocol
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
-  
+    
     /// Footer model for section.
     /// - Requires: supplementaryFooterKind to be set prior to calling this method
     /// - Parameter index: index of section
@@ -476,7 +482,7 @@ extension MemoryStorage :HeaderFooterStorageProtocol
 // MARK: - SupplementaryStorageProtocol
 extension MemoryStorage : SupplementaryStorageProtocol
 {
-    /// Retrieve supplementary model of specific kind for section. 
+    /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
@@ -493,7 +499,7 @@ extension MemoryStorage : SupplementaryStorageProtocol
     }
 }
 
-// MARK: - DEPRECATED 
+// MARK: - DEPRECATED
 extension MemoryStorage
 {
     @available(*,unavailable,renamed="itemAtIndexPath")
