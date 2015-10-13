@@ -413,9 +413,7 @@ extension MemoryStorage
         if sections.count > sectionIndex {
             return sections[sectionIndex] as? SectionModel
         }
-        else {
-            return nil
-        }
+        return nil
     }
     
     /// Find-or-create section
