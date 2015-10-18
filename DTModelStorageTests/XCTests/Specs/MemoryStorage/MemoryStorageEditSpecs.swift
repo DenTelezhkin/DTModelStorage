@@ -408,4 +408,14 @@ class SectionSupplementariesTestCase : XCTestCase
         
         storage.insertSection(section, atIndex: 1)
     }
+    
+    func testInsertionAtFirstIndexPath()
+    {
+        do {
+            try storage.insertItem(1, toIndexPath: indexPath(0, 0))
+        }
+        catch _ {
+            XCTFail()
+        }
+    }
 }

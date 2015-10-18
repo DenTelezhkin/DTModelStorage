@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.1.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.3)
+
+### Fixed
+
+* `insertItem(_:atIndexPath:)` method now properly accepts zero index path in empty section
+
 ## [2.1.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.2)
 
 ### Added

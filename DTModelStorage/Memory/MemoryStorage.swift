@@ -210,7 +210,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
         
-        guard section.items.count > indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
+        guard section.items.count >= indexPath.item else { throw MemoryStorageErrors.Insertion.IndexPathTooBig }
         
         section.items.insert(item, atIndex: indexPath.item)
         self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
