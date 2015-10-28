@@ -16,32 +16,14 @@ class MemoryStorageSearchSpec: XCTestCase {
     var storage = MemoryStorage()
 
     class StorageUpdatingInstance : StorageUpdating {
+        var storageNeedsReloadingCalled = false
+        
         func storageDidPerformUpdate(update: StorageUpdate) {
             
         }
         
         func storageNeedsReloading() {
-            
-        }
-    }
-    
-    class TableUpdating : StorageUpdatingInstance,TableViewStorageUpdating
-    {
-        var called = false
-        
-        func performAnimatedUpdate(block: (UITableView) -> Void) {
-            called = true
-            block(UITableView())
-        }
-    }
-    
-    class CollectionUpdating : StorageUpdatingInstance, CollectionViewStorageUpdating
-    {
-        var called = false
-        
-        func performAnimatedUpdate(block: (UICollectionView) -> Void) {
-            called = true
-            block(UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewLayout()))
+            storageNeedsReloadingCalled = true
         }
     }
     
@@ -146,37 +128,15 @@ class MemoryStorageSearchSpec: XCTestCase {
         expect(self.storage.itemsInSection(0)).to(beNil())
     }
     
-    func testRemoveAllTableItems()
+    func testRemoveAllItems()
     {
-        let tableDelegate = TableUpdating()
-        storage.delegate = tableDelegate
-        
+        let storageNeedsReloading = StorageUpdatingInstance()
+        storage.delegate = storageNeedsReloading
         storage.addItems([12,3,5,6])
-        storage.removeAllItems()
         
+        expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beFalse())
+        storage.removeAllItems()
+        expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beTrue())
         expect(self.storage.sectionAtIndex(0)?.items.count) == 0
-        expect(tableDelegate.called) == true
-    }
-    
-    func testRemoveAllCollectionItems()
-    {
-        let collectionDelegate = CollectionUpdating()
-        storage.delegate = collectionDelegate
-        
-        storage.addItems([12,3,5,6])
-        storage.removeAllItems()
-        
-        expect(self.storage.sectionAtIndex(0)?.items.count) == 0
-        expect(collectionDelegate.called) == true
-    }
-    
-    func testShouldNotDoAnythingIfDelegateIsNotTableViewNorCollectionUpdating()
-    {
-        let delegate = StorageUpdatingInstance()
-        storage.delegate = delegate
-        
-        storage.addItems([1,23,5,6,4,4])
-        storage.removeAllItems()
-        expect(self.storage.sectionAtIndex(0)?.items.count) == 6
     }
 }

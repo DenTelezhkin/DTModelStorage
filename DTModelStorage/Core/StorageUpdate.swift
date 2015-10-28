@@ -28,18 +28,35 @@ import Foundation
 /// Object representing update in storage.
 public struct StorageUpdate : Equatable
 {
+    /// Indexes of section to be deleted in current update
     public var deletedSectionIndexes = Set<Int>()
-    public var insertedSectionIndexes = Set<Int>()
-    public var updatedSectionIndexes = Set<Int>()
-    public var movedSectionIndexes = [[Int]]()
     
+    /// Indexes of sections to be inserted in current update
+    public var insertedSectionIndexes = Set<Int>()
+    
+    /// Indexes of sections to be updated in current update.
+    public var updatedSectionIndexes = Set<Int>()
+    
+    /// Array of section indexes to be moved in current update
+    public var movedSectionIndexes = [[Int]]()
+
+    /// Index paths of rows that need to be deleted in current update.
     public var deletedRowIndexPaths = Set<NSIndexPath>()
+    
+    /// Index paths of rows that need to be inserted in current update.
     public var insertedRowIndexPaths = Set<NSIndexPath>()
+    
+    /// Index paths of rows that need to be updated in current update.
     public var updatedRowIndexPaths = Set<NSIndexPath>()
+    
+    /// Array if index paths to be moved in current update.
     public var movedRowIndexPaths = [[NSIndexPath]]()
     
+    /// Create an empty update.
     public init(){}
     
+    /// Check whether update is empty.
+    /// Returns: Returns true, if update does not contain any data.
     public func isEmpty() -> Bool {
         return deletedSectionIndexes.count == 0 &&
             insertedSectionIndexes.count == 0 &&
@@ -52,6 +69,7 @@ public struct StorageUpdate : Equatable
     }
 }
 
+/// Compare StorageUpdates
 public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
 {
     if !(left.deletedSectionIndexes == right.deletedSectionIndexes) { return false }
@@ -77,11 +95,14 @@ extension StorageUpdate : CustomStringConvertible
     }
 }
 
+/// Workaround that allows Set<Int> to be converted to NSIndexSet
 public protocol NSIndexSetConvertible {}
 extension Int: NSIndexSetConvertible {}
 
 public extension Set where Element : NSIndexSetConvertible
 {
+    /// Make NSIndexSet instance out of Set<Int>
+    /// Returns: NSIndexSet with Ints inside
     func makeNSIndexSet() -> NSIndexSet {
         let indexSet = NSMutableIndexSet()
         for element in self {

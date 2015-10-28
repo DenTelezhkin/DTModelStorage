@@ -353,20 +353,10 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// - Note: method will call .reloadData() when it finishes.
     public func removeAllItems()
     {
-        guard delegate is TableViewStorageUpdating || delegate is CollectionViewStorageUpdating else {
-            return
-        }
-        
         for section in self.sections {
             (section as! SectionModel).items.removeAll(keepCapacity: false)
         }
-        
-        (delegate as? TableViewStorageUpdating)?.performAnimatedUpdate({ tableView in
-            tableView.reloadData()
-        })
-        (delegate as? CollectionViewStorageUpdating)?.performAnimatedUpdate({ collectionView in
-            collectionView.reloadData()
-        })
+        delegate?.storageNeedsReloading()
     }
 }
 
@@ -417,6 +407,9 @@ extension MemoryStorage
     }
     
     /// Find-or-create section
+    /// - Parameter sectionIndex: indexOfSection
+    /// - Note: This method finds or create a SectionModel. It means that if you create section 2, section 0 and 1 will be automatically created.
+    /// - Returns: SectionModel
     func getValidSection(sectionIndex : Int) -> SectionModel
     {
         if sectionIndex < self.sections.count
@@ -433,6 +426,8 @@ extension MemoryStorage
     }
     
     /// Index path array for items
+    /// - Parameter items: items to find in storage
+    /// - Returns: Array if NSIndexPaths for found items
     func indexPathArrayForItems<T:Equatable>(items:[T]) -> [NSIndexPath]
     {
         var indexPaths = [NSIndexPath]()
@@ -447,6 +442,9 @@ extension MemoryStorage
     }
     
     /// Sorted array of index paths - useful for deletion.
+    /// - Parameter indexPaths: Array of index paths to sort
+    /// - Parameter ascending: sort in ascending or descending order
+    /// - Note: This method is used, when you need to delete multiple index paths. Sorting them in reverse order preserves initial collection from mutation while enumerating
     class func sortedArrayOfIndexPaths(indexPaths: [NSIndexPath], ascending: Bool) -> [NSIndexPath]
     {
         let unsorted = NSMutableArray(array: indexPaths)
@@ -500,6 +498,9 @@ extension MemoryStorage : SupplementaryStorageProtocol
 // MARK: - DEPRECATED
 extension MemoryStorage
 {
+    /// Retrieve item at index path from `MemoryStorage`
+    /// - Parameter path: NSIndexPath for item
+    /// - Returns: model at indexPath or nil, if item not found
     @available(*,unavailable,renamed="itemAtIndexPath")
     public func objectAtIndexPath(path: NSIndexPath) -> Any? {
         return self.itemAtIndexPath(path)

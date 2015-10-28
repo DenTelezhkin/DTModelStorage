@@ -390,7 +390,7 @@ class SectionSupplementariesTestCase : XCTestCase
         let section = SectionModel()
         section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader)
         section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter)
-        section.items = [1,2,3]
+        section.setItems([1,2,3])
         storage.insertSection(section, atIndex: 0)
         
         expect(self.updatesObserver.update?.insertedSectionIndexes) == Set([0])

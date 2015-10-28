@@ -26,13 +26,6 @@
 import Foundation
 import UIKit
 
-/// This protocol is used to determine, whether our delegate deals with UITableView
-public protocol TableViewStorageUpdating
-{
-    /// Perform animated update on UITableView. This is useful, when animation consists of several actions.
-    func performAnimatedUpdate(block : (UITableView) -> Void)
-}
-
 public extension MemoryStorage
 {
     /// Remove all items from UITableView.

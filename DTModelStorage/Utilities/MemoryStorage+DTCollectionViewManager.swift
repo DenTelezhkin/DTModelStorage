@@ -9,13 +9,6 @@
 import Foundation
 import UIKit
 
-/// This protocol is used to determine, whether our delegate deals with UICollectionView
-public protocol CollectionViewStorageUpdating
-{
-    /// Perform animated update on UICollectionView. This is useful, when animation consists of several actions.
-    func performAnimatedUpdate(block : (UICollectionView) -> Void)
-}
-
 extension MemoryStorage
 {
     /// Remove all items from UICollectionView.

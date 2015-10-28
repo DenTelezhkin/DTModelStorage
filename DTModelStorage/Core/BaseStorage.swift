@@ -49,10 +49,12 @@ public class BaseStorage : NSObject
 
 extension BaseStorage
 {
+    /// Start update in storage. This creates StorageUpdate instance and stores it into `currentUpdate` property.
     func startUpdate(){
         self.currentUpdate = StorageUpdate()
     }
     
+    /// Finished update. Method verifies, that update is not empty, and sends updates to the delegate. After this method finishes, `currentUpdate` property is nilled out.
     func finishUpdate()
     {
         defer { self.currentUpdate = nil }

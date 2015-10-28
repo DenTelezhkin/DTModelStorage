@@ -9,12 +9,19 @@
 import UIKit
 import XCTest
 import DTModelStorage
+import Nimble
 
 class SectionModelTestCase: XCTestCase {
 
+    var section: SectionModel!
+    
+    override func setUp() {
+        super.setUp()
+        section = SectionModel()
+    }
+    
     func testSectionModelSupplementaryModelChange()
     {
-        let section = SectionModel()
         section.setSupplementaryModel("bar", forKind: "foo")
         
         XCTAssertEqual(section.supplementaryModelOfKind("foo") as? String ?? "", "bar")
@@ -23,4 +30,19 @@ class SectionModelTestCase: XCTestCase {
         XCTAssert(section.supplementaryModelOfKind("foo") == nil)
     }
 
+//    func testAnyArrayWorks()
+//    {
+//        let arrayOfInts = [1,2,3]
+//        section.setItems(arrayOfInts)
+//        
+//        expect(section.items as? [Int]) == [1,2,3]
+//    }
+    
+    func testItemsOfTypeWorks()
+    {
+        let section = SectionModel()
+        section.setItems([1,2,3])
+        
+        expect(section.itemsOfType(Int)) == [1,2,3]
+    }
 }

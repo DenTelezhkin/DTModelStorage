@@ -26,20 +26,48 @@
 /// Class represents data of the section used by `MemoryStorage`.
 public class SectionModel : Section
 {
-    // Items for current section
+    /// Items for current section
+    /// - Warning: If you try to set new array to this property [T], the only way to do this without exception is to wrap it into items.map { $0 }. This is a workaround that exists because of Swift inability to cast [T] to [Any]. You can call `setItems` method instead of doing so.
+    /// - SeeAlso: `setItems:`
     public var items = [Any]()
+
+    /// Supplementaries dictionary.
+    private var supplementaries = [String:Any]()
+    
+    // Create empty section model.
+    public init() {}
+    
+    /// Set items of specific time to items property.
+    /// - Parameter items: items to set
+    /// - Note: This method exists because of inability of Swift to cast [T] to [Any].
+    public func setItems<T>(items: [T])
+    {
+        self.items = items.map { $0 }
+    }
+
+    /// Returns items of specific type, if found in a section
+    /// Parameter type: Type of items to search for
+    /// Returns: Array of items
+    public func itemsOfType<T>(type: T.Type) -> [T]
+    {
+        var foundItems = [T]()
+        for item in items {
+            if let item = item as? T {
+                foundItems.append(item)
+            }
+        }
+        return foundItems
+    }
     
     /// Number of items in current section
     public var numberOfItems: Int {
         return self.items.count
     }
     
-    private var supplementaries = [String:Any]()
     
-    public init() {}
     
     /// Retrieve supplementaryModel of specific kind
-    /// - Parameter: kind - kind of supplementary
+    /// - Parameter kind: - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
     public func supplementaryModelOfKind(kind: String) -> Any?
     {

@@ -46,5 +46,4 @@ class MemoryStorageAddSpec: XCTestCase {
         
         expect(self.delegate.update) == update
     }
-
 }
