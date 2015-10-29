@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+* Handle NSFetchedResultsController update, that may be called in a form of .Move type(iOS 9)
+
 ## [2.1.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.1.3)
 
 ### Fixed

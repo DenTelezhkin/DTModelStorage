@@ -84,9 +84,6 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
     public func headerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryHeaderKind != nil, "Supplementary header kind must be set before retrieving header model for section index")
-        
-        if self.supplementaryHeaderKind == nil { return nil }
-        
         return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
     
@@ -97,9 +94,6 @@ extension CoreDataStorage : HeaderFooterStorageProtocol
     public func footerModelForSectionIndex(index: Int) -> Any?
     {
         assert(self.supplementaryFooterKind != nil, "Supplementary footer kind must be set before retrieving header model for section index")
-        
-        if self.supplementaryFooterKind == nil { return nil }
-        
         return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
     }
 }
@@ -139,8 +133,6 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         forChangeType type: NSFetchedResultsChangeType,
         newIndexPath: NSIndexPath?)
     {
-        if self.currentUpdate == nil { return }
-        
         switch type
         {
         case .Insert:
@@ -148,8 +140,13 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
         case .Delete:
             if indexPath != nil { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!) }
         case .Move:
-            if indexPath != nil && newIndexPath != nil && indexPath != newIndexPath {
-                self.currentUpdate?.movedRowIndexPaths.append([indexPath!,newIndexPath!])
+            if indexPath != nil && newIndexPath != nil {
+                if indexPath != newIndexPath {
+                    self.currentUpdate?.movedRowIndexPaths.append([indexPath!,newIndexPath!])
+                }
+                else {
+                    self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)
+                }
             }
         case .Update:
             if indexPath != nil { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!) }
@@ -159,10 +156,7 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
     /// React to changed section in NSFetchedResultsController
    @objc
     public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
-    {
-        if self.currentUpdate == nil { return }
-        
-        switch type
+    { switch type
         {
         case .Insert:
             self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
