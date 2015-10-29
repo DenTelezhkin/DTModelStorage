@@ -43,20 +43,39 @@ public class BaseStorage : NSObject
     /// Current update
     internal var currentUpdate: StorageUpdate?
     
+    /// Batch updates are in progress. If true, update will not be finished.
+    private var batchUpdatesInProgress = false
+    
     /// Delegate for storage updates
     public weak var delegate : StorageUpdating?
 }
 
 extension BaseStorage
 {
+    /// Perform update in storage. After update is finished, delegate will be notified.
+    /// Parameter block: Block to execute
+    /// - Note: This method allows to execute several updates in a single batch. It is similar to UICollectionView method `performBatchUpdates:`. 
+    /// - Warning: Performing mutual exclusive updates inside block can cause application crash.
+    public func performUpdates(@noescape block: () -> Void) {
+        batchUpdatesInProgress = true
+        startUpdate()
+        block()
+        batchUpdatesInProgress = false
+        finishUpdate()
+    }
+    
     /// Start update in storage. This creates StorageUpdate instance and stores it into `currentUpdate` property.
     func startUpdate(){
-        self.currentUpdate = StorageUpdate()
+        if self.currentUpdate == nil {
+            self.currentUpdate = StorageUpdate()
+        }
     }
     
     /// Finished update. Method verifies, that update is not empty, and sends updates to the delegate. After this method finishes, `currentUpdate` property is nilled out.
     func finishUpdate()
     {
+        guard batchUpdatesInProgress == false else { return }
+        
         defer { self.currentUpdate = nil }
         
         if self.currentUpdate != nil

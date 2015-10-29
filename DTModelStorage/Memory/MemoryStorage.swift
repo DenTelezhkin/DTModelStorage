@@ -354,7 +354,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func removeAllItems()
     {
         for section in self.sections {
-            (section as! SectionModel).items.removeAll(keepCapacity: false)
+            (section as? SectionModel)?.items.removeAll(keepCapacity: false)
         }
         delegate?.storageNeedsReloading()
     }

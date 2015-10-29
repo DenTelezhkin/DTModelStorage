@@ -37,6 +37,7 @@
 		9AD430B11BE21B8D00EB2918 /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430AF1BE21B8D00EB2918 /* DTModelStorageDatabase.xcdatamodeld */; };
 		9AD430B41BE21D6100EB2918 /* ListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430B21BE21D6100EB2918 /* ListItem+CoreDataProperties.swift */; };
 		9AD430B51BE21D6100EB2918 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430B31BE21D6100EB2918 /* ListItem.swift */; };
+		9AD92BEC1BE24DB400E667FF /* BaseStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD92BEB1BE24DB400E667FF /* BaseStorageTestCase.swift */; };
 		9AF931811B59511D00456503 /* RuntimeHelperTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */; };
 		9AFE809F1B500D5A006B11B7 /* SectionModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		9AD430B01BE21B8D00EB2918 /* DTModelStorageDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DTModelStorageDatabase.xcdatamodel; sourceTree = "<group>"; };
 		9AD430B21BE21D6100EB2918 /* ListItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ListItem+CoreDataProperties.swift"; path = "Helpers/ListItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9AD430B31BE21D6100EB2918 /* ListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListItem.swift; path = Helpers/ListItem.swift; sourceTree = "<group>"; };
+		9AD92BEB1BE24DB400E667FF /* BaseStorageTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseStorageTestCase.swift; path = Specs/BaseStorageTestCase.swift; sourceTree = "<group>"; };
 		9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionModelTestCase.swift; path = Specs/MemoryStorage/SectionModelTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */,
 				9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */,
 				9A33FEC41BE224AB00CC0868 /* CoreDataStorageTestCase.swift */,
+				9AD92BEB1BE24DB400E667FF /* BaseStorageTestCase.swift */,
 			);
 			name = MemoryStorage;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD92BEC1BE24DB400E667FF /* BaseStorageTestCase.swift in Sources */,
 				9A063C731B51639900A49FF3 /* MemoryStorageAddSpec.swift in Sources */,
 				9A063C751B51667E00A49FF3 /* StorageUpdatesObserver.swift in Sources */,
 				9AD430B11BE21B8D00EB2918 /* DTModelStorageDatabase.xcdatamodeld in Sources */,

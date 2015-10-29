@@ -418,4 +418,15 @@ class SectionSupplementariesTestCase : XCTestCase
             XCTFail()
         }
     }
+    
+    func testSetSectionMethod() {
+        storage.addItems([1,2,3], toSection: 0)
+        storage.addItems([4,5,6], toSection: 1)
+        
+        let section = SectionModel()
+        section.setItems([7,8,9])
+        storage.setSection(section, forSectionIndex: 1)
+        
+        expect(self.storage.sectionAtIndex(1)?.itemsOfType(Int)) == [7,8,9]
+    }
 }
