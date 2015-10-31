@@ -1,16 +1,21 @@
 osx_image: xcode7.1
 language: objective-c
 sudo: false
-
 env:
+  global:
+    - IOS_SDK=iphonesimulator9.1
+    - IOS_SCHEME="DTModelStorage-iOS"
+    - TVOS_SDK=appletvsimulator9.0
+    - TVOS_SCHEME="DTModelStorage-tvOS"
   matrix:
-      - DESTINATION="OS=9.1,name=iPad 2" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=9.1,name=iPad Air" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=9.1,name=iPhone 5" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=9.1,name=iPhone 6s" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=8.4,name=iPhone 6" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=8.4,name=iPad Air" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
-      - DESTINATION="OS=9.0,name=Apple TV 1080p" SDK=appletvsimulator9.0 SCHEME="DTModelStorage-tvOS"
+      - DESTINATION="OS=9.1,name=iPad 2"         SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPad Air"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPhone 5"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPhone 6s"      SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=8.4,name=iPhone 6"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=8.4,name=iPad Air"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.0,name=Apple TV 1080p" SDK="TVOS_SDK" SCHEME="$TVOS_SCHEME"
+
 before_install:
 - gem install xcpretty --no-document
 - cd DTModelStorageTests
