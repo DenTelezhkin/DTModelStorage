@@ -4,12 +4,13 @@ sudo: false
 
 env:
   matrix:
-      - DESTINATION="OS=9.1,name=iPad 2"
-      - DESTINATION="OS=9.1,name=iPad Air"
-      - DESTINATION="OS=9.1,name=iPhone 5"
-      - DESTINATION="OS=9.1,name=iPhone 6s"
-      - DESTINATION="OS=8.4,name=iPhone 6"
-      - DESTINATION="OS=8.4,name=iPad Air"
+      - DESTINATION="OS=9.1,name=iPad 2" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=9.1,name=iPad Air" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=9.1,name=iPhone 5" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=9.1,name=iPhone 6s" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=8.4,name=iPhone 6" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=8.4,name=iPad Air" SDK=iphonesimulator9.1 SCHEME="DTModelStorage-iOS"
+      - DESTINATION="OS=9.0,name=Apple TV 1080p" SDK=appletvsimulator9.0 SCHEME="DTModelStorage-tvOS"
 before_install:
 - gem install xcpretty --no-document
 - cd DTModelStorageTests
@@ -18,7 +19,7 @@ script:
     - set -o pipefail
     - git submodule update --init --recursive
     - xcodebuild -version
-    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme DTModelStorage -configuration Debug -sdk iphonesimulator -destination "$DESTINATION" test -enableCodeCoverage YES | xcpretty -tc
+    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme "$SCHEME" -configuration Debug -sdk "$SDK" -destination "$DESTINATION" test -enableCodeCoverage YES | xcpretty -tc
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

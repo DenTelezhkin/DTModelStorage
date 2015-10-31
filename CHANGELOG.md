@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `performUpdates` method to perform batch updates on Storage classes.
+* Support for Apple TV platform (tvOS)
 
 ### Fixed
 

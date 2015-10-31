@@ -23,6 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+
 /// This struct contains error types that can be thrown for various MemoryStorage errors
 public struct MemoryStorageErrors
 {

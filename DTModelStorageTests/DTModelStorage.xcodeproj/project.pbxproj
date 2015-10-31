@@ -15,6 +15,39 @@
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A33FEC51BE224AB00CC0868 /* CoreDataStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A33FEC41BE224AB00CC0868 /* CoreDataStorageTestCase.swift */; };
 		9A4618781B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */; };
+		9A4C3BC41BE4E33D000931BA /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2031BA4560C00D1BE42 /* MemoryStorage.swift */; };
+		9A4C3BC51BE4E33D000931BA /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2041BA4560C00D1BE42 /* SectionModel.swift */; };
+		9A4C3BC61BE4E33D000931BA /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2071BA4561300D1BE42 /* CoreDataStorage.swift */; };
+		9A4C3BC71BE4E33D000931BA /* MemoryStorage+DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */; };
+		9A4C3BC81BE4E33D000931BA /* MemoryStorage+DTTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */; };
+		9A4C3BC91BE4E33D000931BA /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
+		9A4C3BCA1BE4E33D000931BA /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */; };
+		9A4C3BCB1BE4E33D000931BA /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */; };
+		9A4C3BCC1BE4E33D000931BA /* UINib+Existance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FC1BA4560300D1BE42 /* UINib+Existance.swift */; };
+		9A4C3BCD1BE4E33D000931BA /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1ED1BA455ED00D1BE42 /* BaseStorage.swift */; };
+		9A4C3BCE1BE4E33D000931BA /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EE1BA455ED00D1BE42 /* Section.swift */; };
+		9A4C3BCF1BE4E33D000931BA /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */; };
+		9A4C3BD01BE4E33D000931BA /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */; };
+		9A4C3BD51BE4E377000931BA /* BaseStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD92BEB1BE24DB400E667FF /* BaseStorageTestCase.swift */; };
+		9A4C3BD61BE4E377000931BA /* MemoryStorageAddSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C721B51639900A49FF3 /* MemoryStorageAddSpec.swift */; };
+		9A4C3BD71BE4E377000931BA /* StorageUpdatesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C741B51667E00A49FF3 /* StorageUpdatesObserver.swift */; };
+		9A4C3BD81BE4E377000931BA /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430AF1BE21B8D00EB2918 /* DTModelStorageDatabase.xcdatamodeld */; };
+		9A4C3BD91BE4E377000931BA /* ListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430B21BE21D6100EB2918 /* ListItem+CoreDataProperties.swift */; };
+		9A4C3BDA1BE4E377000931BA /* MemoryStorageSearchSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C701B5155E400A49FF3 /* MemoryStorageSearchSpec.swift */; };
+		9A4C3BDB1BE4E377000931BA /* MemoryStorageRemovingItemsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */; };
+		9A4C3BDC1BE4E377000931BA /* RuntimeHelperTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */; };
+		9A4C3BDD1BE4E377000931BA /* MemoryStorageEditSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A063C761B5169C300A49FF3 /* MemoryStorageEditSpecs.swift */; };
+		9A4C3BDE1BE4E377000931BA /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430B31BE21D6100EB2918 /* ListItem.swift */; };
+		9A4C3BDF1BE4E377000931BA /* StorageProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */; };
+		9A4C3BE11BE4E377000931BA /* StorageUpdateTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */; };
+		9A4C3BE21BE4E377000931BA /* SectionModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */; };
+		9A4C3BE31BE4E377000931BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD430AD1BE21AEE00EB2918 /* CoreDataManager.swift */; };
+		9A4C3BE41BE4E377000931BA /* CoreDataStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A33FEC41BE224AB00CC0868 /* CoreDataStorageTestCase.swift */; };
+		9A4C3BE61BE4E377000931BA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A194CA51BB86B6900D1E611 /* Nimble.framework */; };
+		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
+		9A4C3BF21BE4E7AA000931BA /* EmptyNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4C3BF11BE4E7AA000931BA /* EmptyNib.xib */; };
+		9A4C3BF31BE4E7C6000931BA /* NibExistanceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1D1BAC325B00FA9B55 /* NibExistanceTestCase.swift */; };
+		9A4C3BF61BE4EA89000931BA /* DTModelStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 9AB0F1F51BA455F500D1BE42 /* DTModelStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A721F1C1BAC324D00FA9B55 /* EmptyNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A721F1B1BAC324D00FA9B55 /* EmptyNib.xib */; };
 		9A721F1E1BAC325B00FA9B55 /* NibExistanceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1D1BAC325B00FA9B55 /* NibExistanceTestCase.swift */; };
 		9A721F201BAC33B200FA9B55 /* StorageProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */; };
@@ -50,6 +83,13 @@
 			remoteGlobalIDString = 9A2A385A1AEE24340021E97D;
 			remoteInfo = DTModelStorage;
 		};
+		9A4C3BF41BE4E9EE000931BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA3B07A2185F55C100A95D16 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A4C3BBB1BE4E32B000931BA;
+			remoteInfo = "DTModelStorage-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -64,12 +104,17 @@
 		9A33FEC41BE224AB00CC0868 /* CoreDataStorageTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStorageTestCase.swift; path = Specs/CoreDataStorageTestCase.swift; sourceTree = "<group>"; };
 		9A33FEC71BE2354000CC0868 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		9A4618771B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemoryStorageRemovingItemsSpecs.swift; path = Specs/MemoryStorage/MemoryStorageRemovingItemsSpecs.swift; sourceTree = "<group>"; };
+		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A4C3BC01BE4E32B000931BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A4C3BEE1BE4E377000931BA /* DTModelStorageTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "DTModelStorageTests copy-Info.plist"; path = "/Users/Denys/Projects/DTModelStorage/DTModelStorageTests/DTModelStorageTests copy-Info.plist"; sourceTree = "<absolute>"; };
+		9A4C3BF11BE4E7AA000931BA /* EmptyNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmptyNib.xib; path = tvOS/EmptyNib.xib; sourceTree = "<group>"; };
 		9A721F1B1BAC324D00FA9B55 /* EmptyNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyNib.xib; sourceTree = "<group>"; };
 		9A721F1D1BAC325B00FA9B55 /* NibExistanceTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibExistanceTestCase.swift; path = Specs/NibExistanceTestCase.swift; sourceTree = "<group>"; };
 		9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocolTestCase.swift; path = Specs/StorageProtocolTestCase.swift; sourceTree = "<group>"; };
 		9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdateTestCase.swift; path = Specs/StorageUpdateTestCase.swift; sourceTree = "<group>"; };
 		9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelperTestCase.swift; path = Specs/RuntimeHelperTestCase.swift; sourceTree = "<group>"; };
-		9A7D5BAB19D860700083673D /* DTModelStorageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DTModelStorageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A7D5BAB19D860700083673D /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7D5BAE19D860700083673D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A7D5BBA19D860FD0083673D /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		9AB0F1ED1BA455ED00D1BE42 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseStorage.swift; path = Core/BaseStorage.swift; sourceTree = "<group>"; };
@@ -99,6 +144,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A4C3BB81BE4E32B000931BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A4C3BE51BE4E377000931BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4C3BE61BE4E377000931BA /* Nimble.framework in Frameworks */,
+				9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +199,7 @@
 				9AFE809E1B500D5A006B11B7 /* SectionModelTestCase.swift */,
 				9A063C741B51667E00A49FF3 /* StorageUpdatesObserver.swift */,
 				9A721F1B1BAC324D00FA9B55 /* EmptyNib.xib */,
+				9A4C3BF11BE4E7AA000931BA /* EmptyNib.xib */,
 				9A721F1D1BAC325B00FA9B55 /* NibExistanceTestCase.swift */,
 				9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */,
 				9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */,
@@ -153,6 +215,14 @@
 				9A33FEC71BE2354000CC0868 /* CHANGELOG.md */,
 			);
 			name = Documentation;
+			sourceTree = "<group>";
+		};
+		9A4C3BBD1BE4E32B000931BA /* DTModelStorage-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				9A4C3BC01BE4E32B000931BA /* Info.plist */,
+			);
+			path = "DTModelStorage-tvOS";
 			sourceTree = "<group>";
 		};
 		9A7D5BAC19D860700083673D /* XCTests */ = {
@@ -222,15 +292,19 @@
 				95B30BAC1861E6E300AB82AC /* Default-568h@2x.png */,
 				95E178721861B8D300D1B083 /* DTModelStorage */,
 				9A7D5BAC19D860700083673D /* XCTests */,
+				9A4C3BBD1BE4E32B000931BA /* DTModelStorage-tvOS */,
 				AA3B07AB185F55C100A95D16 /* Products */,
+				9A4C3BEE1BE4E377000931BA /* DTModelStorageTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		AA3B07AB185F55C100A95D16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A7D5BAB19D860700083673D /* DTModelStorageTests.xctest */,
+				9A7D5BAB19D860700083673D /* Tests-iOS.xctest */,
 				9A2A385B1AEE24340021E97D /* DTModelStorage.framework */,
+				9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */,
+				9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,12 +333,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A4C3BB91BE4E32B000931BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4C3BF61BE4EA89000931BA /* DTModelStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9A2A385A1AEE24340021E97D /* DTModelStorage */ = {
+		9A2A385A1AEE24340021E97D /* DTModelStorage-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage" */;
+			buildConfigurationList = 9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage-iOS" */;
 			buildPhases = (
 				9A2A38561AEE24340021E97D /* Sources */,
 				9A2A38571AEE24340021E97D /* Frameworks */,
@@ -275,14 +357,50 @@
 			);
 			dependencies = (
 			);
-			name = DTModelStorage;
+			name = "DTModelStorage-iOS";
 			productName = "DTModelStorage iOS";
 			productReference = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9A7D5BAA19D860700083673D /* DTModelStorageTests */ = {
+		9A4C3BBB1BE4E32B000931BA /* DTModelStorage-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "DTModelStorageTests" */;
+			buildConfigurationList = 9A4C3BC31BE4E32B000931BA /* Build configuration list for PBXNativeTarget "DTModelStorage-tvOS" */;
+			buildPhases = (
+				9A4C3BB71BE4E32B000931BA /* Sources */,
+				9A4C3BB81BE4E32B000931BA /* Frameworks */,
+				9A4C3BB91BE4E32B000931BA /* Headers */,
+				9A4C3BBA1BE4E32B000931BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DTModelStorage-tvOS";
+			productName = "DTModelStorage-tvOS";
+			productReference = 9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9A4C3BD11BE4E377000931BA /* Tests-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A4C3BEA1BE4E377000931BA /* Build configuration list for PBXNativeTarget "Tests-tvOS" */;
+			buildPhases = (
+				9A4C3BD41BE4E377000931BA /* Sources */,
+				9A4C3BE51BE4E377000931BA /* Frameworks */,
+				9A4C3BE81BE4E377000931BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A4C3BF51BE4E9EE000931BA /* PBXTargetDependency */,
+			);
+			name = "Tests-tvOS";
+			productName = XCTests;
+			productReference = 9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9A7D5BAA19D860700083673D /* Tests-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "Tests-iOS" */;
 			buildPhases = (
 				9A7D5BA719D860700083673D /* Sources */,
 				9A7D5BA819D860700083673D /* Frameworks */,
@@ -293,9 +411,9 @@
 			dependencies = (
 				9A3110921BB8637300741F90 /* PBXTargetDependency */,
 			);
-			name = DTModelStorageTests;
+			name = "Tests-iOS";
 			productName = XCTests;
-			productReference = 9A7D5BAB19D860700083673D /* DTModelStorageTests.xctest */;
+			productReference = 9A7D5BAB19D860700083673D /* Tests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -310,6 +428,9 @@
 				TargetAttributes = {
 					9A2A385A1AEE24340021E97D = {
 						CreatedOnToolsVersion = 6.3.1;
+					};
+					9A4C3BBB1BE4E32B000931BA = {
+						CreatedOnToolsVersion = 7.1;
 					};
 					9A7D5BAA19D860700083673D = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -328,8 +449,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9A7D5BAA19D860700083673D /* DTModelStorageTests */,
-				9A2A385A1AEE24340021E97D /* DTModelStorage */,
+				9A7D5BAA19D860700083673D /* Tests-iOS */,
+				9A2A385A1AEE24340021E97D /* DTModelStorage-iOS */,
+				9A4C3BBB1BE4E32B000931BA /* DTModelStorage-tvOS */,
+				9A4C3BD11BE4E377000931BA /* Tests-tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -339,6 +462,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A4C3BBA1BE4E32B000931BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A4C3BE81BE4E377000931BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4C3BF21BE4E7AA000931BA /* EmptyNib.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +511,49 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A4C3BB71BE4E32B000931BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4C3BC41BE4E33D000931BA /* MemoryStorage.swift in Sources */,
+				9A4C3BC51BE4E33D000931BA /* SectionModel.swift in Sources */,
+				9A4C3BC61BE4E33D000931BA /* CoreDataStorage.swift in Sources */,
+				9A4C3BC71BE4E33D000931BA /* MemoryStorage+DTCollectionViewManager.swift in Sources */,
+				9A4C3BC81BE4E33D000931BA /* MemoryStorage+DTTableViewManager.swift in Sources */,
+				9A4C3BC91BE4E33D000931BA /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
+				9A4C3BCA1BE4E33D000931BA /* ModelTransfer.swift in Sources */,
+				9A4C3BCB1BE4E33D000931BA /* RuntimeHelper.swift in Sources */,
+				9A4C3BCC1BE4E33D000931BA /* UINib+Existance.swift in Sources */,
+				9A4C3BCD1BE4E33D000931BA /* BaseStorage.swift in Sources */,
+				9A4C3BCE1BE4E33D000931BA /* Section.swift in Sources */,
+				9A4C3BCF1BE4E33D000931BA /* StorageProtocol.swift in Sources */,
+				9A4C3BD01BE4E33D000931BA /* StorageUpdate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A4C3BD41BE4E377000931BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4C3BD51BE4E377000931BA /* BaseStorageTestCase.swift in Sources */,
+				9A4C3BD61BE4E377000931BA /* MemoryStorageAddSpec.swift in Sources */,
+				9A4C3BD71BE4E377000931BA /* StorageUpdatesObserver.swift in Sources */,
+				9A4C3BD81BE4E377000931BA /* DTModelStorageDatabase.xcdatamodeld in Sources */,
+				9A4C3BD91BE4E377000931BA /* ListItem+CoreDataProperties.swift in Sources */,
+				9A4C3BDA1BE4E377000931BA /* MemoryStorageSearchSpec.swift in Sources */,
+				9A4C3BDB1BE4E377000931BA /* MemoryStorageRemovingItemsSpecs.swift in Sources */,
+				9A4C3BDC1BE4E377000931BA /* RuntimeHelperTestCase.swift in Sources */,
+				9A4C3BDD1BE4E377000931BA /* MemoryStorageEditSpecs.swift in Sources */,
+				9A4C3BDE1BE4E377000931BA /* ListItem.swift in Sources */,
+				9A4C3BDF1BE4E377000931BA /* StorageProtocolTestCase.swift in Sources */,
+				9A4C3BE11BE4E377000931BA /* StorageUpdateTestCase.swift in Sources */,
+				9A4C3BE21BE4E377000931BA /* SectionModelTestCase.swift in Sources */,
+				9A4C3BE31BE4E377000931BA /* CoreDataManager.swift in Sources */,
+				9A4C3BF31BE4E7C6000931BA /* NibExistanceTestCase.swift in Sources */,
+				9A4C3BE41BE4E377000931BA /* CoreDataStorageTestCase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A7D5BA719D860700083673D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,8 +582,13 @@
 /* Begin PBXTargetDependency section */
 		9A3110921BB8637300741F90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9A2A385A1AEE24340021E97D /* DTModelStorage */;
+			target = 9A2A385A1AEE24340021E97D /* DTModelStorage-iOS */;
 			targetProxy = 9A3110911BB8637300741F90 /* PBXContainerItemProxy */;
+		};
+		9A4C3BF51BE4E9EE000931BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A4C3BBB1BE4E32B000931BA /* DTModelStorage-tvOS */;
+			targetProxy = 9A4C3BF41BE4E9EE000931BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -472,6 +658,110 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9A4C3BC11BE4E32B000931BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "DTModelStorage-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "MLSDev.DTModelStorage-tvOS";
+				PRODUCT_NAME = DTModelStorage;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9A4C3BC21BE4E32B000931BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "DTModelStorage-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "MLSDev.DTModelStorage-tvOS";
+				PRODUCT_NAME = DTModelStorage;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		9A4C3BEB1BE4E377000931BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCTests/Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "DTModelStorageTests copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+			};
+			name = Debug;
+		};
+		9A4C3BEC1BE4E377000931BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XCTests/Tests-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "DTModelStorageTests copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 			};
 			name = Release;
 		};
@@ -596,7 +886,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage" */ = {
+		9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9A2A386E1AEE24350021E97D /* Debug */,
@@ -605,7 +895,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "DTModelStorageTests" */ = {
+		9A4C3BC31BE4E32B000931BA /* Build configuration list for PBXNativeTarget "DTModelStorage-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A4C3BC11BE4E32B000931BA /* Debug */,
+				9A4C3BC21BE4E32B000931BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9A4C3BEA1BE4E377000931BA /* Build configuration list for PBXNativeTarget "Tests-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A4C3BEB1BE4E377000931BA /* Debug */,
+				9A4C3BEC1BE4E377000931BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A7D5BB119D860700083673D /* Build configuration list for PBXNativeTarget "Tests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9A7D5BB219D860700083673D /* Debug */,
