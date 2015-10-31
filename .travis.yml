@@ -8,13 +8,13 @@ env:
     - TVOS_SDK=appletvsimulator9.0
     - TVOS_SCHEME="DTModelStorage-tvOS"
   matrix:
-      - DESTINATION="OS=9.1,name=iPad 2"         SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=9.1,name=iPad Air"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=9.1,name=iPhone 5"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=9.1,name=iPhone 6s"      SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=8.4,name=iPhone 6"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=8.4,name=iPad Air"       SDK="IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=9.0,name=Apple TV 1080p" SDK="TVOS_SDK" SCHEME="$TVOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPad 2"         SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPad Air"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPhone 5"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.1,name=iPhone 6s"      SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=8.4,name=iPhone 6"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=8.4,name=iPad Air"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
+      - DESTINATION="OS=9.0,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME"
 
 before_install:
 - gem install xcpretty --no-document
