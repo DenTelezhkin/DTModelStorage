@@ -156,7 +156,7 @@ Requirements
 
 * XCode 7 and higher
 * Swift 2
-* iOS 7
+* iOS 8 and higher / tvOS 9.0 and higher
 
 Objective-C
 ============
