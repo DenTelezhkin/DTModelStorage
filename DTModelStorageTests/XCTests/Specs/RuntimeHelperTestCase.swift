@@ -144,4 +144,9 @@ class RuntimeHelperTestCase: XCTestCase {
         let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(labelText)
         expect(RuntimeHelper.mirrorFromModel(unwrapped!).summary) == "Swift.String"
     }
+    
+    func testKlassNameFromClassMethod()
+    {
+        expect(RuntimeHelper.classNameFromClass(self.dynamicType)) == "RuntimeHelperTestCase"
+    }
 }

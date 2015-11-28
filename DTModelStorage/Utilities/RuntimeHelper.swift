@@ -30,6 +30,13 @@ import UIKit
 /// This class is used to introspect Swift and Objective-C types, providing necessary mapping information.
 public final class RuntimeHelper
 {
+    /// Returns module-less name of class. For example, YourModule.PostCell becomes PostCell.
+    /// - Parameter klass: class to get class name from
+    /// - Returns: Module-less name of klass
+    public class func classNameFromClass(klass: AnyClass) -> String {
+        return NSStringFromClass(klass).componentsSeparatedByString(".").last!
+    }
+    
     /// Retrieve reflected mirror from model.
     /// - Parameter model: model to reflect
     /// - Returns: mirror of model type
