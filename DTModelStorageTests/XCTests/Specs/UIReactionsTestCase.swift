@@ -59,4 +59,9 @@ class UIReactionsTestCase: XCTestCase {
         
         expect(blockCalled) == true
     }
+    
+    func testViewDataCanBeConstructed()
+    {
+        _ = ViewData(view: UIView(), indexPath: indexPath(0, 0))
+    }
 }

@@ -71,6 +71,11 @@ public struct ViewData
 {
     public let view: UIView
     public let indexPath: NSIndexPath
+    
+    public init(view: UIView, indexPath: NSIndexPath) {
+        self.view = view
+        self.indexPath = indexPath
+    }
 }
 
 public extension RangeReplaceableCollectionType where Self.Generator.Element == UIReaction {
