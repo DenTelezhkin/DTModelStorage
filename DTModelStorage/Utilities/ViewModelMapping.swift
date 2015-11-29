@@ -77,7 +77,7 @@ public struct ViewModelMapping
 }
 
 /// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates, or even create a custom mapping
-public protocol DTViewModelMappingCustomizable {
+public protocol DTViewModelMappingCustomizable : class {
     
     /// Select `ViewModelMapping` from candidates or create your own mapping
     /// - Parameter candidates: mapping candidates, that were found for this model
