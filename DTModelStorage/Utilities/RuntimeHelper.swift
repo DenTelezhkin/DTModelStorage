@@ -24,8 +24,6 @@
 // THE SOFTWARE.
 
 import Foundation
-import CoreData
-import UIKit
 
 /// This class is used to introspect Swift and Objective-C types, providing necessary mapping information.
 public final class RuntimeHelper

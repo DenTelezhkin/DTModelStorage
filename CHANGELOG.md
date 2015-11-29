@@ -1,6 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+### Added
+
+* `ViewModelMapping` class, that allows to store and retrieve mappings using type checks instead of runtime introspection
+* `classNameFromClass` method on `RuntimeHelper`
+* `UIReaction` class, that will allow `DTTableViewManager` and `DTCollectionViewManager` to react to celection and configuration events.
+
+### Removed
+
+* `RuntimeHelper` introspection methods
+
 ## [2.2.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.2.0)
 
 ### Added
