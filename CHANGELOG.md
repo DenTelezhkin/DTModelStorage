@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 * `ViewModelMapping` class, that allows to store and retrieve mappings using type checks instead of runtime introspection
 * `classNameFromClass` method on `RuntimeHelper`
 * `UIReaction` class, that will allow `DTTableViewManager` and `DTCollectionViewManager` to react to celection and configuration events.
+* `DTViewModelMappingCustomizable` protocol to allow customization of `ViewModelMapping`.
 
 ### Removed
 

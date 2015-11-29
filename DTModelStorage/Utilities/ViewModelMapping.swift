@@ -76,6 +76,16 @@ public struct ViewModelMapping
     public let updateBlock : (Any, Any) -> Void
 }
 
+/// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates, or even create a custom mapping
+public protocol DTViewModelMappingCustomizable {
+    
+    /// Select `ViewModelMapping` from candidates or create your own mapping
+    /// - Parameter candidates: mapping candidates, that were found for this model
+    /// - Parameter model: model to search candidates for
+    /// - Returns: `ViewModelMapping` instance, or nil if no mapping is required
+    func viewModelMappingFromCandidates(candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping?
+}
+
 public extension RangeReplaceableCollectionType where Self.Generator.Element == ViewModelMapping {
     
     /// Retrieve mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` returns true.
