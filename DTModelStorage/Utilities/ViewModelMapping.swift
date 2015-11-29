@@ -67,7 +67,7 @@ public struct ViewModelMapping
     public let viewType : ViewType
     
     /// View class, that will be used for current mapping
-    public let viewClass : AnyClass.Type
+    public let viewClass : AnyClass
     
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: Any -> Bool
@@ -97,7 +97,7 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element == 
     /// - Note: This method works only for `ModelTransfer` classes.
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
     mutating func addMappingForViewType<T:ModelTransfer>(viewType: ViewType, viewClass: T.Type) {
-        guard let viewClassType = T.self as? AnyClass.Type else { return }
+        guard let viewClassType = T.self as? AnyClass else { return }
         
         self.append(ViewModelMapping(viewType: viewType,
             viewClass: viewClassType,

@@ -91,12 +91,17 @@ class MappingTestCase: XCTestCase {
     }
 }
 
+struct Transferable : ModelTransfer {
+    func updateWithModel(model: Int) {}
+}
+
 class ViewModelMappingTestCase: XCTestCase {
     
     func testComparisons() {
         let type = ViewType.Cell
         
         expect(type.supplementaryKind()).to(beNil())
+        expect(ViewType.SupplementaryView(kind: "foo")) == ViewType.SupplementaryView(kind: "foo")
     }
     
     func testSupplementaryKindEnum()
@@ -112,6 +117,13 @@ class ViewModelMappingTestCase: XCTestCase {
         let supplementaryType = ViewType.SupplementaryView(kind: "foo")
         
         expect(cellType == supplementaryType).to(beFalse())
+    }
+    
+    func testAddingMappingNotForClassDoesNotWork() {
+        var mappings = [ViewModelMapping]()
+        mappings.addMappingForViewType(.Cell, viewClass: Transferable.self)
+        
+        expect(mappings.count) == 0
     }
     
 }
