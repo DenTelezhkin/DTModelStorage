@@ -19,9 +19,4 @@ class RuntimeHelperTestCase: XCTestCase {
         let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped)
         expect(unwrapped).to(beNil())
     }
-    
-    func testKlassNameFromClassMethod()
-    {
-        expect(RuntimeHelper.classNameFromClass(self.dynamicType)) == "RuntimeHelperTestCase"
-    }
 }
