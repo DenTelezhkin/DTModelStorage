@@ -24,6 +24,8 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 FOUNDATION_EXPORT double DTModelStorageVersionNumber;
 FOUNDATION_EXPORT const unsigned char DTModelStorageVersionString[];
