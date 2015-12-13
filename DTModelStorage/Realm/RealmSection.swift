@@ -26,7 +26,7 @@
 
 import RealmSwift
 
-public class RealmSection<T:Object> : SupplementaryAccessable {
+public class RealmSection<T:Object> : SupplementaryAccessible {
     
     public var results : Results<T>
     

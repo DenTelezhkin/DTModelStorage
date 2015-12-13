@@ -77,14 +77,14 @@ public class RealmStorage : BaseStorage
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessable)
+        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
         section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
     }
     
     public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessable)
+        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
         section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
     }
     
@@ -92,7 +92,7 @@ public class RealmStorage : BaseStorage
     {
         if models.count == 0 {
             for index in 0..<self.sections.count {
-                let section = self.sections[index] as? SupplementaryAccessable
+                let section = self.sections[index] as? SupplementaryAccessible
                 section?.setSupplementaryModel(nil, forKind: kind)
             }
             return
@@ -101,7 +101,7 @@ public class RealmStorage : BaseStorage
         assert(sections.count < models.count - 1, "The section should be set before setting supplementaries")
         
         for index in 0..<models.count {
-            let section = self.sections[index] as? SupplementaryAccessable
+            let section = self.sections[index] as? SupplementaryAccessible
             section?.setSupplementaryModel(models[index], forKind: kind)
         }
     }
@@ -141,6 +141,6 @@ extension RealmStorage : SupplementaryStorageProtocol
             return nil
         }
         
-        return (sections[sectionIndex] as? SupplementaryAccessable)?.supplementaryModelOfKind(kind)
+        return (sections[sectionIndex] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind)
     }
 }

@@ -67,7 +67,7 @@ public protocol SupplementaryStorageProtocol
     func supplementaryModelOfKind(kind: String, sectionIndex : Int) -> Any?
 }
 
-public protocol SupplementaryAccessable : class {
+public protocol SupplementaryAccessible : class {
     
     var supplementaries: [String:Any] { get set }
     
@@ -82,7 +82,7 @@ public protocol SupplementaryAccessable : class {
     func setSupplementaryModel(model : Any?, forKind kind: String)
 }
 
-extension SupplementaryAccessable {
+extension SupplementaryAccessible {
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
