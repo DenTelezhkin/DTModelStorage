@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /// Class represents data of the section used by `MemoryStorage`.
-public class SectionModel : Section
+public class SectionModel : Section, SupplementaryAccessable
 {
     /// Items for current section
     /// - Warning: If you try to set new array to this property [T], the only way to do this without exception is to wrap it into items.map { $0 }. This is a workaround that exists because of Swift inability to cast [T] to [Any]. You can call `setItems` method instead of doing so.
@@ -32,7 +32,7 @@ public class SectionModel : Section
     public var items = [Any]()
 
     /// Supplementaries dictionary.
-    private var supplementaries = [String:Any]()
+    public var supplementaries = [String:Any]()
     
     // Create empty section model.
     public init() {}
@@ -62,24 +62,6 @@ public class SectionModel : Section
     /// Number of items in current section
     public var numberOfItems: Int {
         return self.items.count
-    }
-    
-    
-    
-    /// Retrieve supplementaryModel of specific kind
-    /// - Parameter kind: - kind of supplementary
-    /// - Returns: supplementary model or nil, if there are no model
-    public func supplementaryModelOfKind(kind: String) -> Any?
-    {
-        return self.supplementaries[kind]
-    }
-    
-    /// Set supplementary model of specific kind
-    /// - Parameter model: model to set
-    /// - Parameter forKind: kind of supplementary
-    public func setSupplementaryModel(model : Any?, forKind kind: String)
-    {
-        self.supplementaries[kind] = model
     }
     
     // MARK: - DEPRECATED

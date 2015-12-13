@@ -101,3 +101,24 @@ extension BaseStorage
         self.supplementaryFooterKind = UICollectionElementKindSectionFooter
     }
 }
+
+extension BaseStorage : HeaderFooterStorageProtocol
+{
+    /// Header model for section.
+    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
+    /// - Parameter index: index of section
+    /// - Returns: header model for section, or nil if there are no model
+    public func headerModelForSectionIndex(index: Int) -> Any? {
+        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
+    }
+    
+    /// Footer model for section.
+    /// - Requires: supplementaryFooterKind to be set prior to calling this method
+    /// - Parameter index: index of section
+    /// - Returns: footer model for section, or nil if there are no model
+    public func footerModelForSectionIndex(index: Int) -> Any? {
+        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
+    }
+}

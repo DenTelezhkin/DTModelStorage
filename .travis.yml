@@ -5,8 +5,8 @@ env:
   global:
     - IOS_SDK=iphonesimulator9.2
     - IOS_SCHEME="DTModelStorage-iOS"
-    - TVOS_SDK=appletvsimulator9.1
-    - TVOS_SCHEME="DTModelStorage-tvOS"
+#    - TVOS_SDK=appletvsimulator9.1
+#    - TVOS_SCHEME="DTModelStorage-tvOS"
   matrix:
       - DESTINATION="OS=9.2,name=iPad 2"         SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
       - DESTINATION="OS=9.2,name=iPad Air"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
@@ -14,17 +14,20 @@ env:
       - DESTINATION="OS=9.2,name=iPhone 6s"      SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
       - DESTINATION="OS=8.4,name=iPhone 6"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
       - DESTINATION="OS=8.4,name=iPad Air"       SDK="$IOS_SDK"  SCHEME="$IOS_SCHEME"
-      - DESTINATION="OS=9.1,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME"
+# Testing on tvOS is disabled until it's possible to properly install Nimble via Carthage: https://github.com/Quick/Nimble/issues/213
+#      - DESTINATION="OS=9.1,name=Apple TV 1080p" SDK="$TVOS_SDK" SCHEME="$TVOS_SCHEME"
 
 before_install:
 - gem install xcpretty --no-document
 - cd DTModelStorageTests
+- brew install carthage
+- carthage update --platform iOS
 
 script:
     - set -o pipefail
-    - git submodule update --init --recursive
+#    - git submodule update --init --recursive
     - xcodebuild -version
-    - xcodebuild -workspace DTModelStorage.xcworkspace -scheme "$SCHEME" -configuration Debug -sdk "$SDK" -destination "$DESTINATION" test -enableCodeCoverage YES "IDEBuildOperationMaxNumberOfConcurrentCompileTasks=`sysctl -n hw.ncpu`" | xcpretty
+    - xcodebuild -project DTModelStorage.xcodeproj -scheme "$SCHEME" -configuration Debug -sdk "$SDK" -destination "$DESTINATION" test -enableCodeCoverage YES "IDEBuildOperationMaxNumberOfConcurrentCompileTasks=`sysctl -n hw.ncpu`" | xcpretty
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

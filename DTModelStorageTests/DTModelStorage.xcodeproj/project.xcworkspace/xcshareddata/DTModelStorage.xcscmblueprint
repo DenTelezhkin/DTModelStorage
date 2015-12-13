@@ -7,14 +7,14 @@
     "95438028B10BBB846574013D29F154A00556A9D1" : 0,
     "276CC70C003BB81B654D465107A09E304AAF20BF" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "1AB2E960-4F39-47F7-9C50-2E802D1A09DD",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "977AEC68-B182-4C2D-8112-5C0AEB78C762",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "95438028B10BBB846574013D29F154A00556A9D1" : "DTModelStorage\/Carthage\/Checkouts\/Nimble\/",
     "276CC70C003BB81B654D465107A09E304AAF20BF" : "DTModelStorage\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "DTModelStorage",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "DTModelStorageTests\/DTModelStorage.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "DTModelStorageTests\/DTModelStorage.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:DenHeadless\/DTModelStorage.git",

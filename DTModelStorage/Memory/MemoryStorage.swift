@@ -81,7 +81,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
+        let section = getValidSection(sectionIndex)
+        section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
         delegate?.storageNeedsReloading()
     }
     
@@ -92,7 +93,8 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        getValidSection(sectionIndex).setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
+        let section = getValidSection(sectionIndex)
+        section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
         delegate?.storageNeedsReloading()
     }
     
@@ -452,28 +454,6 @@ extension MemoryStorage
         let unsorted = NSMutableArray(array: indexPaths)
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArrayUsingDescriptors([descriptor]) as! [NSIndexPath]
-    }
-}
-
-// MARK: - HeaderFooterStorageProtocol
-extension MemoryStorage :HeaderFooterStorageProtocol
-{
-    /// Header model for section.
-    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
-    /// - Parameter index: index of section
-    /// - Returns: header model for section, or nil if there are no model
-    public func headerModelForSectionIndex(index: Int) -> Any? {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
-        return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
-    }
-    
-    /// Footer model for section.
-    /// - Requires: supplementaryFooterKind to be set prior to calling this method
-    /// - Parameter index: index of section
-    /// - Returns: footer model for section, or nil if there are no model
-    public func footerModelForSectionIndex(index: Int) -> Any? {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
-        return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
     }
 }
 

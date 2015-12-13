@@ -67,6 +67,39 @@ public protocol SupplementaryStorageProtocol
     func supplementaryModelOfKind(kind: String, sectionIndex : Int) -> Any?
 }
 
+public protocol SupplementaryAccessable : class {
+    
+    var supplementaries: [String:Any] { get set }
+    
+    /// Retrieve supplementaryModel of specific kind
+    /// - Parameter: kind - kind of supplementary
+    /// - Returns: supplementary model or nil, if there are no model
+    func supplementaryModelOfKind(kind: String) -> Any?
+    
+    /// Set supplementary model of specific kind
+    /// - Parameter model: model to set
+    /// - Parameter forKind: kind of supplementary
+    func setSupplementaryModel(model : Any?, forKind kind: String)
+}
+
+extension SupplementaryAccessable {
+    /// Retrieve supplementaryModel of specific kind
+    /// - Parameter: kind - kind of supplementary
+    /// - Returns: supplementary model or nil, if there are no model
+    public func supplementaryModelOfKind(kind: String) -> Any?
+    {
+        return self.supplementaries[kind]
+    }
+    
+    /// Set supplementary model of specific kind
+    /// - Parameter model: model to set
+    /// - Parameter forKind: kind of supplementary
+    public func setSupplementaryModel(model : Any?, forKind kind: String)
+    {
+        self.supplementaries[kind] = model
+    }
+}
+
 /// `StorageUpdating` protocol is used to transfer data storage updates.
 public protocol StorageUpdating : class
 {

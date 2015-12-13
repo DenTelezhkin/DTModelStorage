@@ -1,9 +1,10 @@
 //
-//  DTModelStorage.h
-//  DTModelStorageTests
+//  RealmSection.swift
+//  DTModelStorage
 //
-//  Created by Denys Telezhkin on 17.07.15.
-//  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
+//  Created by Denys Telezhkin on 13.12.15.
+//  Copyright © 2015 Denys Telezhkin. All rights reserved.
+//
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +24,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+import RealmSwift
 
-FOUNDATION_EXPORT double DTModelStorageVersionNumber;
-FOUNDATION_EXPORT const unsigned char DTModelStorageVersionString[];
+public class RealmSection<T:Object> : SupplementaryAccessable {
+    
+    public var results : Results<T>
+    
+    public var supplementaries = [String:Any]()
+    
+    public init(results: Results<T>) {
+        self.results = results
+    }
+}
+
+extension RealmSection : Section {
+    public var items: [Any] {
+        return results.map { $0 }
+    }
+    
+    public var numberOfItems : Int {
+        return results.count ?? 0
+    }
+}

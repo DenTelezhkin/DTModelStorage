@@ -75,29 +75,6 @@ extension CoreDataStorage : StorageProtocol
     }
 }
 
-extension CoreDataStorage : HeaderFooterStorageProtocol
-{
-    /// Header model for section.
-    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
-    /// - Parameter index: index of section
-    /// - Returns: header model for section, or nil if there are no model
-    public func headerModelForSectionIndex(index: Int) -> Any?
-    {
-        assert(self.supplementaryHeaderKind != nil, "Supplementary header kind must be set before retrieving header model for section index")
-        return self.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
-    }
-    
-    /// Footer model for section.
-    /// - Requires: supplementaryFooterKind to be set prior to calling this method
-    /// - Parameter index: index of section
-    /// - Returns: footer model for section, or nil if there are no model
-    public func footerModelForSectionIndex(index: Int) -> Any?
-    {
-        assert(self.supplementaryFooterKind != nil, "Supplementary footer kind must be set before retrieving header model for section index")
-        return self.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
-    }
-}
-
 extension CoreDataStorage : SupplementaryStorageProtocol
 {
     /// Retrieve supplementary model of specific kind for section.
