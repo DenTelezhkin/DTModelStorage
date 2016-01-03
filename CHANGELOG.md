@@ -1,6 +1,26 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+
+## Master
+
+### Added 
+
+* `RealmStorage` and `RealmSection` class, that allows using Realm database results as a storage for `DTTableView` and `DTCollectionViewManager`.
+
+### Removed
+
+Removed API, deprecated in previous releases. All removed API calls are superseded by following replacement methods.
+
+* `removeAllTableItems`, `removeAllCollectionItems` -> `removeAllItems`
+* `moveCollectionItemAtIndexPath:toIndexPath:`, `moveTableItemAtIndexPath:toIndexPath:` -> `moveItemAtIndexPath:toIndexPath:`
+* `moveCollectionViewSection:toSection`, `moveTableViewSection:toSection` -> `moveSection:toSection`
+* `objectForCellClass` -> `itemForCellClass`
+* `objectForHeaderClass` -> `itemForHeaderClass`
+* `objectForFooterClass` -> `itemForFooterClass`
+* `objectAtIndexPath` -> `itemAtIndexPath`
+* `SectionModel` `objects` and `numberOfObjects` -> `items`, `numberOfItems`
+
 ## [2.3.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.3.0)
 
 ### Added

@@ -25,24 +25,57 @@
 // THE SOFTWARE.
 
 import RealmSwift
+import Foundation
 
+/// These following two protocols are only needed because we can't cast to RealmSection without knowing what T type is in Swift 2.1
+/// For example following cast will fail:
+/// (fooSection as? RealmSection)
+/// nil
+protocol ItemAtIndexPathRetrievable {
+    func itemAtIndexPath(path: NSIndexPath) -> Any?
+}
+
+protocol RealmRetrievable {
+    var realm: Realm? { get }
+}
+
+/// Class, representing a single section of Realm Results<T>.
 public class RealmSection<T:Object> : SupplementaryAccessible {
     
+    /// Results object
     public var results : Results<T>
     
+    /// Supplementaries array
     public var supplementaries = [String:Any]()
     
+    /// Create RealmSection with Realm.Results
+    /// - Parameter results: results of Realm objects query
     public init(results: Results<T>) {
         self.results = results
     }
 }
 
 extension RealmSection : Section {
+    /// Items in `RealmSection`
     public var items: [Any] {
         return results.map { $0 }
     }
     
+    /// Number of items in `RealmSection`
     public var numberOfItems : Int {
-        return results.count ?? 0
+        return results.count
+    }
+}
+
+extension RealmSection: ItemAtIndexPathRetrievable
+{
+    func itemAtIndexPath(path: NSIndexPath) -> Any? {
+        return results[path.item]
+    }
+}
+
+extension RealmSection : RealmRetrievable {
+    var realm: Realm? {
+        return results.realm
     }
 }

@@ -476,15 +476,3 @@ extension MemoryStorage : SupplementaryStorageProtocol
         return sectionModel.supplementaryModelOfKind(kind)
     }
 }
-
-// MARK: - DEPRECATED
-extension MemoryStorage
-{
-    /// Retrieve item at index path from `MemoryStorage`
-    /// - Parameter path: NSIndexPath for item
-    /// - Returns: model at indexPath or nil, if item not found
-    @available(*,unavailable,renamed="itemAtIndexPath")
-    public func objectAtIndexPath(path: NSIndexPath) -> Any? {
-        return self.itemAtIndexPath(path)
-    }
-}

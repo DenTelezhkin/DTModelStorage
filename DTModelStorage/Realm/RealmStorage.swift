@@ -27,9 +27,14 @@
 import Foundation
 import RealmSwift
 
+/// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
+/// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
 public class RealmStorage : BaseStorage
 {
+    /// Array of `RealmSection` objects
     public var sections = [Section]()
+    
+    /// NotificationToken, that allows to unsubscribe from Realm notifications.
     var notificationToken : NotificationToken?
     
     public override init() {
@@ -39,9 +44,9 @@ public class RealmStorage : BaseStorage
         })
     }
     
-    internal func handleRealmNotification(notification: Notification, realm: Realm) {
+    func handleRealmNotification(notification: Notification, realm: Realm) {
         for section in sections {
-            if (section as? RealmSection)?.results.realm == realm {
+            if (section as? RealmRetrievable)?.realm == realm {
                 delegate?.storageNeedsReloading()
                 return
             }
@@ -52,28 +57,40 @@ public class RealmStorage : BaseStorage
         if notificationToken != nil { _ = try? Realm().removeNotification(notificationToken!) }
     }
     
+    /// Retrieve `RealmSection` at index
+    /// - Parameter sectionIndex: index of section
+    /// - Returns: `RealmSection` instance
     public func sectionAtIndex(sectionIndex: Int) -> Section? {
         guard sectionIndex < sections.count else { return nil }
         
         return sections[sectionIndex]
     }
     
+    /// Add `RealmSection`, containing `Results<T>` objects.
+    /// - Parameter results: results of Realm objects query.
     public func addSectionWithResults<T:Object>(results: Results<T>) {
         let section = RealmSection(results: results)
         sections.append(section)
         delegate?.storageNeedsReloading()
     }
     
+    /// Delete sections at indexes. Delegate will be automatically notified of changes
+    /// - Parameter sections: index set with sections to delete
     public func deleteSections(sections: NSIndexSet) {
         startUpdate()
         defer { self.finishUpdate() }
         
         for var i = sections.lastIndex; i != NSNotFound; i = sections.indexLessThanIndex(i) {
             self.sections.removeAtIndex(i)
-            self.currentUpdate?.deletedSectionIndexes.insert(i)
+            currentUpdate?.deletedSectionIndexes.insert(i)
         }
     }
     
+    /// Set section header model at index. `supplementaryHeaderKind` should be set prior to calling this method.
+    /// - Parameter model: model for section header
+    /// - Parameter sectionIndex: index of section
+    /// - SeeAlso: `configureForTableViewUsage`
+    /// - SeeAlso: `configureForCollectionViewUsage`
     public func setSectionHeaderModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
@@ -81,6 +98,11 @@ public class RealmStorage : BaseStorage
         section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
     }
     
+    /// Set section footer model at index. `supplementaryFooterKind` should be set prior to calling this method.
+    /// - Parameter model: model for section footer
+    /// - Parameter sectionIndex: index of section
+    /// - SeeAlso: `configureForTableViewUsage`
+    /// - SeeAlso: `configureForCollectionViewUsage`
     public func setSectionFooterModel<T>(model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
@@ -88,6 +110,10 @@ public class RealmStorage : BaseStorage
         section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
     }
     
+    /// Set array of supplementaries for specific kind. Number of models should not exceed number of sections.
+    /// - Parameter model: models for sections supplementaries
+    /// - Parameter kind: supplementaryKind
+    /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
     public func setSupplementaries<T>(models : [T], forKind kind: String)
     {
         if models.count == 0 {
@@ -98,7 +124,7 @@ public class RealmStorage : BaseStorage
             return
         }
         
-        assert(sections.count < models.count - 1, "The section should be set before setting supplementaries")
+        assert(sections.count >= models.count, "The section should be set before setting supplementaries")
         
         for index in 0..<models.count {
             let section = self.sections[index] as? SupplementaryAccessible
@@ -130,7 +156,7 @@ extension RealmStorage : StorageProtocol {
         guard path.section < self.sections.count else {
             return nil
         }
-        return (self.sections[path.section] as? RealmSection)?.results[path.item]
+        return (sections[path.section] as? ItemAtIndexPathRetrievable)?.itemAtIndexPath(path)
     }
 }
 

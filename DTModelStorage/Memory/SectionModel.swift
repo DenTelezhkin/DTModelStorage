@@ -63,16 +63,4 @@ public class SectionModel : Section, SupplementaryAccessible
     public var numberOfItems: Int {
         return self.items.count
     }
-    
-    // MARK: - DEPRECATED
-    
-    /// Items for current section
-    @available(*, unavailable, renamed="items")
-    public var objects = [Any]()
-    
-    /// Number of items in current section
-    @available(*, unavailable, renamed="numberOfItems")
-    public var numberOfObjects: Int {
-        return self.items.count
-    }
 }

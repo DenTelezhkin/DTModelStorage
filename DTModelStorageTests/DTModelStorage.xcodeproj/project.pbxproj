@@ -19,8 +19,6 @@
 		9A4C3BC41BE4E33D000931BA /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2031BA4560C00D1BE42 /* MemoryStorage.swift */; };
 		9A4C3BC51BE4E33D000931BA /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2041BA4560C00D1BE42 /* SectionModel.swift */; };
 		9A4C3BC61BE4E33D000931BA /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F2071BA4561300D1BE42 /* CoreDataStorage.swift */; };
-		9A4C3BC71BE4E33D000931BA /* MemoryStorage+DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */; };
-		9A4C3BC81BE4E33D000931BA /* MemoryStorage+DTTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */; };
 		9A4C3BC91BE4E33D000931BA /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9A4C3BCA1BE4E33D000931BA /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */; };
 		9A4C3BCB1BE4E33D000931BA /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */; };
@@ -56,6 +54,8 @@
 		9A721F1E1BAC325B00FA9B55 /* NibExistanceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1D1BAC325B00FA9B55 /* NibExistanceTestCase.swift */; };
 		9A721F201BAC33B200FA9B55 /* StorageProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */; };
 		9A721F221BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */; };
+		9A760A1A1C3984A80037F418 /* RealmFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A760A191C3984A80037F418 /* RealmFixtures.swift */; };
+		9A760A1B1C3984A80037F418 /* RealmFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A760A191C3984A80037F418 /* RealmFixtures.swift */; };
 		9A9565281C08B065000AEDA2 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9565271C08B065000AEDA2 /* ViewModelMapping.swift */; };
 		9A9565291C08B065000AEDA2 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9565271C08B065000AEDA2 /* ViewModelMapping.swift */; };
 		9A95652B1C08B60F000AEDA2 /* MappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A95652A1C08B60F000AEDA2 /* MappingTestCase.swift */; };
@@ -64,8 +64,6 @@
 		9AB0F1F21BA455ED00D1BE42 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EE1BA455ED00D1BE42 /* Section.swift */; };
 		9AB0F1F31BA455ED00D1BE42 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */; };
 		9AB0F1F41BA455ED00D1BE42 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */; };
-		9AB0F1FD1BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */; };
-		9AB0F1FE1BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */; };
 		9AB0F1FF1BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9AB0F2001BA4560300D1BE42 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */; };
 		9AB0F2011BA4560300D1BE42 /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */; };
@@ -222,6 +220,7 @@
 		9A721F1F1BAC33B200FA9B55 /* StorageProtocolTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocolTestCase.swift; path = Specs/StorageProtocolTestCase.swift; sourceTree = "<group>"; };
 		9A721F211BAC3DEA00FA9B55 /* StorageUpdateTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdateTestCase.swift; path = Specs/StorageUpdateTestCase.swift; sourceTree = "<group>"; };
 		9A75CED41B55B78C007FB06C /* RuntimeHelperTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelperTestCase.swift; path = Specs/RuntimeHelperTestCase.swift; sourceTree = "<group>"; };
+		9A760A191C3984A80037F418 /* RealmFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmFixtures.swift; path = Fixtures/RealmFixtures.swift; sourceTree = "<group>"; };
 		9A7D5BAB19D860700083673D /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A7D5BAE19D860700083673D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A9565271C08B065000AEDA2 /* ViewModelMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelMapping.swift; path = Utilities/ViewModelMapping.swift; sourceTree = "<group>"; };
@@ -230,8 +229,6 @@
 		9AB0F1EE1BA455ED00D1BE42 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Section.swift; path = Core/Section.swift; sourceTree = "<group>"; };
 		9AB0F1EF1BA455ED00D1BE42 /* StorageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocol.swift; path = Core/StorageProtocol.swift; sourceTree = "<group>"; };
 		9AB0F1F01BA455ED00D1BE42 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Core/StorageUpdate.swift; sourceTree = "<group>"; };
-		9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTCollectionViewManager.swift"; path = "Utilities/MemoryStorage+DTCollectionViewManager.swift"; sourceTree = "<group>"; };
-		9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+DTTableViewManager.swift"; path = "Utilities/MemoryStorage+DTTableViewManager.swift"; sourceTree = "<group>"; };
 		9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MemoryStorage+UpdateWithoutAnimations.swift"; path = "Utilities/MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
 		9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelTransfer.swift; path = Utilities/ModelTransfer.swift; sourceTree = "<group>"; };
 		9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeHelper.swift; path = Utilities/RuntimeHelper.swift; sourceTree = "<group>"; };
@@ -356,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				9A4D2ED41C37F4F1001000B6 /* RealmStorageTestCase.swift */,
+				9A760A191C3984A80037F418 /* RealmFixtures.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -485,8 +483,6 @@
 		AA478955187FEEBC00E51667 /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
-				9AB0F1F71BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift */,
-				9AB0F1F81BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift */,
 				9AB0F1F91BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift */,
 				9AB0F1FA1BA4560300D1BE42 /* ModelTransfer.swift */,
 				9AB0F1FB1BA4560300D1BE42 /* RuntimeHelper.swift */,
@@ -785,8 +781,6 @@
 				9AB0F2051BA4560C00D1BE42 /* MemoryStorage.swift in Sources */,
 				9AB0F1FF1BA4560300D1BE42 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9AB0F1F11BA455ED00D1BE42 /* BaseStorage.swift in Sources */,
-				9AB0F1FD1BA4560300D1BE42 /* MemoryStorage+DTCollectionViewManager.swift in Sources */,
-				9AB0F1FE1BA4560300D1BE42 /* MemoryStorage+DTTableViewManager.swift in Sources */,
 				9AB0F2081BA4561300D1BE42 /* CoreDataStorage.swift in Sources */,
 				9A9565281C08B065000AEDA2 /* ViewModelMapping.swift in Sources */,
 			);
@@ -800,8 +794,6 @@
 				9A4C3BC41BE4E33D000931BA /* MemoryStorage.swift in Sources */,
 				9A4C3BC51BE4E33D000931BA /* SectionModel.swift in Sources */,
 				9A4C3BC61BE4E33D000931BA /* CoreDataStorage.swift in Sources */,
-				9A4C3BC71BE4E33D000931BA /* MemoryStorage+DTCollectionViewManager.swift in Sources */,
-				9A4C3BC81BE4E33D000931BA /* MemoryStorage+DTTableViewManager.swift in Sources */,
 				9A4C3BC91BE4E33D000931BA /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9A4C3BCA1BE4E33D000931BA /* ModelTransfer.swift in Sources */,
 				9A4C3BCB1BE4E33D000931BA /* RuntimeHelper.swift in Sources */,
@@ -819,6 +811,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4C3BD51BE4E377000931BA /* BaseStorageTestCase.swift in Sources */,
+				9A760A1B1C3984A80037F418 /* RealmFixtures.swift in Sources */,
 				9A95652C1C08B60F000AEDA2 /* MappingTestCase.swift in Sources */,
 				9A4C3BD61BE4E377000931BA /* MemoryStorageAddSpec.swift in Sources */,
 				9A4C3BD71BE4E377000931BA /* StorageUpdatesObserver.swift in Sources */,
@@ -852,6 +845,7 @@
 				9A4D2ED51C37F4F1001000B6 /* RealmStorageTestCase.swift in Sources */,
 				9AD430B41BE21D6100EB2918 /* ListItem+CoreDataProperties.swift in Sources */,
 				9A063C711B5155E400A49FF3 /* MemoryStorageSearchSpec.swift in Sources */,
+				9A760A1A1C3984A80037F418 /* RealmFixtures.swift in Sources */,
 				9A4618781B525C3F009BE01D /* MemoryStorageRemovingItemsSpecs.swift in Sources */,
 				9AF931811B59511D00456503 /* RuntimeHelperTestCase.swift in Sources */,
 				9A063C771B5169C300A49FF3 /* MemoryStorageEditSpecs.swift in Sources */,
