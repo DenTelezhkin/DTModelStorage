@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added 
 
 * `RealmStorage` and `RealmSection` class, that allows using Realm database results as a storage for `DTTableView` and `DTCollectionViewManager`.
+* Ability to specify xibName on `ViewModelMapping` class.
 
 ### Removed
 

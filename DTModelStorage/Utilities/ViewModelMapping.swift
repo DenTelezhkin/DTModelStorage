@@ -69,6 +69,9 @@ public struct ViewModelMapping
     /// View class, that will be used for current mapping
     public let viewClass : AnyClass
     
+    /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.
+    public let xibName : String?
+    
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: Any -> Bool
     
@@ -95,10 +98,11 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element == 
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
     func mappingCandidatesForViewType(viewType: ViewType, model: Any) -> [ViewModelMapping] {
-        return self.filter({ mapping -> Bool in
+        return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
+            
             return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
-        })
+        }
     }
     
     /// Add mapping for viewType. 
@@ -106,11 +110,12 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element == 
     /// - Parameter viewClass: View class to add mapping for.
     /// - Note: This method works only for `ModelTransfer` classes.
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
-    mutating func addMappingForViewType<T:ModelTransfer>(viewType: ViewType, viewClass: T.Type) {
+    mutating func addMappingForViewType<T:ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         guard let viewClassType = T.self as? AnyClass else { return }
         
-        self.append(ViewModelMapping(viewType: viewType,
+        append(ViewModelMapping(viewType: viewType,
             viewClass: viewClassType,
+              xibName: xibName,
             modelTypeCheckingBlock: { model -> Bool in
                 return model is T.ModelType
             }, updateBlock: { (view, model) in
