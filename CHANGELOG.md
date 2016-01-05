@@ -1,8 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-
-## Master
+## [2.4.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.0)
 
 ### Added 
 
