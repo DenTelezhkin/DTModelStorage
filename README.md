@@ -140,6 +140,21 @@ if let item = storage.itemForCell(FooCell.self, atIndexPath: indexPath) {
 
 And because your `UITableViewCell` subclass will be implementing `ModelTransfer` protocol, we'll be able to gather associated type `ModelType` and cast model to it dynamically. This allows to completely remove all type casts from your `UITableView` and `UICollectionView` code.
 
+## RealmStorage
+
+`RealmStorage` class is made to work with [realm.io](https://realm.io) databases. It works with sections, that contain Realm.Results object.
+
+Creating storage and filling it with results is very easy:
+
+```
+let results = try! Realm().objects(Dog)
+
+let storage = RealmStorage()
+storage.addSectionWithResults(results)
+```
+
+That's it! Results are automatically monitored, and refreshed, if Realm objects change.
+
 Installation
 ===========
 
