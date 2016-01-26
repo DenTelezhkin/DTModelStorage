@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.4.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.1)
+
+### Changed
+
+* `BaseStorage` `startUpdate` and `finishUpdate` methods are now public along with `currentUpdate` property.
+
 ## [2.4.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.0)
 
 ### Added 

@@ -41,7 +41,7 @@ public class BaseStorage : NSObject
     public var supplementaryFooterKind : String?
     
     /// Current update
-    internal var currentUpdate: StorageUpdate?
+    public var currentUpdate: StorageUpdate?
     
     /// Batch updates are in progress. If true, update will not be finished.
     private var batchUpdatesInProgress = false
@@ -65,14 +65,14 @@ extension BaseStorage
     }
     
     /// Start update in storage. This creates StorageUpdate instance and stores it into `currentUpdate` property.
-    func startUpdate(){
+    public func startUpdate(){
         if self.currentUpdate == nil {
             self.currentUpdate = StorageUpdate()
         }
     }
     
     /// Finished update. Method verifies, that update is not empty, and sends updates to the delegate. After this method finishes, `currentUpdate` property is nilled out.
-    func finishUpdate()
+    public func finishUpdate()
     {
         guard batchUpdatesInProgress == false else { return }
         
