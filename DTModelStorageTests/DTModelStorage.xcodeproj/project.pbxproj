@@ -88,6 +88,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9A16AF911C5FBFAC00643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AE8E9051C38067000E4D42E /* Realm.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D660FCB1BE98C560021E04F;
+			remoteInfo = RealmSwift;
+		};
+		9A16AFA21C5FBFB900643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AE8E9051C38067000E4D42E /* Realm.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D660FCB1BE98C560021E04F;
+			remoteInfo = RealmSwift;
+		};
+		9A16AFA41C5FBFC100643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AE8E9211C38085900E4D42E /* Nimble.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F1A74281940169200FFFC47;
+			remoteInfo = "Nimble-iOS";
+		};
+		9A16AFA61C5FBFC600643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9AE8E9211C38085900E4D42E /* Nimble.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F5DF1541BDCA0CE00C3A531;
+			remoteInfo = "Nimble-tvOS";
+		};
 		9A3110911BB8637300741F90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AA3B07A2185F55C100A95D16 /* Project object */;
@@ -509,6 +537,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AF921C5FBFAC00643BC7 /* PBXTargetDependency */,
 			);
 			name = "DTModelStorage-iOS";
 			productName = "DTModelStorage iOS";
@@ -525,6 +554,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFA31C5FBFB900643BC7 /* PBXTargetDependency */,
 			);
 			name = "DTModelStorage-tvOS";
 			productName = "DTModelStorage-tvOS";
@@ -542,6 +572,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFA71C5FBFC600643BC7 /* PBXTargetDependency */,
 				9A4C3BF51BE4E9EE000931BA /* PBXTargetDependency */,
 			);
 			name = "Tests-tvOS";
@@ -560,6 +591,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFA51C5FBFC100643BC7 /* PBXTargetDependency */,
 				9A3110921BB8637300741F90 /* PBXTargetDependency */,
 			);
 			name = "Tests-iOS";
@@ -833,6 +865,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9A16AF921C5FBFAC00643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RealmSwift;
+			targetProxy = 9A16AF911C5FBFAC00643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFA31C5FBFB900643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RealmSwift;
+			targetProxy = 9A16AFA21C5FBFB900643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFA51C5FBFC100643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Nimble-iOS";
+			targetProxy = 9A16AFA41C5FBFC100643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFA71C5FBFC600643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Nimble-tvOS";
+			targetProxy = 9A16AFA61C5FBFC600643BC7 /* PBXContainerItemProxy */;
+		};
 		9A3110921BB8637300741F90 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9A2A385A1AEE24340021E97D /* DTModelStorage-iOS */;
