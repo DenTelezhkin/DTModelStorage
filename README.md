@@ -169,7 +169,7 @@ Installation
 Requirements
 ============
 
-* XCode 7 and higher
+* Xcode 7 and higher
 * Swift 2
 * iOS 8 and higher / tvOS 9.0 and higher
 
