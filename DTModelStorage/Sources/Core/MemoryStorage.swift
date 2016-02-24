@@ -236,7 +236,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol
     /// - Parameter itemToReplace: item to replace
     /// - Parameter replacingItem: replacing item
     /// - Throws: if `itemToReplace` is not found, will throw MemoryStorageErrors.Replacement.ItemNotFound
-    public func replaceItem<T: Equatable, U:Equatable>(itemToReplace: T, replacingItem: U) throws
+    public func replaceItem<T: Equatable>(itemToReplace: T, replacingItem: Any) throws
     {
         self.startUpdate()
         defer { self.finishUpdate() }

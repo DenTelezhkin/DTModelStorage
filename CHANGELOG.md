@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.4.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.2)
+
+### Changed
+
+* `replaceItem(_:replacingItem:)` method no longer requires second argument to be Equatable.
+
 ## [2.4.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.1)
 
 ### Changed
