@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.4.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.3)
+
+### Changed
+
+* All methods were moved from extensions to class bodies to allow overriding them in @nonobjc subclasses.
+
 ## [2.4.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.2)
 
 ### Changed
@@ -15,7 +21,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.4.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.0)
 
-### Added 
+### Added
 
 * `RealmStorage` and `RealmSection` class, that allows using Realm database results as a storage for `DTTableView` and `DTCollectionViewManager`.
 * Ability to specify xibName on `ViewModelMapping` class.

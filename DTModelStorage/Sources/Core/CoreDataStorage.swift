@@ -38,7 +38,7 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-public class CoreDataStorage : BaseStorage
+public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
     public let fetchedResultsController : NSFetchedResultsController
@@ -63,20 +63,18 @@ public class CoreDataStorage : BaseStorage
         }
         return []
     }
-}
-
-extension CoreDataStorage : StorageProtocol
-{
+    
+    // MARK: - StorageProtocol
+    
     /// Retrieve object at index path from `CoreDataStorage`
     /// - Parameter path: NSIndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
     public func itemAtIndexPath(path: NSIndexPath) -> Any? {
         return fetchedResultsController.objectAtIndexPath(path)
     }
-}
-
-extension CoreDataStorage : SupplementaryStorageProtocol
-{
+    
+    // MARK: - SupplementaryStorageProtocol
+    
     /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
     /// - Parameter sectionIndex: index of section
@@ -94,10 +92,9 @@ extension CoreDataStorage : SupplementaryStorageProtocol
         }
         return nil
     }
-}
-
-extension CoreDataStorage : NSFetchedResultsControllerDelegate
-{
+    
+    // MARK: - NSFetchedResultsControllerDelegate
+    
     /// NSFetchedResultsController is about to start changing content - we'll start monitoring for updates.
     @objc public func controllerWillChangeContent(controller: NSFetchedResultsController) {
         self.startUpdate()
@@ -131,22 +128,22 @@ extension CoreDataStorage : NSFetchedResultsControllerDelegate
     }
     
     /// React to changed section in NSFetchedResultsController
-   @objc
+    @objc
     public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
     { switch type
-        {
-        case .Insert:
-            self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
-        case .Delete:
-            self.currentUpdate?.deletedSectionIndexes.insert(sectionIndex)
-        case .Update:
-            self.currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
-        default: ()
+    {
+    case .Insert:
+        self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
+    case .Delete:
+        self.currentUpdate?.deletedSectionIndexes.insert(sectionIndex)
+    case .Update:
+        self.currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
+    default: ()
         }
     }
     
     /// Finish update from NSFetchedResultsController
-   @objc  
+    @objc
     public func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.finishUpdate()
     }

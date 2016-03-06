@@ -32,7 +32,7 @@ public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
 /// Base class for MemoryStorage and CoreDataStorage
-public class BaseStorage : NSObject
+public class BaseStorage : NSObject, HeaderFooterStorageProtocol
 {
     /// Supplementary kind for header in current storage
     public var supplementaryHeaderKind : String?
@@ -48,13 +48,10 @@ public class BaseStorage : NSObject
     
     /// Delegate for storage updates
     public weak var delegate : StorageUpdating?
-}
-
-extension BaseStorage
-{
+    
     /// Perform update in storage. After update is finished, delegate will be notified.
     /// Parameter block: Block to execute
-    /// - Note: This method allows to execute several updates in a single batch. It is similar to UICollectionView method `performBatchUpdates:`. 
+    /// - Note: This method allows to execute several updates in a single batch. It is similar to UICollectionView method `performBatchUpdates:`.
     /// - Warning: Performing mutual exclusive updates inside block can cause application crash.
     public func performUpdates(@noescape block: () -> Void) {
         batchUpdatesInProgress = true
@@ -100,10 +97,9 @@ extension BaseStorage
         self.supplementaryHeaderKind = UICollectionElementKindSectionHeader
         self.supplementaryFooterKind = UICollectionElementKindSectionFooter
     }
-}
-
-extension BaseStorage : HeaderFooterStorageProtocol
-{
+    
+    // MARK - HeaderFooterStorageProtocol
+    
     /// Header model for section.
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method
     /// - Parameter index: index of section

@@ -52,7 +52,7 @@ public struct MemoryStorageErrors
 /// `MemoryStorage` stores data models like array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
-public class MemoryStorage: BaseStorage, StorageProtocol
+public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProtocol
 {
     /// sections of MemoryStorage
     public var sections: [Section] = [SectionModel]()
@@ -362,11 +362,9 @@ public class MemoryStorage: BaseStorage, StorageProtocol
         }
         delegate?.storageNeedsReloading()
     }
-}
-
-// MARK: - Searching in storage
-extension MemoryStorage
-{
+    
+    // MARK: - Searching in storage
+    
     /// Retrieve items in section
     /// - Parameter section: index of section
     /// - Returns array of items in section or nil, if section does not exist
@@ -455,11 +453,9 @@ extension MemoryStorage
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArrayUsingDescriptors([descriptor]) as! [NSIndexPath]
     }
-}
-
-// MARK: - SupplementaryStorageProtocol
-extension MemoryStorage : SupplementaryStorageProtocol
-{
+    
+    // MARK: - SupplementaryStorageProtocol
+    
     /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
     /// - Parameter sectionIndex: index of section

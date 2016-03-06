@@ -29,7 +29,7 @@ import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-public class RealmStorage : BaseStorage
+public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol
 {
     /// Array of `RealmSection` objects
     public var sections = [Section]()
@@ -149,19 +149,18 @@ public class RealmStorage : BaseStorage
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
         self.setSupplementaries(models, forKind: self.supplementaryFooterKind!)
     }
-}
-
-extension RealmStorage : StorageProtocol {
+    
+    // MARK: - StorageProtocol
+    
     public func itemAtIndexPath(path: NSIndexPath) -> Any? {
         guard path.section < self.sections.count else {
             return nil
         }
         return (sections[path.section] as? ItemAtIndexPathRetrievable)?.itemAtIndexPath(path)
     }
-}
-
-extension RealmStorage : SupplementaryStorageProtocol
-{
+    
+    // MARK: - SupplementaryStorageProtocol
+    
     public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any? {
         guard sectionIndex < sections.count else {
             return nil

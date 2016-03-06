@@ -40,7 +40,7 @@ protocol RealmRetrievable {
 }
 
 /// Class, representing a single section of Realm Results<T>.
-public class RealmSection<T:Object> : SupplementaryAccessible {
+public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable, RealmRetrievable {
     
     /// Results object
     public var results : Results<T>
@@ -53,9 +53,9 @@ public class RealmSection<T:Object> : SupplementaryAccessible {
     public init(results: Results<T>) {
         self.results = results
     }
-}
-
-extension RealmSection : Section {
+    
+    // MARK: - Section
+    
     /// Items in `RealmSection`
     public var items: [Any] {
         return results.map { $0 }
@@ -65,16 +65,15 @@ extension RealmSection : Section {
     public var numberOfItems : Int {
         return results.count
     }
-}
-
-extension RealmSection: ItemAtIndexPathRetrievable
-{
+    
+    // MARK: - ItemAtIndexPathRetrievable
+    
     func itemAtIndexPath(path: NSIndexPath) -> Any? {
         return results[path.item]
     }
-}
-
-extension RealmSection : RealmRetrievable {
+    
+    // MARK: - RealmRetrievable
+    
     var realm: Realm? {
         return results.realm
     }
