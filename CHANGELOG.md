@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.4.4](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.4)
+
+### Changed
+
+* `batchUpdatesInProgress` property on `BaseStorage` is made public to be available in subclasses
+
 ## [2.4.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.3)
 
 ### Changed

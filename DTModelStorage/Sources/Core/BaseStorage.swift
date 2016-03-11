@@ -44,7 +44,7 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     public var currentUpdate: StorageUpdate?
     
     /// Batch updates are in progress. If true, update will not be finished.
-    private var batchUpdatesInProgress = false
+    public var batchUpdatesInProgress = false
     
     /// Delegate for storage updates
     public weak var delegate : StorageUpdating?
