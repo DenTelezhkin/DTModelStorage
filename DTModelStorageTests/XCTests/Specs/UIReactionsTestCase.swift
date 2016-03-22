@@ -50,6 +50,17 @@ class UIReactionsTestCase: XCTestCase {
         expect(nilCandidates.count) == 0
     }
     
+    func testReactionsForOptionalViewsAreSearchable() {
+        let reaction = UIReaction(.CellConfiguration, viewClass: UIView.self)
+        reactions.append(reaction)
+        
+        let nilView: UIView? = UIView()
+        
+        let candidates = reactions.reactionsOfType(.CellConfiguration, forView: nilView)
+        
+        expect(candidates.count) == 1
+    }
+    
     func testReactionBlockIsPerformable() {
         let reaction = UIReaction(.CellSelection, viewClass: UIView.self)
         var blockCalled = false

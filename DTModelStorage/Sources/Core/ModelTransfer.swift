@@ -29,7 +29,7 @@
 public protocol ModelTransfer
 {
     /// This is a placeholder for your model type
-    typealias ModelType
+    associatedtype ModelType
     
     /// Update your view with model
     /// - Parameter model: model of ModelType type

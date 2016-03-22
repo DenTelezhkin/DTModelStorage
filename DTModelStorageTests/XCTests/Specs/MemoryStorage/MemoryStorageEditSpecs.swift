@@ -216,6 +216,24 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(self.delegate.update) == update
     }
     
+    func testShouldDeleteMultipleSections() {
+        storage.addItem(1, toSection: 0)
+        storage.addItem(2, toSection: 1)
+        storage.addItem(3, toSection: 2)
+        storage.addItem(4, toSection: 3)
+        
+        let set = NSMutableIndexSet(index: 1)
+        set.addIndex(3)
+        storage.deleteSections(set)
+        
+        var update = StorageUpdate()
+        update.deletedSectionIndexes.insert(1)
+        update.deletedSectionIndexes.insert(3)
+        
+        expect(self.delegate.update) == update
+        expect(self.storage.sections.count) == 2
+    }
+    
     func testShouldSafelySetAndRetrieveSupplementaryModel()
     {
         let section = SectionModel()

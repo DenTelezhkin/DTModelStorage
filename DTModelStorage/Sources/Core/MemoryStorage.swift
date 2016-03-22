@@ -308,9 +308,11 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         self.startUpdate()
         
-        for var i = sections.lastIndex; i != NSNotFound; i = sections.indexLessThanIndex(i) {
+        var i = sections.lastIndex
+        while i != NSNotFound {
             self.sections.removeAtIndex(i)
             self.currentUpdate?.deletedSectionIndexes.insert(i)
+            i = sections.indexLessThanIndex(i)
         }
         
         self.finishUpdate()

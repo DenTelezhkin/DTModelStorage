@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+* Update to Swift 2.2. This release is not backwards compatible with Swift 2.1.
+
 ## [2.4.4](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.4)
 
 ### Changed

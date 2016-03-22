@@ -80,9 +80,11 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
         startUpdate()
         defer { self.finishUpdate() }
         
-        for var i = sections.lastIndex; i != NSNotFound; i = sections.indexLessThanIndex(i) {
+        var i = sections.lastIndex
+        while i != NSNotFound {
             self.sections.removeAtIndex(i)
-            currentUpdate?.deletedSectionIndexes.insert(i)
+            self.currentUpdate?.deletedSectionIndexes.insert(i)
+            i = sections.indexLessThanIndex(i)
         }
     }
     
