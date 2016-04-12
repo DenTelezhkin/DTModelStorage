@@ -136,16 +136,18 @@
     {
         if ([indexPath compare:newIndexPath] == NSOrderedSame)
         {
-            return;
-        }
-        if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO)
+            [self.currentUpdate.updatedRowIndexPaths addObject:indexPath];
+        } else
         {
-            [self.currentUpdate.insertedRowIndexPaths addObject:newIndexPath];
-        }
+            if ([self.currentUpdate.insertedSectionIndexes containsIndex:newIndexPath.section] == NO)
+            {
+                [self.currentUpdate.insertedRowIndexPaths addObject:newIndexPath];
+            }
 
-        if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section] == NO)
-        {
-            [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
+            if ([self.currentUpdate.deletedSectionIndexes containsIndex:indexPath.section] == NO)
+            {
+                [self.currentUpdate.deletedRowIndexPaths addObject:indexPath];
+            }
         }
     } else if (type == NSFetchedResultsChangeUpdate)
     {
