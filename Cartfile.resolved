@@ -1,2 +1,2 @@
-github "Quick/Nimble" "v3.2.0"
-github "realm/realm-cocoa" "v0.98.5"
+github "Quick/Nimble" "6a4e107f022562a4385bcc8fca14fa0a43f7b318"
+github "realm/realm-cocoa" "v0.99.0"
