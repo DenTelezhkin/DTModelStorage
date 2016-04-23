@@ -79,6 +79,14 @@
 		82F115FF1CCB9D75005C5FC4 /* EmptyNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82F115841CCB9B40005C5FC4 /* EmptyNib.xib */; };
 		82F116001CCB9D8B005C5FC4 /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82F1157B1CCB9B40005C5FC4 /* DTModelStorageDatabase.xcdatamodeld */; };
 		82F116021CCB9D8D005C5FC4 /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82F1157B1CCB9B40005C5FC4 /* DTModelStorageDatabase.xcdatamodeld */; };
+		82F1160E1CCBA25E005C5FC4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */; };
+		82F116101CCBA268005C5FC4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */; };
+		82F116121CCBA276005C5FC4 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F116111CCBA276005C5FC4 /* Nimble.framework */; };
+		82F116131CCBA393005C5FC4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */; };
+		82F116151CCBA3AF005C5FC4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */; };
+		82F116191CCBA412005C5FC4 /* RealmSwift.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82F1161A1CCBA413005C5FC4 /* Nimble.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F116111CCBA276005C5FC4 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82F1161B1CCBA418005C5FC4 /* RealmSwift.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 /* End PBXBuildFile section */
@@ -99,6 +107,32 @@
 			remoteInfo = "DTModelStorage-tvOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		82F116171CCBA400005C5FC4 /* Framework Copy */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				82F1161B1CCBA418005C5FC4 /* RealmSwift.framework in Framework Copy */,
+			);
+			name = "Framework Copy";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82F116181CCBA40A005C5FC4 /* Framework Copy */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				82F116191CCBA412005C5FC4 /* RealmSwift.framework in Framework Copy */,
+				82F1161A1CCBA413005C5FC4 /* Nimble.framework in Framework Copy */,
+			);
+			name = "Framework Copy";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		82F1154E1CCB9B40005C5FC4 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -143,6 +177,9 @@
 		82F1157F1CCB9B40005C5FC4 /* DTModelStorageTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "DTModelStorageTests-Info.plist"; path = "../Supporting Files/DTModelStorageTests-Info.plist"; sourceTree = "<group>"; };
 		82F115821CCB9B40005C5FC4 /* EmptyNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyNib.xib; sourceTree = "<group>"; };
 		82F115841CCB9B40005C5FC4 /* EmptyNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyNib.xib; sourceTree = "<group>"; };
+		82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/tvOS/RealmSwift.framework; sourceTree = "<group>"; };
+		82F116111CCBA276005C5FC4 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BED1BE4E377000931BA /* DTModelStorageTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DTModelStorageTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F1160E1CCBA25E005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F116101CCBA268005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */,
+				82F116151CCBA3AF005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +217,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */,
+				82F116121CCBA276005C5FC4 /* Nimble.framework in Frameworks */,
+				82F116131CCBA393005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +455,56 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		82F116071CCBA225005C5FC4 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				82F116081CCBA230005C5FC4 /* iOS */,
+				82F116091CCBA234005C5FC4 /* tvOS */,
+				82F1160A1CCBA239005C5FC4 /* Tests */,
+			);
+			name = Carthage;
+			sourceTree = "<group>";
+		};
+		82F116081CCBA230005C5FC4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		82F116091CCBA234005C5FC4 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */,
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
+		82F1160A1CCBA239005C5FC4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				82F1160B1CCBA23D005C5FC4 /* iOS */,
+				82F1160C1CCBA242005C5FC4 /* tvOS */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		82F1160B1CCBA23D005C5FC4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				82F116111CCBA276005C5FC4 /* Nimble.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		82F1160C1CCBA242005C5FC4 /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = tvOS;
+			sourceTree = "<group>";
+		};
 		AA3B07A1185F55C100A95D16 = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +512,7 @@
 				82F1154F1CCB9B40005C5FC4 /* Cartfile.private */,
 				82F115501CCB9B40005C5FC4 /* Sources */,
 				82F115631CCB9B40005C5FC4 /* Tests */,
+				82F116071CCBA225005C5FC4 /* Carthage */,
 				AA3B07AB185F55C100A95D16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -444,6 +537,7 @@
 			buildPhases = (
 				9A2A38561AEE24340021E97D /* Sources */,
 				9A2A38571AEE24340021E97D /* Frameworks */,
+				82F116041CCBA15C005C5FC4 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -460,6 +554,7 @@
 			buildPhases = (
 				9A4C3BB71BE4E32B000931BA /* Sources */,
 				9A4C3BB81BE4E32B000931BA /* Frameworks */,
+				82F116031CCBA108005C5FC4 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -477,6 +572,7 @@
 				9A4C3BD41BE4E377000931BA /* Sources */,
 				9A4C3BE51BE4E377000931BA /* Frameworks */,
 				9A4C3BE81BE4E377000931BA /* Resources */,
+				82F116171CCBA400005C5FC4 /* Framework Copy */,
 			);
 			buildRules = (
 			);
@@ -495,6 +591,7 @@
 				9A7D5BA719D860700083673D /* Sources */,
 				9A7D5BA819D860700083673D /* Frameworks */,
 				9A7D5BA919D860700083673D /* Resources */,
+				82F116181CCBA40A005C5FC4 /* Framework Copy */,
 			);
 			buildRules = (
 			);
@@ -565,6 +662,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82F116031CCBA108005C5FC4 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/RealmSwift.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		82F116041CCBA15C005C5FC4 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9A2A38561AEE24340021E97D /* Sources */ = {
@@ -691,6 +821,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -718,6 +852,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Sources/Supporting Files/DTModelStorage-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -741,6 +879,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Sources/Supporting Files/DTModelStorage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -768,6 +910,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Sources/Supporting Files/DTModelStorage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -787,6 +933,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -805,6 +955,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/DTModelStorageTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -819,6 +973,10 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -838,6 +996,10 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/DTModelStorageTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
