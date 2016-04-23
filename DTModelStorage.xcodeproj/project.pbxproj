@@ -89,6 +89,8 @@
 		82F1161B1CCBA418005C5FC4 /* RealmSwift.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		82F116571CCBB3C7005C5FC4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F116561CCBB3C7005C5FC4 /* Realm.framework */; };
 		82F116591CCBB3CE005C5FC4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F116581CCBB3CE005C5FC4 /* Realm.framework */; };
+		82F116601CCBB4AF005C5FC4 /* Realm.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F116561CCBB3C7005C5FC4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82F116611CCBB4B1005C5FC4 /* Realm.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F116581CCBB3CE005C5FC4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				82F1161B1CCBA418005C5FC4 /* RealmSwift.framework in Framework Copy */,
+				82F116611CCBB4B1005C5FC4 /* Realm.framework in Framework Copy */,
 			);
 			name = "Framework Copy";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +133,7 @@
 			files = (
 				82F116191CCBA412005C5FC4 /* RealmSwift.framework in Framework Copy */,
 				82F1161A1CCBA413005C5FC4 /* Nimble.framework in Framework Copy */,
+				82F116601CCBB4AF005C5FC4 /* Realm.framework in Framework Copy */,
 			);
 			name = "Framework Copy";
 			runOnlyForDeploymentPostprocessing = 0;
