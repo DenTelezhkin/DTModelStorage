@@ -87,6 +87,8 @@
 		82F116191CCBA412005C5FC4 /* RealmSwift.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		82F1161A1CCBA413005C5FC4 /* Nimble.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F116111CCBA276005C5FC4 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		82F1161B1CCBA418005C5FC4 /* RealmSwift.framework in Framework Copy */ = {isa = PBXBuildFile; fileRef = 82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		82F116571CCBB3C7005C5FC4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F116561CCBB3C7005C5FC4 /* Realm.framework */; };
+		82F116591CCBB3CE005C5FC4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F116581CCBB3CE005C5FC4 /* Realm.framework */; };
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 /* End PBXBuildFile section */
@@ -180,6 +182,8 @@
 		82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/tvOS/RealmSwift.framework; sourceTree = "<group>"; };
 		82F116111CCBA276005C5FC4 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		82F116561CCBB3C7005C5FC4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		82F116581CCBB3CE005C5FC4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/tvOS/Realm.framework; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BED1BE4E377000931BA /* DTModelStorageTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DTModelStorageTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F116571CCBB3C7005C5FC4 /* Realm.framework in Frameworks */,
 				82F1160E1CCBA25E005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82F116591CCBB3CE005C5FC4 /* Realm.framework in Frameworks */,
 				82F116101CCBA268005C5FC4 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,6 +474,7 @@
 		82F116081CCBA230005C5FC4 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				82F116561CCBB3C7005C5FC4 /* Realm.framework */,
 				82F1160D1CCBA25E005C5FC4 /* RealmSwift.framework */,
 			);
 			name = iOS;
@@ -476,6 +483,7 @@
 		82F116091CCBA234005C5FC4 /* tvOS */ = {
 			isa = PBXGroup;
 			children = (
+				82F116581CCBB3CE005C5FC4 /* Realm.framework */,
 				82F1160F1CCBA268005C5FC4 /* RealmSwift.framework */,
 			);
 			name = tvOS;
@@ -671,6 +679,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/tvOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/Realm.framework",
 			);
 			name = Carthage;
 			outputPaths = (
@@ -686,6 +695,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 			);
 			name = Carthage;
 			outputPaths = (
