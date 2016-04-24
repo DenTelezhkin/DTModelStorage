@@ -33,19 +33,13 @@ class RealmStorageTestCase: XCTestCase {
         }
     }
     
-    func dogNamed(name: String) -> Dog {
-        let dog = Dog()
-        dog.name = name
-        return dog
-    }
-    
     func testRealmStorageHandlesSectionAddition() {
         addDogNamed("Rex")
         
         let results = realm.objects(Dog)
         storage.addSectionWithResults(results)
         
-        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog) == dogNamed("Rex")
+        expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog)?.name) == "Rex"
     }
     
     func testRealmStorageIsAbleToHandleRealmNotification() {
@@ -56,7 +50,7 @@ class RealmStorageTestCase: XCTestCase {
         
         addDogNamed("Rex")
         
-        expect(self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog) == dogNamed("Rex")
+        expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog)?.name) == "Rex"
         expect(storageObserver.storageNeedsReloadingFlag) == true
     }
     
@@ -68,7 +62,7 @@ class RealmStorageTestCase: XCTestCase {
         let section = storage.sectionAtIndex(0)
         
         expect(section?.numberOfItems) == 1
-        expect(section?.items.first as? Dog) == dogNamed("Rex")
+        expect((section?.items.first as? Dog)?.name) == "Rex"
     }
     
     func testItemAtIndexPathIsSafe() {

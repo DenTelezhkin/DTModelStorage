@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Dog: Object, Equatable {
+class Dog: Object {
     dynamic var name = ""
     dynamic var age = 0
 }
