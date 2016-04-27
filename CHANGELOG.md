@@ -1,9 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [2.5.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.5.0)
+
+## Breaking
 
 * Update to Swift 2.2. This release is not backwards compatible with Swift 2.1.
+
+## Added
+
+* `insertItems(_:toIndexPaths:)` method, that mirrors UITableView `insertRowsAtIndexPaths(_:withRowAnimation:)` and UICollectionView `insertItemsAtIndexPaths(_:)` method
+* `totalNumberOfItems` computed property in `MemoryStorage`, that allows getting current total number of items across all storage.
+
+## Changed
+
 * Require Only-App-Extension-Safe API is set to YES in framework targets.
 
 ## [2.4.4](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.4.4)

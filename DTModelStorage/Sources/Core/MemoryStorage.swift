@@ -28,19 +28,26 @@ import Foundation
 /// This struct contains error types that can be thrown for various MemoryStorage errors
 public struct MemoryStorageErrors
 {
-    /// Errors that can happen when inserting items into memory storage
+    /// Errors that can happen when inserting items into memory storage - `insertItem(_:toIndexPath:)` method
     public enum Insertion: ErrorType
     {
         case IndexPathTooBig
     }
     
-    /// Errors that can happen when replacing item in memory storage
+    /// Errors that can be thrown, when calling `insertItems(_:toIndexPaths:)` method
+    public enum BatchInsertion: ErrorType
+    {
+        /// Is thrown, if length of batch inserted array is different from length of array of index paths.
+        case ItemsCountMismatch
+    }
+    
+    /// Errors that can happen when replacing item in memory storage - `replaceItem(_:replacingItem:)` method
     public enum Replacement: ErrorType
     {
         case ItemNotFound
     }
     
-    /// Errors that can happen when removing item from memory storage
+    /// Errors that can happen when removing item from memory storage - `removeItem(:_)` method
     public enum Removal : ErrorType
     {
         case ItemNotFound
@@ -56,6 +63,13 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
 {
     /// sections of MemoryStorage
     public var sections: [Section] = [SectionModel]()
+    
+    /// Returns total number of items contained in all `MemoryStorage` sections
+    public var totalNumberOfItems : Int {
+        return sections.reduce(0) { sum, section in
+            return sum + section.numberOfItems
+        }
+    }
     
     /// Retrieve item at index path from `MemoryStorage`
     /// - Parameter path: NSIndexPath for item
@@ -219,6 +233,27 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
         section.items.insert(item, atIndex: indexPath.item)
         self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
         self.finishUpdate()
+    }
+    
+    /// Insert item to indexPaths
+    /// - Parameter items: items to insert
+    /// - Parameter toIndexPaths: indexPaths to insert
+    /// - Throws: if items.count is different from indexPaths.count, will throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
+    public func insertItems<T>(items: [T], toIndexPaths indexPaths: [NSIndexPath]) throws
+    {
+        if items.count != indexPaths.count {
+            throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
+        }
+        performUpdates {
+            indexPaths.enumerate().forEach { itemIndex, indexPath in
+                let section = getValidSection(indexPath.section)
+                guard section.items.count >= indexPath.item else {
+                    return
+                }
+                section.items.insert(items[itemIndex], atIndex: indexPath.item)
+                currentUpdate?.insertedRowIndexPaths.insert(indexPath)
+            }
+        }
     }
     
     /// Reload item

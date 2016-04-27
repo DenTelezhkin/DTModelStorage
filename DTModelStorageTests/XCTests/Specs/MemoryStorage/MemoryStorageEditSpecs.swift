@@ -447,4 +447,31 @@ class SectionSupplementariesTestCase : XCTestCase
         
         expect(self.storage.sectionAtIndex(1)?.itemsOfType(Int)) == [7,8,9]
     }
+    
+    func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
+        try! storage.insertItems([1,2,3], toIndexPaths: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
+        
+        expect(self.storage.itemsInSection(0)?.count) == 3
+        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int)) == [1,2,3]
+    }
+    
+    func testWrongCountsRaisesException() {
+        do {
+            try storage.insertItems([1,2], toIndexPaths: [indexPath(0, 0)])
+        }
+        catch MemoryStorageErrors.BatchInsertion.ItemsCountMismatch {
+            return
+        }
+        catch {
+            XCTFail()
+        }
+        XCTFail()
+    }
+    
+    func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
+        try! storage.insertItems([1,2,3], toIndexPaths: [indexPath(0, 0), indexPath(1, 0),indexPath(3, 0)])
+        
+        expect(self.storage.itemsInSection(0)?.count) == 2
+        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int)) == [1,2]
+    }
 }
