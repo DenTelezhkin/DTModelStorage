@@ -12,13 +12,13 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit', 'Foundation', 'CoreData'
 
   s.subspec 'Core' do |core|
-      core.source_files = 'DTModelStorage/Sources/Core/*.swift'
+      core.source_files = 'Source/Core/*.swift'
   end
 
   s.subspec 'Realm' do |realm|
       realm.dependency 'DTModelStorage/Core'
       realm.dependency 'RealmSwift', '~> 0.98'
-      realm.source_files = 'DTModelStorage/Sources/Realm/*.swift'
+      realm.source_files = 'Source/Realm/*.swift'
   end
 
   s.default_subspec = 'Core'
