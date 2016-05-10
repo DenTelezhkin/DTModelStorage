@@ -54,7 +54,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     }
     
     deinit {
-        if notificationToken != nil { _ = try? Realm().removeNotification(notificationToken!) }
+        notificationToken?.stop()
     }
     
     /// Retrieve `RealmSection` at index
