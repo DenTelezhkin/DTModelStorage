@@ -28,7 +28,7 @@ test-tvOS:
 	bash <(curl -s https://codecov.io/bash)
 
 test-carthage:
-	carthage build --no-skip-current --verbose --platform iOS
+	carthage build --no-skip-current --platform iOS
 	ls Carthage/build/iOS/DTModelStorage.framework
 
 test-cocoapods:
