@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.5.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.5.1)
+
+## Changed
+
+* Realm dependency updated to 0.102 version.
+
 ## [2.5.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.5.0)
 
 ## Breaking
