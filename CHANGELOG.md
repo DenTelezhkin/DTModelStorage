@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+### Changed
+
+* Support for fine-grained notifications in Realm
+* Update to Realm 0.103.1 and higher.
+
 ## [2.5.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.5.1)
 
 ## Changed

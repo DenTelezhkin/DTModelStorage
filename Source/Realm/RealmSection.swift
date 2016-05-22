@@ -35,12 +35,8 @@ protocol ItemAtIndexPathRetrievable {
     func itemAtIndexPath(path: NSIndexPath) -> Any?
 }
 
-protocol RealmRetrievable {
-    var realm: Realm? { get }
-}
-
 /// Class, representing a single section of Realm Results<T>.
-public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable, RealmRetrievable {
+public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
     public var results : Results<T>
@@ -70,11 +66,5 @@ public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIn
     
     func itemAtIndexPath(path: NSIndexPath) -> Any? {
         return results[path.item]
-    }
-    
-    // MARK: - RealmRetrievable
-    
-    var realm: Realm? {
-        return results.realm
     }
 }

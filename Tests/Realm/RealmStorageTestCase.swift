@@ -12,6 +12,15 @@ import XCTest
 import Nimble
 import RealmSwift
 
+func delay(delay:Double, _ closure:()->()) {
+    dispatch_after(
+        dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+        ),
+        dispatch_get_main_queue(), closure)
+}
+
 class RealmStorageTestCase: XCTestCase {
     
     let realm = try! Realm()
@@ -53,6 +62,67 @@ class RealmStorageTestCase: XCTestCase {
         expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog)?.name) == "Rex"
         expect(storageObserver.storageNeedsReloadingFlag) == true
     }
+    
+//    func testInsertNotificationIsHandled() {
+//        let updateObserver = StorageUpdatesObserver()
+//        storage.delegate = updateObserver
+//        let results = realm.objects(Dog)
+//        storage.addSectionWithResults(results)
+//        
+//        addDogNamed("Rex")
+//        
+//        expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog)?.name) == "Rex"
+//        
+//        try! realm.write {
+//            let dog = Dog()
+//            dog.name = "Rexxar"
+//            realm.add(dog)
+//        }
+//        expect(updateObserver.update?.insertedRowIndexPaths).toEventually(equal(Set([indexPath(1, 0), indexPath(0, 0)])))
+//    }
+    
+    // MARK: - TODO make these tests run somehow, right now they are both failing, however when run apart from entire test case - they are successful.
+    
+//    func testDeleteNotificationIsHandled() {
+//        let updateObserver = StorageUpdatesObserver()
+//        storage.delegate = updateObserver
+//        let results = realm.objects(Dog)
+//        storage.addSectionWithResults(results)
+//        
+//        var dog: Dog!
+//        try! realm.write {
+//            dog = Dog()
+//            dog.name = "Rexxar"
+//            realm.add(dog)
+//        }
+//        
+//        delay(0) {
+//            try! self.realm.write {
+//                self.realm.delete(dog)
+//            }
+//        }
+//        expect(updateObserver.update?.deletedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
+//    }
+//    
+//    func testUpdateNotificationIsHandled() {
+//        let updateObserver = StorageUpdatesObserver()
+//        storage.delegate = updateObserver
+//        let results = realm.objects(Dog)
+//        storage.addSectionWithResults(results)
+//        
+//        var dog: Dog!
+//        try! realm.write {
+//            dog = Dog()
+//            dog.name = "Rexxar"
+//            realm.add(dog)
+//        }
+//        delay(0) {
+//            try! self.realm.write {
+//                dog.name = "Rex"
+//            }
+//        }
+//        expect(updateObserver.update?.updatedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
+//    }
     
     func testStorageHasSingleSection() {
         addDogNamed("Rex")

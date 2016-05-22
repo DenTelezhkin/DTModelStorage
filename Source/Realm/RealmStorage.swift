@@ -34,27 +34,12 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// Array of `RealmSection` objects
     public var sections = [Section]()
     
-    /// NotificationToken, that allows to unsubscribe from Realm notifications.
-    var notificationToken : NotificationToken?
-    
-    public override init() {
-        super.init()
-        notificationToken = try? Realm().addNotificationBlock({ [weak self] notification, realm in
-            self?.handleRealmNotification(notification, realm: realm)
-        })
-    }
-    
-    func handleRealmNotification(notification: Notification, realm: Realm) {
-        for section in sections {
-            if (section as? RealmRetrievable)?.realm == realm {
-                delegate?.storageNeedsReloading()
-                return
-            }
-        }
-    }
+    public var notificationTokens: [Int:NotificationToken] = [:]
     
     deinit {
-        notificationToken?.stop()
+        notificationTokens.values.forEach { token in
+            token.stop()
+        }
     }
     
     /// Retrieve `RealmSection` at index
@@ -72,6 +57,32 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
         let section = RealmSection(results: results)
         sections.append(section)
         delegate?.storageNeedsReloading()
+        let sectionIndex = sections.count - 1
+        notificationTokens[sectionIndex] = results.addNotificationBlock { [weak self] change in
+            self?.handleChange(change, inSection:sectionIndex)
+        }
+    }
+    
+    internal func handleChange<T>(change: RealmCollectionChange<T>, inSection: Int)
+    {
+        if case RealmCollectionChange.Initial(_) = change {
+            delegate?.storageNeedsReloading()
+            return
+        }
+        guard case let RealmCollectionChange.Update(_, deletions, insertions, modifications) = change else {
+            return
+        }
+        startUpdate()
+        deletions.forEach{ [weak self] in
+            self?.currentUpdate?.deletedRowIndexPaths.insert(NSIndexPath(forItem: $0, inSection: inSection))
+        }
+        insertions.forEach{ [weak self] in
+            self?.currentUpdate?.insertedRowIndexPaths.insert(NSIndexPath(forItem: $0, inSection: inSection))
+        }
+        modifications.forEach{ [weak self] in
+            self?.currentUpdate?.updatedRowIndexPaths.insert(NSIndexPath(forItem: $0, inSection: inSection))
+        }
+        finishUpdate()
     }
     
     /// Delete sections at indexes. Delegate will be automatically notified of changes
@@ -83,6 +94,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
         var i = sections.lastIndex
         while i != NSNotFound {
             self.sections.removeAtIndex(i)
+            notificationTokens[i]?.stop()
             self.currentUpdate?.deletedSectionIndexes.insert(i)
             i = sections.indexLessThanIndex(i)
         }
