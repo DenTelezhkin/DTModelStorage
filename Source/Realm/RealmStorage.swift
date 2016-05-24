@@ -34,7 +34,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// Array of `RealmSection` objects
     public var sections = [Section]()
     
-    public var notificationTokens: [Int:NotificationToken] = [:]
+    private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
@@ -95,6 +95,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
         while i != NSNotFound {
             self.sections.removeAtIndex(i)
             notificationTokens[i]?.stop()
+            notificationTokens[i] = nil
             self.currentUpdate?.deletedSectionIndexes.insert(i)
             i = sections.indexLessThanIndex(i)
         }
