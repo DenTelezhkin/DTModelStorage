@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import Realm.RLMResults
 import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
@@ -34,7 +35,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// Array of `RealmSection` objects
     public var sections = [Section]()
     
-    private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
+    var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
