@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 * Support for fine-grained notifications in Realm
 * Update to Realm 0.103.1 and higher.
 
+### Fixed
+
+* Fixed https://github.com/DenHeadless/DTTableViewManager/issues/34, thanks @orkenstein, @andrewSvsg
+
 ## [2.5.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.5.1)
 
 ## Changed

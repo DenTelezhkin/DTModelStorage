@@ -82,7 +82,7 @@ public extension RangeReplaceableCollectionType where Self.Generator.Element == 
     func reactionsOfType(type: UIReactionType, forView view: Any) -> [UIReaction] {
         return self.filter({ reaction -> Bool in
             guard let unwrappedView = RuntimeHelper.recursivelyUnwrapAnyValue(view) else { return false }
-            return reaction.reactionType == type && reaction.viewClass == unwrappedView.dynamicType
+            return reaction.reactionType == type && String(reaction.viewClass) == String(unwrappedView.dynamicType)
         })
     }
 }
