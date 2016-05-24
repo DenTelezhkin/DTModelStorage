@@ -35,7 +35,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// Array of `RealmSection` objects
     public var sections = [Section]()
     
-    var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
+    @nonobjc private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
