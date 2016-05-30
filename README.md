@@ -160,11 +160,11 @@ Installation
 
 [CocoaPods](https://cocoapods.org):
 
-    pod 'DTModelStorage', '~> 2.4.0'
+    pod 'DTModelStorage', '~> 2.6.0'
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 2.4.0
+    github "DenHeadless/DTModelStorage" ~> 2.6.0
 
 Requirements
 ============

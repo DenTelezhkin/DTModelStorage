@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [2.6.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.1)
 
 ### Fixed
 
@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `setSectionWithResults(_:forSectionIndex:)` for `RealmStorage`
+
+### Updated
+
+* `Realm` dependency to `1.0.0`
 
 ## [2.6.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.0)
 

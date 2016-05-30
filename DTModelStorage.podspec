@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'DTModelStorage'
-  s.version  = '2.6.0'
+  s.version  = '2.6.1'
   s.license  = 'MIT'
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenHeadless/DTModelStorage'
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Realm' do |realm|
       realm.dependency 'DTModelStorage/Core'
-      realm.dependency 'RealmSwift', '~> 0.103'
+      realm.dependency 'RealmSwift', '~> 1.0.0'
       realm.source_files = 'Source/Realm/*.swift'
   end
 
