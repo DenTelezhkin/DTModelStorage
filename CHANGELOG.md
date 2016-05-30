@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+### Fixed
+
+* Now properly handles case, when `deleteSections` method was called with index, that is not present in `MemoryStorage` or `RealmStorage`
+
+### Added
+
+* `setSectionWithResults(_:forSectionIndex:)` for `RealmStorage`
+
 ## [2.6.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.0)
 
 ### Changed

@@ -55,13 +55,29 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// Add `RealmSection`, containing `Results<T>` objects.
     /// - Parameter results: results of Realm objects query.
     public func addSectionWithResults<T:Object>(results: Results<T>) {
+        setSectionWithResults(results, forSectionIndex: sections.count)
+    }
+    
+    /// Set `RealmSection`, containing `Results<T>` objects, for section at index. Calls `delegate.storageNeedsReloading()` after section is set.
+    /// - Parameter results: results of Realm objects query.
+    /// - Parameter forSectionIndex: index for section.
+    /// - Note: if index is less than number of section, this method won't do anything.
+    public func setSectionWithResults<T:Object>(results: Results<T>, forSectionIndex index: Int) {
+        guard index <= sections.count else { return }
+        
         let section = RealmSection(results: results)
-        sections.append(section)
-        delegate?.storageNeedsReloading()
-        let sectionIndex = sections.count - 1
-        notificationTokens[sectionIndex] = results.addNotificationBlock { [weak self] change in
-            self?.handleChange(change, inSection:sectionIndex)
+        notificationTokens[index]?.stop()
+        notificationTokens[index] = nil
+        if index == sections.count {
+            sections.append(section)
+        } else {
+            sections[index] = section
         }
+        let sectionIndex = sections.count - 1
+        notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
+            self?.handleChange(change, inSection: sectionIndex)
+        })
+        delegate?.storageNeedsReloading()
     }
     
     internal func handleChange<T>(change: RealmCollectionChange<T>, inSection: Int)
@@ -93,7 +109,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
         defer { self.finishUpdate() }
         
         var i = sections.lastIndex
-        while i != NSNotFound {
+        while i != NSNotFound && i < self.sections.count {
             self.sections.removeAtIndex(i)
             notificationTokens[i]?.stop()
             notificationTokens[i] = nil

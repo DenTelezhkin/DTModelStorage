@@ -160,6 +160,38 @@ class RealmStorageTestCase: XCTestCase {
         expect(self.storage.sections.count) == 1
     }
     
+    func testShouldDeleteSectionsEvenIfThereAreNone()
+    {
+        storage.deleteSections(NSIndexSet(index: 0))
+    }
+    
+    func testSetSectionShouldAddWhenThereAreNoSections() {
+        addDogNamed("Rex")
+        addDogNamed("Barnie")
+        
+        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 0)
+        
+        expect(self.storage.sections.count) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 2
+    }
+    
+    func testSectionShouldBeReplaced() {
+        addDogNamed("Rex")
+        addDogNamed("Barnie")
+        
+        storage.addSectionWithResults(realm.objects(Dog))
+        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 0)
+        
+        expect(self.storage.sections.count) == 1
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 2
+    }
+    
+    func testShouldDisallowSettingWrongSection() {
+        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 5)
+        
+        expect(self.storage.sections.count) == 0
+    }
+    
     func testSupplementaryHeadersWork() {
         storage.configureForTableViewUsage()
         storage.addSectionWithResults(realm.objects(Dog))

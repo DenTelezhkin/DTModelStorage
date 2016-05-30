@@ -202,6 +202,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         update.deletedRowIndexPaths = [indexPath(0, 0),indexPath(1, 1),indexPath(1, 0)]
     }
     
+    func testShouldDeleteSectionsEvenIfThereAreNone()
+    {
+        storage.deleteSections(NSIndexSet(index: 0))
+    }
+    
     func testShouldDeleteSections()
     {
         storage.addItem(1, toSection: 0)
