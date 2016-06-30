@@ -63,9 +63,8 @@ class CoreDataStorageTestCase: XCTestCase {
         item1.value = 3
         let _ = try? item1.managedObjectContext?.save()
         
-        let expectedMovement = [[indexPath(0, 0),indexPath(1, 0)]]
-        
-        expect(self.updateObserver.update?.movedRowIndexPaths).toEventually(equal(expectedMovement))
+        expect(self.updateObserver.update?.insertedRowIndexPaths).toEventually(equal(Set([indexPath(1, 0)])))
+        expect(self.updateObserver.update?.deletedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
     }
     
     func testUpdatingValues()

@@ -116,7 +116,8 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
         case .Move:
             if indexPath != nil && newIndexPath != nil {
                 if indexPath != newIndexPath {
-                    self.currentUpdate?.movedRowIndexPaths.append([indexPath!,newIndexPath!])
+                    self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
+                    self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!)
                 }
                 else {
                     self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)

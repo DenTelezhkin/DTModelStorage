@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [2.6.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.2)
+
+### Fixed
+
+* `CoreDataStorage` now properly updates new indexPath after Move event on iOS 9.
+
 ## [2.6.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.1)
 
 ### Fixed
