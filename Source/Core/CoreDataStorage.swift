@@ -25,6 +25,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 private struct DTFetchedResultsSectionInfoWrapper : Section
 {
@@ -42,6 +43,11 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
 {
     /// Fetched results controller of storage
     public let fetchedResultsController : NSFetchedResultsController
+    
+    /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
+    /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
+    /// - Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.
+    public var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, UICollectionElementKindSectionHeader]
     
     /// Initialize CoreDataStorage with NSFetchedResultsController
     /// - Parameter fetchedResultsController: fetch results controller
@@ -82,7 +88,7 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     /// - SeeAlso: `footerModelForSectionIndex`
     public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any?
     {
-        if kind == self.supplementaryHeaderKind
+        if displaySectionNameForSupplementaryKinds.contains(kind)
         {
             if let sections = self.fetchedResultsController.sections
             {

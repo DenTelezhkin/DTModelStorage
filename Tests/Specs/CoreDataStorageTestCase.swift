@@ -98,7 +98,8 @@ class CoreDataStorageTestCase: XCTestCase {
         expect(self.storage.footerModelForSectionIndex(0)).to(beNil())
     }
     
-    func testSupplementaryModelOfKind() {
-        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionHeader, sectionIndex: 0)).to(beNil())
+    func testSettingDifferentSupplementaryKindAllowsUsingSectionName() {
+        storage.displaySectionNameForSupplementaryKinds = ["Foo"]
+        expect(self.storage.supplementaryModelOfKind("Foo", sectionIndex: 0) as? String) == ""
     }
 }

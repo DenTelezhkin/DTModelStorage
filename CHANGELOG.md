@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+### Added
+
+* `displaySectionNameForSupplementaryKinds` property on `CoreDataStorage`, that defines, for which supplementary kinds `NSFetchedResultsController` `sectionName` should be used as a data model.
+
 ## [2.6.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.2)
 
 ### Fixed
