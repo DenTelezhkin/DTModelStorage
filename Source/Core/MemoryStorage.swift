@@ -400,6 +400,20 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
         delegate?.storageNeedsReloading()
     }
     
+    /// Remove all items from specific section
+    /// - parameter atIndex: index of section
+    public func removeItemsFromSection(atIndex atIndex: Int) {
+        startUpdate()
+        defer { finishUpdate() }
+        
+        guard let section = sectionAtIndex(atIndex) else { return }
+        
+        for (index,_) in section.items.enumerate(){
+            currentUpdate?.deletedRowIndexPaths.insert(NSIndexPath(forItem: index, inSection: atIndex))
+        }
+        section.items.removeAll()
+    }
+    
     // MARK: - Searching in storage
     
     /// Retrieve items in section

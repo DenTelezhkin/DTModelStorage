@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `displaySectionNameForSupplementaryKinds` property on `CoreDataStorage`, that defines, for which supplementary kinds `NSFetchedResultsController` `sectionName` should be used as a data model.
+* `removeItemsFromSection` method on `MemoryStorage`, that allows to remove all items from specific section
 
 ## [2.6.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.2)
 

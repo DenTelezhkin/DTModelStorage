@@ -88,4 +88,14 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         expect(self.storageUpdatesObserver.update?.deletedRowIndexPaths) == Set([indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)])
     }
+    
+    func testRemoveItemsFromSection()
+    {
+        storage.addItems([1,2,3])
+        storage.removeItemsFromSection(atIndex: 0)
+        
+        expect(self.storage.sectionAtIndex(0)?.items.count) == 0
+        
+        expect(self.storageUpdatesObserver.update?.deletedRowIndexPaths) == Set([indexPath(0, 0),indexPath(1, 0), indexPath(2, 0)])
+    }
 }
