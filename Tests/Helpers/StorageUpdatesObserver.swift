@@ -9,9 +9,9 @@
 import Foundation
 import DTModelStorage
 
-func indexPath(item:Int,_ section:Int) -> NSIndexPath
+func indexPath(_ item:Int,_ section:Int) -> IndexPath
 {
-    return NSIndexPath(forItem: item, inSection: section)
+    return IndexPath(item: item, section: section)
 }
 
 class StorageUpdatesObserver : StorageUpdating
@@ -25,7 +25,7 @@ class StorageUpdatesObserver : StorageUpdating
         storageNeedsReloadingFlag = true
     }
     
-    func storageDidPerformUpdate(update: StorageUpdate) {
+    func storageDidPerformUpdate(_ update: StorageUpdate) {
         self.update = update
     }
 }

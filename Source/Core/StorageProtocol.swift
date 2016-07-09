@@ -33,7 +33,7 @@ public protocol StorageProtocol
     var sections : [Section] { get }
     
     /// Returns item at concrete indexPath.
-    func itemAtIndexPath(path : NSIndexPath) -> Any?
+    func itemAtIndexPath(_ path : IndexPath) -> Any?
     
     /// Delegate property used to notify about current data storage changes.
     weak var delegate  : StorageUpdating? {get set}
@@ -44,12 +44,12 @@ public protocol HeaderFooterStorageProtocol
     /// Getter method for header model for current section.
     /// - Parameter index: Number of section.
     /// - Returns: Header model for section at index.
-    func headerModelForSectionIndex(index: Int) -> Any?
+    func headerModelForSectionIndex(_ index: Int) -> Any?
     
     /// Getter method for footer model for current section.
     /// - Parameter index: Number of section.
     /// - Returns: Footer model for section at index.
-    func footerModelForSectionIndex(index: Int) -> Any?
+    func footerModelForSectionIndex(_ index: Int) -> Any?
     
     /// Supplementary kind for header in current storage
     var supplementaryHeaderKind : String? { get set }
@@ -64,7 +64,7 @@ public protocol SupplementaryStorageProtocol
     /// - Parameter kind: supplementary kind
     /// - Parameter sectionIndex: index of section
     /// - Returns supplementary model for given kind for given section
-    func supplementaryModelOfKind(kind: String, sectionIndex : Int) -> Any?
+    func supplementaryModelOfKind(_ kind: String, sectionIndex : Int) -> Any?
 }
 
 public protocol SupplementaryAccessible : class {
@@ -74,19 +74,19 @@ public protocol SupplementaryAccessible : class {
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    func supplementaryModelOfKind(kind: String) -> Any?
+    func supplementaryModelOfKind(_ kind: String) -> Any?
     
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    func setSupplementaryModel(model : Any?, forKind kind: String)
+    func setSupplementaryModel(_ model : Any?, forKind kind: String)
 }
 
 extension SupplementaryAccessible {
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    public func supplementaryModelOfKind(kind: String) -> Any?
+    public func supplementaryModelOfKind(_ kind: String) -> Any?
     {
         return self.supplementaries[kind]
     }
@@ -94,7 +94,7 @@ extension SupplementaryAccessible {
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    public func setSupplementaryModel(model : Any?, forKind kind: String)
+    public func setSupplementaryModel(_ model : Any?, forKind kind: String)
     {
         self.supplementaries[kind] = model
     }
@@ -104,7 +104,7 @@ extension SupplementaryAccessible {
 public protocol StorageUpdating : class
 {
     /// Transfers data storage updates. Object, that implements this method, may react to received update by updating it's UI.
-    func storageDidPerformUpdate(update : StorageUpdate)
+    func storageDidPerformUpdate(_ update : StorageUpdate)
     
     /// Method is called when UI needs to be fully updated for data storage changes.
     func storageNeedsReloading()
@@ -117,7 +117,7 @@ public extension StorageProtocol
     /// - Parameter indexPath: NSIndexPath of the data model
     /// - Returns: data model that belongs to this index path.
     /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
-    public func itemForCellClass<T:ModelTransfer where T: UITableViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
+    public func itemForCellClass<T:ModelTransfer where T: UITableViewCell>(_ cellClass: T.Type, atIndexPath indexPath: IndexPath)-> T.ModelType?
     {
         return self.itemAtIndexPath(indexPath) as? T.ModelType
     }
@@ -127,7 +127,7 @@ public extension StorageProtocol
     /// - Parameter indexPath: NSIndexPath of the data model.
     /// - Returns: data model that belongs to this index path.
     /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
-    public func itemForCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath)-> T.ModelType?
+    public func itemForCellClass<T:ModelTransfer where T: UICollectionViewCell>(_ cellClass: T.Type, atIndexPath indexPath: IndexPath)-> T.ModelType?
     {
         return self.itemAtIndexPath(indexPath) as? T.ModelType
     }
@@ -137,7 +137,7 @@ public extension StorageProtocol
     /// - Parameter indexPath: NSIndexPath of the view
     /// - Returns: data model that belongs to this view
     /// - Note: Method does not require header to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
-    public func itemForHeaderClass<T:ModelTransfer where T:UIView>(headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
+    public func itemForHeaderClass<T:ModelTransfer where T:UIView>(_ headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
         return (self as? HeaderFooterStorageProtocol)?.headerModelForSectionIndex(sectionIndex) as? T.ModelType
     }
@@ -147,7 +147,7 @@ public extension StorageProtocol
     /// - Parameter indexPath: NSIndexPath of the view
     /// - Returns: data model that belongs to this view
     /// - Note: Method does not require footer to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
-    public func itemForFooterClass<T:ModelTransfer where T:UIView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
+    public func itemForFooterClass<T:ModelTransfer where T:UIView>(_ footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
         return (self as? HeaderFooterStorageProtocol)?.footerModelForSectionIndex(sectionIndex) as? T.ModelType
     }

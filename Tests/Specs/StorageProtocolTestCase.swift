@@ -11,7 +11,7 @@ import DTModelStorage
 import Nimble
 
 class FooView : UIView, ModelTransfer {
-    func updateWithModel(model: String) {
+    func updateWithModel(_ model: String) {
         
     }
 }

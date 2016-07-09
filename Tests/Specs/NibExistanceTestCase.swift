@@ -14,7 +14,7 @@ class NibExistanceTestCase: XCTestCase {
     
     func testNibDoesNotExist()
     {
-        let bundle = NSBundle(forClass: self.dynamicType)
+        let bundle = Bundle(for: self.dynamicType)
         expect(UINib.nibExistsWithNibName("Foo", inBundle: bundle)) == false
         expect(UINib.nibExistsWithNibName("EmptyNib", inBundle: bundle)) == true
     }

@@ -76,7 +76,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
           try storage.insertItem(1, toIndexPath: indexPath(1, 0))
         }
-        catch MemoryStorageErrors.Insertion.IndexPathTooBig {
+        catch MemoryStorageErrors.Insertion.indexPathTooBig {
             
         }
         catch {
@@ -112,7 +112,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
             try storage.replaceItem(1, replacingItem: "foo")
         }
-        catch MemoryStorageErrors.Replacement.ItemNotFound
+        catch MemoryStorageErrors.Replacement.itemNotFound
         {
             
         }
@@ -144,7 +144,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
             try storage.removeItem(3)
         }
-        catch MemoryStorageErrors.Removal.ItemNotFound
+        catch MemoryStorageErrors.Removal.itemNotFound
         {
             
         }
@@ -204,7 +204,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testShouldDeleteSectionsEvenIfThereAreNone()
     {
-        storage.deleteSections(NSIndexSet(index: 0))
+        storage.deleteSections(IndexSet(integer: 0))
     }
     
     func testShouldDeleteSections()
@@ -213,7 +213,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(2, toSection: 1)
         storage.addItem(3, toSection: 2)
         
-        storage.deleteSections(NSIndexSet(index: 1))
+        storage.deleteSections(IndexSet(integer: 1))
         
         var update = StorageUpdate()
         update.deletedSectionIndexes.insert(1)
@@ -228,8 +228,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(4, toSection: 3)
         
         let set = NSMutableIndexSet(index: 1)
-        set.addIndex(3)
-        storage.deleteSections(set)
+        set.add(3)
+        storage.deleteSections(set as IndexSet)
         
         var update = StorageUpdate()
         update.deletedSectionIndexes.insert(1)
@@ -249,7 +249,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testShouldNotCallDelegateForOptionalMethod()
     {
-        storage.supplementaryModelOfKind("foo", sectionIndex: 1)
+        _ = storage.supplementaryModelOfKind("foo", sectionIndex: 1)
     }
     
     func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
@@ -450,21 +450,21 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setItems([7,8,9])
         storage.setSection(section, forSectionIndex: 1)
         
-        expect(self.storage.sectionAtIndex(1)?.itemsOfType(Int)) == [7,8,9]
+        expect(self.storage.sectionAtIndex(1)?.itemsOfType(Int.self)) == [7,8,9]
     }
     
     func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
         try! storage.insertItems([1,2,3], toIndexPaths: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
         
         expect(self.storage.itemsInSection(0)?.count) == 3
-        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int)) == [1,2,3]
+        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int.self)) == [1,2,3]
     }
     
     func testWrongCountsRaisesException() {
         do {
             try storage.insertItems([1,2], toIndexPaths: [indexPath(0, 0)])
         }
-        catch MemoryStorageErrors.BatchInsertion.ItemsCountMismatch {
+        catch MemoryStorageErrors.BatchInsertion.itemsCountMismatch {
             return
         }
         catch {
@@ -477,6 +477,6 @@ class SectionSupplementariesTestCase : XCTestCase
         try! storage.insertItems([1,2,3], toIndexPaths: [indexPath(0, 0), indexPath(1, 0),indexPath(3, 0)])
         
         expect(self.storage.itemsInSection(0)?.count) == 2
-        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int)) == [1,2]
+        expect(self.storage.sectionAtIndex(0)?.itemsOfType(Int.self)) == [1,2]
     }
 }

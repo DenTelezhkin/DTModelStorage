@@ -80,8 +80,8 @@ class StorageUpdateTestCase: XCTestCase {
     {
         let set = Set(arrayLiteral: 1,2,3)
         let indexSet = set.makeNSIndexSet()
-        expect(indexSet.containsIndex(1)).to(beTrue())
-        expect(indexSet.containsIndex(2)).to(beTrue())
-        expect(indexSet.containsIndex(3)).to(beTrue())
+        expect(indexSet.contains(1)).to(beTrue())
+        expect(indexSet.contains(2)).to(beTrue())
+        expect(indexSet.contains(3)).to(beTrue())
     }
 }

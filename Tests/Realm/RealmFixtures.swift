@@ -21,6 +21,6 @@ func == (left: Dog, right: Dog) -> Bool
 
 class Person: Object {
     dynamic var name = ""
-    dynamic var picture: NSData? = nil // optionals supported
+    dynamic var picture: Data? = nil // optionals supported
     let dogs = List<Dog>()
 }

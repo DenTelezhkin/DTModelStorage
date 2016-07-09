@@ -21,29 +21,29 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionTypeEquatable() {
-        expect(UIReactionType.CellSelection) == UIReactionType.CellSelection
-        expect(UIReactionType.CellConfiguration) != UIReactionType.CellSelection
-        expect(UIReactionType.CellConfiguration) == UIReactionType.CellConfiguration
+        expect(UIReactionType.cellSelection) == UIReactionType.cellSelection
+        expect(UIReactionType.cellConfiguration) != UIReactionType.cellSelection
+        expect(UIReactionType.cellConfiguration) == UIReactionType.cellConfiguration
     }
     
     func testReactionTypeSupplementaryEquatable() {
-        expect(UIReactionType.SupplementaryConfiguration(kind: "foo")) == UIReactionType.SupplementaryConfiguration(kind: "foo")
-        expect(UIReactionType.SupplementaryConfiguration(kind: "foo")) != UIReactionType.SupplementaryConfiguration(kind: "bar")
+        expect(UIReactionType.supplementaryConfiguration(kind: "foo")) == UIReactionType.supplementaryConfiguration(kind: "foo")
+        expect(UIReactionType.supplementaryConfiguration(kind: "foo")) != UIReactionType.supplementaryConfiguration(kind: "bar")
     }
     
     func testSupplementaryGetter() {
-        expect(UIReactionType.SupplementaryConfiguration(kind: "foo").supplementaryKind()) == "foo"
-        expect(UIReactionType.CellSelection.supplementaryKind()).to(beNil())
+        expect(UIReactionType.supplementaryConfiguration(kind: "foo").supplementaryKind()) == "foo"
+        expect(UIReactionType.cellSelection.supplementaryKind()).to(beNil())
     }
     
     func testReactionsAreSearchable() {
-        let reaction = UIReaction(.CellConfiguration, viewClass: UIView.self)
+        let reaction = UIReaction(.cellConfiguration, viewClass: UIView.self)
         reactions.append(reaction)
         
-        let candidates = reactions.reactionsOfType(.CellConfiguration, forView: UIView())
-        let missedCandidates = reactions.reactionsOfType(.CellConfiguration, forView: UITableViewCell())
+        let candidates = reactions.reactionsOfType(.cellConfiguration, forView: UIView())
+        let missedCandidates = reactions.reactionsOfType(.cellConfiguration, forView: UITableViewCell())
         let nilView: UIView? = nil
-        let nilCandidates = reactions.reactionsOfType(.CellConfiguration, forView: nilView)
+        let nilCandidates = reactions.reactionsOfType(.cellConfiguration, forView: nilView)
         
         expect(candidates.count) == 1
         expect(missedCandidates.count) == 0
@@ -51,18 +51,18 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionsForOptionalViewsAreSearchable() {
-        let reaction = UIReaction(.CellConfiguration, viewClass: UIView.self)
+        let reaction = UIReaction(.cellConfiguration, viewClass: UIView.self)
         reactions.append(reaction)
         
         let nilView: UIView? = UIView()
         
-        let candidates = reactions.reactionsOfType(.CellConfiguration, forView: nilView)
+        let candidates = reactions.reactionsOfType(.cellConfiguration, forView: nilView)
         
         expect(candidates.count) == 1
     }
     
     func testReactionBlockIsPerformable() {
-        let reaction = UIReaction(.CellSelection, viewClass: UIView.self)
+        let reaction = UIReaction(.cellSelection, viewClass: UIView.self)
         var blockCalled = false
         reaction.reactionBlock = { blockCalled = true }
         

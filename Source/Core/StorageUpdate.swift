@@ -41,16 +41,16 @@ public struct StorageUpdate : Equatable
     public var movedSectionIndexes = [[Int]]()
 
     /// Index paths of rows that need to be deleted in current update.
-    public var deletedRowIndexPaths = Set<NSIndexPath>()
+    public var deletedRowIndexPaths = Set<IndexPath>()
     
     /// Index paths of rows that need to be inserted in current update.
-    public var insertedRowIndexPaths = Set<NSIndexPath>()
+    public var insertedRowIndexPaths = Set<IndexPath>()
     
     /// Index paths of rows that need to be updated in current update.
-    public var updatedRowIndexPaths = Set<NSIndexPath>()
+    public var updatedRowIndexPaths = Set<IndexPath>()
     
     /// Array if index paths to be moved in current update.
-    public var movedRowIndexPaths = [[NSIndexPath]]()
+    public var movedRowIndexPaths = [[IndexPath]]()
     
     /// Create an empty update.
     public init(){}
@@ -103,11 +103,11 @@ public extension Set where Element : NSIndexSetConvertible
 {
     /// Make NSIndexSet instance out of Set<Int>
     /// Returns: NSIndexSet with Ints inside
-    func makeNSIndexSet() -> NSIndexSet {
+    func makeNSIndexSet() -> IndexSet {
         let indexSet = NSMutableIndexSet()
         for element in self {
-            indexSet.addIndex(element as! Int)
+            indexSet.add(element as! Int)
         }
-        return NSIndexSet(indexSet: indexSet)
+        return IndexSet(indexSet)
     }
 }

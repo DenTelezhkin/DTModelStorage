@@ -53,7 +53,7 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     /// Parameter block: Block to execute
     /// - Note: This method allows to execute several updates in a single batch. It is similar to UICollectionView method `performBatchUpdates:`.
     /// - Warning: Performing mutual exclusive updates inside block can cause application crash.
-    public func performUpdates(@noescape block: () -> Void) {
+    public func performUpdates( _ block: @noescape () -> Void) {
         batchUpdatesInProgress = true
         startUpdate()
         block()
@@ -104,7 +104,7 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method
     /// - Parameter index: index of section
     /// - Returns: header model for section, or nil if there are no model
-    public func headerModelForSectionIndex(index: Int) -> Any? {
+    public func headerModelForSectionIndex(_ index: Int) -> Any? {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
         return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
     }
@@ -113,7 +113,7 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     /// - Requires: supplementaryFooterKind to be set prior to calling this method
     /// - Parameter index: index of section
     /// - Returns: footer model for section, or nil if there are no model
-    public func footerModelForSectionIndex(index: Int) -> Any? {
+    public func footerModelForSectionIndex(_ index: Int) -> Any? {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
         return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
     }

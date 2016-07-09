@@ -29,12 +29,12 @@ import UIKit
 
 public enum UIReactionType: Equatable
 {
-    case CellSelection
-    case CellConfiguration
-    case SupplementaryConfiguration(kind: String)
+    case cellSelection
+    case cellConfiguration
+    case supplementaryConfiguration(kind: String)
     
     public func supplementaryKind() -> String? {
-        if case .SupplementaryConfiguration(let kind) = self {
+        if case .supplementaryConfiguration(let kind) = self {
             return kind
         }
         return nil
@@ -43,9 +43,9 @@ public enum UIReactionType: Equatable
 
 public func == (left: UIReactionType, right: UIReactionType) -> Bool {
     switch (left, right) {
-    case (.CellSelection, .CellSelection): return true
-    case (.CellConfiguration, .CellConfiguration): return true
-    case (.SupplementaryConfiguration(let leftKind),.SupplementaryConfiguration(let rightKind)): return leftKind == rightKind
+    case (.cellSelection, .cellSelection): return true
+    case (.cellConfiguration, .cellConfiguration): return true
+    case (.supplementaryConfiguration(let leftKind),.supplementaryConfiguration(let rightKind)): return leftKind == rightKind
     default: return false
     }
 }
@@ -70,16 +70,16 @@ public class UIReaction
 public struct ViewData
 {
     public let view: UIView
-    public let indexPath: NSIndexPath
+    public let indexPath: IndexPath
     
-    public init(view: UIView, indexPath: NSIndexPath) {
+    public init(view: UIView, indexPath: IndexPath) {
         self.view = view
         self.indexPath = indexPath
     }
 }
 
-public extension RangeReplaceableCollectionType where Self.Generator.Element == UIReaction {
-    func reactionsOfType(type: UIReactionType, forView view: Any) -> [UIReaction] {
+public extension RangeReplaceableCollection where Self.Iterator.Element == UIReaction {
+    func reactionsOfType(_ type: UIReactionType, forView view: Any) -> [UIReaction] {
         return self.filter({ reaction -> Bool in
             guard let unwrappedView = RuntimeHelper.recursivelyUnwrapAnyValue(view) else { return false }
             return reaction.reactionType == type && String(reaction.viewClass) == String(unwrappedView.dynamicType)

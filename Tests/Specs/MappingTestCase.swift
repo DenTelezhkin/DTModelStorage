@@ -16,7 +16,7 @@ protocol MappingTestProtocol {}
 class ProtocolTestableTableViewCell : UITableViewCell, ModelTransfer {
     var model : MappingTestProtocol?
     
-    func updateWithModel(model: MappingTestProtocol) {
+    func updateWithModel(_ model: MappingTestProtocol) {
         self.model = model
     }
 }
@@ -29,7 +29,7 @@ class AncestorClass {}
 class Subclass : AncestorClass {}
 
 class SubclassTestableTableViewCell : UITableViewCell, ModelTransfer {
-    func updateWithModel(model: AncestorClass) {
+    func updateWithModel(_ model: AncestorClass) {
         
     }
 }
@@ -44,42 +44,42 @@ class MappingTestCase: XCTestCase {
     }
     
     func testProtocolModelIsFindable() {
-        mappings.addMappingForViewType(.Cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidatesForViewType(.Cell, model: ConformingClass())
+        let candidates = mappings.mappingCandidatesForViewType(.cell, model: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
     }
     
     func testOptionalModelOfProtocolIsFindable() {
-        mappings.addMappingForViewType(.Cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
         let optional: ConformingClass? = ConformingClass()
-        let candidates = mappings.mappingCandidatesForViewType(.Cell, model: optional)
+        let candidates = mappings.mappingCandidatesForViewType(.cell, model: optional)
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
     }
     
     func testSubclassModelMappingIsFindable() {
-        mappings.addMappingForViewType(.Cell, viewClass: SubclassTestableTableViewCell.self)
-        let candidates = mappings.mappingCandidatesForViewType(.Cell, model: Subclass())
+        mappings.addMappingForViewType(.cell, viewClass: SubclassTestableTableViewCell.self)
+        let candidates = mappings.mappingCandidatesForViewType(.cell, model: Subclass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == SubclassTestableTableViewCell.self).to(beTrue())
     }
     
     func testNilModelDoesNotReturnMappingCandidates() {
-        mappings.addMappingForViewType(.Cell, viewClass: SubclassTestableTableViewCell.self)
+        mappings.addMappingForViewType(.cell, viewClass: SubclassTestableTableViewCell.self)
         let model : AncestorClass? = nil
-        let candidates = mappings.mappingCandidatesForViewType(.Cell, model: model)
+        let candidates = mappings.mappingCandidatesForViewType(.cell, model: model)
         
         expect(candidates.count) == 0
     }
     
     func testUpdateBlockCanBeSuccessfullyCalled() {
-        mappings.addMappingForViewType(.Cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidatesForViewType(.Cell, model: ConformingClass())
+        let candidates = mappings.mappingCandidatesForViewType(.cell, model: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
@@ -92,36 +92,36 @@ class MappingTestCase: XCTestCase {
 }
 
 struct Transferable : ModelTransfer {
-    func updateWithModel(model: Int) {}
+    func updateWithModel(_ model: Int) {}
 }
 
 class ViewModelMappingTestCase: XCTestCase {
     
     func testComparisons() {
-        let type = ViewType.Cell
+        let type = ViewType.cell
         
         expect(type.supplementaryKind()).to(beNil())
-        expect(ViewType.SupplementaryView(kind: "foo")) == ViewType.SupplementaryView(kind: "foo")
+        expect(ViewType.supplementaryView(kind: "foo")) == ViewType.supplementaryView(kind: "foo")
     }
     
     func testSupplementaryKindEnum()
     {
-        let type = ViewType.SupplementaryView(kind: "foo")
+        let type = ViewType.supplementaryView(kind: "foo")
         
         expect(type.supplementaryKind()) == "foo"
     }
     
     func testComparisonsOfDifferentViewTypes()
     {
-        let cellType = ViewType.Cell
-        let supplementaryType = ViewType.SupplementaryView(kind: "foo")
+        let cellType = ViewType.cell
+        let supplementaryType = ViewType.supplementaryView(kind: "foo")
         
         expect(cellType == supplementaryType).to(beFalse())
     }
     
     func testAddingMappingNotForClassDoesNotWork() {
         var mappings = [ViewModelMapping]()
-        mappings.addMappingForViewType(.Cell, viewClass: Transferable.self)
+        mappings.addMappingForViewType(.cell, viewClass: Transferable.self)
         
         expect(mappings.count) == 0
     }

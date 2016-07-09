@@ -12,13 +12,10 @@ import XCTest
 import Nimble
 import RealmSwift
 
-func delay(delay:Double, _ closure:()->()) {
-    dispatch_after(
-        dispatch_time(
-            DISPATCH_TIME_NOW,
-            Int64(delay * Double(NSEC_PER_SEC))
-        ),
-        dispatch_get_main_queue(), closure)
+func delay(_ delay:Double, _ closure:()->()) {
+    DispatchQueue.main.after(
+        when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+        execute: closure)
 }
 
 class RealmStorageTestCase: XCTestCase {
@@ -33,11 +30,11 @@ class RealmStorageTestCase: XCTestCase {
         super.setUp()
         storage = RealmStorage()
         try! realm.write {
-            realm.deleteAll()
+            realm.deleteAllObjects()
         }
     }
     
-    func addDogNamed(name: String) {
+    func addDogNamed(_ name: String) {
         try! realm.write {
             let dog = Dog()
             dog.name = name
@@ -48,7 +45,7 @@ class RealmStorageTestCase: XCTestCase {
     func testRealmStorageHandlesSectionAddition() {
         addDogNamed("Rex")
         
-        let results = realm.objects(Dog)
+        let results = realm.allObjects(ofType: Dog.self)
         storage.addSectionWithResults(results)
         
         expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? Dog)?.name) == "Rex"
@@ -57,7 +54,7 @@ class RealmStorageTestCase: XCTestCase {
     func testRealmStorageIsAbleToHandleRealmNotification() {
         let storageObserver = StorageUpdatesObserver()
         storage.delegate = storageObserver
-        let results = realm.objects(Dog)
+        let results = realm.allObjects(ofType: Dog.self)
         storage.addSectionWithResults(results)
         
         addDogNamed("Rex")
@@ -69,7 +66,7 @@ class RealmStorageTestCase: XCTestCase {
     func testInsertNotificationIsHandled() {
         let updateObserver = StorageUpdatesObserver()
         storage.delegate = updateObserver
-        let results = realm.objects(Dog)
+        let results = realm.allObjects(ofType: Dog.self)
         storage.addSectionWithResults(results)
         
         addDogNamed("Rex")
@@ -89,7 +86,7 @@ class RealmStorageTestCase: XCTestCase {
     func testDeleteNotificationIsHandled() {
         let updateObserver = StorageUpdatesObserver()
         storage.delegate = updateObserver
-        let results = realm.objects(Dog)
+        let results = realm.allObjects(ofType: Dog.self)
         storage.addSectionWithResults(results)
         
         var dog: Dog!
@@ -110,7 +107,7 @@ class RealmStorageTestCase: XCTestCase {
     func testUpdateNotificationIsHandled() {
         let updateObserver = StorageUpdatesObserver()
         storage.delegate = updateObserver
-        let results = realm.objects(Dog)
+        let results = realm.allObjects(ofType: Dog.self)
         storage.addSectionWithResults(results)
         
         var dog: Dog!
@@ -130,7 +127,7 @@ class RealmStorageTestCase: XCTestCase {
     func testStorageHasSingleSection() {
         addDogNamed("Rex")
         
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         
         let section = storage.sectionAtIndex(0)
         
@@ -149,27 +146,27 @@ class RealmStorageTestCase: XCTestCase {
         addDogNamed("Rex")
         addDogNamed("Barnie")
         
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         
         let observer = StorageUpdatesObserver()
         storage.delegate = observer
         
-        storage.deleteSections(NSIndexSet(index: 0))
+        storage.deleteSections(IndexSet(integer: 0))
         expect(observer.update?.deletedSectionIndexes) == Set<Int>([0])
         expect(self.storage.sections.count) == 1
     }
     
     func testShouldDeleteSectionsEvenIfThereAreNone()
     {
-        storage.deleteSections(NSIndexSet(index: 0))
+        storage.deleteSections(IndexSet(integer: 0))
     }
     
     func testSetSectionShouldAddWhenThereAreNoSections() {
         addDogNamed("Rex")
         addDogNamed("Barnie")
         
-        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 0)
+        storage.setSectionWithResults(realm.allObjects(ofType: Dog.self), forSectionIndex: 0)
         
         expect(self.storage.sections.count) == 1
         expect(self.storage.sectionAtIndex(0)?.items.count) == 2
@@ -179,24 +176,24 @@ class RealmStorageTestCase: XCTestCase {
         addDogNamed("Rex")
         addDogNamed("Barnie")
         
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 0)
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.setSectionWithResults(realm.allObjects(ofType: Dog.self), forSectionIndex: 0)
         
         expect(self.storage.sections.count) == 1
         expect(self.storage.sectionAtIndex(0)?.items.count) == 2
     }
     
     func testShouldDisallowSettingWrongSection() {
-        storage.setSectionWithResults(realm.objects(Dog), forSectionIndex: 5)
+        storage.setSectionWithResults(realm.allObjects(ofType: Dog.self), forSectionIndex: 5)
         
         expect(self.storage.sections.count) == 0
     }
     
     func testSupplementaryHeadersWork() {
         storage.configureForTableViewUsage()
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionHeaderModels([1,2,3])
         
         expect(self.storage.headerModelForSectionIndex(2) as? Int) == 3
@@ -205,9 +202,9 @@ class RealmStorageTestCase: XCTestCase {
     
     func testSupplementaryFootersWork() {
         storage.configureForTableViewUsage()
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionFooterModels([1,2,3])
         
         expect(self.storage.footerModelForSectionIndex(2) as? Int) == 3
@@ -216,9 +213,9 @@ class RealmStorageTestCase: XCTestCase {
     
     func testSupplementariesCanBeClearedOut() {
         storage.configureForTableViewUsage()
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionFooterModels([1,2,3])
         
         storage.setSupplementaries([Int](), forKind: DTTableViewElementSectionFooter)
@@ -227,7 +224,7 @@ class RealmStorageTestCase: XCTestCase {
     
     func testSettingSupplementaryModelForSectionIndex() {
         storage.configureForTableViewUsage()
-        storage.addSectionWithResults(realm.objects(Dog))
+        storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionHeaderModel(1, forSectionIndex: 0)
     
         expect(self.storage.headerModelForSectionIndex(0) as? Int) == 1

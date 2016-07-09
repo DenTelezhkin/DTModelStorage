@@ -18,7 +18,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     class StorageUpdatingInstance : StorageUpdating {
         var storageNeedsReloadingCalled = false
         
-        func storageDidPerformUpdate(update: StorageUpdate) {
+        func storageDidPerformUpdate(_ update: StorageUpdate) {
             
         }
         
@@ -29,13 +29,13 @@ class MemoryStorageSearchSpec: XCTestCase {
     
     class TableCell: UITableViewCell,ModelTransfer
     {
-        func updateWithModel(model: Int) {
+        func updateWithModel(_ model: Int) {
         }
     }
     
     class CollectionCell : UICollectionViewCell, ModelTransfer
     {
-        func updateWithModel(model: Int) {
+        func updateWithModel(_ model: Int) {
         }
     }
     
@@ -85,7 +85,7 @@ class MemoryStorageSearchSpec: XCTestCase {
         
         let indexPath = storage.indexPathForItem(3)
         
-        expect(indexPath) == NSIndexPath(forItem: 0, inSection: 1)
+        expect(indexPath) == IndexPath(item: 0, section: 1)
         
         expect(self.storage.indexPathForItem(5)).to(beNil())
     }

@@ -39,10 +39,10 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
+public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
-    public let fetchedResultsController : NSFetchedResultsController
+    public let fetchedResultsController : NSFetchedResultsController<T>
     
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
@@ -51,7 +51,7 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     
     /// Initialize CoreDataStorage with NSFetchedResultsController
     /// - Parameter fetchedResultsController: fetch results controller
-    public init(fetchedResultsController: NSFetchedResultsController)
+    public init(fetchedResultsController: NSFetchedResultsController<T>)
     {
         self.fetchedResultsController = fetchedResultsController
         super.init()
@@ -75,8 +75,8 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     /// Retrieve object at index path from `CoreDataStorage`
     /// - Parameter path: NSIndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
-    public func itemAtIndexPath(path: NSIndexPath) -> Any? {
-        return fetchedResultsController.objectAtIndexPath(path)
+    public func itemAtIndexPath(_ path: IndexPath) -> Any? {
+        return fetchedResultsController.object(at: path)
     }
     
     // MARK: - SupplementaryStorageProtocol
@@ -86,7 +86,7 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    public func supplementaryModelOfKind(kind: String, sectionIndex: Int) -> Any?
+    public func supplementaryModelOfKind(_ kind: String, sectionIndex: Int) -> Any?
     {
         if displaySectionNameForSupplementaryKinds.contains(kind)
         {
@@ -102,24 +102,24 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     // MARK: - NSFetchedResultsControllerDelegate
     
     /// NSFetchedResultsController is about to start changing content - we'll start monitoring for updates.
-    @objc public func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    @objc public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.startUpdate()
     }
     
     /// React to specific change in NSFetchedResultsController
-    @objc public func controller(controller: NSFetchedResultsController,
-        didChangeObject anObject: AnyObject,
-        atIndexPath indexPath: NSIndexPath?,
-        forChangeType type: NSFetchedResultsChangeType,
-        newIndexPath: NSIndexPath?)
+    @objc public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: AnyObject,
+        at indexPath: IndexPath?,
+        for type: NSFetchedResultsChangeType,
+        newIndexPath: IndexPath?)
     {
         switch type
         {
-        case .Insert:
+        case .insert:
             if newIndexPath != nil { self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!) }
-        case .Delete:
+        case .delete:
             if indexPath != nil { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!) }
-        case .Move:
+        case .move:
             if indexPath != nil && newIndexPath != nil {
                 if indexPath != newIndexPath {
                     self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
@@ -129,21 +129,21 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
                     self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)
                 }
             }
-        case .Update:
+        case .update:
             if indexPath != nil { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!) }
         }
     }
     
     /// React to changed section in NSFetchedResultsController
     @objc
-    public func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
     { switch type
     {
-    case .Insert:
+    case .insert:
         self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
-    case .Delete:
+    case .delete:
         self.currentUpdate?.deletedSectionIndexes.insert(sectionIndex)
-    case .Update:
+    case .update:
         self.currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
     default: ()
         }
@@ -151,7 +151,7 @@ public class CoreDataStorage : BaseStorage, StorageProtocol, SupplementaryStorag
     
     /// Finish update from NSFetchedResultsController
     @objc
-    public func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.finishUpdate()
     }
 }

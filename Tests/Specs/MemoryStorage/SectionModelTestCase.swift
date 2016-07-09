@@ -43,6 +43,6 @@ class SectionModelTestCase: XCTestCase {
         let section = SectionModel()
         section.setItems([1,2,3])
         
-        expect(section.itemsOfType(Int)) == [1,2,3]
+        expect(section.itemsOfType(Int.self)) == [1,2,3]
     }
 }

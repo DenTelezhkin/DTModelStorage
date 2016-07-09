@@ -39,7 +39,7 @@ class MemoryStorageAddSpec: XCTestCase {
         storage.addItems(foo, toSection: 1)
         
         var update = StorageUpdate()
-        update.insertedSectionIndexes.unionInPlace([0,1])
+        update.insertedSectionIndexes.formUnion([0,1])
         update.insertedRowIndexPaths.insert(indexPath(0, 1))
         update.insertedRowIndexPaths.insert(indexPath(1, 1))
         update.insertedRowIndexPaths.insert(indexPath(2, 1))

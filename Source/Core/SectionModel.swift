@@ -40,7 +40,7 @@ public class SectionModel : Section, SupplementaryAccessible
     /// Set items of specific time to items property.
     /// - Parameter items: items to set
     /// - Note: This method exists because of inability of Swift to cast [T] to [Any].
-    public func setItems<T>(items: [T])
+    public func setItems<T>(_ items: [T])
     {
         self.items = items.map { $0 }
     }
@@ -48,7 +48,7 @@ public class SectionModel : Section, SupplementaryAccessible
     /// Returns items of specific type, if found in a section
     /// Parameter type: Type of items to search for
     /// Returns: Array of items
-    public func itemsOfType<T>(type: T.Type) -> [T]
+    public func itemsOfType<T>(_ type: T.Type) -> [T]
     {
         var foundItems = [T]()
         for item in items {

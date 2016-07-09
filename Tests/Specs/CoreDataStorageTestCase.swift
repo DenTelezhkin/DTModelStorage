@@ -13,16 +13,17 @@ import Nimble
 
 class CoreDataStorageTestCase: XCTestCase {
     
-    var storage : CoreDataStorage!
+    var storage : CoreDataStorage<ListItem>!
     var updateObserver : StorageUpdatesObserver!
     override func setUp() {
         super.setUp()
         
-        let request = NSFetchRequest(entityName: "ListItem")
-        let sortDescriptor = NSSortDescriptor(key: "value", ascending: true)
+        let request = NSFetchRequest<ListItem>()
+        request.entity = NSEntityDescription.entity(forEntityName: "ListItem", in: CoreDataManager.sharedInstance.context)
+        let sortDescriptor = SortDescriptor(key: "value", ascending: true)
         request.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.sharedInstance.context, sectionNameKeyPath: nil, cacheName: nil)
-        try! fetchedResultsController.performFetch()
+        let fetchedResultsController = NSFetchedResultsController<ListItem>(fetchRequest: request, managedObjectContext: CoreDataManager.sharedInstance.context, sectionNameKeyPath: nil, cacheName: nil)
+        _ = try? fetchedResultsController.performFetch()
         storage = CoreDataStorage(fetchedResultsController: fetchedResultsController)
         
         updateObserver = StorageUpdatesObserver()
@@ -45,7 +46,7 @@ class CoreDataStorageTestCase: XCTestCase {
     func testDeletion()
     {
         let item = ListItem.createItemWithValue(5)
-        item.managedObjectContext?.deleteObject(item)
+        item.managedObjectContext?.delete(item)
         expect(self.updateObserver.update?.deletedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
     }
     

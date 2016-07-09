@@ -13,32 +13,32 @@ class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
     private let managedObjectModel : NSManagedObjectModel = {
-        let modelURL = NSBundle(forClass:CoreDataManager.self).URLForResource("DTModelStorageDatabase", withExtension: "momd")
-        return NSManagedObjectModel(contentsOfURL: modelURL!)!
+        let modelURL = Bundle(for:CoreDataManager.self).urlForResource("DTModelStorageDatabase", withExtension: "momd")
+        return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
     private lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        try! coordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+        try! coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         return coordinator
     }()
     
     lazy var context : NSManagedObjectContext = {
-        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = self.persistentStoreCoordinator
         return context
     }()
     
     func deleteAllObjects() {
         for entity in managedObjectModel.entities {
-            let request = NSFetchRequest()
+            let request = NSFetchRequest<NSManagedObject>()
             request.entity = entity
             request.includesPropertyValues = false
             request.includesSubentities = false
             
-            if let items = try? context.executeFetchRequest(request) {
-                for object in items as! [NSManagedObject] {
-                    context.deleteObject(object)
+            if let items = try? context.fetch(request) {
+                for object in items {
+                    context.delete(object)
                 }
             }
             
