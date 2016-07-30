@@ -41,7 +41,7 @@ public func == (left: EventType, right: EventType) -> Bool {
     }
 }
 
-public class EventReaction {
+public final class EventReaction {
     public var type: EventType = .cell
     public let modelClass: Any.Type
     public var reaction : ((Any,Any,Any) -> Any)?
@@ -57,9 +57,20 @@ public class EventReaction {
         reaction = { cell, model, indexPath in
             guard let model = model as? T.ModelType,
                 let indexPath = indexPath as? IndexPath else {
-                  return ""
+                  return 0
             }
             return block(cell as? T, model, indexPath)
+        }
+    }
+    
+    public func makeCellReaction<T,U where T: ModelTransfer>(block: (T, T.ModelType, IndexPath) -> U) {
+        type = .cell
+        reaction = { cell, model, indexPath in
+            guard let model = model as? T.ModelType,
+                let indexPath = indexPath as? IndexPath else {
+                    return 0
+            }
+            return block(cell as! T, model, indexPath)
         }
     }
     
@@ -71,6 +82,17 @@ public class EventReaction {
                     return ""
             }
             return block(supplementary as? T, model, index)
+        }
+    }
+    
+    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T, T.ModelType, Int) -> U) {
+        type = .supplementary(kind: kind)
+        reaction = { supplementary, model, sectionIndex in
+            guard let model = model as? T.ModelType,
+                let index = sectionIndex as? Int else {
+                    return ""
+            }
+            return block(supplementary as! T, model, index)
         }
     }
     
@@ -87,5 +109,12 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == Event
                 String(reaction.modelClass) == String(unwrappedModel.dynamicType) &&
                 reaction.methodSignature == signature
         }).first
+    }
+    
+    func performReaction(ofType type: EventType, signature: String, view: Any, model: Any, location: Any) -> Any {
+        guard let reaction = reactionOfType(type, signature: signature, forModel: model) else {
+            return 0
+        }
+        return reaction.performWithArguments(arguments: (view,model,location))
     }
 }

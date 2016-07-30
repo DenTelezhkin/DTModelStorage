@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## Master
 
+### Reworked
+
+* `UIReaction` class has been replaced with new `EventReaction` class, that allows more flexible and powerful events usage
+
 ### Added
 
 * `displaySectionNameForSupplementaryKinds` property on `CoreDataStorage`, that defines, for which supplementary kinds `NSFetchedResultsController` `sectionName` should be used as a data model.

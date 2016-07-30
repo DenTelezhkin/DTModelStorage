@@ -13,7 +13,7 @@ import Nimble
 
 class UIReactionsTestCase: XCTestCase {
     
-    var reactions : [UIReaction]!
+    var reactions : [EventReaction]!
     
     override func setUp() {
         super.setUp()
@@ -21,58 +21,77 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionTypeEquatable() {
-        expect(UIReactionType.cellSelection) == UIReactionType.cellSelection
-        expect(UIReactionType.cellConfiguration) != UIReactionType.cellSelection
-        expect(UIReactionType.cellConfiguration) == UIReactionType.cellConfiguration
+        expect(EventType.cell) == EventType.cell
     }
     
     func testReactionTypeSupplementaryEquatable() {
-        expect(UIReactionType.supplementaryConfiguration(kind: "foo")) == UIReactionType.supplementaryConfiguration(kind: "foo")
-        expect(UIReactionType.supplementaryConfiguration(kind: "foo")) != UIReactionType.supplementaryConfiguration(kind: "bar")
-    }
-    
-    func testSupplementaryGetter() {
-        expect(UIReactionType.supplementaryConfiguration(kind: "foo").supplementaryKind()) == "foo"
-        expect(UIReactionType.cellSelection.supplementaryKind()).to(beNil())
+        expect(EventType.supplementary(kind: "foo")) == EventType.supplementary(kind: "foo")
+        expect(EventType.supplementary(kind: "foo")) != EventType.supplementary(kind: "bar")
     }
     
     func testReactionsAreSearchable() {
-        let reaction = UIReaction(.cellConfiguration, viewClass: UIView.self)
+        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
         reactions.append(reaction)
         
-        let candidates = reactions.reactionsOfType(.cellConfiguration, forView: UIView())
-        let missedCandidates = reactions.reactionsOfType(.cellConfiguration, forView: UITableViewCell())
-        let nilView: UIView? = nil
-        let nilCandidates = reactions.reactionsOfType(.cellConfiguration, forView: nilView)
-        
-        expect(candidates.count) == 1
-        expect(missedCandidates.count) == 0
-        expect(nilCandidates.count) == 0
+        let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: 5)
+        expect(foundReaction).toNot(beNil())
     }
     
-    func testReactionsForOptionalViewsAreSearchable() {
-        let reaction = UIReaction(.cellConfiguration, viewClass: UIView.self)
+    func testReactionsForOptionalModelsAreSearchable() {
+        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
         reactions.append(reaction)
         
-        let nilView: UIView? = UIView()
+        let nilModel: Int? = 5
         
-        let candidates = reactions.reactionsOfType(.cellConfiguration, forView: nilView)
-        
-        expect(candidates.count) == 1
+        let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: nilModel)
+        expect(foundReaction).toNot(beNil())
     }
     
-    func testReactionBlockIsPerformable() {
-        let reaction = UIReaction(.cellSelection, viewClass: UIView.self)
-        var blockCalled = false
-        reaction.reactionBlock = { blockCalled = true }
-        
-        reaction.perform()
-        
-        expect(blockCalled) == true
+    func makeCellBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U {
+        return { one,two,three in
+            block()
+            return returnValue
+        }
     }
     
-    func testViewDataCanBeConstructed()
-    {
-        _ = ViewData(view: UIView(), indexPath: indexPath(0, 0))
+    func makeSupplementaryBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, Int) -> U {
+        return { one,two,three in
+            block()
+            return returnValue
+        }
+    }
+    
+    func testCellReactionIsExecutable() {
+        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let exp = expectation(description: "executeCell")
+        reaction.makeCellReaction(block: makeCellBlock(block: {
+            exp.fulfill()
+            }, cell: TableCell(), returnValue: 3))
+        let result = reaction.performWithArguments(arguments: (TableCell(),5,indexPath(0, 0)))
+        waitForExpectations(timeout: 1, handler: nil)
+        expect(result as? Int) == 3
+    }
+    
+    func testSupplementaryReactionIsExecutable() {
+        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let exp = expectation(description: "executeCell")
+        reaction.makeSupplementaryReaction(forKind: "bar", block: makeSupplementaryBlock(block: {
+            exp.fulfill()
+            }, cell: TableCell(), returnValue: 3))
+        let result = reaction.performWithArguments(arguments: (TableCell(),5,6))
+        waitForExpectations(timeout: 1, handler: nil)
+        expect(result as? Int) == 3
+    }
+    
+    func testReactionOfTypeIsPerformable() {
+        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let exp = expectation(description: "executeCell")
+        reaction.makeCellReaction(block: makeCellBlock(block: {
+            exp.fulfill()
+            }, cell: TableCell(), returnValue: 3))
+        reactions.append(reaction)
+        let result = reactions.performReaction(ofType: .cell, signature: "foo", view: TableCell(), model: 5, location: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+        expect(result as? Int) == 3
     }
 }

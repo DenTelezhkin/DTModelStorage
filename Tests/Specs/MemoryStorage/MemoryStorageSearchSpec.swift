@@ -11,6 +11,18 @@ import XCTest
 @testable import DTModelStorage
 import Nimble
 
+class TableCell: UITableViewCell,ModelTransfer
+{
+    func updateWithModel(_ model: Int) {
+    }
+}
+
+class CollectionCell : UICollectionViewCell, ModelTransfer
+{
+    func updateWithModel(_ model: Int) {
+    }
+}
+
 class MemoryStorageSearchSpec: XCTestCase {
 
     var storage = MemoryStorage()
@@ -24,18 +36,6 @@ class MemoryStorageSearchSpec: XCTestCase {
         
         func storageNeedsReloading() {
             storageNeedsReloadingCalled = true
-        }
-    }
-    
-    class TableCell: UITableViewCell,ModelTransfer
-    {
-        func updateWithModel(_ model: Int) {
-        }
-    }
-    
-    class CollectionCell : UICollectionViewCell, ModelTransfer
-    {
-        func updateWithModel(_ model: Int) {
         }
     }
     
