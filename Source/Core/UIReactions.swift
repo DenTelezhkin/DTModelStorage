@@ -27,63 +27,65 @@
 import Foundation
 import UIKit
 
-public enum UIReactionType: Equatable
-{
-    case cellSelection
-    case cellConfiguration
-    case supplementaryConfiguration(kind: String)
-    
-    public func supplementaryKind() -> String? {
-        if case .supplementaryConfiguration(let kind) = self {
-            return kind
-        }
-        return nil
-    }
+public enum EventType {
+    case cell
+    case supplementary(kind: String)
 }
 
-public func == (left: UIReactionType, right: UIReactionType) -> Bool {
+extension EventType : Equatable {}
+public func == (left: EventType, right: EventType) -> Bool {
     switch (left, right) {
-    case (.cellSelection, .cellSelection): return true
-    case (.cellConfiguration, .cellConfiguration): return true
-    case (.supplementaryConfiguration(let leftKind),.supplementaryConfiguration(let rightKind)): return leftKind == rightKind
+    case (.cell, .cell): return true
+    case (.supplementary(let leftKind),.supplementary(let rightKind)): return leftKind == rightKind
     default: return false
     }
 }
 
-public class UIReaction
-{
-    public let reactionType : UIReactionType
-    public let viewClass : AnyClass
-    public var reactionBlock: (() -> Void)?
-    public var reactionData : ViewData?
+public class EventReaction {
+    public var type: EventType = .cell
+    public let modelClass: Any.Type
+    public var reaction : ((Any,Any,Any) -> Any)?
+    public let methodSignature: String
     
-    public func perform() {
-        reactionBlock?()
+    public init(signature: String, modelClass: Any.Type) {
+        self.methodSignature = signature
+        self.modelClass = modelClass
     }
     
-    public init(_ reactionType: UIReactionType, viewClass: AnyClass) {
-        self.reactionType = reactionType
-        self.viewClass = viewClass
+    public func makeCellReaction<T,U where T: ModelTransfer>(block: (T?, T.ModelType, IndexPath) -> U) {
+        type = .cell
+        reaction = { cell, model, indexPath in
+            guard let model = model as? T.ModelType,
+                let indexPath = indexPath as? IndexPath else {
+                  return ""
+            }
+            return block(cell as? T, model, indexPath)
+        }
+    }
+    
+    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T?, T.ModelType, Int) -> U) {
+        type = .supplementary(kind: kind)
+        reaction = { supplementary, model, sectionIndex in
+            guard let model = model as? T.ModelType,
+                let index = sectionIndex as? Int else {
+                    return ""
+            }
+            return block(supplementary as? T, model, index)
+        }
+    }
+    
+    public func performWithArguments(arguments: (Any,Any,Any)) -> Any {
+        return reaction?(arguments.0,arguments.1,arguments.2)
     }
 }
 
-public struct ViewData
-{
-    public let view: UIView
-    public let indexPath: IndexPath
-    
-    public init(view: UIView, indexPath: IndexPath) {
-        self.view = view
-        self.indexPath = indexPath
+public extension RangeReplaceableCollection where Self.Iterator.Element == EventReaction {
+    func reactionOfType(_ type: EventType, signature: String, forModel model: Any) -> EventReaction? {
+        return filter({ reaction in
+            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
+            return reaction.type == type &&
+                String(reaction.modelClass) == String(unwrappedModel.dynamicType) &&
+                reaction.methodSignature == signature
+        }).first
     }
 }
-
-public extension RangeReplaceableCollection where Self.Iterator.Element == UIReaction {
-    func reactionsOfType(_ type: UIReactionType, forView view: Any) -> [UIReaction] {
-        return self.filter({ reaction -> Bool in
-            guard let unwrappedView = RuntimeHelper.recursivelyUnwrapAnyValue(view) else { return false }
-            return reaction.reactionType == type && String(reaction.viewClass) == String(unwrappedView.dynamicType)
-        })
-    }
-}
-
