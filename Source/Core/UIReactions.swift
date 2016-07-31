@@ -43,17 +43,17 @@ public func == (left: EventType, right: EventType) -> Bool {
 
 public final class EventReaction {
     public var type: EventType = .cell
-    public let modelClass: Any.Type
+    public var modelTypeCheckingBlock: (Any) -> Bool = { _ in return false }
     public var reaction : ((Any,Any,Any) -> Any)?
     public let methodSignature: String
     
-    public init(signature: String, modelClass: Any.Type) {
+    public init(signature: String) {
         self.methodSignature = signature
-        self.modelClass = modelClass
     }
     
     public func makeCellReaction<T,U where T: ModelTransfer>(block: (T?, T.ModelType, IndexPath) -> U) {
         type = .cell
+        modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
             guard let model = model as? T.ModelType,
                 let indexPath = indexPath as? IndexPath else {
@@ -65,16 +65,20 @@ public final class EventReaction {
     
     public func makeCellReaction<T,U where T: ModelTransfer>(block: (T, T.ModelType, IndexPath) -> U) {
         type = .cell
+        modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
             guard let model = model as? T.ModelType,
-                let indexPath = indexPath as? IndexPath else {
-                    return 0
+                let indexPath = indexPath as? IndexPath,
+                let cell = cell as? T
+            else {
+                return 0
             }
-            return block(cell as! T, model, indexPath)
+            return block(cell, model, indexPath)
         }
     }
     
     public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T?, T.ModelType, Int) -> U) {
+        modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
@@ -86,13 +90,16 @@ public final class EventReaction {
     }
     
     public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T, T.ModelType, Int) -> U) {
+        modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
-                let index = sectionIndex as? Int else {
+                let index = sectionIndex as? Int,
+                let supplementary = supplementary as? T else
+            {
                     return ""
             }
-            return block(supplementary as! T, model, index)
+            return block(supplementary, model, index)
         }
     }
     
@@ -106,12 +113,12 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == Event
         return filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
             return reaction.type == type &&
-                String(reaction.modelClass) == String(unwrappedModel.dynamicType) &&
+                reaction.modelTypeCheckingBlock(unwrappedModel) &&
                 reaction.methodSignature == signature
         }).first
     }
     
-    func performReaction(ofType type: EventType, signature: String, view: Any, model: Any, location: Any) -> Any {
+    func performReaction(ofType type: EventType, signature: String, view: Any?, model: Any, location: Any) -> Any {
         guard let reaction = reactionOfType(type, signature: signature, forModel: model) else {
             return 0
         }
