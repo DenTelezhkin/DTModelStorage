@@ -13,7 +13,7 @@ class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
     private let managedObjectModel : NSManagedObjectModel = {
-        let modelURL = Bundle(for:CoreDataManager.self).urlForResource("DTModelStorageDatabase", withExtension: "momd")
+        let modelURL = Bundle(for:CoreDataManager.self).url(forResource:"DTModelStorageDatabase", withExtension: "momd")
         return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     

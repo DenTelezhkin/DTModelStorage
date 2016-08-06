@@ -13,9 +13,7 @@ import Nimble
 import RealmSwift
 
 func delay(_ delay:Double, _ closure:()->()) {
-    DispatchQueue.main.after(
-        when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
-        execute: closure)
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
 class RealmStorageTestCase: XCTestCase {

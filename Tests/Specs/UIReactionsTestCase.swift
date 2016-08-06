@@ -30,7 +30,8 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionsAreSearchable() {
-        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let reaction = EventReaction(signature: "foo")
+        reaction.makeCellReaction(block: makeCellBlock(block: {  } , cell: TableCell(), returnValue: 5))
         reactions.append(reaction)
         
         let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: 5)
@@ -38,7 +39,8 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionsForOptionalModelsAreSearchable() {
-        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let reaction = EventReaction(signature: "foo")
+        reaction.makeCellReaction(block: makeCellBlock(block: {  } , cell: TableCell(), returnValue: 5))
         reactions.append(reaction)
         
         let nilModel: Int? = 5
@@ -62,7 +64,7 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testCellReactionIsExecutable() {
-        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
         reaction.makeCellReaction(block: makeCellBlock(block: {
             exp.fulfill()
@@ -73,7 +75,7 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testSupplementaryReactionIsExecutable() {
-        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
         reaction.makeSupplementaryReaction(forKind: "bar", block: makeSupplementaryBlock(block: {
             exp.fulfill()
@@ -84,7 +86,7 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionOfTypeIsPerformable() {
-        let reaction = EventReaction(signature: "foo", modelClass: Int.self)
+        let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
         reaction.makeCellReaction(block: makeCellBlock(block: {
             exp.fulfill()

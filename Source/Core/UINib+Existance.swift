@@ -35,7 +35,7 @@ public extension UINib {
     public class func nibExistsWithNibName(_ nibName :String,
         inBundle bundle: Bundle = Bundle.main) -> Bool
     {
-        if let _ = bundle.pathForResource(nibName, ofType: "nib")
+        if let _ = bundle.path(forResource: nibName, ofType: "nib")
         {
             return true
         }

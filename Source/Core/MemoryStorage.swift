@@ -29,26 +29,26 @@ import Foundation
 public struct MemoryStorageErrors
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:toIndexPath:)` method
-    public enum Insertion: ErrorProtocol
+    public enum Insertion: Error
     {
         case indexPathTooBig
     }
     
     /// Errors that can be thrown, when calling `insertItems(_:toIndexPaths:)` method
-    public enum BatchInsertion: ErrorProtocol
+    public enum BatchInsertion: Error
     {
         /// Is thrown, if length of batch inserted array is different from length of array of index paths.
         case itemsCountMismatch
     }
     
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:replacingItem:)` method
-    public enum Replacement: ErrorProtocol
+    public enum Replacement: Error
     {
         case itemNotFound
     }
     
     /// Errors that can happen when removing item from memory storage - `removeItem(:_)` method
-    public enum Removal : ErrorProtocol
+    public enum Removal : Error
     {
         case itemNotFound
     }
@@ -501,7 +501,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     class func sortedArrayOfIndexPaths(_ indexPaths: [IndexPath], ascending: Bool) -> [IndexPath]
     {
         let unsorted = NSMutableArray(array: indexPaths)
-        let descriptor = SortDescriptor(key: "self", ascending: ascending)
+        let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArray(using: [descriptor]) as! [IndexPath]
     }
     

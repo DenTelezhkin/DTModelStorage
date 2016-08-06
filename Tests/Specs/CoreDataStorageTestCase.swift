@@ -20,7 +20,7 @@ class CoreDataStorageTestCase: XCTestCase {
         
         let request = NSFetchRequest<ListItem>()
         request.entity = NSEntityDescription.entity(forEntityName: "ListItem", in: CoreDataManager.sharedInstance.context)
-        let sortDescriptor = SortDescriptor(key: "value", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "value", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         let fetchedResultsController = NSFetchedResultsController<ListItem>(fetchRequest: request, managedObjectContext: CoreDataManager.sharedInstance.context, sectionNameKeyPath: nil, cacheName: nil)
         _ = try? fetchedResultsController.performFetch()
