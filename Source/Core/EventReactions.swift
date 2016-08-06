@@ -63,6 +63,18 @@ public final class EventReaction {
         }
     }
     
+    public func makeCellReaction<T,U>(block: (T, IndexPath) -> U) {
+        type = .cell
+        modelTypeCheckingBlock = { return $0 is T }
+        reaction = { cell, model, indexPath in
+            guard let model = model as? T,
+                let indexPath = indexPath as? IndexPath else {
+                    return 0
+            }
+            return block(model, indexPath)
+        }
+    }
+    
     public func makeCellReaction<T,U where T: ModelTransfer>(block: (T, T.ModelType, IndexPath) -> U) {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T.ModelType }
@@ -86,6 +98,15 @@ public final class EventReaction {
                     return ""
             }
             return block(supplementary as? T, model, index)
+        }
+    }
+    
+    public func makeSupplementaryReaction<T,U>(for kind: String, block: (T, Int) -> U) {
+        type = .supplementary(kind: kind)
+        modelTypeCheckingBlock = { return $0 is T }
+        reaction = { supplementary, model, sectionIndex in
+            guard let model = model as? T, let index = sectionIndex as? Int else { return 0 }
+            return block(model,index)
         }
     }
     
