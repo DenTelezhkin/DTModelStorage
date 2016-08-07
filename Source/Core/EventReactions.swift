@@ -41,7 +41,7 @@ public func == (left: EventType, right: EventType) -> Bool {
     }
 }
 
-public final class EventReaction {
+public class EventReaction {
     public var type: EventType = .cell
     public var modelTypeCheckingBlock: (Any) -> Bool = { _ in return false }
     public var reaction : ((Any,Any,Any) -> Any)?
@@ -129,7 +129,15 @@ public final class EventReaction {
     }
 }
 
-public extension RangeReplaceableCollection where Self.Iterator.Element == EventReaction {
+public class FourArgumentsEventReaction : EventReaction {
+    public var reaction4Arguments : ((Any,Any,Any,Any) -> Any)?
+    
+    public func performWithArguments(arguments: (Any, Any, Any, Any)) -> Any {
+        return reaction4Arguments?(arguments.0, arguments.1, arguments.2, arguments.3)
+    }
+}
+
+public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
     func reactionOfType(_ type: EventType, signature: String, forModel model: Any) -> EventReaction? {
         return filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
