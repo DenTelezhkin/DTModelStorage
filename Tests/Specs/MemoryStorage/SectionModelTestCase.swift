@@ -22,12 +22,12 @@ class SectionModelTestCase: XCTestCase {
     
     func testSectionModelSupplementaryModelChange()
     {
-        section.setSupplementaryModel("bar", forKind: "foo")
+        section.setSupplementaryModel("bar", forKind: "foo", at: indexPath(0, 0))
         
-        XCTAssertEqual(section.supplementaryModelOfKind("foo") as? String ?? "", "bar")
+        XCTAssertEqual(section.supplementaryModelOfKind("foo", at: indexPath(0, 0)) as? String ?? "", "bar")
         
-        section.setSupplementaryModel(nil, forKind: "foo")
-        XCTAssert(section.supplementaryModelOfKind("foo") == nil)
+        section.setSupplementaryModel(nil, forKind: "foo", at: indexPath(0, 0))
+        XCTAssert(section.supplementaryModelOfKind("foo", at: indexPath(0, 0)) == nil)
     }
 
 //    func testAnyArrayWorks()

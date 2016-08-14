@@ -42,7 +42,7 @@ public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIn
     public var results : Results<T>
     
     /// Supplementaries array
-    public var supplementaries = [String:Any]()
+    public var supplementaries = [String:[IndexPath:Any]]()
     
     /// Create RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query

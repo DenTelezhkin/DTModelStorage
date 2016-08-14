@@ -23,6 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+
 /// Class represents data of the section used by `MemoryStorage`.
 public class SectionModel : Section, SupplementaryAccessible
 {
@@ -32,7 +34,7 @@ public class SectionModel : Section, SupplementaryAccessible
     public var items = [Any]()
 
     /// Supplementaries dictionary.
-    public var supplementaries = [String:Any]()
+    public var supplementaries = [String:[IndexPath:Any]]()
     
     // Create empty section model.
     public init() {}

@@ -242,43 +242,43 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldSafelySetAndRetrieveSupplementaryModel()
     {
         let section = SectionModel()
-        section.setSupplementaryModel("foo", forKind: "bar")
+        section.setSupplementaryModel("foo", forKind: "bar", at: indexPath(0, 0))
         
-        expect(section.supplementaryModelOfKind("bar") as? String).to(equal("foo"))
+        expect(section.supplementaryModelOfKind("bar", at: indexPath(0, 0)) as? String).to(equal("foo"))
     }
     
     func testShouldNotCallDelegateForOptionalMethod()
     {
-        _ = storage.supplementaryModelOfKind("foo", sectionIndex: 1)
+        _ = storage.supplementaryModelOfKind("foo", sectionIndexPath: indexPath(0, 1))
     }
     
     func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
     {
         storage.addItem(1)
-        storage.sectionAtIndex(0)?.setSupplementaryModel("foo", forKind: "bar")
-        expect(self.storage.supplementaryModelOfKind("bar", sectionIndex: 0) as? String).to(equal("foo"))
+        storage.sectionAtIndex(0)?.setSupplementaryModel("foo", forKind: "bar", at: indexPath(0, 0))
+        expect(self.storage.supplementaryModelOfKind("bar", sectionIndexPath: indexPath(0, 0)) as? String).to(equal("foo"))
     }
     
     func testShouldSetSupplementaries()
     {
         let kind = "foo"
-        storage.setSupplementaries([1,2,3], forKind: kind)
+        storage.setSupplementaries([[indexPath(0, 0): 1], [indexPath(0, 1): 2],[indexPath(0, 2): 3]], forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind) as? Int) == 1
-        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind) as? Int) == 2
-        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind) as? Int) == 3
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind, at: indexPath(0, 0)) as? Int) == 1
+        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind, at: indexPath(0, 1)) as? Int) == 2
+        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind, at: indexPath(0, 2)) as? Int) == 3
     }
     
     func testShouldNilOutSupplementaries()
     {
         let kind = "foo"
-        storage.setSupplementaries([1,2,3], forKind: kind)
+        storage.setSupplementaries([[indexPath(0, 0): 1], [indexPath(0, 1): 2],[indexPath(0, 2): 3]], forKind: kind)
         
-        storage.setSupplementaries([Int](), forKind: kind)
+        storage.setSupplementaries([[IndexPath:Int]]().flatMap { $0 }, forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(kind, at: indexPath(0, 0)) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(1)?.supplementaryModelOfKind(kind, at: indexPath(0, 1)) as? Int).to(beNil())
+        expect(self.storage.sectionAtIndex(2)?.supplementaryModelOfKind(kind, at: indexPath(0, 2)) as? Int).to(beNil())
     }
     
     func testShouldGetItemCorrectly()
@@ -411,16 +411,16 @@ class SectionSupplementariesTestCase : XCTestCase
     func testInsertingSection()
     {
         let section = SectionModel()
-        section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader)
-        section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter)
+        section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter, at: indexPath(0, 1))
         section.setItems([1,2,3])
         storage.insertSection(section, atIndex: 0)
         
         expect(self.updatesObserver.update?.insertedSectionIndexes) == Set([0])
         expect(self.updatesObserver.update?.insertedRowIndexPaths) == Set([indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)])
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionHeader) as? String) == "Foo"
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionFooter) as? String) == "Bar"
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionHeader, at: indexPath(0, 0)) as? String) == "Foo"
+        expect(self.storage.sectionAtIndex(0)?.supplementaryModelOfKind(UICollectionElementKindSectionFooter, at: indexPath(0, 1)) as? String) == "Bar"
         expect(self.storage.sectionAtIndex(0)?.items.first as? Int) == 1
         expect(self.storage.sectionAtIndex(0)?.items.last as? Int) == 3
     }

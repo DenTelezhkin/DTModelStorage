@@ -64,39 +64,41 @@ public protocol SupplementaryStorageProtocol
     /// - Parameter kind: supplementary kind
     /// - Parameter sectionIndex: index of section
     /// - Returns supplementary model for given kind for given section
-    func supplementaryModelOfKind(_ kind: String, sectionIndex : Int) -> Any?
+    func supplementaryModelOfKind(_ kind: String, sectionIndexPath : IndexPath) -> Any?
 }
 
 public protocol SupplementaryAccessible : class {
     
-    var supplementaries: [String:Any] { get set }
+    var supplementaries: [String: [IndexPath:Any]] { get set }
     
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    func supplementaryModelOfKind(_ kind: String) -> Any?
+    func supplementaryModelOfKind(_ kind: String, at: IndexPath) -> Any?
     
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    func setSupplementaryModel(_ model : Any?, forKind kind: String)
+    func setSupplementaryModel(_ model : Any?, forKind kind: String, at: IndexPath)
 }
 
 extension SupplementaryAccessible {
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    public func supplementaryModelOfKind(_ kind: String) -> Any?
+    public func supplementaryModelOfKind(_ kind: String, at indexPath: IndexPath) -> Any?
     {
-        return self.supplementaries[kind]
+        return self.supplementaries[kind]?[indexPath]
     }
     
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    public func setSupplementaryModel(_ model : Any?, forKind kind: String)
+    public func setSupplementaryModel(_ model : Any?, forKind kind: String, at indexPath: IndexPath)
     {
-        self.supplementaries[kind] = model
+        var dictionary: [IndexPath:Any] = supplementaries[kind] ?? [:]
+        dictionary[indexPath] = model
+        self.supplementaries[kind] = dictionary
     }
 }
 

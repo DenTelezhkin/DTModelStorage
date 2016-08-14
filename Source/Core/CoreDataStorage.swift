@@ -86,13 +86,13 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    public func supplementaryModelOfKind(_ kind: String, sectionIndex: Int) -> Any?
+    public func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any?
     {
         if displaySectionNameForSupplementaryKinds.contains(kind)
         {
             if let sections = self.fetchedResultsController.sections
             {
-                return sections[sectionIndex].name
+                return sections[sectionIndexPath.section].name
             }
             return nil
         }

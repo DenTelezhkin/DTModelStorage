@@ -195,7 +195,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.setSectionHeaderModels([1,2,3])
         
         expect(self.storage.headerModelForSectionIndex(2) as? Int) == 3
-        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionHeader, sectionIndex: 3)).to(beNil())
+        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionHeader, sectionIndexPath: IndexPath(item:0, section: 3))).to(beNil())
     }
     
     func testSupplementaryFootersWork() {
@@ -206,7 +206,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.setSectionFooterModels([1,2,3])
         
         expect(self.storage.footerModelForSectionIndex(2) as? Int) == 3
-        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionFooter, sectionIndex: 3)).to(beNil())
+        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionFooter, sectionIndexPath: IndexPath(item:0, section: 3))).to(beNil())
     }
     
     func testSupplementariesCanBeClearedOut() {
@@ -216,8 +216,8 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionFooterModels([1,2,3])
         
-        storage.setSupplementaries([Int](), forKind: DTTableViewElementSectionFooter)
-        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionFooter, sectionIndex: 0)).to(beNil())
+        storage.setSupplementaries([[IndexPath:[Int]]]().flatMap { $0 }, forKind: DTTableViewElementSectionFooter)
+        expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionFooter, sectionIndexPath: IndexPath(item:0, section: 0))).to(beNil())
     }
     
     func testSettingSupplementaryModelForSectionIndex() {

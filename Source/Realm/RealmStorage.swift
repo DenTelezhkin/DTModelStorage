@@ -127,7 +127,7 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
         let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
+        section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, at: IndexPath(item: 0, section: sectionIndex))
     }
     
     /// Set section footer model at index. `supplementaryFooterKind` should be set prior to calling this method.
@@ -139,28 +139,28 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
         let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
+        section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, at: IndexPath(item: 0, section: sectionIndex))
     }
     
     /// Set array of supplementaries for specific kind. Number of models should not exceed number of sections.
     /// - Parameter model: models for sections supplementaries
     /// - Parameter kind: supplementaryKind
     /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
-    public func setSupplementaries<T>(_ models : [T], forKind kind: String)
+    public func setSupplementaries(_ models : [[IndexPath: Any]], forKind kind: String)
     {
         if models.count == 0 {
-            for index in 0..<self.sections.count {
+            for index in 0 ..< self.sections.count {
                 let section = self.sections[index] as? SupplementaryAccessible
-                section?.setSupplementaryModel(nil, forKind: kind)
+                section?.supplementaries[kind] = nil
             }
             return
         }
         
         assert(sections.count >= models.count, "The section should be set before setting supplementaries")
         
-        for index in 0..<models.count {
+        for index in 0 ..< models.count {
             let section = self.sections[index] as? SupplementaryAccessible
-            section?.setSupplementaryModel(models[index], forKind: kind)
+            section?.supplementaries[kind] = models[index]
         }
     }
     
@@ -170,7 +170,11 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     public func setSectionHeaderModels<T>(_ models : [T])
     {
         assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
-        self.setSupplementaries(models, forKind: self.supplementaryHeaderKind!)
+        var supplementaries = [[IndexPath:Any]]()
+        for (index,model) in models.enumerated() {
+            supplementaries.append([IndexPath(item: 0, section: index):model])
+        }
+        self.setSupplementaries(supplementaries, forKind: self.supplementaryHeaderKind!)
     }
     
     /// Set section footer models.
@@ -179,7 +183,11 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     public func setSectionFooterModels<T>(_ models : [T])
     {
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
-        self.setSupplementaries(models, forKind: self.supplementaryFooterKind!)
+        var supplementaries = [[IndexPath:Any]]()
+        for (index,model) in models.enumerated() {
+            supplementaries.append([IndexPath(item: 0, section: index):model])
+        }
+        self.setSupplementaries(supplementaries, forKind: self.supplementaryFooterKind!)
     }
     
     // MARK: - StorageProtocol
@@ -193,11 +201,9 @@ public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStoragePr
     
     // MARK: - SupplementaryStorageProtocol
     
-    public func supplementaryModelOfKind(_ kind: String, sectionIndex: Int) -> Any? {
-        guard sectionIndex < sections.count else {
-            return nil
-        }
+    public func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any? {
+        guard sectionIndexPath.section < sections.count else { return nil }
         
-        return (sections[sectionIndex] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind)
+        return (sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind, at: sectionIndexPath)
     }
 }

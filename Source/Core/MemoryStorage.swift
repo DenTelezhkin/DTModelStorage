@@ -96,7 +96,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
         let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!)
+        section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, at: IndexPath(item: 0, section: sectionIndex))
         delegate?.storageNeedsReloading()
     }
     
@@ -108,14 +108,14 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
         let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!)
+        section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, at: IndexPath(item: 0, section: sectionIndex))
         delegate?.storageNeedsReloading()
     }
     
     /// Set supplementaries for specific kind. Usually it's header or footer kinds.
     /// - Parameter models: supplementary models for sections
     /// - Parameter kind: supplementary kind
-    public func setSupplementaries<T>(_ models : [T], forKind kind: String)
+    public func setSupplementaries(_ models : [[IndexPath: Any]], forKind kind: String)
     {
         defer {
             self.delegate?.storageNeedsReloading()
@@ -123,17 +123,17 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
         
         if models.count == 0 {
             for index in 0..<self.sections.count {
-                let section = self.sections[index] as! SectionModel
-                section.setSupplementaryModel(nil, forKind: kind)
+                let section = self.sections[index] as? SupplementaryAccessible
+                section?.supplementaries[kind] = nil
             }
             return
         }
         
         _ = getValidSection(models.count - 1)
         
-        for index in 0..<models.count {
-            let section = self.sections[index] as! SectionModel
-            section.setSupplementaryModel(models[index], forKind: kind)
+        for index in 0 ..< models.count {
+            let section = self.sections[index] as? SupplementaryAccessible
+            section?.supplementaries[kind] = models[index]
         }
     }
     
@@ -143,7 +143,11 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     public func setSectionHeaderModels<T>(_ models : [T])
     {
         assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
-        self.setSupplementaries(models, forKind: self.supplementaryHeaderKind!)
+        var supplementaries = [[IndexPath:Any]]()
+        for (index,model) in models.enumerated() {
+            supplementaries.append([IndexPath(item: 0, section: index):model])
+        }
+        self.setSupplementaries(supplementaries, forKind: self.supplementaryHeaderKind!)
     }
     
     /// Set section footer models.
@@ -152,7 +156,11 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     public func setSectionFooterModels<T>(_ models : [T])
     {
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
-        self.setSupplementaries(models, forKind: self.supplementaryFooterKind!)
+        var supplementaries = [[IndexPath:Any]]()
+        for (index,model) in models.enumerated() {
+            supplementaries.append([IndexPath(item: 0, section: index):model])
+        }
+        self.setSupplementaries(supplementaries, forKind: self.supplementaryFooterKind!)
     }
     
     /// Set items for specific section. This will reload UI after updating.
@@ -512,14 +520,10 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    public func supplementaryModelOfKind(_ kind: String, sectionIndex: Int) -> Any? {
-        let sectionModel : SectionModel
-        if sectionIndex >= self.sections.count {
+    public func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any? {
+        guard sectionIndexPath.section < sections.count else {
             return nil
         }
-        else {
-            sectionModel = self.sections[sectionIndex] as! SectionModel
-        }
-        return sectionModel.supplementaryModelOfKind(kind)
+        return (self.sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind, at: sectionIndexPath)
     }
 }

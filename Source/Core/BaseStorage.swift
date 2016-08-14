@@ -108,7 +108,7 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
             assertionFailure("supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
             return nil
         }
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: index)
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: IndexPath(item: 0, section: index))
     }
     
     /// Footer model for section.
@@ -120,6 +120,6 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
             assertionFailure("supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
             return nil
         }
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: index)
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: IndexPath(item: 0, section: index))
     }
 }
