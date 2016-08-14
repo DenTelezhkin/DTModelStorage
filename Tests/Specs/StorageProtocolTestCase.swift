@@ -26,17 +26,6 @@ class StorageProtocolTestCase: XCTestCase {
         storage.setSectionFooterModels(["Bar"])
     }
     
-    func testHeaderClassItemGetter()
-    {
-        expect(self.storage.itemForHeaderClass(FooView.self, atSectionIndex: 0)) == "Foo"
-    }
-
-    func testFooterClassItemGetter()
-    {
-        expect(self.storage.itemForFooterClass(FooView.self, atSectionIndex: 0)) == "Bar"
-    }
-    
-    
     func testCollectionViewFlowLayoutUsage() {
         storage.configureForCollectionViewFlowLayoutUsage()
         

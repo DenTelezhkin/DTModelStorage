@@ -44,28 +44,6 @@ class MemoryStorageSearchSpec: XCTestCase {
         self.storage = MemoryStorage()
     }
     
-    func testItemAtIndexPath()
-    {
-        storage.addItem(1)
-        if let _ = storage.itemForCellClass(TableCell.self, atIndexPath: indexPath(0, 0)) {
-            
-        }
-        else {
-            XCTFail()
-        }
-    }
-    
-    func testCollectionItemAtIndexPath()
-    {
-        storage.addItem(2)
-        if let _ = storage.itemForCellClass(CollectionCell.self, atIndexPath: indexPath(0, 0)) {
-            
-        }
-        else {
-            XCTFail()
-        }
-    }
-    
     func testShouldCorrectlyReturnItemAtIndexPath() {
         storage.addItems(["1","2"])
         storage.addItems(["3","4"], toSection: 1)
