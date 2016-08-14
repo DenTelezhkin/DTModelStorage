@@ -89,33 +89,33 @@ public class EventReaction {
         }
     }
     
-    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T?, T.ModelType, Int) -> U) {
+    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T?, T.ModelType, IndexPath) -> U) {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
-                let index = sectionIndex as? Int else {
+                let index = sectionIndex as? IndexPath else {
                     return ""
             }
             return block(supplementary as? T, model, index)
         }
     }
     
-    public func makeSupplementaryReaction<T,U>(for kind: String, block: (T, Int) -> U) {
+    public func makeSupplementaryReaction<T,U>(for kind: String, block: (T, IndexPath) -> U) {
         type = .supplementary(kind: kind)
         modelTypeCheckingBlock = { return $0 is T }
         reaction = { supplementary, model, sectionIndex in
-            guard let model = model as? T, let index = sectionIndex as? Int else { return 0 }
+            guard let model = model as? T, let index = sectionIndex as? IndexPath else { return 0 }
             return block(model,index)
         }
     }
     
-    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T, T.ModelType, Int) -> U) {
+    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T, T.ModelType, IndexPath) -> U) {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
-                let index = sectionIndex as? Int,
+                let index = sectionIndex as? IndexPath,
                 let supplementary = supplementary as? T else
             {
                     return ""
