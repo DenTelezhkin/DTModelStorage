@@ -231,4 +231,14 @@ class RealmStorageTestCase: XCTestCase {
         
         expect(self.storage.footerModelForSectionIndex(0) as? Int) == 2
     }
+    
+    func testSectionModelIsAwareOfItsLocation() {
+        addDogNamed("Rex")
+        
+        let results = realm.allObjects(ofType: Dog.self)
+        storage.addSectionWithResults(results)
+        
+        let section = storage.sectionAtIndex(0)! as? RealmSection<Dog>
+        expect(section?.currentSectionIndex) == 0
+    }
 }

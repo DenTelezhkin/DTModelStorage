@@ -139,4 +139,10 @@ class MemoryStorageSearchSpec: XCTestCase {
         expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beTrue())
         expect(self.storage.sectionAtIndex(0)?.items.count) == 0
     }
+    
+    func testSectionModelIsAwareOfItsLocation() {
+        storage.addItem(3)
+        let section = storage.sectionAtIndex(0)! as SectionModel
+        expect(section.currentSectionIndex) == 0
+    }
 }

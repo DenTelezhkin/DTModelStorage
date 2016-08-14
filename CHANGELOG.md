@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+* `MemoryStorage` and `RealmStorage` now implement  `SectionLocationIdentifyable` protocol, allowing any section to find out, what it's index is.
+* `SectionModel` and `RealmSection` gained `currentSectionIndex` property, that shows index of section in sections array.
 * `displaySectionNameForSupplementaryKinds` property on `CoreDataStorage`, that defines, for which supplementary kinds `NSFetchedResultsController` `sectionName` should be used as a data model.
 * `removeItemsFromSection` method on `MemoryStorage`, that allows to remove all items from specific section
 

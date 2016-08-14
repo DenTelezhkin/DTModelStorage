@@ -59,10 +59,22 @@ public struct MemoryStorageErrors
 /// `MemoryStorage` stores data models like array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
-public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProtocol
+public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProtocol, SectionLocationIdentifyable
 {
     /// sections of MemoryStorage
-    public var sections: [Section] = [SectionModel]()
+    public var sections: [Section] = [SectionModel]() {
+        didSet {
+            sections.forEach {
+                ($0 as? SectionModel)?.sectionLocationDelegate = self
+            }
+        }
+    }
+    
+    public func sectionIndex(for section: Section) -> Int? {
+        return sections.index(where: {
+            return ($0 as? SectionModel) === (section as? SectionModel)
+        })
+    }
     
     /// Returns total number of items contained in all `MemoryStorage` sections
     public var totalNumberOfItems : Int {

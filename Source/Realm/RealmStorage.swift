@@ -30,10 +30,22 @@ import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol
+public class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, SectionLocationIdentifyable
 {
     /// Array of `RealmSection` objects
-    public var sections = [Section]()
+    public var sections = [Section]() {
+        didSet {
+            sections.forEach {
+                ($0 as? SupplementaryAccessible)?.sectionLocationDelegate = self
+            }
+        }
+    }
+    
+    public func sectionIndex(for section: Section) -> Int? {
+        return sections.index(where: {
+            return ($0 as? RealmSection) === (section as? RealmSection)
+        })
+    }
     
     @nonobjc private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     

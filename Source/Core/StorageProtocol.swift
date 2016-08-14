@@ -39,6 +39,15 @@ public protocol StorageProtocol
     weak var delegate  : StorageUpdating? {get set}
 }
 
+public protocol SupplementaryStorageProtocol
+{
+    /// Storage class may implement this method to return supplementary models for section.
+    /// - Parameter kind: supplementary kind
+    /// - Parameter sectionIndex: index of section
+    /// - Returns supplementary model for given kind for given section
+    func supplementaryModelOfKind(_ kind: String, sectionIndexPath : IndexPath) -> Any?
+}
+
 public protocol HeaderFooterStorageProtocol
 {
     /// Getter method for header model for current section.
@@ -58,16 +67,15 @@ public protocol HeaderFooterStorageProtocol
     var supplementaryFooterKind : String?  { get set }
 }
 
-public protocol SupplementaryStorageProtocol
-{
-    /// Storage class may implement this method to return supplementary models for section.
-    /// - Parameter kind: supplementary kind
-    /// - Parameter sectionIndex: index of section
-    /// - Returns supplementary model for given kind for given section
-    func supplementaryModelOfKind(_ kind: String, sectionIndexPath : IndexPath) -> Any?
+public protocol SectionLocationIdentifyable : class {
+    func sectionIndex(for: Section) -> Int?
 }
 
 public protocol SupplementaryAccessible : class {
+    
+    var currentSectionIndex: Int? { get }
+    
+    weak var sectionLocationDelegate : SectionLocationIdentifyable? { get set }
     
     var supplementaries: [String: [IndexPath:Any]] { get set }
     

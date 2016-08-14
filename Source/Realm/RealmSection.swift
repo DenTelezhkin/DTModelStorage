@@ -41,6 +41,12 @@ public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIn
     /// Results object
     public var results : Results<T>
     
+    public weak var sectionLocationDelegate: SectionLocationIdentifyable?
+    
+    public var currentSectionIndex: Int? {
+        return sectionLocationDelegate?.sectionIndex(for: self)
+    }
+    
     /// Supplementaries array
     public var supplementaries = [String:[IndexPath:Any]]()
     
