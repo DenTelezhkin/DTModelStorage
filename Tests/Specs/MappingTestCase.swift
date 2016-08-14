@@ -91,7 +91,7 @@ class MappingTestCase: XCTestCase {
     }
 }
 
-struct Transferable : ModelTransfer {
+class Transferable : ModelTransfer {
     func updateWithModel(_ model: Int) {}
 }
 
@@ -117,13 +117,6 @@ class ViewModelMappingTestCase: XCTestCase {
         let supplementaryType = ViewType.supplementaryView(kind: "foo")
         
         expect(cellType == supplementaryType).to(beFalse())
-    }
-    
-    func testAddingMappingNotForClassDoesNotWork() {
-        var mappings = [ViewModelMapping]()
-        mappings.addMappingForViewType(.cell, viewClass: Transferable.self)
-        
-        expect(mappings.count) == 0
     }
     
 }
