@@ -77,35 +77,35 @@ public protocol SupplementaryAccessible : class {
     
     weak var sectionLocationDelegate : SectionLocationIdentifyable? { get set }
     
-    var supplementaries: [String: [IndexPath:Any]] { get set }
+    var supplementaries: [String: [Int:Any]] { get set }
     
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    func supplementaryModelOfKind(_ kind: String, at: IndexPath) -> Any?
+    func supplementaryModelOfKind(_ kind: String, atIndex: Int) -> Any?
     
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    func setSupplementaryModel(_ model : Any?, forKind kind: String, at: IndexPath)
+    func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex: Int)
 }
 
 extension SupplementaryAccessible {
     /// Retrieve supplementaryModel of specific kind
     /// - Parameter: kind - kind of supplementary
     /// - Returns: supplementary model or nil, if there are no model
-    public func supplementaryModelOfKind(_ kind: String, at indexPath: IndexPath) -> Any?
+    public func supplementaryModelOfKind(_ kind: String, atIndex index: Int) -> Any?
     {
-        return self.supplementaries[kind]?[indexPath]
+        return self.supplementaries[kind]?[index]
     }
     
     /// Set supplementary model of specific kind
     /// - Parameter model: model to set
     /// - Parameter forKind: kind of supplementary
-    public func setSupplementaryModel(_ model : Any?, forKind kind: String, at indexPath: IndexPath)
+    public func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
     {
-        var dictionary: [IndexPath:Any] = supplementaries[kind] ?? [:]
-        dictionary[indexPath] = model
+        var dictionary: [Int:Any] = supplementaries[kind] ?? [:]
+        dictionary[index] = model
         self.supplementaries[kind] = dictionary
     }
 }

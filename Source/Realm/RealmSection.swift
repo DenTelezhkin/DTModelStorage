@@ -48,7 +48,7 @@ public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIn
     }
     
     /// Supplementaries array
-    public var supplementaries = [String:[IndexPath:Any]]()
+    public var supplementaries = [String:[Int:Any]]()
     
     /// Create RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query

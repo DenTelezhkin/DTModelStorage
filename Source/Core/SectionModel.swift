@@ -40,7 +40,7 @@ public class SectionModel : Section, SupplementaryAccessible
     }
 
     /// Supplementaries dictionary.
-    public var supplementaries = [String:[IndexPath:Any]]()
+    public var supplementaries = [String:[Int:Any]]()
     
     // Create empty section model.
     public init() {}

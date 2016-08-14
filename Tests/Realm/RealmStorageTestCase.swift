@@ -216,7 +216,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSectionWithResults(realm.allObjects(ofType: Dog.self))
         storage.setSectionFooterModels([1,2,3])
         
-        storage.setSupplementaries([[IndexPath:[Int]]]().flatMap { $0 }, forKind: DTTableViewElementSectionFooter)
+        storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: DTTableViewElementSectionFooter)
         expect(self.storage.supplementaryModelOfKind(DTTableViewElementSectionFooter, sectionIndexPath: IndexPath(item:0, section: 0))).to(beNil())
     }
     
