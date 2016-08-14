@@ -137,6 +137,14 @@ public class FourArgumentsEventReaction : EventReaction {
     }
 }
 
+public class FiveArgumentsEventReaction : EventReaction {
+    public var reaction5Arguments : ((Any,Any,Any,Any,Any) -> Any)?
+    
+    public func performWithArguments(arguments: (Any, Any, Any, Any, Any)) -> Any {
+        return reaction5Arguments?(arguments.0, arguments.1, arguments.2, arguments.3, arguments.4)
+    }
+}
+
 public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
     func reactionOfType(_ type: EventType, signature: String, forModel model: Any) -> EventReaction? {
         return filter({ reaction in
