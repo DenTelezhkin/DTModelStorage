@@ -56,7 +56,7 @@ class UIReactionsTestCase: XCTestCase {
         }
     }
     
-    func makeSupplementaryBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, Int) -> U {
+    func makeSupplementaryBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U {
         return { one,two,three in
             block()
             return returnValue
@@ -80,7 +80,7 @@ class UIReactionsTestCase: XCTestCase {
         reaction.makeSupplementaryReaction(forKind: "bar", block: makeSupplementaryBlock(block: {
             exp.fulfill()
             }, cell: TableCell(), returnValue: 3))
-        let result = reaction.performWithArguments(arguments: (TableCell(),5,6))
+        let result = reaction.performWithArguments(arguments: (TableCell(),5,indexPath(0, 5)))
         waitForExpectations(timeout: 1, handler: nil)
         expect(result as? Int) == 3
     }
