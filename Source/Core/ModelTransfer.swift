@@ -26,7 +26,7 @@
 /// `ModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every cell or supplementary view subclass you have should conform to this protocol.
 /// 
 /// - Note: `ModelType` is associated type, that works like generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.
-public protocol ModelTransfer
+public protocol ModelTransfer : class
 {
     /// This is a placeholder for your model type
     associatedtype ModelType

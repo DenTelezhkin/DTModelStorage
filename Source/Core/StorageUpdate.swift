@@ -106,7 +106,7 @@ public extension Set where Element : NSIndexSetConvertible
     func makeNSIndexSet() -> IndexSet {
         let indexSet = NSMutableIndexSet()
         for element in self {
-            indexSet.add(element as! Int)
+            indexSet.add(element as? Int ?? 0)
         }
         return IndexSet(indexSet)
     }

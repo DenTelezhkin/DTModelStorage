@@ -502,7 +502,7 @@ public class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStoragePr
     {
         let unsorted = NSMutableArray(array: indexPaths)
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
-        return unsorted.sortedArray(using: [descriptor]) as! [IndexPath]
+        return unsorted.sortedArray(using: [descriptor]) as? [IndexPath] ?? []
     }
     
     // MARK: - SupplementaryStorageProtocol

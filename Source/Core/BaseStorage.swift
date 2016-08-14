@@ -73,14 +73,13 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     {
         guard batchUpdatesInProgress == false else { return }
         
-        defer { self.currentUpdate = nil }
+        defer { currentUpdate = nil }
         
-        if self.currentUpdate != nil
-        {
-            if self.currentUpdate!.isEmpty() {
+        if let update = currentUpdate {
+            if update.isEmpty() {
                 return
             }
-            self.delegate?.storageDidPerformUpdate(self.currentUpdate!)
+            delegate?.storageDidPerformUpdate(update)
         }
     }
     
@@ -105,8 +104,11 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     /// - Parameter index: index of section
     /// - Returns: header model for section, or nil if there are no model
     public func headerModelForSectionIndex(_ index: Int) -> Any? {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryHeaderKind!, sectionIndex: index)
+        guard let kind = supplementaryHeaderKind else {
+            assertionFailure("supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
+            return nil
+        }
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: index)
     }
     
     /// Footer model for section.
@@ -114,7 +116,10 @@ public class BaseStorage : NSObject, HeaderFooterStorageProtocol
     /// - Parameter index: index of section
     /// - Returns: footer model for section, or nil if there are no model
     public func footerModelForSectionIndex(_ index: Int) -> Any? {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(self.supplementaryFooterKind!, sectionIndex: index)
+        guard let kind = supplementaryFooterKind else {
+            assertionFailure("supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
+            return nil
+        }
+        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: index)
     }
 }

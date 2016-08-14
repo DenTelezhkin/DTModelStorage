@@ -65,7 +65,7 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     {
         if let sections = self.fetchedResultsController.sections
         {
-            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects!, numberOfItems: $0.numberOfObjects) }
+            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects ?? [], numberOfItems: $0.numberOfObjects) }
         }
         return []
     }
@@ -116,21 +116,21 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
         switch type
         {
         case .insert:
-            if newIndexPath != nil { self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!) }
+            if let new = newIndexPath { self.currentUpdate?.insertedRowIndexPaths.insert(new) }
         case .delete:
-            if indexPath != nil { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!) }
+            if let indexPath = indexPath { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath) }
         case .move:
-            if indexPath != nil && newIndexPath != nil {
+            if let indexPath = indexPath, let newIndexPath = newIndexPath {
                 if indexPath != newIndexPath {
-                    self.currentUpdate?.deletedRowIndexPaths.insert(indexPath!)
-                    self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath!)
+                    self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
+                    self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath)
                 }
                 else {
-                    self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!)
+                    self.currentUpdate?.updatedRowIndexPaths.insert(indexPath)
                 }
             }
         case .update:
-            if indexPath != nil { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath!) }
+            if let indexPath = indexPath { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath) }
         }
     }
     

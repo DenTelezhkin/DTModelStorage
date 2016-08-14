@@ -111,15 +111,14 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     /// - Note: This method works only for `ModelTransfer` classes.
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
     mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
-        guard let viewClassType = T.self as? AnyClass else { return }
-        
         append(ViewModelMapping(viewType: viewType,
-            viewClass: viewClassType,
+            viewClass: T.self,
               xibName: xibName,
             modelTypeCheckingBlock: { model -> Bool in
                 return model is T.ModelType
             }, updateBlock: { (view, model) in
-                (view as? T)?.updateWithModel(model as! T.ModelType)
+                guard let view = view  as? T, let model = model as? T.ModelType else { return }
+                view.updateWithModel(model)
         }))
     }
 }
