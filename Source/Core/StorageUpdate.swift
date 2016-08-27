@@ -67,20 +67,24 @@ public struct StorageUpdate : Equatable
             updatedRowIndexPaths.count == 0 &&
             movedRowIndexPaths.count == 0
     }
-}
-
-/// Compare StorageUpdates
-public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
-{
-    if !(left.deletedSectionIndexes == right.deletedSectionIndexes) { return false }
-    if !(left.insertedSectionIndexes == right.insertedSectionIndexes) { return false }
-    if !(left.updatedSectionIndexes == right.updatedSectionIndexes) { return false }
-    if !(left.movedSectionIndexes == right.movedSectionIndexes) { return false }
-    if !(left.deletedRowIndexPaths == right.deletedRowIndexPaths) { return false }
-    if !(left.insertedRowIndexPaths == right.insertedRowIndexPaths) { return false }
-    if !(left.updatedRowIndexPaths == right.updatedRowIndexPaths) { return false }
-    if !(left.movedRowIndexPaths == right.movedRowIndexPaths) { return false }
-    return true
+    
+    /// Compare StorageUpdates
+    static public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
+    {
+        guard left.deletedSectionIndexes == right.deletedSectionIndexes else { return false }
+        guard left.insertedSectionIndexes == right.insertedSectionIndexes else { return false }
+        guard left.updatedSectionIndexes == right.updatedSectionIndexes else { return false }
+        guard left.movedSectionIndexes.elementsEqual(right.movedSectionIndexes, by: { $0 == $1 }) else {
+            return false
+        }
+        guard left.deletedRowIndexPaths == right.deletedRowIndexPaths else { return false }
+        guard left.insertedRowIndexPaths == right.insertedRowIndexPaths else { return false }
+        guard left.updatedRowIndexPaths == right.updatedRowIndexPaths else { return false }
+        guard left.movedRowIndexPaths.elementsEqual(right.movedRowIndexPaths, by: { $0 == $1 }) else {
+            return false
+        }
+        return true
+    }
 }
 
 extension StorageUpdate : CustomStringConvertible

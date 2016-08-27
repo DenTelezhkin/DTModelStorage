@@ -27,31 +27,30 @@
 import Foundation
 import UIKit
 
-public enum EventType {
+public enum EventType : Equatable {
     case cell
     case supplementary(kind: String)
-}
-
-extension EventType : Equatable {}
-public func == (left: EventType, right: EventType) -> Bool {
-    switch (left, right) {
-    case (.cell, .cell): return true
-    case (.supplementary(let leftKind),.supplementary(let rightKind)): return leftKind == rightKind
-    default: return false
+    
+    static public func == (left: EventType, right: EventType) -> Bool {
+        switch (left, right) {
+        case (.cell, .cell): return true
+        case (.supplementary(let leftKind),.supplementary(let rightKind)): return leftKind == rightKind
+        default: return false
+        }
     }
 }
 
-public class EventReaction {
-    public var type: EventType = .cell
-    public var modelTypeCheckingBlock: (Any) -> Bool = { _ in return false }
-    public var reaction : ((Any,Any,Any) -> Any)?
-    public let methodSignature: String
+open class EventReaction {
+    open var type: EventType = .cell
+    open var modelTypeCheckingBlock: (Any) -> Bool = { _ in return false }
+    open var reaction : ((Any,Any,Any) -> Any)?
+    open let methodSignature: String
     
     public init(signature: String) {
         self.methodSignature = signature
     }
     
-    public func makeCellReaction<T,U where T: ModelTransfer>(block: (T?, T.ModelType, IndexPath) -> U) {
+    open func makeCellReaction<T,U>(_ block: @escaping (T?, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
@@ -63,7 +62,7 @@ public class EventReaction {
         }
     }
     
-    public func makeCellReaction<T,U>(block: (T, IndexPath) -> U) {
+    open func makeCellReaction<T,U>(_ block: @escaping (T, IndexPath) -> U) {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T }
         reaction = { cell, model, indexPath in
@@ -75,7 +74,7 @@ public class EventReaction {
         }
     }
     
-    public func makeCellReaction<T,U where T: ModelTransfer>(block: (T, T.ModelType, IndexPath) -> U) {
+    open func makeCellReaction<T,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
@@ -89,7 +88,7 @@ public class EventReaction {
         }
     }
     
-    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T?, T.ModelType, IndexPath) -> U) {
+    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T?, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
@@ -101,7 +100,7 @@ public class EventReaction {
         }
     }
     
-    public func makeSupplementaryReaction<T,U>(for kind: String, block: (T, IndexPath) -> U) {
+    open func makeSupplementaryReaction<T,U>(for kind: String, block: @escaping (T, IndexPath) -> U) {
         type = .supplementary(kind: kind)
         modelTypeCheckingBlock = { return $0 is T }
         reaction = { supplementary, model, sectionIndex in
@@ -110,7 +109,7 @@ public class EventReaction {
         }
     }
     
-    public func makeSupplementaryReaction<T,U where T: ModelTransfer>(forKind kind: String, block: (T, T.ModelType, IndexPath) -> U) {
+    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         type = .supplementary(kind: kind)
         reaction = { supplementary, model, sectionIndex in
@@ -124,23 +123,23 @@ public class EventReaction {
         }
     }
     
-    public func performWithArguments(arguments: (Any,Any,Any)) -> Any {
+    open func performWithArguments(_ arguments: (Any,Any,Any)) -> Any {
         return reaction?(arguments.0,arguments.1,arguments.2)
     }
 }
 
-public class FourArgumentsEventReaction : EventReaction {
-    public var reaction4Arguments : ((Any,Any,Any,Any) -> Any)?
+open class FourArgumentsEventReaction : EventReaction {
+    open var reaction4Arguments : ((Any,Any,Any,Any) -> Any)?
     
-    public func performWithArguments(arguments: (Any, Any, Any, Any)) -> Any {
+    open func performWithArguments(_ arguments: (Any, Any, Any, Any)) -> Any {
         return reaction4Arguments?(arguments.0, arguments.1, arguments.2, arguments.3)
     }
 }
 
-public class FiveArgumentsEventReaction : EventReaction {
-    public var reaction5Arguments : ((Any,Any,Any,Any,Any) -> Any)?
+open class FiveArgumentsEventReaction : EventReaction {
+    open var reaction5Arguments : ((Any,Any,Any,Any,Any) -> Any)?
     
-    public func performWithArguments(arguments: (Any, Any, Any, Any, Any)) -> Any {
+    open func performWithArguments(_ arguments: (Any, Any, Any, Any, Any)) -> Any {
         return reaction5Arguments?(arguments.0, arguments.1, arguments.2, arguments.3, arguments.4)
     }
 }
@@ -159,6 +158,6 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
         guard let reaction = reactionOfType(type, signature: signature, forModel: model) else {
             return 0
         }
-        return reaction.performWithArguments(arguments: (view,model,location))
+        return reaction.performWithArguments((view,model,location))
     }
 }

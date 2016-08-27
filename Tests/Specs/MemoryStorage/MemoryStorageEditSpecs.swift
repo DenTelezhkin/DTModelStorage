@@ -319,7 +319,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.moveSection(0, toSection: 1)
         expect(self.storage.sectionAtIndex(0)?.items.count) == 2
         expect(self.storage.sectionAtIndex(1)?.items.count) == 1
-        expect(self.delegate.update?.movedSectionIndexes) == [[0,1]]
+        expect(self.delegate.update?.movedSectionIndexes.elementsEqual([[0,1]], by: { $0 == $1 })).to(beTrue())
     }
     
     func testMovingItem()
@@ -332,7 +332,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.storage.itemAtIndexPath(indexPath(1, 1)) as? Int) == 1
         
-        expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(1,1)]]
+        expect(self.delegate.update?.movedRowIndexPaths.elementsEqual([[indexPath(0, 0), indexPath(1,1)]], by: { $0 == $1 })).to(beTrue())
     }
     
     func testMovingItemIntoNonExistingSection()
@@ -344,7 +344,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         expect(self.storage.itemAtIndexPath(indexPath(0, 1)) as? Int) == 1
         
         expect(self.delegate.update?.insertedSectionIndexes) == Set(arrayLiteral: 1)
-        expect(self.delegate.update?.movedRowIndexPaths) == [[indexPath(0, 0), indexPath(0,1)]]
+        expect(self.delegate.update?.movedRowIndexPaths.elementsEqual([[indexPath(0, 0), indexPath(0,1)]], by: { $0 == $1 })).to(beTrue())
     }
     
     func testMovingNotExistingIndexPath()

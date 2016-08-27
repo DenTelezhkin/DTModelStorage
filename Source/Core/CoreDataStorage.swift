@@ -39,15 +39,15 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
+open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
-    public let fetchedResultsController : NSFetchedResultsController<T>
+    open let fetchedResultsController : NSFetchedResultsController<T>
     
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
     /// - Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.
-    public var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, UICollectionElementKindSectionHeader]
+    open var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, UICollectionElementKindSectionHeader]
     
     /// Initialize CoreDataStorage with NSFetchedResultsController
     /// - Parameter fetchedResultsController: fetch results controller
@@ -61,11 +61,11 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     /// Sections of fetched results controller as required by StorageProtocol
     /// - SeeAlso: `StorageProtocol`
     /// - SeeAlso: `MemoryStorage`
-    public var sections : [Section]
+    open var sections : [Section]
     {
         if let sections = self.fetchedResultsController.sections
         {
-            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects ?? [], numberOfItems: $0.numberOfObjects) }
+            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects as [AnyObject]? ?? [], numberOfItems: $0.numberOfObjects) }
         }
         return []
     }
@@ -75,7 +75,7 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     /// Retrieve object at index path from `CoreDataStorage`
     /// - Parameter path: NSIndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
-    public func itemAtIndexPath(_ path: IndexPath) -> Any? {
+    open func itemAtIndexPath(_ path: IndexPath) -> Any? {
         return fetchedResultsController.object(at: path)
     }
     
@@ -86,7 +86,7 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    public func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any?
+    open func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any?
     {
         if displaySectionNameForSupplementaryKinds.contains(kind)
         {
@@ -102,13 +102,13 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     // MARK: - NSFetchedResultsControllerDelegate
     
     /// NSFetchedResultsController is about to start changing content - we'll start monitoring for updates.
-    @objc public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    @objc open func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.startUpdate()
     }
     
     /// React to specific change in NSFetchedResultsController
-    @objc public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChange anObject: AnyObject,
+    @objc open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: Any,
         at indexPath: IndexPath?,
         for type: NSFetchedResultsChangeType,
         newIndexPath: IndexPath?)
@@ -136,7 +136,7 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     
     /// React to changed section in NSFetchedResultsController
     @objc
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
+    open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
     { switch type
     {
     case .insert:
@@ -151,7 +151,7 @@ public class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProto
     
     /// Finish update from NSFetchedResultsController
     @objc
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.finishUpdate()
     }
 }

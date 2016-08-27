@@ -92,7 +92,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     func testRemoveItemsFromSection()
     {
         storage.addItems([1,2,3])
-        storage.removeItemsFromSection(atIndex: 0)
+        storage.removeItemsFromSection(0)
         
         expect(self.storage.sectionAtIndex(0)?.items.count) == 0
         

@@ -15,7 +15,7 @@ class ListItem: NSManagedObject {
         let context = CoreDataManager.sharedInstance.context
         
         let item = NSEntityDescription.insertNewObject(forEntityName: "ListItem", into:context) as! ListItem
-        item.value = value
+        item.value = value as NSNumber
         let _ = try? context.save()
         return item
     }

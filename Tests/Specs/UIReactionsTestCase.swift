@@ -31,7 +31,7 @@ class UIReactionsTestCase: XCTestCase {
     
     func testReactionsAreSearchable() {
         let reaction = EventReaction(signature: "foo")
-        reaction.makeCellReaction(block: makeCellBlock(block: {  } , cell: TableCell(), returnValue: 5))
+        reaction.makeCellReaction(makeCellBlock({  } , cell: TableCell(), returnValue: 5))
         reactions.append(reaction)
         
         let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: 5)
@@ -40,7 +40,7 @@ class UIReactionsTestCase: XCTestCase {
     
     func testReactionsForOptionalModelsAreSearchable() {
         let reaction = EventReaction(signature: "foo")
-        reaction.makeCellReaction(block: makeCellBlock(block: {  } , cell: TableCell(), returnValue: 5))
+        reaction.makeCellReaction(makeCellBlock({  } , cell: TableCell(), returnValue: 5))
         reactions.append(reaction)
         
         let nilModel: Int? = 5
@@ -49,14 +49,16 @@ class UIReactionsTestCase: XCTestCase {
         expect(foundReaction).toNot(beNil())
     }
     
-    func makeCellBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U {
+    func makeCellBlock<T,U>(_ block: @escaping (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U
+        where T: ModelTransfer
+    {
         return { one,two,three in
             block()
             return returnValue
         }
     }
     
-    func makeSupplementaryBlock<T,U where T: ModelTransfer>(block: (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U {
+    func makeSupplementaryBlock<T,U>(_ block: @escaping (Void)->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U where T: ModelTransfer {
         return { one,two,three in
             block()
             return returnValue
@@ -66,10 +68,10 @@ class UIReactionsTestCase: XCTestCase {
     func testCellReactionIsExecutable() {
         let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
-        reaction.makeCellReaction(block: makeCellBlock(block: {
+        reaction.makeCellReaction(makeCellBlock({
             exp.fulfill()
             }, cell: TableCell(), returnValue: 3))
-        let result = reaction.performWithArguments(arguments: (TableCell(),5,indexPath(0, 0)))
+        let result = reaction.performWithArguments((TableCell(),5,indexPath(0, 0)))
         waitForExpectations(timeout: 1, handler: nil)
         expect(result as? Int) == 3
     }
@@ -77,10 +79,10 @@ class UIReactionsTestCase: XCTestCase {
     func testSupplementaryReactionIsExecutable() {
         let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
-        reaction.makeSupplementaryReaction(forKind: "bar", block: makeSupplementaryBlock(block: {
+        reaction.makeSupplementaryReaction(forKind: "bar", block: makeSupplementaryBlock({
             exp.fulfill()
             }, cell: TableCell(), returnValue: 3))
-        let result = reaction.performWithArguments(arguments: (TableCell(),5,indexPath(0, 5)))
+        let result = reaction.performWithArguments((TableCell(),5,indexPath(0, 5)))
         waitForExpectations(timeout: 1, handler: nil)
         expect(result as? Int) == 3
     }
@@ -88,7 +90,7 @@ class UIReactionsTestCase: XCTestCase {
     func testReactionOfTypeIsPerformable() {
         let reaction = EventReaction(signature: "foo")
         let exp = expectation(description: "executeCell")
-        reaction.makeCellReaction(block: makeCellBlock(block: {
+        reaction.makeCellReaction(makeCellBlock({
             exp.fulfill()
             }, cell: TableCell(), returnValue: 3))
         reactions.append(reaction)

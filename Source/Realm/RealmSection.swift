@@ -36,19 +36,19 @@ protocol ItemAtIndexPathRetrievable {
 }
 
 /// Class, representing a single section of Realm Results<T>.
-public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
+open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
-    public var results : Results<T>
+    open var results : Results<T>
     
-    public weak var sectionLocationDelegate: SectionLocationIdentifyable?
+    open weak var sectionLocationDelegate: SectionLocationIdentifyable?
     
-    public var currentSectionIndex: Int? {
+    open var currentSectionIndex: Int? {
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
     
     /// Supplementaries array
-    public var supplementaries = [String:[Int:Any]]()
+    open var supplementaries = [String:[Int:Any]]()
     
     /// Create RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query
@@ -59,12 +59,12 @@ public class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIn
     // MARK: - Section
     
     /// Items in `RealmSection`
-    public var items: [Any] {
+    open var items: [Any] {
         return results.map { $0 }
     }
     
     /// Number of items in `RealmSection`
-    public var numberOfItems : Int {
+    open var numberOfItems : Int {
         return results.count
     }
     
