@@ -82,7 +82,7 @@ public struct ViewModelMapping
 }
 
 /// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates, or even create a custom mapping
-public protocol DTViewModelMappingCustomizable : class {
+public protocol ViewModelMappingCustomizing : class {
     
     /// Select `ViewModelMapping` from candidates or create your own mapping
     /// - Parameter candidates: mapping candidates, that were found for this model
@@ -123,9 +123,11 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
                 view.update(with: model)
         }))
     }
-    
-    // DEPRECATED
-    
+}
+
+// DEPRECATED
+
+public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
     @available(*,unavailable,renamed:"mappingCandidates(forViewType:withModel:)")
     func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
@@ -146,5 +148,14 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
                 guard let view = view  as? T, let model = model as? T.ModelType else { return }
                 view.update(with: model)
         }))
+    }
+}
+@available(*,unavailable,renamed:"ViewModelMappingCustomizing")
+public protocol DTViewModelMappingCustomizable {}
+
+public extension ViewModelMappingCustomizing {
+    @available(*,unavailable,renamed:"viewModelMapping(fromCandidates:withModel:)")
+    func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
+        fatalError("UNAVAILABLE")
     }
 }

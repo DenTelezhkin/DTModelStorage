@@ -124,7 +124,7 @@ public protocol StorageUpdating : class
 
 public extension Storage {
     @available(*,unavailable,renamed:"item(at:)")
-    func itemAtIndexPath(_ : IndexPath) -> Any {
+    func itemAtIndexPath(_ : IndexPath) -> Any? {
         fatalError("UNAVAILABLE")
     }
 }
