@@ -56,7 +56,7 @@ open class SectionModel : Section, SupplementaryAccessible
     /// Returns items of specific type, if found in a section
     /// Parameter type: Type of items to search for
     /// Returns: Array of items
-    open func itemsOfType<T>(_ type: T.Type) -> [T]
+    open func items<T>(ofType type: T.Type) -> [T]
     {
         var foundItems = [T]()
         for item in items {
@@ -70,5 +70,12 @@ open class SectionModel : Section, SupplementaryAccessible
     /// Number of items in current section
     open var numberOfItems: Int {
         return self.items.count
+    }
+    
+    // DEPRECATED
+    @available(*,unavailable,renamed: "items(ofType:)")
+    open func itemsOfType<T>(_ type: T.Type) -> [T]
+    {
+        fatalError("UNAVAILABLE")
     }
 }

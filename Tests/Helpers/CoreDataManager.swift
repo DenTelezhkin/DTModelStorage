@@ -12,12 +12,12 @@ import CoreData
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
-    private let managedObjectModel : NSManagedObjectModel = {
+    fileprivate let managedObjectModel : NSManagedObjectModel = {
         let modelURL = Bundle(for:CoreDataManager.self).url(forResource:"DTModelStorageDatabase", withExtension: "momd")
         return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
-    private lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
+    fileprivate lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         try! coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         return coordinator
@@ -46,5 +46,5 @@ class CoreDataManager {
         }
     }
     
-    private init() {}
+    fileprivate init() {}
 }

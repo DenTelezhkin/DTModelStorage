@@ -39,7 +39,7 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, NSFetchedResultsControllerDelegate
+open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
     open let fetchedResultsController : NSFetchedResultsController<T>
@@ -58,8 +58,8 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtoco
         self.fetchedResultsController.delegate = self
     }
     
-    /// Sections of fetched results controller as required by StorageProtocol
-    /// - SeeAlso: `StorageProtocol`
+    /// Sections of fetched results controller as required by Storage
+    /// - SeeAlso: `Storage`
     /// - SeeAlso: `MemoryStorage`
     open var sections : [Section]
     {
@@ -70,23 +70,23 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, StorageProtoco
         return []
     }
     
-    // MARK: - StorageProtocol
+    // MARK: - Storage
     
     /// Retrieve object at index path from `CoreDataStorage`
     /// - Parameter path: NSIndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
-    open func itemAtIndexPath(_ path: IndexPath) -> Any? {
-        return fetchedResultsController.object(at: path)
+    open func item(at indexPath: IndexPath) -> Any? {
+        return fetchedResultsController.object(at: indexPath)
     }
     
-    // MARK: - SupplementaryStorageProtocol
+    // MARK: - SupplementaryStorage
     
     /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    open func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any?
+    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any?
     {
         if displaySectionNameForSupplementaryKinds.contains(kind)
         {

@@ -24,10 +24,10 @@ class SectionModelTestCase: XCTestCase {
     {
         section.setSupplementaryModel("bar", forKind: "foo", atIndex: 0)
         
-        XCTAssertEqual(section.supplementaryModelOfKind("foo", atIndex: 0) as? String ?? "", "bar")
+        XCTAssertEqual(section.supplementaryModel(ofKind: "foo", atIndex: 0) as? String ?? "", "bar")
         
         section.setSupplementaryModel(nil, forKind: "foo", atIndex: 0)
-        XCTAssert(section.supplementaryModelOfKind("foo", atIndex: 0) == nil)
+        XCTAssert(section.supplementaryModel(ofKind: "foo", atIndex: 0) == nil)
     }
 
 //    func testAnyArrayWorks()
@@ -43,6 +43,6 @@ class SectionModelTestCase: XCTestCase {
         let section = SectionModel()
         section.setItems([1,2,3])
         
-        expect(section.itemsOfType(Int.self)) == [1,2,3]
+        expect(section.items(ofType: Int.self)) == [1,2,3]
     }
 }

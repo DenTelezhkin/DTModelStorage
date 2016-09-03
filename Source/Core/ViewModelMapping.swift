@@ -60,6 +60,8 @@ public func == (left: ViewType, right: ViewType) -> Bool
     return left.supplementaryKind() == right.supplementaryKind()
 }
 
+import Swift
+
 /// `ViewModelMapping` struct serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
 public struct ViewModelMapping
 {
@@ -86,7 +88,7 @@ public protocol DTViewModelMappingCustomizable : class {
     /// - Parameter candidates: mapping candidates, that were found for this model
     /// - Parameter model: model to search candidates for
     /// - Returns: `ViewModelMapping` instance, or nil if no mapping is required
-    func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping?
+    func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping?
 }
 
 public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
@@ -97,7 +99,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
+    func mappingCandidates(forViewType viewType: ViewType, withModel model: Any) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
             
@@ -110,7 +112,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     /// - Parameter viewClass: View class to add mapping for.
     /// - Note: This method works only for `ModelTransfer` classes.
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
-    mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+    mutating func addMapping<T:ModelTransfer>(for viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         append(ViewModelMapping(viewType: viewType,
             viewClass: T.self,
               xibName: xibName,
@@ -118,7 +120,31 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
                 return model is T.ModelType
             }, updateBlock: { (view, model) in
                 guard let view = view  as? T, let model = model as? T.ModelType else { return }
-                view.updateWithModel(model)
+                view.update(with: model)
+        }))
+    }
+    
+    // DEPRECATED
+    
+    @available(*,unavailable,renamed:"mappingCandidates(forViewType:withModel:)")
+    func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
+        return filter { mapping -> Bool in
+            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
+            
+            return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
+        }
+    }
+    
+    @available(*, unavailable, renamed: "addMapping(for:viewClass:xibName:)")
+    mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+        append(ViewModelMapping(viewType: viewType,
+                                viewClass: T.self,
+                                xibName: xibName,
+                                modelTypeCheckingBlock: { model -> Bool in
+                                    return model is T.ModelType
+            }, updateBlock: { (view, model) in
+                guard let view = view  as? T, let model = model as? T.ModelType else { return }
+                view.update(with: model)
         }))
     }
 }

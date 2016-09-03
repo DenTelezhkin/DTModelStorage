@@ -26,7 +26,7 @@
 import Foundation
 
 /// This struct contains error types that can be thrown for various MemoryStorage errors
-public struct MemoryStorageErrors
+public enum MemoryStorageErrors
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:toIndexPath:)` method
     public enum Insertion: Error
@@ -59,7 +59,7 @@ public struct MemoryStorageErrors
 /// `MemoryStorage` stores data models like array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
-open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProtocol, SectionLocationIdentifyable
+open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable
 {
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {
@@ -86,28 +86,28 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Retrieve item at index path from `MemoryStorage`
     /// - Parameter path: NSIndexPath for item
     /// - Returns: model at indexPath or nil, if item not found
-    open func itemAtIndexPath(_ path: IndexPath) -> Any? {
+    open func item(at indexPath: IndexPath) -> Any? {
         let sectionModel : SectionModel
-        if path.section >= self.sections.count {
+        if indexPath.section >= self.sections.count {
             return nil
         }
         else {
-            sectionModel = self.sections[path.section] as! SectionModel
-            if path.item >= sectionModel.numberOfItems {
+            sectionModel = self.sections[indexPath.section] as! SectionModel
+            if indexPath.item >= sectionModel.numberOfItems {
                 return nil
             }
         }
-        return sectionModel.items[path.item]
+        return sectionModel.items[indexPath.item]
     }
     
     /// Set section header model for MemoryStorage
     /// - Note: This does not update UI
     /// - Parameter model: model for section header at index
     /// - Parameter sectionIndex: index of section for setting header
-    open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
+    open func setSectionHeaderModel<T>(_ model: T?, forSection index: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        let section = getValidSection(sectionIndex)
+        let section = getValidSection(index)
         section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
@@ -116,10 +116,10 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Note: This does not update UI
     /// - Parameter model: model for section footer at index
     /// - Parameter sectionIndex: index of section for setting footer
-    open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
+    open func setSectionFooterModel<T>(_ model: T?, forSection index: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        let section = getValidSection(sectionIndex)
+        let section = getValidSection(index)
         section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
@@ -178,7 +178,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Set items for specific section. This will reload UI after updating.
     /// - Parameter items: items to set for section
     /// - Parameter forSectionIndex: index of section to update
-    open func setItems<T>(_ items: [T], forSectionIndex index: Int = 0)
+    open func setItems<T>(_ items: [T], forSection index: Int = 0)
     {
         let section = self.getValidSection(index)
         section.items.removeAll(keepingCapacity: false)
@@ -189,7 +189,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Set section for specific index. This will reload UI after updating
     /// - Parameter section: section to set for specific index
     /// - Parameter forSectionIndex: index of section
-    open func setSection(_ section: SectionModel, forSectionIndex index: Int)
+    open func setSection(_ section: SectionModel, forSection index: Int)
     {
         let _ = self.getValidSection(index)
         sections.replaceSubrange(index...index, with: [section as Section])
@@ -243,10 +243,10 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Parameter item: item to insert
     /// - Parameter toIndexPath: indexPath to insert
     /// - Throws: if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
-    open func insertItem<T>(_ item: T, toIndexPath indexPath: IndexPath) throws
+    open func insertItem<T>(_ item: T, to indexPath: IndexPath) throws
     {
         self.startUpdate()
-        let section = self.getValidSection((indexPath as NSIndexPath).section)
+        let section = self.getValidSection(indexPath.section)
         
         guard section.items.count >= indexPath.item else { throw MemoryStorageErrors.Insertion.indexPathTooBig }
         
@@ -259,7 +259,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Parameter items: items to insert
     /// - Parameter toIndexPaths: indexPaths to insert
     /// - Throws: if items.count is different from indexPaths.count, will throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
-    open func insertItems<T>(_ items: [T], toIndexPaths indexPaths: [IndexPath]) throws
+    open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath]) throws
     {
         if items.count != indexPaths.count {
             throw MemoryStorageErrors.BatchInsertion.itemsCountMismatch
@@ -281,7 +281,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     open func reloadItem<T:Equatable>(_ item: T)
     {
         self.startUpdate()
-        if let indexPath = self.indexPathForItem(item) {
+        if let indexPath = self.indexPath(forItem: item) {
             self.currentUpdate?.updatedRowIndexPaths.insert(indexPath)
         }
         self.finishUpdate()
@@ -291,12 +291,12 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Parameter itemToReplace: item to replace
     /// - Parameter replacingItem: replacing item
     /// - Throws: if `itemToReplace` is not found, will throw MemoryStorageErrors.Replacement.ItemNotFound
-    open func replaceItem<T: Equatable>(_ itemToReplace: T, replacingItem: Any) throws
+    open func replaceItem<T: Equatable>(_ itemToReplace: T, with replacingItem: Any) throws
     {
         self.startUpdate()
         defer { self.finishUpdate() }
         
-        guard let originalIndexPath = self.indexPathForItem(itemToReplace) else {
+        guard let originalIndexPath = self.indexPath(forItem: itemToReplace) else {
             throw MemoryStorageErrors.Replacement.itemNotFound
         }
         
@@ -314,7 +314,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
         self.startUpdate()
         defer { self.finishUpdate() }
         
-        guard let indexPath = self.indexPathForItem(item) else {
+        guard let indexPath = self.indexPath(forItem: item) else {
             throw MemoryStorageErrors.Removal.itemNotFound
         }
         self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
@@ -329,7 +329,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     {
         self.startUpdate()
         
-        let indexPaths = indexPathArrayForItems(items)
+        let indexPaths = indexPathArray(forItems: items)
         for indexPath in type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
         {
             self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
@@ -340,14 +340,14 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     
     /// Remove items at index paths.
     /// - Parameter indexPaths: indexPaths to remove item from. Any indexPaths that will not be found, will be skipped
-    open func removeItemsAtIndexPaths(_ indexPaths : [IndexPath])
+    open func removeItems(at indexPaths : [IndexPath])
     {
         self.startUpdate()
         
         let reverseSortedIndexPaths = type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
         for indexPath in reverseSortedIndexPaths
         {
-            if let _ = self.itemAtIndexPath(indexPath)
+            if let _ = self.item(at: indexPath)
             {
                 self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
                 self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
@@ -389,12 +389,12 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Move item from `source` indexPath to `destination` indexPath.
     /// - Parameter source: indexPath from which we need to move
     /// - Parameter toIndexPath: destination index path for item
-    open func moveItemAtIndexPath(_ source: IndexPath, toIndexPath destination: IndexPath)
+    open func moveItem(at source: IndexPath, to destination: IndexPath)
     {
         self.startUpdate()
         defer { self.finishUpdate() }
         
-        guard let sourceItem = itemAtIndexPath(source) else {
+        guard let sourceItem = item(at: source) else {
             print("MemoryStorage: source indexPath should not be nil when moving item")
             return
         }
@@ -421,15 +421,15 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     }
     
     /// Remove all items from specific section
-    /// - parameter atIndex: index of section
-    open func removeItemsFromSection(_ atIndex: Int) {
+    /// - parameter index: index of section
+    open func removeItems(fromSection sectionIndex: Int) {
         startUpdate()
         defer { finishUpdate() }
         
-        guard let section = sectionAtIndex(atIndex) else { return }
+        guard let section = sectionAtIndex(sectionIndex) else { return }
         
         for (index,_) in section.items.enumerated(){
-            currentUpdate?.deletedRowIndexPaths.insert(IndexPath(item: index, section: atIndex))
+            currentUpdate?.deletedRowIndexPaths.insert(IndexPath(item: index, section: sectionIndex))
         }
         section.items.removeAll()
     }
@@ -439,10 +439,10 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Retrieve items in section
     /// - Parameter section: index of section
     /// - Returns array of items in section or nil, if section does not exist
-    open func itemsInSection(_ section: Int) -> [Any]?
+    open func items(inSection index: Int) -> [Any]?
     {
-        if self.sections.count > section {
-            return self.sections[section].items
+        if self.sections.count > index {
+            return self.sections[index].items
         }
         return nil
     }
@@ -450,7 +450,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Find index path of specific item in MemoryStorage
     /// - Parameter searchableItem: item to find
     /// - Returns: index path for found item, nil if not found
-    open func indexPathForItem<T: Equatable>(_ searchableItem : T) -> IndexPath?
+    open func indexPath<T: Equatable>(forItem searchableItem : T) -> IndexPath?
     {
         for sectionIndex in 0..<self.sections.count
         {
@@ -483,7 +483,7 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Parameter sectionIndex: indexOfSection
     /// - Note: This method finds or create a SectionModel. It means that if you create section 2, section 0 and 1 will be automatically created.
     /// - Returns: SectionModel
-    func getValidSection(_ sectionIndex : Int) -> SectionModel
+    final func getValidSection(_ sectionIndex : Int) -> SectionModel
     {
         if sectionIndex < self.sections.count
         {
@@ -501,12 +501,12 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Index path array for items
     /// - Parameter items: items to find in storage
     /// - Returns: Array if NSIndexPaths for found items
-    func indexPathArrayForItems<T:Equatable>(_ items:[T]) -> [IndexPath]
+    final func indexPathArray<T:Equatable>(forItems items:[T]) -> [IndexPath]
     {
         var indexPaths = [IndexPath]()
         
         for index in 0..<items.count {
-            if let indexPath = self.indexPathForItem(items[index])
+            if let indexPath = self.indexPath(forItem: items[index])
             {
                 indexPaths.append(indexPath)
             }
@@ -518,24 +518,66 @@ open class MemoryStorage: BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// - Parameter indexPaths: Array of index paths to sort
     /// - Parameter ascending: sort in ascending or descending order
     /// - Note: This method is used, when you need to delete multiple index paths. Sorting them in reverse order preserves initial collection from mutation while enumerating
-    class func sortedArrayOfIndexPaths(_ indexPaths: [IndexPath], ascending: Bool) -> [IndexPath]
+    static func sortedArrayOfIndexPaths(_ indexPaths: [IndexPath], ascending: Bool) -> [IndexPath]
     {
         let unsorted = NSMutableArray(array: indexPaths)
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArray(using: [descriptor]) as? [IndexPath] ?? []
     }
     
-    // MARK: - SupplementaryStorageProtocol
+    // MARK: - SupplementaryStorage
     
     /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
     /// - Parameter sectionIndex: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
-    open func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any? {
+    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any? {
         guard sectionIndexPath.section < sections.count else {
             return nil
         }
-        return (self.sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind, atIndex: sectionIndexPath.item)
+        return (self.sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModel(ofKind:kind, atIndex: sectionIndexPath.item)
+    }
+    
+    // DEPRECATED
+    
+    @available(*,unavailable,renamed:"item(at:)")
+    open func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"removeItems(at:)")
+    open func removeItemsAtIndexPaths(_ indexPaths : [IndexPath])
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"moveItem(at:to:)")
+    open func moveItemAtIndexPath(_ source: IndexPath, toIndexPath destination: IndexPath)
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"items(inSection:)")
+    @nonobjc open func itemsInSection(_ section: Int) -> [Any]?
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"indexPath(forItem:)")
+    open func indexPathForItem<T: Equatable>(_ searchableItem : T) -> IndexPath?
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"indexPathArray(forItems:)")
+    final func indexPathArrayForItems<T:Equatable>(_ items:[T]) -> [IndexPath]
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"removeItems(fromSection:)")
+    @nonobjc open func removeItemsFromSection(_ sectionIndex: Int) {
+        fatalError("UNAVAILABLE")
     }
 }

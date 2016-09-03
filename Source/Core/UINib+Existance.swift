@@ -32,8 +32,19 @@ public extension UINib {
     /// - Parameter nibName: Name of xib file
     /// - Parameter inBundle: bundle to search in
     /// - Returns: true, if nib exists, false - if not.
-    public class func nibExistsWithNibName(_ nibName :String,
-        inBundle bundle: Bundle = Bundle.main) -> Bool
+    public class func nibExists(withNibName nibName :String,
+                                           inBundle bundle: Bundle = Bundle.main) -> Bool
+    {
+        if let _ = bundle.path(forResource: nibName, ofType: "nib")
+        {
+            return true
+        }
+        return false
+    }
+    
+    @available(*,unavailable,renamed:"nibExists(withNibName:inBundle:)")
+    @nonobjc public class func nibExistsWithNibName(_ nibName :String,
+                                           inBundle bundle: Bundle = Bundle.main) -> Bool
     {
         if let _ = bundle.path(forResource: nibName, ofType: "nib")
         {

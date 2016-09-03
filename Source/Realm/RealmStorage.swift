@@ -30,7 +30,7 @@ import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProtocol, SectionLocationIdentifyable
+open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable
 {
     /// Array of `RealmSection` objects
     open var sections = [Section]() {
@@ -58,7 +58,7 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
     /// Retrieve `RealmSection` at index
     /// - Parameter sectionIndex: index of section
     /// - Returns: `RealmSection` instance
-    open func sectionAtIndex(_ sectionIndex: Int) -> Section? {
+    open func section(at sectionIndex: Int) -> Section? {
         guard sectionIndex < sections.count else { return nil }
         
         return sections[sectionIndex]
@@ -66,15 +66,15 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
     
     /// Add `RealmSection`, containing `Results<T>` objects.
     /// - Parameter results: results of Realm objects query.
-    open func addSectionWithResults<T:Object>(_ results: Results<T>) {
-        setSectionWithResults(results, forSectionIndex: sections.count)
+    open func addSection<T:Object>(with results: Results<T>) {
+        setSection(with: results, forSection: sections.count)
     }
     
     /// Set `RealmSection`, containing `Results<T>` objects, for section at index. Calls `delegate.storageNeedsReloading()` after section is set.
     /// - Parameter results: results of Realm objects query.
     /// - Parameter forSectionIndex: index for section.
     /// - Note: if index is less than number of section, this method won't do anything.
-    open func setSectionWithResults<T:Object>(_ results: Results<T>, forSectionIndex index: Int) {
+    open func setSection<T:Object>(with results: Results<T>, forSection index: Int) {
         guard index <= sections.count else { return }
         
         let section = RealmSection(results: results)
@@ -92,7 +92,7 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
         delegate?.storageNeedsReloading()
     }
     
-    internal func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
+    internal final func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
     {
         if case RealmCollectionChange.Initial(_) = change {
             delegate?.storageNeedsReloading()
@@ -138,7 +138,7 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
     open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
+        let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
         section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
     }
     
@@ -150,7 +150,7 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
     open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
         assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        let section = (sectionAtIndex(sectionIndex) as? SupplementaryAccessible)
+        let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
         section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
     }
     
@@ -202,20 +202,37 @@ open class RealmStorage : BaseStorage, StorageProtocol, SupplementaryStorageProt
         self.setSupplementaries(supplementaries, forKind: self.supplementaryFooterKind!)
     }
     
-    // MARK: - StorageProtocol
+    // MARK: - Storage
     
-    open func itemAtIndexPath(_ path: IndexPath) -> Any? {
-        guard path.section < self.sections.count else {
+    open func item(at indexPath: IndexPath) -> Any? {
+        guard indexPath.section < self.sections.count else {
             return nil
         }
-        return (sections[path.section] as? ItemAtIndexPathRetrievable)?.itemAtIndexPath(path)
+        return (sections[indexPath.section] as? ItemAtIndexPathRetrievable)?.itemAt(indexPath)
     }
     
-    // MARK: - SupplementaryStorageProtocol
+    // MARK: - SupplementaryStorage
     
-    open func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any? {
+    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any? {
         guard sectionIndexPath.section < sections.count else { return nil }
         
-        return (sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModelOfKind(kind, atIndex: sectionIndexPath.item)
+        return (sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModel(ofKind:kind, atIndex: sectionIndexPath.item)
+    }
+    
+    // DEPRECATED
+    
+    @available(*, unavailable, renamed: "section(at:)")
+    open func sectionAtIndex(_ sectionIndex: Int) -> Section? {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*, unavailable, renamed: "addSection(with:)")
+    open func addSectionWithResults<T:Object>(_ results: Results<T>) {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"setSection(with:forSection:)")
+    open func setSectionWithResults<T:Object>(_ results: Results<T>, forSectionIndex index: Int) {
+        fatalError("UNAVAILABLE")
     }
 }

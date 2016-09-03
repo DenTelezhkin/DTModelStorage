@@ -32,7 +32,7 @@ public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
 /// Base class for MemoryStorage and CoreDataStorage
-open class BaseStorage : NSObject, HeaderFooterStorageProtocol
+open class BaseStorage : NSObject, HeaderFooterStorage
 {
     /// Supplementary kind for header in current storage
     open var supplementaryHeaderKind : String?
@@ -97,29 +97,29 @@ open class BaseStorage : NSObject, HeaderFooterStorageProtocol
         self.supplementaryFooterKind = UICollectionElementKindSectionFooter
     }
     
-    // MARK - HeaderFooterStorageProtocol
+    // MARK - HeaderFooterStorage
     
     /// Header model for section.
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method
     /// - Parameter index: index of section
     /// - Returns: header model for section, or nil if there are no model
-    open func headerModelForSectionIndex(_ index: Int) -> Any? {
+    open func headerModel(forSection index: Int) -> Any? {
         guard let kind = supplementaryHeaderKind else {
             assertionFailure("supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
             return nil
         }
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: IndexPath(item: 0, section: index))
+        return (self as? SupplementaryStorage)?.supplementaryModel(ofKind:kind, forSectionAt: IndexPath(item: 0, section: index))
     }
     
     /// Footer model for section.
     /// - Requires: supplementaryFooterKind to be set prior to calling this method
     /// - Parameter index: index of section
     /// - Returns: footer model for section, or nil if there are no model
-    open func footerModelForSectionIndex(_ index: Int) -> Any? {
+    open func footerModel(forSection index: Int) -> Any? {
         guard let kind = supplementaryFooterKind else {
             assertionFailure("supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
             return nil
         }
-        return (self as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: IndexPath(item: 0, section: index))
+        return (self as? SupplementaryStorage)?.supplementaryModel(ofKind:kind, forSectionAt: IndexPath(item: 0, section: index))
     }
 }

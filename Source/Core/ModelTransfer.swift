@@ -33,5 +33,5 @@ public protocol ModelTransfer : class
     
     /// Update your view with model
     /// - Parameter model: model of ModelType type
-    func updateWithModel(_ model : ModelType)
+    func update(with model: ModelType)
 }

@@ -400,10 +400,10 @@
 		9A63E5B81CCCE8BA00DC69B1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A63E5C11CCCE8BB00DC69B1 /* Nimble.framework */,
-				9A63E5C31CCCE8BB00DC69B1 /* NimbleTests.xctest */,
 				9A63E5C51CCCE8BB00DC69B1 /* Nimble.framework */,
 				9A63E5C71CCCE8BB00DC69B1 /* NimbleTests.xctest */,
+				9A63E5C11CCCE8BB00DC69B1 /* Nimble.framework */,
+				9A63E5C31CCCE8BB00DC69B1 /* NimbleTests.xctest */,
 				9A63E5C91CCCE8BB00DC69B1 /* Nimble.framework */,
 				9A63E5CB1CCCE8BB00DC69B1 /* NimbleTests.xctest */,
 			);

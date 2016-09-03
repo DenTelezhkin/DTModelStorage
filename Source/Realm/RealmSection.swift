@@ -32,7 +32,7 @@ import Foundation
 /// (fooSection as? RealmSection)
 /// nil
 protocol ItemAtIndexPathRetrievable {
-    func itemAtIndexPath(_ path: IndexPath) -> Any?
+    func itemAt(_ indexPath: IndexPath) -> Any?
 }
 
 /// Class, representing a single section of Realm Results<T>.
@@ -70,7 +70,7 @@ open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtInde
     
     // MARK: - ItemAtIndexPathRetrievable
     
-    func itemAtIndexPath(_ path: IndexPath) -> Any? {
-        return results[path.item]
+    final func itemAt(_ indexPath: IndexPath) -> Any? {
+        return results[indexPath.item]
     }
 }

@@ -16,7 +16,7 @@ protocol MappingTestProtocol {}
 class ProtocolTestableTableViewCell : UITableViewCell, ModelTransfer {
     var model : MappingTestProtocol?
     
-    func updateWithModel(_ model: MappingTestProtocol) {
+    func update(with model: MappingTestProtocol) {
         self.model = model
     }
 }
@@ -29,7 +29,7 @@ class AncestorClass {}
 class Subclass : AncestorClass {}
 
 class SubclassTestableTableViewCell : UITableViewCell, ModelTransfer {
-    func updateWithModel(_ model: AncestorClass) {
+    func update(with model: AncestorClass) {
         
     }
 }
@@ -44,42 +44,42 @@ class MappingTestCase: XCTestCase {
     }
     
     func testProtocolModelIsFindable() {
-        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidatesForViewType(.cell, model: ConformingClass())
+        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
     }
     
     func testOptionalModelOfProtocolIsFindable() {
-        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         let optional: ConformingClass? = ConformingClass()
-        let candidates = mappings.mappingCandidatesForViewType(.cell, model: optional)
+        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: optional)
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
     }
     
     func testSubclassModelMappingIsFindable() {
-        mappings.addMappingForViewType(.cell, viewClass: SubclassTestableTableViewCell.self)
-        let candidates = mappings.mappingCandidatesForViewType(.cell, model: Subclass())
+        mappings.addMapping(for: .cell, viewClass: SubclassTestableTableViewCell.self)
+        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: Subclass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == SubclassTestableTableViewCell.self).to(beTrue())
     }
     
     func testNilModelDoesNotReturnMappingCandidates() {
-        mappings.addMappingForViewType(.cell, viewClass: SubclassTestableTableViewCell.self)
+        mappings.addMapping(for: .cell, viewClass: SubclassTestableTableViewCell.self)
         let model : AncestorClass? = nil
-        let candidates = mappings.mappingCandidatesForViewType(.cell, model: model)
+        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: model)
         
         expect(candidates.count) == 0
     }
     
     func testUpdateBlockCanBeSuccessfullyCalled() {
-        mappings.addMappingForViewType(.cell, viewClass: ProtocolTestableTableViewCell.self)
+        mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidatesForViewType(.cell, model: ConformingClass())
+        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
@@ -92,7 +92,7 @@ class MappingTestCase: XCTestCase {
 }
 
 class Transferable : ModelTransfer {
-    func updateWithModel(_ model: Int) {}
+    func update(with model: Int) {}
 }
 
 class ViewModelMappingTestCase: XCTestCase {

@@ -1,5 +1,5 @@
 //
-//  StorageProtocolTestCase.swift
+//  StorageTestCase.swift
 //  DTModelStorage
 //
 //  Created by Denys Telezhkin on 18.09.15.
@@ -11,7 +11,7 @@ import DTModelStorage
 import Nimble
 
 class FooView : UIView, ModelTransfer {
-    func updateWithModel(_ model: String) {
+    func update(with model: String) {
         
     }
 }

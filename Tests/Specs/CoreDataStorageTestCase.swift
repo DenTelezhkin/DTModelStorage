@@ -54,7 +54,7 @@ class CoreDataStorageTestCase: XCTestCase {
     {
         let _ = ListItem.createItemWithValue(3)
         
-        expect((self.storage.itemAtIndexPath(indexPath(0, 0)) as? ListItem)?.value) == 3
+        expect((self.storage.item(at: indexPath(0, 0)) as? ListItem)?.value) == 3
     }
     
     func testMovingValues()
@@ -90,17 +90,17 @@ class CoreDataStorageTestCase: XCTestCase {
     
     func testHeaderModel() {
         storage.configureForTableViewUsage()
-        expect(self.storage.headerModelForSectionIndex(0) as? String) == ""
+        expect(self.storage.headerModel(forSection: 0) as? String) == ""
     }
     
     func testFooterModel()
     {
         storage.configureForTableViewUsage()
-        expect(self.storage.footerModelForSectionIndex(0)).to(beNil())
+        expect(self.storage.footerModel(forSection: 0)).to(beNil())
     }
     
     func testSettingDifferentSupplementaryKindAllowsUsingSectionName() {
         storage.displaySectionNameForSupplementaryKinds = ["Foo"]
-        expect(self.storage.supplementaryModelOfKind("Foo", sectionIndexPath: indexPath(0, 0)) as? String) == ""
+        expect(self.storage.supplementaryModel(ofKind: "Foo", forSectionAt: indexPath(0, 0)) as? String) == ""
     }
 }
