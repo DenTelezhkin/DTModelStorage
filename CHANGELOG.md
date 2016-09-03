@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 * `itemForCellClass:atIndexPath:`, `itemForHeaderClass:atSectionIndex:`, `itemsForFooterClass:atSectionIndex:`
+* `makeNSIndexSet` method, because Swift 3 allows to directly create IndexSet from both `Array` and `Set`. 
 
 ## [2.6.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.2)
 

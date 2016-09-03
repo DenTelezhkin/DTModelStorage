@@ -98,20 +98,3 @@ extension StorageUpdate : CustomStringConvertible
             "Updated row indexPaths: \(updatedRowIndexPaths)\n"
     }
 }
-
-/// Workaround that allows Set<Int> to be converted to NSIndexSet
-public protocol NSIndexSetConvertible {}
-extension Int: NSIndexSetConvertible {}
-
-public extension Set where Element : NSIndexSetConvertible
-{
-    /// Make NSIndexSet instance out of Set<Int>
-    /// Returns: NSIndexSet with Ints inside
-    func makeNSIndexSet() -> IndexSet {
-        let indexSet = NSMutableIndexSet()
-        for element in self {
-            indexSet.add(element as? Int ?? 0)
-        }
-        return IndexSet(indexSet)
-    }
-}

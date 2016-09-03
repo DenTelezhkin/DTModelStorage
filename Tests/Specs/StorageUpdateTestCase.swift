@@ -75,13 +75,4 @@ class StorageUpdateTestCase: XCTestCase {
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
-    
-    func testNSIndexSetCreation()
-    {
-        let set = Set(arrayLiteral: 1,2,3)
-        let indexSet = set.makeNSIndexSet()
-        expect(indexSet.contains(1)).to(beTrue())
-        expect(indexSet.contains(2)).to(beTrue())
-        expect(indexSet.contains(3)).to(beTrue())
-    }
 }
