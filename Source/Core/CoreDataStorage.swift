@@ -73,7 +73,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
     // MARK: - Storage
     
     /// Retrieve object at index path from `CoreDataStorage`
-    /// - Parameter path: NSIndexPath for object
+    /// - Parameter indexPath: IndexPath for object
     /// - Returns: model at indexPath or nil, if item not found
     open func item(at indexPath: IndexPath) -> Any? {
         return fetchedResultsController.object(at: indexPath)
@@ -83,7 +83,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
     
     /// Retrieve supplementary model of specific kind for section.
     /// - Parameter kind: kind of supplementary model
-    /// - Parameter sectionIndex: index of section
+    /// - Parameter sectionIndexPath: index of section
     /// - SeeAlso: `headerModelForSectionIndex`
     /// - SeeAlso: `footerModelForSectionIndex`
     open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any?

@@ -98,7 +98,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     
     func testEmptySection()
     {
-        expect(self.storage.sectionAtIndex(0)).to(beNil())
+        expect(self.storage.section(atIndex: 0)).to(beNil())
     }
     
     func testNilEmptySectionItems()
@@ -115,12 +115,12 @@ class MemoryStorageSearchSpec: XCTestCase {
         expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beFalse())
         storage.removeAllItems()
         expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beTrue())
-        expect(self.storage.sectionAtIndex(0)?.items.count) == 0
+        expect(self.storage.section(atIndex: 0)?.items.count) == 0
     }
     
     func testSectionModelIsAwareOfItsLocation() {
         storage.addItem(3)
-        let section = storage.sectionAtIndex(0)! as SectionModel
+        let section = storage.section(atIndex: 0)! as SectionModel
         expect(section.currentSectionIndex) == 0
     }
 }

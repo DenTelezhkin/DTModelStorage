@@ -25,7 +25,7 @@
 
 import Foundation
 
-/// Class represents data of the section used by `MemoryStorage`.
+/// Data holder for single section in `MemoryStorage`.
 open class SectionModel : Section, SupplementaryAccessible
 {
     /// Items for current section
@@ -33,8 +33,10 @@ open class SectionModel : Section, SupplementaryAccessible
     /// - SeeAlso: `setItems:`
     open var items = [Any]()
     
+    /// delegate, that knows about current section index in storage.
     open weak var sectionLocationDelegate: SectionLocationIdentifyable?
     
+    /// section index of current section in `MemoryStorage`.
     open var currentSectionIndex: Int? {
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
@@ -46,16 +48,13 @@ open class SectionModel : Section, SupplementaryAccessible
     public init() {}
     
     /// Set items of specific time to items property.
-    /// - Parameter items: items to set
-    /// - Note: This method exists because of inability of Swift to cast [T] to [Any].
+    /// - Note: This method exists because of inability of Swift to cast [T] to [Any]. It uses simple map underneath.
     open func setItems<T>(_ items: [T])
     {
         self.items = items.map { $0 }
     }
 
-    /// Returns items of specific type, if found in a section
-    /// Parameter type: Type of items to search for
-    /// Returns: Array of items
+    /// Returns items of `type` in current section
     open func items<T>(ofType type: T.Type) -> [T]
     {
         var foundItems = [T]()
@@ -71,8 +70,10 @@ open class SectionModel : Section, SupplementaryAccessible
     open var numberOfItems: Int {
         return self.items.count
     }
-    
-    // DEPRECATED
+}
+
+// DEPRECATED
+extension SectionModel {
     @available(*,unavailable,renamed: "items(ofType:)")
     open func itemsOfType<T>(_ type: T.Type) -> [T]
     {

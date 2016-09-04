@@ -49,7 +49,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1,2,3])
         storage.setItems([4,5,6])
         
-        expect(self.storage.sectionAtIndex(0)?.items.map { $0 as! Int} ) == [4,5,6]
+        expect(self.storage.section(atIndex: 0)?.items.map { $0 as! Int} ) == [4,5,6]
     }
     
     func testSetSectionSupplementariesModel()
@@ -255,7 +255,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
     {
         storage.addItem(1)
-        storage.sectionAtIndex(0)?.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
+        storage.section(atIndex: 0)?.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
         expect(self.storage.supplementaryModel(ofKind: "bar", forSectionAt: indexPath(0, 0)) as? String).to(equal("foo"))
     }
     
@@ -264,9 +264,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         let kind = "foo"
         storage.setSupplementaries([[0: 1], [0: 2],[0: 3]], forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 1
-        expect(self.storage.sectionAtIndex(1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 2
-        expect(self.storage.sectionAtIndex(2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 3
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 1
+        expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 2
+        expect(self.storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 3
     }
     
     func testShouldNilOutSupplementaries()
@@ -276,9 +276,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: kind)
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
-        expect(self.storage.sectionAtIndex(2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
+        expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
+        expect(self.storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
     }
     
     func testShouldGetItemCorrectly()
@@ -317,8 +317,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1,1,1], toSection: 2)
         
         storage.moveSection(0, toSection: 1)
-        expect(self.storage.sectionAtIndex(0)?.items.count) == 2
-        expect(self.storage.sectionAtIndex(1)?.items.count) == 1
+        expect(self.storage.section(atIndex: 0)?.items.count) == 2
+        expect(self.storage.section(atIndex: 1)?.items.count) == 1
         expect(self.delegate.update?.movedSectionIndexes.elementsEqual([[0,1]], by: { $0 == $1 })).to(beTrue())
     }
     
@@ -419,10 +419,10 @@ class SectionSupplementariesTestCase : XCTestCase
         expect(self.updatesObserver.update?.insertedSectionIndexes) == Set([0])
         expect(self.updatesObserver.update?.insertedRowIndexPaths) == Set([indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)])
         
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
-        expect(self.storage.sectionAtIndex(0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"
-        expect(self.storage.sectionAtIndex(0)?.items.first as? Int) == 1
-        expect(self.storage.sectionAtIndex(0)?.items.last as? Int) == 3
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"
+        expect(self.storage.section(atIndex: 0)?.items.first as? Int) == 1
+        expect(self.storage.section(atIndex: 0)?.items.last as? Int) == 3
     }
     
     func testInsertingSectionAtWrongIndexPathDoesNotWork()
@@ -450,14 +450,14 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setItems([7,8,9])
         storage.setSection(section, forSection: 1)
         
-        expect(self.storage.sectionAtIndex(1)?.items(ofType: Int.self)) == [7,8,9]
+        expect(self.storage.section(atIndex: 1)?.items(ofType: Int.self)) == [7,8,9]
     }
     
     func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
         try! storage.insertItems([1,2,3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
         
         expect(self.storage.items(inSection: 0)?.count) == 3
-        expect(self.storage.sectionAtIndex(0)?.items(ofType: Int.self)) == [1,2,3]
+        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1,2,3]
     }
     
     func testWrongCountsRaisesException() {
@@ -477,6 +477,6 @@ class SectionSupplementariesTestCase : XCTestCase
         try! storage.insertItems([1,2,3], to: [indexPath(0, 0), indexPath(1, 0),indexPath(3, 0)])
         
         expect(self.storage.items(inSection: 0)?.count) == 2
-        expect(self.storage.sectionAtIndex(0)?.items(ofType: Int.self)) == [1,2]
+        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1,2]
     }
 }

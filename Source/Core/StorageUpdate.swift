@@ -26,7 +26,7 @@
 import Foundation
 
 /// Object representing update in storage.
-public struct StorageUpdate : Equatable
+public struct StorageUpdate : Equatable, CustomStringConvertible
 {
     /// Indexes of section to be deleted in current update
     public var deletedSectionIndexes = Set<Int>()
@@ -55,8 +55,7 @@ public struct StorageUpdate : Equatable
     /// Create an empty update.
     public init(){}
     
-    /// Check whether update is empty.
-    /// Returns: Returns true, if update does not contain any data.
+    /// Returns true, if update is empty.
     public func isEmpty() -> Bool {
         return deletedSectionIndexes.count == 0 &&
             insertedSectionIndexes.count == 0 &&
@@ -85,10 +84,7 @@ public struct StorageUpdate : Equatable
         }
         return true
     }
-}
-
-extension StorageUpdate : CustomStringConvertible
-{
+    
     public var description : String {
         return "Deleted section indexes: \(deletedSectionIndexes)\n" +
             "Inserted section indexes : \(insertedSectionIndexes)\n" +
@@ -98,3 +94,4 @@ extension StorageUpdate : CustomStringConvertible
             "Updated row indexPaths: \(updatedRowIndexPaths)\n"
     }
 }
+

@@ -25,10 +25,9 @@
 
 extension MemoryStorage
 {
-    /// This method allows multiple simultaneous changes to memory storage without any notifications for delegate.
+    /// Runs `block` of actions without notifying self.delegate.
     ///
-    /// You can think of this as a way of "manual" management for memory storage. Typical usage would be multiple insertions/deletions etc., if you don't need any animations. You can batch any changes in block, and call reloadData on your UI component after this method was call.
-    /// - Parameter block: block to execute with MemoryStorage.
+    /// You can think of this method as a way of "manual" management for memory storage. Typical usage would be multiple insertions/deletions etc., if you don't need any animations. You can batch any changes in block, and call reloadData on your UI component after this method was call.
     /// - Note: You must call reloadData after calling this method, or you will get NSInternalInconsistencyException runtime, thrown by either UITableView or UICollectionView.
     open func updateWithoutAnimations(_ block: () -> Void)
     {

@@ -21,12 +21,12 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionTypeEquatable() {
-        expect(EventType.cell) == EventType.cell
+        expect(ViewType.cell) == ViewType.cell
     }
     
     func testReactionTypeSupplementaryEquatable() {
-        expect(EventType.supplementary(kind: "foo")) == EventType.supplementary(kind: "foo")
-        expect(EventType.supplementary(kind: "foo")) != EventType.supplementary(kind: "bar")
+        expect(ViewType.supplementaryView(kind: "foo")) == ViewType.supplementaryView(kind: "foo")
+        expect(ViewType.supplementaryView(kind: "foo")) != ViewType.supplementaryView(kind: "bar")
     }
     
     func testReactionsAreSearchable() {

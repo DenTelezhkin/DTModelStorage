@@ -41,23 +41,16 @@ public protocol Storage
 
 public protocol SupplementaryStorage
 {
-    /// Storage class may implement this method to return supplementary models for section.
-    /// - Parameter kind: supplementary kind
-    /// - Parameter sectionIndex: index of section
-    /// - Returns supplementary model of given kind for given section
-    func supplementaryModel(ofKind kind: String, forSectionAt : IndexPath) -> Any?
+    /// Returns supplementary model of `kind` for section at `indexPath`.
+    func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any?
 }
 
 public protocol HeaderFooterStorage
 {
-    /// Getter method for header model for current section.
-    /// - Parameter index: Number of section.
-    /// - Returns: Header model for section at index.
+    /// Returns header model for section with section `index` or nil if not found.
     func headerModel(forSection index: Int) -> Any?
     
-    /// Getter method for footer model for current section.
-    /// - Parameter index: Number of section.
-    /// - Returns: Footer model for section at index.
+    /// Returns footer model for section with section `index` or nil if not found.
     func footerModel(forSection index: Int) -> Any?
     
     /// Supplementary kind for header in current storage
@@ -68,40 +61,36 @@ public protocol HeaderFooterStorage
 }
 
 public protocol SectionLocationIdentifyable : class {
+    /// Returns section index for section, or nil if section was not found.
     func sectionIndex(for: Section) -> Int?
 }
 
 public protocol SupplementaryAccessible : class {
     
+    /// Section index for current section
     var currentSectionIndex: Int? { get }
     
+    /// delegate, that knows about current section index in storage.
     weak var sectionLocationDelegate : SectionLocationIdentifyable? { get set }
     
+    /// Supplementaries dictionary
     var supplementaries: [String: [Int:Any]] { get set }
     
-    /// Retrieve supplementaryModel of specific kind
-    /// - Parameter: kind - kind of supplementary
-    /// - Returns: supplementary model or nil, if there are no model
-    func supplementaryModel(ofKind kind: String, atIndex: Int) -> Any?
+    /// Returns supplementary model of `kind` at `index` or nil, if it was not found
+    func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
     
-    /// Set supplementary model of specific kind
-    /// - Parameter model: model to set
-    /// - Parameter forKind: kind of supplementary
-    func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex: Int)
+    /// Sets supplementary `model` for `kind` at `index`
+    func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
 }
 
 extension SupplementaryAccessible {
-    /// Retrieve supplementaryModel of specific kind
-    /// - Parameter: kind - kind of supplementary
-    /// - Returns: supplementary model or nil, if there are no model
+    /// Returns supplementary model of `kind` at `index` or nil, if it was not found
     public func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
     {
         return self.supplementaries[kind]?[index]
     }
     
-    /// Set supplementary model of specific kind
-    /// - Parameter model: model to set
-    /// - Parameter forKind: kind of supplementary
+    /// Sets supplementary `model` for `kind` at `index`
     public func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
     {
         var dictionary: [Int:Any] = supplementaries[kind] ?? [:]
@@ -113,7 +102,9 @@ extension SupplementaryAccessible {
 /// `StorageUpdating` protocol is used to transfer data storage updates.
 public protocol StorageUpdating : class
 {
-    /// Transfers data storage updates. Object, that implements this method, may react to received update by updating it's UI.
+    /// Transfers data storage updates. 
+    ///
+    /// Object, that implements this method, may react to received update by updating UI for current storage.
     func storageDidPerformUpdate(_ update : StorageUpdate)
     
     /// Method is called when UI needs to be fully updated for data storage changes.

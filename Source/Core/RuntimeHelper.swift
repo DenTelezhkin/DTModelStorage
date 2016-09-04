@@ -28,9 +28,9 @@ import Foundation
 /// This class is used to introspect Swift and Objective-C types, providing necessary mapping information.
 public enum RuntimeHelper
 {
-    /// Recursively unwrap optionals to a single level. This is helpful when dealing with double optionals.
-    /// - Parameter any: optional to unwrap
-    /// - Returns: unwrapped optional
+    /// Returns recursively unwrapped `any` optional. 
+    ///
+    /// This is helpful when dealing with double optionals.
     public static func recursivelyUnwrapAnyValue(_ any: Any) -> Any?
     {
         let mirror = Mirror(reflecting: any)

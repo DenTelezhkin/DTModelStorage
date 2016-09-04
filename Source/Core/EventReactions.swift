@@ -27,30 +27,30 @@
 import Foundation
 import UIKit
 
-public enum EventType : Equatable {
-    case cell
-    case supplementary(kind: String)
-    
-    static public func == (left: EventType, right: EventType) -> Bool {
-        switch (left, right) {
-        case (.cell, .cell): return true
-        case (.supplementary(let leftKind),.supplementary(let rightKind)): return leftKind == rightKind
-        default: return false
-        }
-    }
-}
-
+/// Data holder for reaction
 open class EventReaction {
-    open var type: EventType = .cell
+    
+    /// Event type
+    open var type: ViewType = .cell
+    
+    /// Block, that performs model type-checking.
     open var modelTypeCheckingBlock: (Any) -> Bool = { _ in return false }
+    
+    /// 3 arguments reaction block with all arguments type-erased.
     open var reaction : ((Any,Any,Any) -> Any)?
+    
+    /// Objective-C method signature
     open let methodSignature: String
     
+    /// Creates reaction with `signature`.
     public init(signature: String) {
         self.methodSignature = signature
     }
     
-    open func makeCellReaction<T,U>(_ block: @escaping (T?, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
+    /// Updates reaction with cell type, type-erases T and U into Any types.
+    open func makeCellReaction<T,U>(_ block: @escaping (T?, T.ModelType, IndexPath) -> U)
+        where T: ModelTransfer
+    {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
@@ -62,6 +62,7 @@ open class EventReaction {
         }
     }
     
+    /// Updates reaction with cell type, type-erases T and U into Any types.
     open func makeCellReaction<T,U>(_ block: @escaping (T, IndexPath) -> U) {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T }
@@ -74,7 +75,10 @@ open class EventReaction {
         }
     }
     
-    open func makeCellReaction<T,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
+    /// Updates reaction with cell type, type-erases T and U into Any types.
+    open func makeCellReaction<T,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U)
+        where T: ModelTransfer
+    {
         type = .cell
         modelTypeCheckingBlock = { return $0 is T.ModelType }
         reaction = { cell, model, indexPath in
@@ -88,9 +92,12 @@ open class EventReaction {
         }
     }
     
-    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T?, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
+    /// Updates reaction with supplementary type, type-erases T and U into Any types.
+    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T?, T.ModelType, IndexPath) -> U)
+        where T: ModelTransfer
+    {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
-        type = .supplementary(kind: kind)
+        type = .supplementaryView(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
                 let index = sectionIndex as? IndexPath else {
@@ -100,8 +107,9 @@ open class EventReaction {
         }
     }
     
+    /// Updates reaction with supplementary type, type-erases T and U into Any types.
     open func makeSupplementaryReaction<T,U>(for kind: String, block: @escaping (T, IndexPath) -> U) {
-        type = .supplementary(kind: kind)
+        type = .supplementaryView(kind: kind)
         modelTypeCheckingBlock = { return $0 is T }
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T, let index = sectionIndex as? IndexPath else { return 0 }
@@ -109,9 +117,12 @@ open class EventReaction {
         }
     }
     
-    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer {
+    /// Updates reaction with supplementary type, type-erases T and U into Any types.
+    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T, T.ModelType, IndexPath) -> U)
+        where T: ModelTransfer
+    {
         modelTypeCheckingBlock = { return $0 is T.ModelType }
-        type = .supplementary(kind: kind)
+        type = .supplementaryView(kind: kind)
         reaction = { supplementary, model, sectionIndex in
             guard let model = model as? T.ModelType,
                 let index = sectionIndex as? IndexPath,
@@ -123,29 +134,39 @@ open class EventReaction {
         }
     }
     
+    /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any,Any,Any)) -> Any {
         return reaction?(arguments.0,arguments.1,arguments.2)
     }
 }
 
+/// Subclass of `EventReaction`, tuned to work with 4 arguments.
 open class FourArgumentsEventReaction : EventReaction {
+    
+    /// Type-erased reaction with 4 arguments
     open var reaction4Arguments : ((Any,Any,Any,Any) -> Any)?
     
+    /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any, Any, Any, Any)) -> Any {
         return reaction4Arguments?(arguments.0, arguments.1, arguments.2, arguments.3)
     }
 }
 
+/// Subclass of `EventReaction`, tuned to work with 5 arguments.
 open class FiveArgumentsEventReaction : EventReaction {
+    
+    /// Type-erased reaction with 5 arguments
     open var reaction5Arguments : ((Any,Any,Any,Any,Any) -> Any)?
     
+    /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any, Any, Any, Any, Any)) -> Any {
         return reaction5Arguments?(arguments.0, arguments.1, arguments.2, arguments.3, arguments.4)
     }
 }
 
 public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
-    func reactionOfType(_ type: EventType, signature: String, forModel model: Any) -> EventReaction? {
+    /// Returns reaction of `type`, with `signature` and `model`. Returns nil, if reaction was not found.
+    public func reactionOfType(_ type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
         return filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
             return reaction.type == type &&
@@ -154,7 +175,8 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
         }).first
     }
     
-    func performReaction(ofType type: EventType, signature: String, view: Any?, model: Any, location: Any) -> Any {
+    /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
+    public func performReaction(ofType type: ViewType, signature: String, view: Any?, model: Any, location: Any) -> Any {
         guard let reaction = reactionOfType(type, signature: signature, forModel: model) else {
             return 0
         }

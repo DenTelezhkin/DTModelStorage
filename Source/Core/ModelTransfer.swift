@@ -23,15 +23,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-/// `ModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every cell or supplementary view subclass you have should conform to this protocol.
+/// Protocol used to pass `model` data to your cell or supplementary view. Every cell or supplementary view you have should conform to this protocol.
 /// 
-/// - Note: `ModelType` is associated type, that works like generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.
+/// `ModelType` is associated type, that works as generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.
+///
+/// For example:
+/// class PostTableViewCell: UITableViewCell, ModelTransfer {
+///     func update(with: Post) {
+///     }
+/// }
 public protocol ModelTransfer : class
 {
-    /// This is a placeholder for your model type
+    /// Type of model that is being transferred
     associatedtype ModelType
     
-    /// Update your view with model
-    /// - Parameter model: model of ModelType type
+    /// Updates view with `model`.
     func update(with model: ModelType)
 }

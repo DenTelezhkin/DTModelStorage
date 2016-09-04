@@ -41,12 +41,14 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
     }
     
+    /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
         return sections.index(where: {
             return ($0 as? RealmSection) === (section as? RealmSection)
         })
     }
     
+    /// Storage for notification tokens of `Realm`
     @nonobjc fileprivate var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
@@ -55,8 +57,8 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
     }
     
-    /// Retrieve `RealmSection` at index
-    /// - Parameter sectionIndex: index of section
+    /// Returns section at `sectionIndex` or nil, if it does not exist
+    ///
     /// - Returns: `RealmSection` instance
     open func section(at sectionIndex: Int) -> Section? {
         guard sectionIndex < sections.count else { return nil }
@@ -64,15 +66,14 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         return sections[sectionIndex]
     }
     
-    /// Add `RealmSection`, containing `Results<T>` objects.
-    /// - Parameter results: results of Realm objects query.
+    /// Adds `RealmSection`, containing `results`.
     open func addSection<T:Object>(with results: Results<T>) {
         setSection(with: results, forSection: sections.count)
     }
     
-    /// Set `RealmSection`, containing `Results<T>` objects, for section at index. Calls `delegate.storageNeedsReloading()` after section is set.
-    /// - Parameter results: results of Realm objects query.
-    /// - Parameter forSectionIndex: index for section.
+    /// Sets `RealmSection`, containing `results` objects, for section at `index`. 
+    ///
+    ///  Calls `delegate.storageNeedsReloading()` after section is set. Subscribes for Realm notifications to automatically update section when update occurs.
     /// - Note: if index is less than number of section, this method won't do anything.
     open func setSection<T:Object>(with results: Results<T>, forSection index: Int) {
         guard index <= sections.count else { return }
@@ -92,6 +93,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         delegate?.storageNeedsReloading()
     }
     
+    /// Handles `change` in `section`, automatically notifying delegate.
     internal final func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
     {
         if case RealmCollectionChange.Initial(_) = change {
@@ -114,25 +116,26 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         finishUpdate()
     }
     
-    /// Delete sections at indexes. Delegate will be automatically notified of changes
-    /// - Parameter sections: index set with sections to delete
-    open func deleteSections(_ sections: IndexSet) {
+    /// Delete sections at `indexes`. 
+    ///
+    /// Delegate will be automatically notified of changes.
+    open func deleteSections(_ indexes: IndexSet) {
         startUpdate()
         defer { self.finishUpdate() }
         
-        var i = sections.last ?? NSNotFound
+        var i = indexes.last ?? NSNotFound
         while i != NSNotFound && i < self.sections.count {
             self.sections.remove(at: i)
             notificationTokens[i]?.stop()
             notificationTokens[i] = nil
             self.currentUpdate?.deletedSectionIndexes.insert(i)
-            i = sections.integerLessThan(i) ?? NSNotFound
+            i = indexes.integerLessThan(i) ?? NSNotFound
         }
     }
     
-    /// Set section header model at index. `supplementaryHeaderKind` should be set prior to calling this method.
-    /// - Parameter model: model for section header
-    /// - Parameter sectionIndex: index of section
+    /// Sets section header `model` for section at `sectionIndex`
+    ///
+    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
     /// - SeeAlso: `configureForTableViewUsage`
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
@@ -142,9 +145,9 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
     }
     
-    /// Set section footer model at index. `supplementaryFooterKind` should be set prior to calling this method.
-    /// - Parameter model: model for section footer
-    /// - Parameter sectionIndex: index of section
+    /// Sets section footer `model` for section at `sectionIndex`
+    ///
+    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
     /// - SeeAlso: `configureForTableViewUsage`
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
@@ -154,9 +157,8 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
     }
     
-    /// Set array of supplementaries for specific kind. Number of models should not exceed number of sections.
-    /// - Parameter model: models for sections supplementaries
-    /// - Parameter kind: supplementaryKind
+    /// Sets supplementary `models` for supplementary of `kind`.
+    ///
     /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
     open func setSupplementaries(_ models : [[Int: Any]], forKind kind: String)
     {
@@ -176,9 +178,9 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
     }
     
-    /// Set section header models.
+    /// Sets section header `models`, using `supplementaryHeaderKind`.
+    ///
     /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
-    /// - Parameter models: section header models
     open func setSectionHeaderModels<T>(_ models : [T])
     {
         assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
@@ -189,9 +191,9 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         self.setSupplementaries(supplementaries, forKind: self.supplementaryHeaderKind!)
     }
     
-    /// Set section footer models.
+    /// Sets section footer `models`, using `supplementaryFooterKind`.
+    ///
     /// - Note: `supplementaryFooterKind` property should be set before calling this method.
-    /// - Parameter models: section footer models
     open func setSectionFooterModels<T>(_ models : [T])
     {
         assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
@@ -204,6 +206,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     
     // MARK: - Storage
     
+    /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
         guard indexPath.section < self.sections.count else {
             return nil
@@ -213,6 +216,10 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     
     // MARK: - SupplementaryStorage
     
+    /// Returns supplementary model of supplementary `kind` for section at `sectionIndexPath`. Returns nil if not found.
+    ///
+    /// - SeeAlso: `headerModelForSectionIndex`
+    /// - SeeAlso: `footerModelForSectionIndex`
     open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any? {
         guard sectionIndexPath.section < sections.count else { return nil }
         

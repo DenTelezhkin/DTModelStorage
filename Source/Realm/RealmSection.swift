@@ -27,7 +27,7 @@
 import RealmSwift
 import Foundation
 
-/// These following two protocols are only needed because we can't cast to RealmSection without knowing what T type is in Swift 2.1
+/// These following protocol is only needed because we can't cast to RealmSection without knowing what T type is in Swift 2 and Swift 3.
 /// For example following cast will fail:
 /// (fooSection as? RealmSection)
 /// nil
@@ -35,22 +35,24 @@ protocol ItemAtIndexPathRetrievable {
     func itemAt(_ indexPath: IndexPath) -> Any?
 }
 
-/// Class, representing a single section of Realm Results<T>.
+/// Data holder for single section in `RealmStorage`.
 open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
     open var results : Results<T>
     
+    /// delegate, that knows about current section index in storage.
     open weak var sectionLocationDelegate: SectionLocationIdentifyable?
     
+    /// section index of current section in `RealmStorage`.
     open var currentSectionIndex: Int? {
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
     
-    /// Supplementaries array
+    /// Supplementaries dictionary
     open var supplementaries = [String:[Int:Any]]()
     
-    /// Create RealmSection with Realm.Results
+    /// Creates RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query
     public init(results: Results<T>) {
         self.results = results

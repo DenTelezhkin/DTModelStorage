@@ -42,25 +42,16 @@ public enum ViewType : Equatable
         case .supplementaryView(let kind): return kind
         }
     }
-}
-
-public func == (left: ViewType, right: ViewType) -> Bool
-{
-    switch left
-    {
-    case .cell:
-        switch right
-        {
-        case .cell: return true
+    
+    // Compares view types, `Equatable` protocol.
+    static public func == (left: ViewType, right: ViewType) -> Bool {
+        switch (left, right) {
+        case (.cell, .cell): return true
+        case (.supplementaryView(let leftKind),.supplementaryView(let rightKind)): return leftKind == rightKind
         default: return false
         }
-    default: ()
     }
-    
-    return left.supplementaryKind() == right.supplementaryKind()
 }
-
-import Swift
 
 /// `ViewModelMapping` struct serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
 public struct ViewModelMapping
@@ -77,14 +68,14 @@ public struct ViewModelMapping
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool
     
-    /// Update block, that will be called when `ModelTransfer` `updateWithModel` method needs to be executed.
+    /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
     public let updateBlock : (Any, Any) -> Void
 }
 
-/// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates, or even create a custom mapping
+/// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates.
 public protocol ViewModelMappingCustomizing : class {
     
-    /// Select `ViewModelMapping` from candidates or create your own mapping
+    /// Select `ViewModelMapping` from candidates or return your own mapping
     /// - Parameter candidates: mapping candidates, that were found for this model
     /// - Parameter model: model to search candidates for
     /// - Returns: `ViewModelMapping` instance, or nil if no mapping is required
@@ -93,24 +84,18 @@ public protocol ViewModelMappingCustomizing : class {
 
 public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
     
-    /// Retrieve mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` returns true.
-    /// - Parameter viewType: mapping view type
-    /// - Parameter model: model to search mappings for
+    /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
     func mappingCandidates(forViewType viewType: ViewType, withModel model: Any) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
-            
             return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
         }
     }
     
-    /// Add mapping for viewType. 
-    /// - Parameter viewType: mapping view type
-    /// - Parameter viewClass: View class to add mapping for.
-    /// - Note: This method works only for `ModelTransfer` classes.
+    /// Add mapping for `viewType` for `viewClass` with `xibName`. 
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
     mutating func addMapping<T:ModelTransfer>(for viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         append(ViewModelMapping(viewType: viewType,
