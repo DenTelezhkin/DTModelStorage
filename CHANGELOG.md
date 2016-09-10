@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 * `UIReaction` class has been replaced with new `EventReaction` class, that allows more flexible and powerful events usage
 * Supplementary models are now stored in `[String:[Int:Any]]` instead of `[String:Any]` to support supplementary models, whose position is determined by indexPath in UICollectionView. `SupplementaryStorageProtocol`, `SupplementaryAccessible` protocols have been reworked to reflect those changes.
+* `MemoryStorageErrors` have been made an `Error` type following conventions from [SE-0112](https://github.com/apple/swift-evolution/blob/master/proposals/0112-nserror-bridging.md).
 
 ### Added
 

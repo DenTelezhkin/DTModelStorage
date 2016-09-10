@@ -26,31 +26,47 @@
 import Foundation
 
 /// This struct contains error types that can be thrown for various MemoryStorage errors
-public enum MemoryStorageErrors
+public enum MemoryStorageError : LocalizedError
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:to:)` method
-    public enum Insertion: Error
+    public enum InsertionReason
     {
-        case indexPathTooBig
+        case indexPathTooBig(IndexPath)
     }
     
     /// Errors that can be thrown, when calling `insertItems(_:to:)` method
-    public enum BatchInsertion: Error
+    public enum BatchInsertionReason
     {
         /// Is thrown, if length of batch inserted array is different from length of array of index paths.
         case itemsCountMismatch
     }
     
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:with:)` method
-    public enum Replacement: Error
+    public enum SearchReason
     {
-        case itemNotFound
+        case itemNotFound(item: Any)
+        
+        var localizedDescription : String {
+            guard case let SearchReason.itemNotFound(item: item) = self else {
+                return ""
+            }
+            return "Failed to find \(item) in MemoryStorage"
+        }
     }
     
-    /// Errors that can happen when removing item from memory storage - `removeItem(:_)` method
-    public enum Removal : Error
-    {
-        case itemNotFound
+    case insertionFailed(reason: InsertionReason)
+    case batchInsertionFailed(reason: BatchInsertionReason)
+    case searchFailed(reason: SearchReason)
+    
+    public var localizedDescription: String {
+        switch self {
+        case .insertionFailed(reason: _):
+            return "IndexPath provided was bigger then existing section or item"
+        case .batchInsertionFailed(reason: _):
+            return "While inserting batch of items, length of provided array differs from index path array length"
+        case .searchFailed(reason: let reason):
+            return reason.localizedDescription
+        }
     }
 }
 
@@ -256,7 +272,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         self.startUpdate()
         let section = self.getValidSection(indexPath.section)
         
-        guard section.items.count >= indexPath.item else { throw MemoryStorageErrors.Insertion.indexPathTooBig }
+        guard section.items.count >= indexPath.item else {
+            throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+        }
         
         section.items.insert(item, at: indexPath.item)
         self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
@@ -270,7 +288,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath]) throws
     {
         if items.count != indexPaths.count {
-            throw MemoryStorageErrors.BatchInsertion.itemsCountMismatch
+            throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
         performUpdates {
             indexPaths.enumerated().forEach { itemIndex, indexPath in
@@ -303,7 +321,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         defer { self.finishUpdate() }
         
         guard let originalIndexPath = self.indexPath(forItem: itemToReplace) else {
-            throw MemoryStorageErrors.Replacement.itemNotFound
+            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
         }
         
         let section = self.getValidSection(originalIndexPath.section)
@@ -321,7 +339,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         defer { self.finishUpdate() }
         
         guard let indexPath = self.indexPath(forItem: item) else {
-            throw MemoryStorageErrors.Removal.itemNotFound
+            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
         }
         self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
         

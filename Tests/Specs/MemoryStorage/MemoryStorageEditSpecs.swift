@@ -76,8 +76,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
           try storage.insertItem(1, to: indexPath(1, 0))
         }
-        catch MemoryStorageErrors.Insertion.indexPathTooBig {
-            
+        catch let error as MemoryStorageError  {
+            guard case MemoryStorageError.insertionFailed(reason: _) = error else {
+                XCTFail()
+                return
+            }
         }
         catch {
             XCTFail()
@@ -112,9 +115,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
             try storage.replaceItem(1, with: "foo")
         }
-        catch MemoryStorageErrors.Replacement.itemNotFound
-        {
-            
+        catch let error as MemoryStorageError  {
+            guard case MemoryStorageError.searchFailed(reason: _) = error else {
+                XCTFail()
+                return
+            }
         }
         catch {
             XCTFail()
@@ -144,9 +149,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         do {
             try storage.removeItem(3)
         }
-        catch MemoryStorageErrors.Removal.itemNotFound
-        {
-            
+        catch let error as MemoryStorageError  {
+            guard case MemoryStorageError.searchFailed(reason: _) = error else {
+                XCTFail()
+                return
+            }
         }
         catch {
             XCTFail()
@@ -464,13 +471,15 @@ class SectionSupplementariesTestCase : XCTestCase
         do {
             try storage.insertItems([1,2], to: [indexPath(0, 0)])
         }
-        catch MemoryStorageErrors.BatchInsertion.itemsCountMismatch {
-            return
+        catch let error as MemoryStorageError  {
+            guard case MemoryStorageError.batchInsertionFailed(reason: _) = error else {
+                XCTFail()
+                return
+            }
         }
         catch {
             XCTFail()
         }
-        XCTFail()
     }
     
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
