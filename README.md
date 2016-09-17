@@ -25,7 +25,7 @@ The goal of the project is to provide storage classes for datasource based contr
 
 Now, if we look on `UICollectionView`, that stuff does not change. And probably any kind of datasource based control can be adapted to use the same terminology. So, instead of reinventing the wheel every time, let's try to implement universal storage classes, that would fit any control.
 
-`DTModelStorage` supports 3 kinds of storage classes:
+`DTModelStorage` supports 3 storage classes:
 * Memory storage
 * CoreData storage
 * Realm storage
@@ -145,11 +145,11 @@ Installation
 
 [CocoaPods](https://cocoapods.org):
 
-    pod 'DTModelStorage', '~> 3.0.0'
+    pod 'DTModelStorage', '~> 3.0.0-beta.1'
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 3.0.0
+    github "DenHeadless/DTModelStorage" ~> 3.0.0-beta.1
 
 Requirements
 ============

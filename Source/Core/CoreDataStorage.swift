@@ -1,6 +1,6 @@
 //
 //  CoreDataStorage.swift
-//  DTModelStorageTests
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 06.07.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
@@ -27,6 +27,8 @@ import Foundation
 import CoreData
 import UIKit
 
+
+/// Private wrapper around `NSFetchedResultsSectionInfo` to conform to `Section` protocol
 private struct DTFetchedResultsSectionInfoWrapper : Section
 {
     let fetchedObjects : [AnyObject]
@@ -134,7 +136,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
         }
     }
     
-    /// React to changed section in NSFetchedResultsController
+    /// React to changed section in NSFetchedResultsController.    
     @objc
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
     { switch type

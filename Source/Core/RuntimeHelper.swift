@@ -1,6 +1,6 @@
 //
 //  RuntimeHelper.swift
-//  DTModelStorageTests
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 15.07.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.

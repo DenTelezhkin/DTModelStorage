@@ -1,6 +1,6 @@
 //
 //  MemoryStorage+UpdateWithoutAnimations.swift
-//  DTModelStorageTests
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 11.07.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.

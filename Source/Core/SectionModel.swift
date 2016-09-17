@@ -1,6 +1,6 @@
 //
 //  SectionModel.swift
-//  DTModelStorageTests
+//  DTModelStorage
 //
 //  Created by Denys Telezhkin on 10.07.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
@@ -44,7 +44,7 @@ open class SectionModel : Section, SupplementaryAccessible
     /// Supplementaries dictionary.
     open var supplementaries = [String:[Int:Any]]()
     
-    // Create empty section model.
+    // Creates empty section model.
     public init() {}
     
     /// Set items of specific time to items property.

@@ -49,7 +49,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     }
     
     /// Storage for notification tokens of `Realm`
-    @nonobjc fileprivate var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
+    fileprivate var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
@@ -87,7 +87,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
             sections[index] = section
         }
         let sectionIndex = sections.count - 1
-        notificationTokens[index] = results.addNotificationBlock(block: { [weak self] change in
+        notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
             self?.handleChange(change, inSection: sectionIndex)
         })
         delegate?.storageNeedsReloading()
@@ -96,11 +96,11 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Handles `change` in `section`, automatically notifying delegate.
     internal final func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
     {
-        if case RealmCollectionChange.Initial(_) = change {
+        if case RealmCollectionChange.initial(_) = change {
             delegate?.storageNeedsReloading()
             return
         }
-        guard case let RealmCollectionChange.Update(_, deletions, insertions, modifications) = change else {
+        guard case let RealmCollectionChange.update(_, deletions, insertions, modifications) = change else {
             return
         }
         startUpdate()
