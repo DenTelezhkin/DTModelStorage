@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 Swift 3.0 and higher is required for this version of framework.
 
+**Note** Beta 1 Does not include RealmStorage subspec due to [RealmSwift.framework podspec issues](https://github.com/realm/realm-cocoa/issues/4101)
+
 ### Reworked
 
 * `UIReaction` class has been replaced with new `EventReaction` class, that allows more flexible and powerful events usage
