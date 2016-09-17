@@ -17,11 +17,11 @@ install-cocoapods:
 # Run Tasks
 
 test-iOS:
-	set -o pipefail && xcodebuild -project DTModelStorage.xcodeproj -scheme DTModelStorage-iOS -destination "name=iPhone 6s" -enableCodeCoverage YES test | xcpretty -ct
+	set -o pipefail && xcodebuild -project DTModelStorage.xcodeproj -scheme DTModelStorage-iOS -destination "name=iPhone 6s" -enableCodeCoverage YES test -configuration "Release" | xcpretty -ct
 	bash <(curl -s https://codecov.io/bash)
 
 test-tvOS:
-	set -o pipefail && xcodebuild -project DTModelStorage.xcodeproj -scheme DTModelStorage-tvOS -destination "name=Apple TV 1080p" -enableCodeCoverage YES test | xcpretty -ct
+	set -o pipefail && xcodebuild -project DTModelStorage.xcodeproj -scheme DTModelStorage-tvOS -destination "name=Apple TV 1080p" -enableCodeCoverage YES test -configuration "Release" | xcpretty -ct
 	bash <(curl -s https://codecov.io/bash)
 
 test-carthage:
