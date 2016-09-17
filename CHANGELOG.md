@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [3.0.0-beta.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.1)
+
+Swift 3.0 and higher is required for this version of framework.
 
 ### Reworked
 
@@ -19,7 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 * `itemForCellClass:atIndexPath:`, `itemForHeaderClass:atSectionIndex:`, `itemsForFooterClass:atSectionIndex:`
-* `makeNSIndexSet` method, because Swift 3 allows to directly create IndexSet from both `Array` and `Set`. 
+* `makeNSIndexSet` method, because Swift 3 allows to directly create IndexSet from both `Array` and `Set`.
 
 ## [2.6.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/2.6.2)
 
