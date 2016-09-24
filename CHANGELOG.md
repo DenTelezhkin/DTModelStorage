@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [3.0.0-beta.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.2)
+
+* Enables `RealmStorage` with `RealmSwift` dependency
+
 ## [3.0.0-beta.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.1)
 
 Swift 3.0 and higher is required for this version of framework.
