@@ -86,10 +86,12 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         } else {
             sections[index] = section
         }
-        let sectionIndex = sections.count - 1
-        notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
-            self?.handleChange(change, inSection: sectionIndex)
-        })
+        if results.realm?.configuration.readOnly == false {
+            let sectionIndex = sections.count - 1
+            notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
+                self?.handleChange(change, inSection: sectionIndex)
+                })
+        }
         delegate?.storageNeedsReloading()
     }
     
