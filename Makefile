@@ -2,10 +2,10 @@ SHELL := /bin/bash
 # Install Tasks
 
 install-iOS:
-	true
+	xcrun instruments -w "iPhone 6s (10.0)" || true
 
 install-tvOS:
-	true
+	xcrun instruments -w "Apple TV 1080p (10.0)" || true
 
 install-carthage:
 	brew remove carthage --force || true
@@ -25,7 +25,7 @@ test-tvOS:
 	bash <(curl -s https://codecov.io/bash)
 
 test-carthage:
-	carthage build --no-skip-current --platform iOS
+	carthage build --no-skip-current --platform iOS --verbose
 	ls Carthage/build/iOS/DTModelStorage.framework
 
 test-cocoapods:
