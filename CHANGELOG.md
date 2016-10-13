@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [3.0.0-beta.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.3)
+
+* Requires Realm 2.0 and higher.
+* Fixes crash, that happens, when subscribing to Realm notifications and Realm is read-only.
+
 ## [3.0.0-beta.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.2)
 
 * Enables `RealmStorage` with `RealmSwift` dependency
