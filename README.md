@@ -35,7 +35,7 @@ Internal structure of these will be different, but we need a common interface an
 1. Update storage
 2. Notify delegate about changes in storage
 
-Memory storage classes will provide convinience methods to update storage, CoreData storage classes will rely on updates from `NSFetchedResultsControllerDelegate` protocol. So the first step will be different, but the second step stays the same. And delegate for storage classes will receive the same message, and it will not actually care, which storage is used. They will look the same from its point of view.
+Memory storage classes will provide convenience methods to update storage, CoreData storage classes will rely on updates from `NSFetchedResultsControllerDelegate` protocol. So the first step will be different, but the second step stays the same. And delegate for storage classes will receive the same message, and it will not actually care, which storage is used. They will look the same from its point of view.
 
 `DTModelStorage` does not force any specific use, and does not imply, which UI components are compatible with it. However, storage classes are designed to work with "sections" and "items", which generally means some kind of table or collection of items.
 
@@ -145,11 +145,11 @@ Installation
 
 [CocoaPods](https://cocoapods.org):
 
-    pod 'DTModelStorage', '~> 3.0.0-beta.1'
+    pod 'DTModelStorage', '~> 3.0.0'
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 3.0.0-beta.1
+    github "DenHeadless/DTModelStorage" ~> 3.0.0
 
 Requirements
 ============

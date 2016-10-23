@@ -115,24 +115,12 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
 public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
     @available(*,unavailable,renamed:"mappingCandidates(for:withModel:)")
     func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
-        return filter { mapping -> Bool in
-            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
-            
-            return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
-        }
+        fatalError("UNAVAILABLE")
     }
     
     @available(*, unavailable, renamed: "addMapping(for:viewClass:xibName:)")
     mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
-        append(ViewModelMapping(viewType: viewType,
-                                viewClass: T.self,
-                                xibName: xibName,
-                                modelTypeCheckingBlock: { model -> Bool in
-                                    return model is T.ModelType
-            }, updateBlock: { (view, model) in
-                guard let view = view  as? T, let model = model as? T.ModelType else { return }
-                view.update(with: model)
-        }))
+        fatalError("UNAVAILABLE")
     }
 }
 @available(*,unavailable,renamed:"ViewModelMappingCustomizing")

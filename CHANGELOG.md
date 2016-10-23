@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [3.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0)
+
+No changes
+
 ## [3.0.0-beta.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/3.0.0-beta.3)
 
 * Requires Realm 2.0 and higher.
