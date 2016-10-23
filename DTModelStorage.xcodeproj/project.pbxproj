@@ -88,6 +88,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9A0C1F6B1DBCBC0B00EE89F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A63E5CC1CCCE8C700DC69B1 /* Realm.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E8267FED1D90B79000E001C7;
+			remoteInfo = ObjectServerTests;
+		};
 		9A3110911BB8637300741F90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AA3B07A2185F55C100A95D16 /* Project object */;
@@ -416,6 +423,7 @@
 				9A63E5DA1CCCE8C700DC69B1 /* Realm.framework */,
 				9A63E5DC1CCCE8C700DC69B1 /* Realm.framework */,
 				9A63E5DE1CCCE8C700DC69B1 /* Tests.xctest */,
+				9A0C1F6C1DBCBC0B00EE89F9 /* ObjectServerTests.xctest */,
 				9A63E5E01CCCE8C700DC69B1 /* iOS static tests.xctest */,
 				9A63E5E21CCCE8C700DC69B1 /* TestHost.app */,
 				9A63E5E41CCCE8C700DC69B1 /* RealmSwift.framework */,
@@ -651,6 +659,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		9A0C1F6C1DBCBC0B00EE89F9 /* ObjectServerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ObjectServerTests.xctest;
+			remoteRef = 9A0C1F6B1DBCBC0B00EE89F9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9A63E5C11CCCE8BB00DC69B1 /* Nimble.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

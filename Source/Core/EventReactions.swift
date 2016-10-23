@@ -166,7 +166,7 @@ open class FiveArgumentsEventReaction : EventReaction {
 
 public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
     /// Returns reaction of `type`, with `signature` and `model`. Returns nil, if reaction was not found.
-    public func reactionOfType(_ type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
+    public func reaction(of type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
         return filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
             return reaction.type == type &&
@@ -176,10 +176,22 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
     }
     
     /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
-    public func performReaction(ofType type: ViewType, signature: String, view: Any?, model: Any, location: Any) -> Any {
-        guard let reaction = reactionOfType(type, signature: signature, forModel: model) else {
+    public func performReaction(of type: ViewType, signature: String, view: Any?, model: Any, location: Any) -> Any {
+        guard let reaction = reaction(of: type, signature: signature, forModel: model) else {
             return 0
         }
         return reaction.performWithArguments((view,model,location))
+    }
+}
+
+public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
+    @available(*, unavailable, renamed: "reaction(of:signature:forModel:)")
+    public func reactionOfType(_ type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*, unavailable, renamed: "performReaction(of:signature:view:model:location:)")
+    public func performReaction(ofType type: ViewType, signature: String, view: Any?, model: Any, location: Any) -> Any {
+        fatalError("UNAVAILABLE")
     }
 }

@@ -27,26 +27,19 @@ import Foundation
 import UIKit
 
 public extension UINib {
-    
     /// Returns true, if nib file with `nibName` exists in `bundle`.
     public class func nibExists(withNibName nibName :String,
                                            inBundle bundle: Bundle = Bundle.main) -> Bool
     {
-        if let _ = bundle.path(forResource: nibName, ofType: "nib")
-        {
-            return true
-        }
-        return false
+        return bundle.path(forResource: nibName, ofType: "nib") != nil
     }
-    
+}
+
+public extension UINib {
     @available(*,unavailable,renamed:"nibExists(withNibName:inBundle:)")
     @nonobjc public class func nibExistsWithNibName(_ nibName :String,
-                                           inBundle bundle: Bundle = Bundle.main) -> Bool
+                                                    inBundle bundle: Bundle = Bundle.main) -> Bool
     {
-        if let _ = bundle.path(forResource: nibName, ofType: "nib")
-        {
-            return true
-        }
-        return false
+        fatalError("UNAVAILABLE")
     }
 }

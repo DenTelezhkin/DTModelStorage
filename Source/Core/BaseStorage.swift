@@ -80,7 +80,7 @@ open class BaseStorage : NSObject, HeaderFooterStorage
         defer { currentUpdate = nil }
         
         if let update = currentUpdate {
-            if update.isEmpty() {
+            if update.isEmpty {
                 return
             }
             delegate?.storageDidPerformUpdate(update)

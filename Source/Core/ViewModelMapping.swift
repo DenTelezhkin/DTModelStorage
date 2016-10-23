@@ -88,7 +88,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    func mappingCandidates(forViewType viewType: ViewType, withModel model: Any) -> [ViewModelMapping] {
+    func mappingCandidates(for viewType: ViewType, withModel model: Any) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
             return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
@@ -113,7 +113,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
 // DEPRECATED
 
 public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
-    @available(*,unavailable,renamed:"mappingCandidates(forViewType:withModel:)")
+    @available(*,unavailable,renamed:"mappingCandidates(for:withModel:)")
     func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }

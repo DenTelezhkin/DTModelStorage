@@ -34,7 +34,7 @@ class UIReactionsTestCase: XCTestCase {
         reaction.makeCellReaction(makeCellBlock({  } , cell: TableCell(), returnValue: 5))
         reactions.append(reaction)
         
-        let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: 5)
+        let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: 5)
         expect(foundReaction).toNot(beNil())
     }
     
@@ -45,7 +45,7 @@ class UIReactionsTestCase: XCTestCase {
         
         let nilModel: Int? = 5
         
-        let foundReaction = reactions.reactionOfType(.cell, signature: "foo", forModel: nilModel)
+        let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: nilModel)
         expect(foundReaction).toNot(beNil())
     }
     
@@ -94,7 +94,7 @@ class UIReactionsTestCase: XCTestCase {
             exp.fulfill()
             }, cell: TableCell(), returnValue: 3))
         reactions.append(reaction)
-        let result = reactions.performReaction(ofType: .cell, signature: "foo", view: TableCell(), model: 5, location: indexPath(0,0))
+        let result = reactions.performReaction(of: .cell, signature: "foo", view: TableCell(), model: 5, location: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
         expect(result as? Int) == 3
     }

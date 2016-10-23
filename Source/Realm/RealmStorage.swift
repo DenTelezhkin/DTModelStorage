@@ -49,7 +49,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     }
     
     /// Storage for notification tokens of `Realm`
-    fileprivate var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
+    private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
@@ -96,7 +96,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     }
     
     /// Handles `change` in `section`, automatically notifying delegate.
-    internal final func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
+    final func handleChange<T>(_ change: RealmCollectionChange<T>, inSection: Int)
     {
         if case RealmCollectionChange.initial(_) = change {
             delegate?.storageNeedsReloading()

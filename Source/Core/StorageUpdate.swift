@@ -56,7 +56,7 @@ public struct StorageUpdate : Equatable, CustomStringConvertible
     public init(){}
     
     /// Returns true, if update is empty.
-    public func isEmpty() -> Bool {
+    public var isEmpty : Bool {
         return deletedSectionIndexes.count == 0 &&
             insertedSectionIndexes.count == 0 &&
             updatedSectionIndexes.count == 0 &&

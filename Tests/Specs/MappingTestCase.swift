@@ -46,7 +46,7 @@ class MappingTestCase: XCTestCase {
     func testProtocolModelIsFindable() {
         mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: ConformingClass())
+        let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
@@ -55,14 +55,14 @@ class MappingTestCase: XCTestCase {
     func testOptionalModelOfProtocolIsFindable() {
         mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         let optional: ConformingClass? = ConformingClass()
-        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: optional)
+        let candidates = mappings.mappingCandidates(for: .cell, withModel: optional)
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
     }
     
     func testSubclassModelMappingIsFindable() {
         mappings.addMapping(for: .cell, viewClass: SubclassTestableTableViewCell.self)
-        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: Subclass())
+        let candidates = mappings.mappingCandidates(for: .cell, withModel: Subclass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == SubclassTestableTableViewCell.self).to(beTrue())
@@ -71,7 +71,7 @@ class MappingTestCase: XCTestCase {
     func testNilModelDoesNotReturnMappingCandidates() {
         mappings.addMapping(for: .cell, viewClass: SubclassTestableTableViewCell.self)
         let model : AncestorClass? = nil
-        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: model)
+        let candidates = mappings.mappingCandidates(for: .cell, withModel: model)
         
         expect(candidates.count) == 0
     }
@@ -79,7 +79,7 @@ class MappingTestCase: XCTestCase {
     func testUpdateBlockCanBeSuccessfullyCalled() {
         mappings.addMapping(for: .cell, viewClass: ProtocolTestableTableViewCell.self)
         
-        let candidates = mappings.mappingCandidates(forViewType: .cell, withModel: ConformingClass())
+        let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass())
         
         expect(candidates.count) == 1
         expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())

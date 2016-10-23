@@ -27,7 +27,6 @@ import Foundation
 import CoreData
 import UIKit
 
-
 /// Private wrapper around `NSFetchedResultsSectionInfo` to conform to `Section` protocol
 private struct DTFetchedResultsSectionInfoWrapper : Section
 {
