@@ -117,21 +117,27 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
         switch type
         {
         case .insert:
-            if let new = newIndexPath { self.currentUpdate?.insertedRowIndexPaths.insert(new) }
+            if let new = newIndexPath {
+                currentUpdate?.objectChanges.append((.insert, [new]))
+            }
         case .delete:
-            if let indexPath = indexPath { self.currentUpdate?.deletedRowIndexPaths.insert(indexPath) }
+            if let indexPath = indexPath {
+                currentUpdate?.objectChanges.append((.delete,[indexPath]))
+            }
         case .move:
             if let indexPath = indexPath, let newIndexPath = newIndexPath {
                 if indexPath != newIndexPath {
-                    self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
-                    self.currentUpdate?.insertedRowIndexPaths.insert(newIndexPath)
+                    currentUpdate?.objectChanges.append((.delete,[indexPath]))
+                    currentUpdate?.objectChanges.append((.insert,[newIndexPath]))
                 }
                 else {
-                    self.currentUpdate?.updatedRowIndexPaths.insert(indexPath)
+                    currentUpdate?.objectChanges.append((.update,[indexPath]))
                 }
             }
         case .update:
-            if let indexPath = indexPath { self.currentUpdate?.updatedRowIndexPaths.insert(indexPath) }
+            if let indexPath = indexPath {
+                currentUpdate?.objectChanges.append((.update,[indexPath]))
+            }
         }
     }
     
@@ -141,11 +147,11 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
     { switch type
     {
     case .insert:
-        self.currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
+        currentUpdate?.sectionChanges.append((.insert,[sectionIndex]))
     case .delete:
-        self.currentUpdate?.deletedSectionIndexes.insert(sectionIndex)
+        currentUpdate?.sectionChanges.append((.delete,[sectionIndex]))
     case .update:
-        self.currentUpdate?.updatedSectionIndexes.insert(sectionIndex)
+        currentUpdate?.sectionChanges.append((.update,[sectionIndex]))
     default: ()
         }
     }

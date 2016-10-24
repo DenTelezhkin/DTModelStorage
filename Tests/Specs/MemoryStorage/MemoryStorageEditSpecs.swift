@@ -32,7 +32,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         try! storage.insertItem(1, to: storage.indexPath(forItem: 6)!)
         
         var update = StorageUpdate()
-        update.insertedRowIndexPaths = [indexPath(2,0)]
+        update.objectChanges.append((.insert,[indexPath(2,0)]))
         
         expect(self.delegate.update) == update
         
@@ -40,7 +40,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         try! storage.insertItem(3, to: storage.indexPath(forItem: 5)!)
         
         update = StorageUpdate()
-        update.insertedRowIndexPaths = [indexPath(0, 1)]
+        update.objectChanges.append((.insert,[indexPath(0,1)]))
         
         expect(self.delegate.update) == update
     }
@@ -94,7 +94,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.reloadItem(4)
         
         var update = StorageUpdate()
-        update.updatedRowIndexPaths = [indexPath(1, 0)]
+        update.objectChanges.append((.update,[indexPath(1,0)]))
         
         expect(self.delegate.update) == update
     }
@@ -105,7 +105,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         try! storage.replaceItem(4, with: 5)
         
         var update = StorageUpdate()
-        update.updatedRowIndexPaths = [indexPath(1, 0)]
+        update.objectChanges.append((.update,[indexPath(1,0)]))
         
         expect(self.delegate.update) == update
     }
@@ -134,12 +134,12 @@ class MemoryStorageEditSpecs: XCTestCase {
         try! storage.removeItem(2)
         
         var update = StorageUpdate()
-        update.deletedRowIndexPaths = [indexPath(0, 0)]
+        update.objectChanges.append((.delete,[indexPath(0,0)]))
         
         expect(self.delegate.update) == update
         
         try! storage.removeItem(5)
-        update.deletedRowIndexPaths = [indexPath(0, 1)]
+        update.objectChanges = [(.delete,[indexPath(0,1)])]
         
         expect(self.delegate.update) == update
     }
@@ -168,13 +168,12 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.removeItems(at: [indexPath(0, 0)])
         
         var update = StorageUpdate()
-        update.deletedRowIndexPaths = [indexPath(0, 0)]
+        update.objectChanges.append((.delete,[indexPath(0,0)]))
         
         expect(self.delegate.update) == update
         
         storage.removeItems(at: [indexPath(0, 1)])
-        
-        update.deletedRowIndexPaths = [indexPath(0, 1)]
+        update.objectChanges = [(.delete,[indexPath(0,1)])]
         
         expect(self.delegate.update) == update
     }
@@ -187,7 +186,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.removeItems(at: [indexPath(0, 0),indexPath(0, 1)])
         
         var update = StorageUpdate()
-        update.deletedRowIndexPaths = [indexPath(0, 1),indexPath(0, 0)]
+        update.objectChanges.append((.delete,[indexPath(0,1)]))
+        update.objectChanges.append((.delete,[indexPath(0,0)]))
         
         expect(self.delegate.update) == update
     }
@@ -206,7 +206,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2,4], toSection: 1)
         
         var update = StorageUpdate()
-        update.deletedRowIndexPaths = [indexPath(0, 0),indexPath(1, 1),indexPath(1, 0)]
+        update.objectChanges.append((.delete,[indexPath(0,0)]))
+        update.objectChanges.append((.delete,[indexPath(1,1)]))
+        update.objectChanges.append((.delete,[indexPath(1,0)]))
     }
     
     func testShouldDeleteSectionsEvenIfThereAreNone()
@@ -223,7 +225,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.deleteSections(IndexSet(integer: 1))
         
         var update = StorageUpdate()
-        update.deletedSectionIndexes.insert(1)
+        update.sectionChanges.append((.delete,[1]))
         
         expect(self.delegate.update) == update
     }
@@ -239,8 +241,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.deleteSections(set as IndexSet)
         
         var update = StorageUpdate()
-        update.deletedSectionIndexes.insert(1)
-        update.deletedSectionIndexes.insert(3)
+        update.sectionChanges.append((.delete,[1]))
+        update.sectionChanges.append((.delete,[3]))
         
         expect(self.delegate.update) == update
         expect(self.storage.sections.count) == 2
@@ -326,7 +328,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.moveSection(0, toSection: 1)
         expect(self.storage.section(atIndex: 0)?.items.count) == 2
         expect(self.storage.section(atIndex: 1)?.items.count) == 1
-        expect(self.delegate.update?.movedSectionIndexes.elementsEqual([[0,1]], by: { $0 == $1 })).to(beTrue())
+        let moves = delegate.update?.sectionChanges.filter { $0.0 == .move }
+        expect(moves?.first?.1) == [0,1]
     }
     
     func testMovingItem()
@@ -339,7 +342,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.storage.item(at: indexPath(1, 1)) as? Int) == 1
         
-        expect(self.delegate.update?.movedRowIndexPaths.elementsEqual([[indexPath(0, 0), indexPath(1,1)]], by: { $0 == $1 })).to(beTrue())
+        let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
+        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(1,1)]
     }
     
     func testMovingItemIntoNonExistingSection()
@@ -350,8 +354,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 1
         
-        expect(self.delegate.update?.insertedSectionIndexes) == Set(arrayLiteral: 1)
-        expect(self.delegate.update?.movedRowIndexPaths.elementsEqual([[indexPath(0, 0), indexPath(0,1)]], by: { $0 == $1 })).to(beTrue())
+        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $1}) == [1]
+        let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
+        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(0,1)]
     }
     
     func testMovingNotExistingIndexPath()
@@ -423,8 +428,8 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setItems([1,2,3])
         storage.insertSection(section, atIndex: 0)
         
-        expect(self.updatesObserver.update?.insertedSectionIndexes) == Set([0])
-        expect(self.updatesObserver.update?.insertedRowIndexPaths) == Set([indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)])
+        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $1}) == [0]
+        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $1 }) == [indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)]
         
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"

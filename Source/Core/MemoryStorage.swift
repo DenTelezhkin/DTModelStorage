@@ -226,9 +226,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         guard sectionIndex <= sections.count else { return }
         startUpdate()
         sections.insert(section, at: sectionIndex)
-        currentUpdate?.insertedSectionIndexes.insert(sectionIndex)
+        currentUpdate?.sectionChanges.append((.insert,[sectionIndex]))
         for item in 0..<section.numberOfItems {
-            currentUpdate?.insertedRowIndexPaths.insert(IndexPath(item: item, section: sectionIndex))
+            currentUpdate?.objectChanges.append((.insert,[IndexPath(item: item, section: sectionIndex)]))
         }
         finishUpdate()
     }
@@ -244,7 +244,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         for item in items {
             let numberOfItems = section.numberOfItems
             section.items.append(item)
-            currentUpdate?.insertedRowIndexPaths.insert(IndexPath(item: numberOfItems, section: index))
+            currentUpdate?.objectChanges.append((.insert,[IndexPath(item: numberOfItems, section: index)]))
         }
         finishUpdate()
     }
@@ -255,12 +255,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Parameter toSection: index of section to add item
     open func addItem<T>(_ item: T, toSection index: Int = 0)
     {
-        self.startUpdate()
+        startUpdate()
         let section = self.getValidSection(index)
         let numberOfItems = section.numberOfItems
         section.items.append(item)
-        self.currentUpdate?.insertedRowIndexPaths.insert(IndexPath(item: numberOfItems, section: index))
-        self.finishUpdate()
+        currentUpdate?.objectChanges.append((.insert,[IndexPath(item: numberOfItems, section: index)]))
+        finishUpdate()
     }
     
     /// Inserts `item` to `indexPath`.
@@ -277,7 +277,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
         
         section.items.insert(item, at: indexPath.item)
-        self.currentUpdate?.insertedRowIndexPaths.insert(indexPath)
+        currentUpdate?.objectChanges.append((.insert,[indexPath]))
         self.finishUpdate()
     }
     
@@ -297,7 +297,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
                     return
                 }
                 section.items.insert(items[itemIndex], at: indexPath.item)
-                currentUpdate?.insertedRowIndexPaths.insert(indexPath)
+                currentUpdate?.objectChanges.append((.insert,[indexPath]))
             }
         }
     }
@@ -307,7 +307,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         self.startUpdate()
         if let indexPath = self.indexPath(forItem: item) {
-            self.currentUpdate?.updatedRowIndexPaths.insert(indexPath)
+            currentUpdate?.objectChanges.append((.update,[indexPath]))
         }
         self.finishUpdate()
     }
@@ -327,7 +327,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         let section = self.getValidSection(originalIndexPath.section)
         section.items[originalIndexPath.item] = replacingItem
         
-        self.currentUpdate?.updatedRowIndexPaths.insert(originalIndexPath)
+        currentUpdate?.objectChanges.append((.update,[originalIndexPath]))
     }
     
     /// Removes `item`.
@@ -335,15 +335,15 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Throws: if item is not found, will throw MemoryStorageErrors.Removal.ItemNotFound
     open func removeItem<T:Equatable>(_ item: T) throws
     {
-        self.startUpdate()
+        startUpdate()
         defer { self.finishUpdate() }
         
         guard let indexPath = self.indexPath(forItem: item) else {
             throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
         }
-        self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
+        getValidSection(indexPath.section).items.remove(at: indexPath.item)
         
-        self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
+        currentUpdate?.objectChanges.append((.delete,[indexPath]))
     }
     
     /// Removes `items` from storage.
@@ -352,15 +352,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `removeItems(at:)`
     open func removeItems<T:Equatable>(_ items: [T])
     {
-        self.startUpdate()
+        startUpdate()
         
         let indexPaths = indexPathArray(forItems: items)
         for indexPath in type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
         {
-            self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
-            self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
+            getValidSection(indexPath.section).items.remove(at: indexPath.item)
         }
-        self.finishUpdate()
+        indexPaths.forEach {
+            currentUpdate?.objectChanges.append((.delete, [$0]))
+        }
+        finishUpdate()
     }
     
     /// Removes items at `indexPaths`.
@@ -369,36 +371,41 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `removeItems(_:)`
     open func removeItems(at indexPaths : [IndexPath])
     {
-        self.startUpdate()
+        startUpdate()
         
         let reverseSortedIndexPaths = type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
         for indexPath in reverseSortedIndexPaths
         {
             if let _ = self.item(at: indexPath)
             {
-                self.getValidSection(indexPath.section).items.remove(at: indexPath.item)
-                self.currentUpdate?.deletedRowIndexPaths.insert(indexPath)
+                getValidSection(indexPath.section).items.remove(at: indexPath.item)
+                currentUpdate?.objectChanges.append((.delete,[indexPath]))
             }
         }
         
-        self.finishUpdate()
+        finishUpdate()
     }
     
-    /// Deletes `sections` from storage.
+    /// Deletes `indexes` from storage.
     ///
     /// Sections will be deleted in backwards order, starting from the last one.
-    open func deleteSections(_ sections : IndexSet)
+    open func deleteSections(_ indexes : IndexSet)
     {
-        self.startUpdate()
+        startUpdate()
         
-        var i = sections.last ?? NSNotFound
-        while i != NSNotFound && i < self.sections.count {
-            self.sections.remove(at: i)
-            self.currentUpdate?.deletedSectionIndexes.insert(i)
-            i = sections.integerLessThan(i) ?? NSNotFound
+        var markedForDeletion = [Int]()
+        for section in indexes {
+            if section < self.sections.count {
+                markedForDeletion.append(section)
+            }
         }
-        
-        self.finishUpdate()
+        for section in markedForDeletion.sorted().reversed() {
+            sections.remove(at: section)
+        }
+        markedForDeletion.forEach {
+            currentUpdate?.sectionChanges.append((.delete, [$0]))
+        }
+        finishUpdate()
     }
     
     /// Moves section from `sourceSectionIndex` to `destinationSectionIndex`.
@@ -410,7 +417,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         let _ = getValidSection(destinationSectionIndex)
         sections.remove(at: sourceSectionIndex)
         sections.insert(validSectionFrom, at: destinationSectionIndex)
-        currentUpdate?.movedSectionIndexes.append([sourceSectionIndex,destinationSectionIndex])
+        currentUpdate?.sectionChanges.append((.move,[sourceSectionIndex,destinationSectionIndex]))
         self.finishUpdate()
     }
     
@@ -435,7 +442,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
         sourceSection.items.remove(at: source.row)
         destinationSection.items.insert(sourceItem, at: destination.item)
-        currentUpdate?.movedRowIndexPaths.append([source,destination])
+        currentUpdate?.objectChanges.append((.move,[source,destination]))
     }
     
     /// Removes all items from storage.
@@ -459,7 +466,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         guard let section = section(atIndex: sectionIndex) else { return }
         
         for (index,_) in section.items.enumerated(){
-            currentUpdate?.deletedRowIndexPaths.insert(IndexPath(item: index, section: sectionIndex))
+            currentUpdate?.objectChanges.append((.delete,[IndexPath(item: index, section: sectionIndex)]))
         }
         section.items.removeAll()
     }
@@ -511,12 +518,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         if sectionIndex < self.sections.count
         {
-            return self.sections[sectionIndex] as! SectionModel
+            return sections[sectionIndex] as! SectionModel
         }
         else {
-            for i in self.sections.count...sectionIndex {
-                self.sections.append(SectionModel())
-                self.currentUpdate?.insertedSectionIndexes.insert(i)
+            for i in sections.count...sectionIndex {
+                sections.append(SectionModel())
+                currentUpdate?.sectionChanges.append((.insert,[i]))
             }
         }
         return self.sections.last as! SectionModel

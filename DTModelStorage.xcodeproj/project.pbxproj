@@ -932,6 +932,7 @@
 				PRODUCT_NAME = DTModelStorage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -950,6 +951,7 @@
 				PRODUCT_NAME = DTModelStorage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

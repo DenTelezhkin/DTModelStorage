@@ -78,7 +78,7 @@ class RealmStorageTestCase: XCTestCase {
                 self.realm.add(dog)
             }
         }
-        expect(updateObserver.update?.insertedRowIndexPaths).toEventually(equal(Set([indexPath(1, 0)])))
+        expect(updateObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $1 }).toEventually(equal([indexPath(1, 0)]))
     }
     
     func testDeleteNotificationIsHandled() {
@@ -99,7 +99,7 @@ class RealmStorageTestCase: XCTestCase {
                 self.realm.delete(dog)
             }
         }
-        expect(updateObserver.update?.deletedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
+        expect(updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testUpdateNotificationIsHandled() {
@@ -119,7 +119,7 @@ class RealmStorageTestCase: XCTestCase {
                 dog.name = "Rex"
             }
         }
-        expect(updateObserver.update?.updatedRowIndexPaths).toEventually(equal(Set([indexPath(0, 0)])))
+        expect(updateObserver.update?.objectChanges.filter { $0.0 == .update }.flatMap { $1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testStorageHasSingleSection() {
@@ -151,7 +151,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.delegate = observer
         
         storage.deleteSections(IndexSet(integer: 0))
-        expect(observer.update?.deletedSectionIndexes) == Set<Int>([0])
+        expect(observer.update?.sectionChanges.filter { $0.0 == .delete }.flatMap { $1 }) == [0]
         expect(self.storage.sections.count) == 1
     }
     

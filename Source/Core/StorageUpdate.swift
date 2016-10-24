@@ -25,73 +25,64 @@
 
 import Foundation
 
+// Possible change types for objects and sections
+public enum ChangeType: String {
+    case delete
+    case move
+    case insert
+    case update
+}
+
 /// Object representing update in storage.
 public struct StorageUpdate : Equatable, CustomStringConvertible
 {
-    /// Indexes of section to be deleted in current update
-    public var deletedSectionIndexes = Set<Int>()
+    // Object changes in update, in order of occurence
+    public var objectChanges = [(ChangeType,[IndexPath])]()
     
-    /// Indexes of sections to be inserted in current update
-    public var insertedSectionIndexes = Set<Int>()
-    
-    /// Indexes of sections to be updated in current update.
-    public var updatedSectionIndexes = Set<Int>()
-    
-    /// Array of section indexes to be moved in current update
-    public var movedSectionIndexes = [[Int]]()
-
-    /// Index paths of rows that need to be deleted in current update.
-    public var deletedRowIndexPaths = Set<IndexPath>()
-    
-    /// Index paths of rows that need to be inserted in current update.
-    public var insertedRowIndexPaths = Set<IndexPath>()
-    
-    /// Index paths of rows that need to be updated in current update.
-    public var updatedRowIndexPaths = Set<IndexPath>()
-    
-    /// Array if index paths to be moved in current update.
-    public var movedRowIndexPaths = [[IndexPath]]()
+    // Section changes in update, in order of occurence
+    public var sectionChanges = [(ChangeType, [Int])]()
     
     /// Create an empty update.
     public init(){}
     
     /// Returns true, if update is empty.
     public var isEmpty : Bool {
-        return deletedSectionIndexes.count == 0 &&
-            insertedSectionIndexes.count == 0 &&
-            updatedSectionIndexes.count == 0 &&
-            movedSectionIndexes.count == 0 &&
-            deletedRowIndexPaths.count == 0 &&
-            insertedRowIndexPaths.count == 0 &&
-            updatedRowIndexPaths.count == 0 &&
-            movedRowIndexPaths.count == 0
+        return objectChanges.isEmpty && sectionChanges.isEmpty
     }
     
     /// Compare StorageUpdates
     static public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
     {
-        guard left.deletedSectionIndexes == right.deletedSectionIndexes else { return false }
-        guard left.insertedSectionIndexes == right.insertedSectionIndexes else { return false }
-        guard left.updatedSectionIndexes == right.updatedSectionIndexes else { return false }
-        guard left.movedSectionIndexes.elementsEqual(right.movedSectionIndexes, by: { $0 == $1 }) else {
+        if left.objectChanges.count != right.objectChanges.count ||
+            left.sectionChanges.count != right.sectionChanges.count {
             return false
         }
-        guard left.deletedRowIndexPaths == right.deletedRowIndexPaths else { return false }
-        guard left.insertedRowIndexPaths == right.insertedRowIndexPaths else { return false }
-        guard left.updatedRowIndexPaths == right.updatedRowIndexPaths else { return false }
-        guard left.movedRowIndexPaths.elementsEqual(right.movedRowIndexPaths, by: { $0 == $1 }) else {
-            return false
+        
+        for (index,_) in left.objectChanges.enumerated() {
+            if left.objectChanges[index].0 != right.objectChanges[index].0 ||
+                left.objectChanges[index].1 != right.objectChanges[index].1
+            {
+                return false
+            }
+        }
+        for (index,_) in left.sectionChanges.enumerated() {
+            if left.sectionChanges[index].0 != right.sectionChanges[index].0 ||
+                left.sectionChanges[index].1 != right.sectionChanges[index].1
+            {
+                return false
+            }
         }
         return true
     }
     
     public var description : String {
-        return "Deleted section indexes: \(deletedSectionIndexes)\n" +
-            "Inserted section indexes : \(insertedSectionIndexes)\n" +
-            "Updated section indexes : \(updatedSectionIndexes)\n" +
-            "Deleted row indexPaths: \(deletedRowIndexPaths)\n" +
-            "Inserted row indexPaths: \(insertedRowIndexPaths)\n" +
-            "Updated row indexPaths: \(updatedRowIndexPaths)\n"
+        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ change,indexPaths in
+            return change.rawValue.capitalized + " \(indexPaths)"
+        }).reduce("",+)
+        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ change,index in
+            return change.rawValue.capitalized + " \(index))"
+        }).reduce("",+)
+        return objectChangesString + "\n" + sectionChangesString
     }
 }
 

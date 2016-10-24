@@ -107,13 +107,13 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
         startUpdate()
         deletions.forEach{ [weak self] in
-            self?.currentUpdate?.deletedRowIndexPaths.insert(IndexPath(item: $0, section: inSection))
+            self?.currentUpdate?.objectChanges.append((.delete,[IndexPath(item: $0, section: inSection)]))
         }
         insertions.forEach{ [weak self] in
-            self?.currentUpdate?.insertedRowIndexPaths.insert(IndexPath(item: $0, section: inSection))
+            self?.currentUpdate?.objectChanges.append((.insert,[IndexPath(item: $0, section: inSection)]))
         }
         modifications.forEach{ [weak self] in
-            self?.currentUpdate?.updatedRowIndexPaths.insert(IndexPath(item: $0, section: inSection))
+            self?.currentUpdate?.objectChanges.append((.update,[IndexPath(item: $0, section: inSection)]))
         }
         finishUpdate()
     }
@@ -125,13 +125,19 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { self.finishUpdate() }
         
-        var i = indexes.last ?? NSNotFound
-        while i != NSNotFound && i < self.sections.count {
-            self.sections.remove(at: i)
-            notificationTokens[i]?.stop()
-            notificationTokens[i] = nil
-            self.currentUpdate?.deletedSectionIndexes.insert(i)
-            i = indexes.integerLessThan(i) ?? NSNotFound
+        var markedForDeletion = [Int]()
+        for section in indexes {
+            if section < self.sections.count {
+                markedForDeletion.append(section)
+            }
+        }
+        for section in markedForDeletion.sorted().reversed() {
+            notificationTokens[section]?.stop()
+            notificationTokens[section] = nil
+            self.sections.remove(at: section)
+        }
+        markedForDeletion.forEach {
+            currentUpdate?.sectionChanges.append((.delete, [$0]))
         }
     }
     
