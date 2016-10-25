@@ -137,6 +137,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
         case .update:
             if let indexPath = indexPath {
                 currentUpdate?.objectChanges.append((.update,[indexPath]))
+                currentUpdate?.updatedObjects[indexPath] = anObject
             }
         }
     }

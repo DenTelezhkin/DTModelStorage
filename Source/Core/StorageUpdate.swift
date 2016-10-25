@@ -36,11 +36,15 @@ public enum ChangeType: String {
 /// Object representing update in storage.
 public struct StorageUpdate : Equatable, CustomStringConvertible
 {
-    // Object changes in update, in order of occurence
+    /// Object changes in update, in order of occurence
     public var objectChanges = [(ChangeType,[IndexPath])]()
     
-    // Section changes in update, in order of occurence
+    /// Section changes in update, in order of occurence
     public var sectionChanges = [(ChangeType, [Int])]()
+    
+    /// Objects that were updated, with initial index paths
+    /// Discussion: This is done because UITableView and UICollectionView defer updating of items after all insertions and deletions are made. Therefore, resulting indexPaths are shifted, and update may be called on wrong indexPath. By storing objects from initial update call, we ensure, that objects used in update are correct.
+    public var updatedObjects = [IndexPath:Any]()
     
     /// Create an empty update.
     public init(){}
