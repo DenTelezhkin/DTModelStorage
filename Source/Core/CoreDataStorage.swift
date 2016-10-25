@@ -132,6 +132,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
                 }
                 else {
                     currentUpdate?.objectChanges.append((.update,[indexPath]))
+                    currentUpdate?.updatedObjects[indexPath] = anObject
                 }
             }
         case .update:

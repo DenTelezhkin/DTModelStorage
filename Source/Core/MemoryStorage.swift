@@ -305,11 +305,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Reloads `item`.
     open func reloadItem<T:Equatable>(_ item: T)
     {
-        self.startUpdate()
+        startUpdate()
         if let indexPath = self.indexPath(forItem: item) {
             currentUpdate?.objectChanges.append((.update,[indexPath]))
+            currentUpdate?.updatedObjects[indexPath] = item
         }
-        self.finishUpdate()
+        finishUpdate()
     }
     
     /// Replace item `itemToReplace` with `replacingItem`.
@@ -317,7 +318,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Throws: if `itemToReplace` is not found, will throw MemoryStorageErrors.Replacement.ItemNotFound
     open func replaceItem<T: Equatable>(_ itemToReplace: T, with replacingItem: Any) throws
     {
-        self.startUpdate()
+        startUpdate()
         defer { self.finishUpdate() }
         
         guard let originalIndexPath = self.indexPath(forItem: itemToReplace) else {
@@ -328,6 +329,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         section.items[originalIndexPath.item] = replacingItem
         
         currentUpdate?.objectChanges.append((.update,[originalIndexPath]))
+        currentUpdate?.updatedObjects[originalIndexPath] = replacingItem
     }
     
     /// Removes `item`.

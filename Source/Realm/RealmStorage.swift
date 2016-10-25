@@ -114,6 +114,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
         modifications.forEach{ [weak self] in
             self?.currentUpdate?.objectChanges.append((.update,[IndexPath(item: $0, section: inSection)]))
+            self?.currentUpdate?.updatedObjects[IndexPath(item: $0, section: inSection)] = self?.item(at: IndexPath(item: $0, section: inSection))
         }
         finishUpdate()
     }
