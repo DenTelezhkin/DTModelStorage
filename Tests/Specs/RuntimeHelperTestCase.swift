@@ -16,7 +16,7 @@ class RuntimeHelperTestCase: XCTestCase {
     func testRuntimeHelperIsAbleToRecursivelyUnwrapButReturnNil()
     {
         let implicitlyUnwrapped : Int? = nil
-        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped)
+        let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped as Any)
         expect(unwrapped).to(beNil())
     }
 }

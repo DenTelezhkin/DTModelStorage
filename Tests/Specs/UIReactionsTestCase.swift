@@ -45,7 +45,7 @@ class UIReactionsTestCase: XCTestCase {
         
         let nilModel: Int? = 5
         
-        let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: nilModel)
+        let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: nilModel as Any)
         expect(foundReaction).toNot(beNil())
     }
     

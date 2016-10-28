@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Next
+## [4.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/4.0.0)
 
 * `StorageUpdate` properties, that tracked changes independently of each other, have been replaced with `objectChanges`, `sectionChanges` arrays, that track all changes in order they occured
 * `StorageUpdate` now has `updatedObjects` dictionary, that allow tracking objects, that have been updated, along with corresponding indexPath. It is done because UITableView and UICollectionView defer cell updates after insertions and deletions are completed, and therefore shift indexPaths. For example, if you were to insert 0 item and update it, UITableView would think that you are updating 1 item instead of 0, because it happens in single animation block and 0 item becomes 1.

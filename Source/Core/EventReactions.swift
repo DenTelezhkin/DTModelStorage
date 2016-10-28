@@ -136,7 +136,7 @@ open class EventReaction {
     
     /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any,Any,Any)) -> Any {
-        return reaction?(arguments.0,arguments.1,arguments.2)
+        return reaction?(arguments.0,arguments.1,arguments.2) ?? 0
     }
 }
 
@@ -148,7 +148,7 @@ open class FourArgumentsEventReaction : EventReaction {
     
     /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any, Any, Any, Any)) -> Any {
-        return reaction4Arguments?(arguments.0, arguments.1, arguments.2, arguments.3)
+        return reaction4Arguments?(arguments.0, arguments.1, arguments.2, arguments.3) ?? 0
     }
 }
 
@@ -160,7 +160,7 @@ open class FiveArgumentsEventReaction : EventReaction {
     
     /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any, Any, Any, Any, Any)) -> Any {
-        return reaction5Arguments?(arguments.0, arguments.1, arguments.2, arguments.3, arguments.4)
+        return reaction5Arguments?(arguments.0, arguments.1, arguments.2, arguments.3, arguments.4) ?? 0
     }
 }
 
@@ -180,7 +180,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
         guard let reaction = reaction(of: type, signature: signature, forModel: model) else {
             return 0
         }
-        return reaction.performWithArguments((view,model,location))
+        return reaction.performWithArguments((view ?? 0,model,location))
     }
 }
 
