@@ -10,6 +10,8 @@
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
 		9A41A6341DC8B5E000B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
+		9A41A6351DC8BAFC00B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
+		9A41A6361DC8BB0200B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5ED1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
@@ -824,10 +826,12 @@
 				9A63E6091CCCE94B00DC69B1 /* EventReactions.swift in Sources */,
 				9A63E6031CCCE94B00DC69B1 /* ModelTransfer.swift in Sources */,
 				9A63E6011CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
+				9A41A6351DC8BAFC00B9A015 /* SectionProtocols.swift in Sources */,
 				9A63E6111CCCE95A00DC69B1 /* BaseStorage.swift in Sources */,
 				9A63E5F11CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
 				9A63E5F91CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F31CCCE92800DC69B1 /* SectionModel.swift in Sources */,
+				9A41A6361DC8BB0200B9A015 /* Deprecated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -127,3 +127,51 @@ public extension ViewModelMappingCustomizing {
         fatalError("UNAVAILABLE")
     }
 }
+
+extension MemoryStorage {
+    @available(*,unavailable,renamed:"item(at:)")
+    open func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"removeItems(at:)")
+    open func removeItemsAtIndexPaths(_ indexPaths : [IndexPath])
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"moveItem(at:to:)")
+    open func moveItemAtIndexPath(_ source: IndexPath, toIndexPath destination: IndexPath)
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"items(inSection:)")
+    @nonobjc open func itemsInSection(_ section: Int) -> [Any]?
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"indexPath(forItem:)")
+    open func indexPathForItem<T: Equatable>(_ searchableItem : T) -> IndexPath?
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"indexPathArray(forItems:)")
+    final func indexPathArrayForItems<T:Equatable>(_ items:[T]) -> [IndexPath]
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"removeItems(fromSection:)")
+    @nonobjc open func removeItemsFromSection(_ sectionIndex: Int) {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"section(atIndex:)")
+    open func sectionAtIndex(_ sectionIndex : Int) -> SectionModel?
+    {
+        fatalError("UNAVAILABLE")
+    }
+}
