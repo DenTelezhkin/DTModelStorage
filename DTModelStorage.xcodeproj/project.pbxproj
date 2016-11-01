@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
+		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
+		9A41A6341DC8B5E000B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5ED1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
@@ -35,8 +37,8 @@
 		9A63E6111CCCE95A00DC69B1 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60C1CCCE95A00DC69B1 /* BaseStorage.swift */; };
 		9A63E6121CCCE95A00DC69B1 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60D1CCCE95A00DC69B1 /* Section.swift */; };
 		9A63E6131CCCE95A00DC69B1 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60D1CCCE95A00DC69B1 /* Section.swift */; };
-		9A63E6141CCCE95A00DC69B1 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60E1CCCE95A00DC69B1 /* StorageProtocol.swift */; };
-		9A63E6151CCCE95A00DC69B1 /* StorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60E1CCCE95A00DC69B1 /* StorageProtocol.swift */; };
+		9A63E6141CCCE95A00DC69B1 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60E1CCCE95A00DC69B1 /* StorageProtocols.swift */; };
+		9A63E6151CCCE95A00DC69B1 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60E1CCCE95A00DC69B1 /* StorageProtocols.swift */; };
 		9A63E6161CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */; };
 		9A63E6171CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */; };
 		9A63E61A1CCCE99200DC69B1 /* RealmFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6181CCCE99200DC69B1 /* RealmFixtures.swift */; };
@@ -236,6 +238,8 @@
 		9A2A38DD1C37FE0600783317 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../Carthage/Checkouts/realm-cocoa/build/Debug/RealmSwift.framework"; sourceTree = "<group>"; };
 		9A2A38DF1C37FE1100783317 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../Carthage/Checkouts/realm-cocoa/build/Debug/RealmSwift.framework"; sourceTree = "<group>"; };
 		9A2A38E11C37FE5900783317 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../Carthage/Checkouts/realm-cocoa/build/Debug/Realm.framework"; sourceTree = "<group>"; };
+		9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionProtocols.swift; path = Source/Core/SectionProtocols.swift; sourceTree = "<group>"; };
+		9A41A6331DC8B5E000B9A015 /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Source/Core/Deprecated.swift; sourceTree = "<group>"; };
 		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A63E5B71CCCE8BA00DC69B1 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
@@ -256,7 +260,7 @@
 		9A63E5FF1CCCE94B00DC69B1 /* ViewModelMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelMapping.swift; path = Source/Core/ViewModelMapping.swift; sourceTree = "<group>"; };
 		9A63E60C1CCCE95A00DC69B1 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseStorage.swift; path = Source/Core/BaseStorage.swift; sourceTree = "<group>"; };
 		9A63E60D1CCCE95A00DC69B1 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Section.swift; path = Source/Core/Section.swift; sourceTree = "<group>"; };
-		9A63E60E1CCCE95A00DC69B1 /* StorageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocol.swift; path = Source/Core/StorageProtocol.swift; sourceTree = "<group>"; };
+		9A63E60E1CCCE95A00DC69B1 /* StorageProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageProtocols.swift; path = Source/Core/StorageProtocols.swift; sourceTree = "<group>"; };
 		9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StorageUpdate.swift; path = Source/Core/StorageUpdate.swift; sourceTree = "<group>"; };
 		9A63E6181CCCE99200DC69B1 /* RealmFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmFixtures.swift; path = Tests/Realm/RealmFixtures.swift; sourceTree = SOURCE_ROOT; };
 		9A63E6191CCCE99200DC69B1 /* RealmStorageTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmStorageTestCase.swift; path = Tests/Realm/RealmStorageTestCase.swift; sourceTree = SOURCE_ROOT; };
@@ -469,8 +473,10 @@
 			children = (
 				9A63E60C1CCCE95A00DC69B1 /* BaseStorage.swift */,
 				9A63E60D1CCCE95A00DC69B1 /* Section.swift */,
-				9A63E60E1CCCE95A00DC69B1 /* StorageProtocol.swift */,
+				9A63E60E1CCCE95A00DC69B1 /* StorageProtocols.swift */,
+				9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */,
 				9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */,
+				9A41A6331DC8B5E000B9A015 /* Deprecated.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -788,16 +794,18 @@
 				9A63E5F61CCCE93600DC69B1 /* RealmSection.swift in Sources */,
 				9A63E6061CCCE94B00DC69B1 /* UINib+Existance.swift in Sources */,
 				9A63E60A1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,
-				9A63E6141CCCE95A00DC69B1 /* StorageProtocol.swift in Sources */,
+				9A63E6141CCCE95A00DC69B1 /* StorageProtocols.swift in Sources */,
 				9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */,
 				9A63E6041CCCE94B00DC69B1 /* RuntimeHelper.swift in Sources */,
 				9A63E6081CCCE94B00DC69B1 /* EventReactions.swift in Sources */,
 				9A63E6021CCCE94B00DC69B1 /* ModelTransfer.swift in Sources */,
 				9A63E6001CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
+				9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */,
 				9A63E6101CCCE95A00DC69B1 /* BaseStorage.swift in Sources */,
 				9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
 				9A63E5F81CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F21CCCE92800DC69B1 /* SectionModel.swift in Sources */,
+				9A41A6341DC8B5E000B9A015 /* Deprecated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,7 +820,7 @@
 				9A63E60B1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,
 				9A63E5ED1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */,
 				9A63E6051CCCE94B00DC69B1 /* RuntimeHelper.swift in Sources */,
-				9A63E6151CCCE95A00DC69B1 /* StorageProtocol.swift in Sources */,
+				9A63E6151CCCE95A00DC69B1 /* StorageProtocols.swift in Sources */,
 				9A63E6091CCCE94B00DC69B1 /* EventReactions.swift in Sources */,
 				9A63E6031CCCE94B00DC69B1 /* ModelTransfer.swift in Sources */,
 				9A63E6011CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,

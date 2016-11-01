@@ -75,7 +75,7 @@ public enum MemoryStorageError : LocalizedError
 /// `MemoryStorage` stores data models using array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
-open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable
+open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
 {
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {
@@ -166,32 +166,6 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             let section = self.sections[index] as? SupplementaryAccessible
             section?.supplementaries[kind] = models[index]
         }
-    }
-    
-    /// Sets section header `models`, using `supplementaryHeaderKind`.
-    ///
-    /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
-    open func setSectionHeaderModels<T>(_ models : [T])
-    {
-        assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
-        for model in models {
-            supplementaries.append([0:model])
-        }
-        self.setSupplementaries(supplementaries, forKind: self.supplementaryHeaderKind!)
-    }
-
-    /// Sets section footer `models`, using `supplementaryFooterKind`.
-    ///
-    /// - Note: `supplementaryFooterKind` property should be set before calling this method.
-    open func setSectionFooterModels<T>(_ models : [T])
-    {
-        assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
-        for model in models {
-            supplementaries.append([0:model])
-        }
-        self.setSupplementaries(supplementaries, forKind: self.supplementaryFooterKind!)
     }
     
     /// Sets `items` for section at `index`.

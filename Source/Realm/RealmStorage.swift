@@ -30,7 +30,7 @@ import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable
+open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
 {
     /// Array of `RealmSection` objects
     open var sections = [Section]() {
@@ -186,33 +186,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
             section?.supplementaries[kind] = models[index]
         }
     }
-    
-    /// Sets section header `models`, using `supplementaryHeaderKind`.
-    ///
-    /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
-    open func setSectionHeaderModels<T>(_ models : [T])
-    {
-        assert(self.supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
-        for model in models {
-            supplementaries.append([0:model])
-        }
-        self.setSupplementaries(supplementaries, forKind: self.supplementaryHeaderKind!)
-    }
-    
-    /// Sets section footer `models`, using `supplementaryFooterKind`.
-    ///
-    /// - Note: `supplementaryFooterKind` property should be set before calling this method.
-    open func setSectionFooterModels<T>(_ models : [T])
-    {
-        assert(self.supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
-        for model in models {
-            supplementaries.append([0:model])
-        }
-        self.setSupplementaries(supplementaries, forKind: self.supplementaryFooterKind!)
-    }
-    
+        
     // MARK: - Storage
     
     /// Returns item at `indexPath` or nil, if it is not found.
@@ -233,22 +207,5 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         guard sectionIndexPath.section < sections.count else { return nil }
         
         return (sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModel(ofKind:kind, atIndex: sectionIndexPath.item)
-    }
-    
-    // DEPRECATED
-    
-    @available(*, unavailable, renamed: "section(at:)")
-    open func sectionAtIndex(_ sectionIndex: Int) -> Section? {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*, unavailable, renamed: "addSection(with:)")
-    open func addSectionWithResults<T:Object>(_ results: Results<T>) {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*,unavailable,renamed:"setSection(with:forSection:)")
-    open func setSectionWithResults<T:Object>(_ results: Results<T>, forSectionIndex index: Int) {
-        fatalError("UNAVAILABLE")
     }
 }

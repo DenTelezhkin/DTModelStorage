@@ -109,26 +109,3 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
         }))
     }
 }
-
-// DEPRECATED
-
-public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
-    @available(*,unavailable,renamed:"mappingCandidates(for:withModel:)")
-    func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*, unavailable, renamed: "addMapping(for:viewClass:xibName:)")
-    mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
-        fatalError("UNAVAILABLE")
-    }
-}
-@available(*,unavailable,renamed:"ViewModelMappingCustomizing")
-public protocol DTViewModelMappingCustomizable {}
-
-public extension ViewModelMappingCustomizing {
-    @available(*,unavailable,renamed:"viewModelMapping(fromCandidates:withModel:)")
-    func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
-        fatalError("UNAVAILABLE")
-    }
-}

@@ -60,42 +60,37 @@ public protocol HeaderFooterStorage
     var supplementaryFooterKind : String?  { get set }
 }
 
-public protocol SectionLocationIdentifyable : class {
-    /// Returns section index for section, or nil if section was not found.
-    func sectionIndex(for: Section) -> Int?
+
+/// Allows setting supplementaries for kind for various storage subclasses. Currently `MemoryStorage` and `RealmStorage` implement this protocol.
+public protocol HeaderFooterSettable : class, HeaderFooterStorage {
+    func setSupplementaries(_ models : [[Int: Any]], forKind kind: String)
 }
 
-public protocol SupplementaryAccessible : class {
-    
-    /// Section index for current section
-    var currentSectionIndex: Int? { get }
-    
-    /// delegate, that knows about current section index in storage.
-    weak var sectionLocationDelegate : SectionLocationIdentifyable? { get set }
-    
-    /// Supplementaries dictionary
-    var supplementaries: [String: [Int:Any]] { get set }
-    
-    /// Returns supplementary model of `kind` at `index` or nil, if it was not found
-    func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
-    
-    /// Sets supplementary `model` for `kind` at `index`
-    func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
-}
-
-extension SupplementaryAccessible {
-    /// Returns supplementary model of `kind` at `index` or nil, if it was not found
-    public func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
+extension HeaderFooterSettable {
+    /// Sets section header `models`, using `supplementaryHeaderKind`.
+    ///
+    /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
+    public func setSectionHeaderModels<T>(_ models : [T])
     {
-        return self.supplementaries[kind]?[index]
+        assert(supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
+        var supplementaries = [[Int:Any]]()
+        for model in models {
+            supplementaries.append([0:model])
+        }
+        setSupplementaries(supplementaries, forKind: supplementaryHeaderKind!)
     }
     
-    /// Sets supplementary `model` for `kind` at `index`
-    public func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
+    /// Sets section footer `models`, using `supplementaryFooterKind`.
+    ///
+    /// - Note: `supplementaryFooterKind` property should be set before calling this method.
+    public func setSectionFooterModels<T>(_ models : [T])
     {
-        var dictionary: [Int:Any] = supplementaries[kind] ?? [:]
-        dictionary[index] = model
-        self.supplementaries[kind] = dictionary
+        assert(supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
+        var supplementaries = [[Int:Any]]()
+        for model in models {
+            supplementaries.append([0:model])
+        }
+        setSupplementaries(supplementaries, forKind: supplementaryFooterKind!)
     }
 }
 
@@ -110,47 +105,3 @@ public protocol StorageUpdating : class
     /// Method is called when UI needs to be fully updated for data storage changes.
     func storageNeedsReloading()
 }
-
-// DEPRECATED
-
-public extension Storage {
-    @available(*,unavailable,renamed:"item(at:)")
-    func itemAtIndexPath(_ : IndexPath) -> Any? {
-        fatalError("UNAVAILABLE")
-    }
-}
-
-public extension SupplementaryStorage {
-    @available(*,unavailable,renamed:"supplementaryModel(ofKind:forSectionAt:)")
-    func supplementaryModelOfKind(_ kind: String, sectionIndexPath : IndexPath) -> Any? {
-        fatalError("UNAVAILABLE")
-    }
-}
-
-public extension HeaderFooterStorage {
-    @available(*,unavailable,renamed: "headerModel(forSection:)")
-    func headerModelForSectionIndex(_ index: Int) -> Any? {
-        fatalError("UNAVAILABLE")
-    }
-    @available(*,unavailable,renamed: "footerModel(forSection:)")
-    func footerModelForSectionIndex(_ index: Int) -> Any? {
-        fatalError("UNAVAILABLE")
-    }
-}
-
-public extension SupplementaryAccessible {
-    @available(*,unavailable,renamed:"supplementaryModel(ofKind:atIndex:)")
-    public func supplementaryModelOfKind(_ kind: String, atIndex index: Int) -> Any?
-    {
-        fatalError("UNAVAILABLE")
-    }
-}
-
-@available(*,unavailable,renamed:"Storage")
-public protocol StorageProtocol {}
-
-@available(*,unavailable,renamed:"SupplementaryStorage")
-public protocol SupplementaryStorageProtocol {}
-
-@available(*,unavailable,renamed:"HeaderFooterStorage")
-public protocol HeaderFooterStorageProtocol {}

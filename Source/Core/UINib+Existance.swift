@@ -34,12 +34,3 @@ public extension UINib {
         return bundle.path(forResource: nibName, ofType: "nib") != nil
     }
 }
-
-public extension UINib {
-    @available(*,unavailable,renamed:"nibExists(withNibName:inBundle:)")
-    @nonobjc public class func nibExistsWithNibName(_ nibName :String,
-                                                    inBundle bundle: Bundle = Bundle.main) -> Bool
-    {
-        fatalError("UNAVAILABLE")
-    }
-}

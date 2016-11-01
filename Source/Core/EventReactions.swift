@@ -183,15 +183,3 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
         return reaction.performWithArguments((view ?? 0,model,location))
     }
 }
-
-public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
-    @available(*, unavailable, renamed: "reaction(of:signature:forModel:)")
-    public func reactionOfType(_ type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*, unavailable, renamed: "performReaction(of:signature:view:model:location:)")
-    public func performReaction(ofType type: ViewType, signature: String, view: Any?, model: Any, location: Any) -> Any {
-        fatalError("UNAVAILABLE")
-    }
-}
