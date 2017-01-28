@@ -370,6 +370,14 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.moveItem(at: indexPath(0, 0), to: indexPath(5, 0))
     }
+    
+    func testSettingAllItemsInStorage() {
+        storage.setItems([[1],[2],[3]])
+        
+        expect(self.storage.totalNumberOfItems) == 3
+        expect(self.storage.sections.count) == 3
+        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
+    }
 }
 
 class SectionSupplementariesTestCase : XCTestCase

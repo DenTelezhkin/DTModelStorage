@@ -175,8 +175,20 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         let section = self.getValidSection(index)
         section.items.removeAll(keepingCapacity: false)
-        for item in items { section.items.append(item) }
+        section.items = items.map { $0 }
         self.delegate?.storageNeedsReloading()
+    }
+    
+    /// Sets `items` for sections in memory storage. This method creates all required sections, if necessary.
+    ///
+    /// - Note: This will reload UI after updating.
+    open func setItems<T>(_ items: [[T]]) {
+        for (index,array) in items.enumerated() {
+            let section = getValidSection(index)
+            section.items.removeAll()
+            section.items = array.map { $0 }
+        }
+        delegate?.storageNeedsReloading()
     }
     
     /// Sets `section` for `index`. This will reload UI after updating
