@@ -4,15 +4,17 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "276CC70C003BB81B654D465107A09E304AAF20BF" : 0,
     "95438028B10BBB846574013D29F154A00556A9D1" : 0,
-    "9FB1FDDBA011002795A1FF5BD3CABFA2F79E6A59" : 0,
-    "276CC70C003BB81B654D465107A09E304AAF20BF" : 0
+    "8F3C415DA79CDA7D23734F285B95F9F9A3C0CB81" : 9223372036854775807,
+    "9FB1FDDBA011002795A1FF5BD3CABFA2F79E6A59" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "977AEC68-B182-4C2D-8112-5C0AEB78C762",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "276CC70C003BB81B654D465107A09E304AAF20BF" : "DTModelStorage\/",
     "95438028B10BBB846574013D29F154A00556A9D1" : "DTModelStorage\/Carthage\/Checkouts\/Nimble\/",
-    "9FB1FDDBA011002795A1FF5BD3CABFA2F79E6A59" : "DTModelStorage\/Carthage\/Checkouts\/realm-cocoa\/",
-    "276CC70C003BB81B654D465107A09E304AAF20BF" : "DTModelStorage\/"
+    "8F3C415DA79CDA7D23734F285B95F9F9A3C0CB81" : "DTModelStorage\/Carthage\/Checkouts\/realm-cocoa\/Realm\/ObjectStore\/",
+    "9FB1FDDBA011002795A1FF5BD3CABFA2F79E6A59" : "DTModelStorage\/Carthage\/Checkouts\/realm-cocoa\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "DTModelStorage",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -22,6 +24,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:DenHeadless\/DTModelStorage.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "276CC70C003BB81B654D465107A09E304AAF20BF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/realm\/realm-object-store.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8F3C415DA79CDA7D23734F285B95F9F9A3C0CB81"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Quick\/Nimble.git",

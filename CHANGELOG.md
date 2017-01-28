@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Next
+## [4.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/4.1.0)
 
 * Adds `setItems(_:)` method, that allows to set items for all sections in `MemoryStorage`.
 
