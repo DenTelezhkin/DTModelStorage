@@ -13,6 +13,8 @@
 		9A41A6351DC8BAFC00B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
 		9A41A6361DC8BB0200B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
+		9A638D881E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */; };
+		9A638D891E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */; };
 		9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5ED1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EE1CCCE92800DC69B1 /* MemoryStorage.swift */; };
@@ -244,6 +246,7 @@
 		9A41A6331DC8B5E000B9A015 /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Source/Core/Deprecated.swift; sourceTree = "<group>"; };
 		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Deprecated-Realm.swift"; path = "Source/Realm/Deprecated-Realm.swift"; sourceTree = "<group>"; };
 		9A63E5B71CCCE8BA00DC69B1 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		9A63E5CC1CCCE8C700DC69B1 /* Realm.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Realm.xcodeproj; path = "Carthage/Checkouts/realm-cocoa/Realm.xcodeproj"; sourceTree = "<group>"; };
 		9A63E5E71CCCE8D300DC69B1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -359,6 +362,7 @@
 			children = (
 				9A63E5F41CCCE93600DC69B1 /* RealmSection.swift */,
 				9A63E5F51CCCE93600DC69B1 /* RealmStorage.swift */,
+				9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -793,6 +797,7 @@
 			files = (
 				9A63E6121CCCE95A00DC69B1 /* Section.swift in Sources */,
 				9A63E6161CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */,
+				9A638D881E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */,
 				9A63E5F61CCCE93600DC69B1 /* RealmSection.swift in Sources */,
 				9A63E6061CCCE94B00DC69B1 /* UINib+Existance.swift in Sources */,
 				9A63E60A1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,
@@ -817,6 +822,7 @@
 			files = (
 				9A63E6131CCCE95A00DC69B1 /* Section.swift in Sources */,
 				9A63E5F71CCCE93600DC69B1 /* RealmSection.swift in Sources */,
+				9A638D891E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */,
 				9A63E6171CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */,
 				9A63E6071CCCE94B00DC69B1 /* UINib+Existance.swift in Sources */,
 				9A63E60B1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,

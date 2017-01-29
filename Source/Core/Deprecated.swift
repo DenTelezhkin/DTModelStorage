@@ -24,7 +24,6 @@
 // THE SOFTWARE.
 
 import Foundation
-import RealmSwift
 import UIKit
 
 public extension Storage {
@@ -68,23 +67,6 @@ public protocol SupplementaryStorageProtocol {}
 
 @available(*,unavailable,renamed:"HeaderFooterStorage")
 public protocol HeaderFooterStorageProtocol {}
-
-extension RealmStorage {
-    @available(*, unavailable, renamed: "section(at:)")
-    open func sectionAtIndex(_ sectionIndex: Int) -> Section? {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*, unavailable, renamed: "addSection(with:)")
-    open func addSectionWithResults<T:Object>(_ results: Results<T>) {
-        fatalError("UNAVAILABLE")
-    }
-    
-    @available(*,unavailable,renamed:"setSection(with:forSection:)")
-    open func setSectionWithResults<T:Object>(_ results: Results<T>, forSectionIndex index: Int) {
-        fatalError("UNAVAILABLE")
-    }
-}
 
 public extension UINib {
     @available(*,unavailable,renamed:"nibExists(withNibName:inBundle:)")
