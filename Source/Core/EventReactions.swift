@@ -50,7 +50,7 @@ open class EventReaction {
         viewModelMapping = ViewModelMapping(viewType: viewType, modelClass: T.self)
     }
     
-    /// Updates reaction with cell type, type-erases T and U into Any types.
+    /// Creates reaction with type-erased T and T.ModelType into Any types.
     open func makeReaction<T:ModelTransfer,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U) {
         reaction = { cell, model, indexPath in
             guard let model = model as? T.ModelType,
@@ -63,6 +63,7 @@ open class EventReaction {
         }
     }
     
+    /// Creates reaction with type-erased T into Any type.
     open func makeReaction<T,U>(_ block: @escaping (T, IndexPath) -> U) {
         reaction = { cell, model, indexPath in
             guard let model = model as? T,
@@ -72,87 +73,6 @@ open class EventReaction {
             return block(model, indexPath)
         }
     }
-    
-//    /// Updates reaction with cell type, type-erases T and U into Any types.
-//    open func makeCellReaction<T,U>(_ block: @escaping (T?, T.ModelType, IndexPath) -> U)
-//        where T: ModelTransfer
-//    {
-//        viewModelMapping = ViewModelMapping(viewType: .cell, viewClass: T.self)
-//        reaction = { cell, model, indexPath in
-//            guard let model = model as? T.ModelType,
-//                let indexPath = indexPath as? IndexPath else {
-//                  return 0
-//            }
-//            return block(cell as? T, model, indexPath)
-//        }
-//    }
-//    
-//    /// Updates reaction with cell type, type-erases T and U into Any types.
-//    open func makeCellReaction<T,U>(_ block: @escaping (T, IndexPath) -> U) {
-//        viewModelMapping = ViewModelMapping(viewType: .cell, modelClass: T.self)
-//        reaction = { cell, model, indexPath in
-//            guard let model = model as? T,
-//                let indexPath = indexPath as? IndexPath else {
-//                    return 0
-//            }
-//            return block(model, indexPath)
-//        }
-//    }
-//    
-//    /// Updates reaction with cell type, type-erases T and U into Any types.
-//    open func makeCellReaction<T,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U)
-//        where T: ModelTransfer
-//    {
-//        viewModelMapping = ViewModelMapping(viewType: .cell, viewClass: T.self)
-//        reaction = { cell, model, indexPath in
-//            guard let model = model as? T.ModelType,
-//                let indexPath = indexPath as? IndexPath,
-//                let cell = cell as? T
-//            else {
-//                return 0
-//            }
-//            return block(cell, model, indexPath)
-//        }
-//    }
-//    
-//    /// Updates reaction with supplementary type, type-erases T and U into Any types.
-//    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T?, T.ModelType, IndexPath) -> U)
-//        where T: ModelTransfer
-//    {
-//        viewModelMapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self)
-//        reaction = { supplementary, model, sectionIndex in
-//            guard let model = model as? T.ModelType,
-//                let index = sectionIndex as? IndexPath else {
-//                    return ""
-//            }
-//            return block(supplementary as? T, model, index)
-//        }
-//    }
-//    
-//    /// Updates reaction with supplementary type, type-erases T and U into Any types.
-//    open func makeSupplementaryReaction<T,U>(for kind: String, block: @escaping (T, IndexPath) -> U) {
-//        viewModelMapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), modelClass: T.self)
-//        reaction = { supplementary, model, sectionIndex in
-//            guard let model = model as? T, let index = sectionIndex as? IndexPath else { return 0 }
-//            return block(model,index)
-//        }
-//    }
-//    
-//    /// Updates reaction with supplementary type, type-erases T and U into Any types.
-//    open func makeSupplementaryReaction<T,U>(forKind kind: String, block: @escaping (T, T.ModelType, IndexPath) -> U)
-//        where T: ModelTransfer
-//    {
-//        viewModelMapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self)
-//        reaction = { supplementary, model, sectionIndex in
-//            guard let model = model as? T.ModelType,
-//                let index = sectionIndex as? IndexPath,
-//                let supplementary = supplementary as? T else
-//            {
-//                    return ""
-//            }
-//            return block(supplementary, model, index)
-//        }
-//    }
     
     /// Performs reaction with `arguments`.
     open func performWithArguments(_ arguments: (Any,Any,Any)) -> Any {
@@ -204,12 +124,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
     /// Returns reaction of `type`, with `signature` and `model`. Returns nil, if reaction was not found.
     @available(*, deprecated, message: "Please use reaction(of:signature:forModel:view:) method instead")
     public func reaction(of type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
-        return filter({ reaction in
-            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
-            return reaction.viewModelMapping.viewType == type &&
-                reaction.viewModelMapping.modelTypeCheckingBlock(unwrappedModel) &&
-                reaction.methodSignature == signature
-        }).first
+        return reaction(of: type, signature: signature, forModel: model, view: nil)
     }
     
     public func reaction(of type: ViewType,
