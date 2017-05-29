@@ -136,8 +136,14 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Supp
             }
         case .update:
             if let indexPath = indexPath {
-                currentUpdate?.objectChanges.append((.update, [indexPath]))
-                currentUpdate?.updatedObjects[indexPath] = anObject
+                if let newIndexPath = newIndexPath, indexPath != newIndexPath {
+                    currentUpdate?.objectChanges.append((.delete,[indexPath]))
+                    currentUpdate?.objectChanges.append((.insert,[newIndexPath]))
+                }
+                else {
+                    currentUpdate?.objectChanges.append((.update,[indexPath]))
+                    currentUpdate?.updatedObjects[indexPath] = anObject
+                }
             }
         }
     }

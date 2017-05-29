@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Improved handling of `NSFetchedResultsControllerDelegate` `NSFetchedResultsChangeType.update` change type in cases, where object inserts/removal/moves is used simultaneously with object updates(#17).
+
 ## [5.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.0.0)
 
 * Reworked `EventReaction` class to use `ViewModelMapping` to properly identify not only model and `ViewType`, but also `viewClass`. This allows event reactions to run for cases where two view subclasses, conforming to `ModelTransfer`, use the same model, and have similar events.
