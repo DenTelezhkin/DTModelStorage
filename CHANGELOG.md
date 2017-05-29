@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [5.0.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.0.1)
+
 * Improved handling of `NSFetchedResultsControllerDelegate` `NSFetchedResultsChangeType.update` change type in cases, where object inserts/removal/moves is used simultaneously with object updates(#17).
 
 ## [5.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.0.0)
