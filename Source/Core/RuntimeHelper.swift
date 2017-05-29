@@ -42,7 +42,7 @@ public enum RuntimeHelper
         {
             return nil
         }
-        let (_,some) = mirror.children.first!
+        let (_, some) = mirror.children.first!
         return recursivelyUnwrapAnyValue(some)
     }
 }

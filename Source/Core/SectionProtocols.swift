@@ -38,7 +38,7 @@ public protocol SupplementaryAccessible : class {
     var currentSectionIndex: Int? { get }
     
     /// delegate, that knows about current section index in storage.
-    weak var sectionLocationDelegate : SectionLocationIdentifyable? { get set }
+    weak var sectionLocationDelegate: SectionLocationIdentifyable? { get set }
     
     /// Supplementaries dictionary
     var supplementaries: [String: [Int:Any]] { get set }

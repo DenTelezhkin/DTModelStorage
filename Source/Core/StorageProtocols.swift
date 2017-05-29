@@ -30,13 +30,13 @@ import UIKit
 public protocol Storage
 {
     /// Array of sections, conforming to `Section` protocol.
-    var sections : [Section] { get }
+    var sections: [Section] { get }
     
     /// Returns item at concrete indexPath.
-    func item(at indexPath : IndexPath) -> Any?
+    func item(at indexPath: IndexPath) -> Any?
     
     /// Delegate property used to notify about current data storage changes.
-    weak var delegate  : StorageUpdating? {get set}
+    weak var delegate: StorageUpdating? {get set}
 }
 
 public protocol SupplementaryStorage
@@ -54,28 +54,28 @@ public protocol HeaderFooterStorage
     func footerModel(forSection index: Int) -> Any?
     
     /// Supplementary kind for header in current storage
-    var supplementaryHeaderKind : String? { get set }
+    var supplementaryHeaderKind: String? { get set }
     
     /// Supplementary kind for footer in current storage
-    var supplementaryFooterKind : String?  { get set }
+    var supplementaryFooterKind: String?  { get set }
 }
 
 
 /// Allows setting supplementaries for kind for various storage subclasses. Currently `MemoryStorage` and `RealmStorage` implement this protocol.
 public protocol HeaderFooterSettable : class, HeaderFooterStorage {
-    func setSupplementaries(_ models : [[Int: Any]], forKind kind: String)
+    func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
 }
 
 extension HeaderFooterSettable {
     /// Sets section header `models`, using `supplementaryHeaderKind`.
     ///
     /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
-    public func setSectionHeaderModels<T>(_ models : [T])
+    public func setSectionHeaderModels<T>(_ models: [T])
     {
         assert(supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
+        var supplementaries = [[Int: Any]]()
         for model in models {
-            supplementaries.append([0:model])
+            supplementaries.append([0: model])
         }
         setSupplementaries(supplementaries, forKind: supplementaryHeaderKind!)
     }
@@ -83,12 +83,12 @@ extension HeaderFooterSettable {
     /// Sets section footer `models`, using `supplementaryFooterKind`.
     ///
     /// - Note: `supplementaryFooterKind` property should be set before calling this method.
-    public func setSectionFooterModels<T>(_ models : [T])
+    public func setSectionFooterModels<T>(_ models: [T])
     {
         assert(supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
-        var supplementaries = [[Int:Any]]()
+        var supplementaries = [[Int: Any]]()
         for model in models {
-            supplementaries.append([0:model])
+            supplementaries.append([0: model])
         }
         setSupplementaries(supplementaries, forKind: supplementaryFooterKind!)
     }
@@ -100,7 +100,7 @@ public protocol StorageUpdating : class
     /// Transfers data storage updates. 
     ///
     /// Object, that implements this method, may react to received update by updating UI for current storage.
-    func storageDidPerformUpdate(_ update : StorageUpdate)
+    func storageDidPerformUpdate(_ update: StorageUpdate)
     
     /// Method is called when UI needs to be fully updated for data storage changes.
     func storageNeedsReloading()

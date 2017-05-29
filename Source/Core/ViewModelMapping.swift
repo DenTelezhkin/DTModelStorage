@@ -27,7 +27,7 @@
 import Foundation
 
 /// ViewType enum allows differentiating between mappings for different kinds of views. For example, UICollectionView headers might use ViewType.supplementaryView(UICollectionElementKindSectionHeader) value.
-public enum ViewType : Equatable
+public enum ViewType: Equatable
 {
     case cell
     case supplementaryView(kind: String)
@@ -47,7 +47,7 @@ public enum ViewType : Equatable
     static public func == (left: ViewType, right: ViewType) -> Bool {
         switch (left, right) {
         case (.cell, .cell): return true
-        case (.supplementaryView(let leftKind),.supplementaryView(let rightKind)): return leftKind == rightKind
+        case (.supplementaryView(let leftKind), .supplementaryView(let rightKind)): return leftKind == rightKind
         default: return false
         }
     }
@@ -57,13 +57,13 @@ public enum ViewType : Equatable
 public struct ViewModelMapping
 {
     /// View type for this mapping
-    public let viewType : ViewType
+    public let viewType: ViewType
     
     /// View class, that will be used for current mapping
-    public let viewClass : AnyClass
+    public let viewClass: AnyClass
     
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.
-    public let xibName : String?
+    public let xibName: String?
     
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool
@@ -71,7 +71,7 @@ public struct ViewModelMapping
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
     public let updateBlock : (Any, Any) -> Void
     
-    public init<T:ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+    public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         self.viewType = viewType
         self.viewClass = viewClass
         self.xibName = xibName
@@ -87,7 +87,7 @@ public struct ViewModelMapping
         self.viewClass = NSObject.self
         self.xibName = xibName
         modelTypeCheckingBlock = { $0 is T }
-        updateBlock = { _,_ in }
+        updateBlock = { _, _ in }
     }
 }
 
@@ -116,7 +116,7 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     
     /// Add mapping for `viewType` for `viewClass` with `xibName`. 
     /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
-    mutating func addMapping<T:ModelTransfer>(for viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+    mutating func addMapping<T: ModelTransfer>(for viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         append(ViewModelMapping(viewType: viewType,
             viewClass: T.self,
               xibName: xibName))

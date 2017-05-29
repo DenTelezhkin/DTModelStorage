@@ -28,9 +28,9 @@ import CoreData
 import UIKit
 
 /// Private wrapper around `NSFetchedResultsSectionInfo` to conform to `Section` protocol
-private struct DTFetchedResultsSectionInfoWrapper : Section
+private struct DTFetchedResultsSectionInfoWrapper: Section
 {
-    let fetchedObjects : [AnyObject]
+    let fetchedObjects: [AnyObject]
     let numberOfItems: Int
     
     var items : [Any] {
@@ -40,10 +40,10 @@ private struct DTFetchedResultsSectionInfoWrapper : Section
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
+open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
-    open let fetchedResultsController : NSFetchedResultsController<T>
+    open let fetchedResultsController: NSFetchedResultsController<T>
     
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
@@ -62,7 +62,7 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
     /// Sections of fetched results controller as required by Storage
     /// - SeeAlso: `Storage`
     /// - SeeAlso: `MemoryStorage`
-    open var sections : [Section]
+    open var sections: [Section]
     {
         if let sections = self.fetchedResultsController.sections
         {
@@ -122,22 +122,21 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
             }
         case .delete:
             if let indexPath = indexPath {
-                currentUpdate?.objectChanges.append((.delete,[indexPath]))
+                currentUpdate?.objectChanges.append((.delete, [indexPath]))
             }
         case .move:
             if let indexPath = indexPath, let newIndexPath = newIndexPath {
                 if indexPath != newIndexPath {
-                    currentUpdate?.objectChanges.append((.delete,[indexPath]))
-                    currentUpdate?.objectChanges.append((.insert,[newIndexPath]))
-                }
-                else {
-                    currentUpdate?.objectChanges.append((.update,[indexPath]))
+                    currentUpdate?.objectChanges.append((.delete, [indexPath]))
+                    currentUpdate?.objectChanges.append((.insert, [newIndexPath]))
+                } else {
+                    currentUpdate?.objectChanges.append((.update, [indexPath]))
                     currentUpdate?.updatedObjects[indexPath] = anObject
                 }
             }
         case .update:
             if let indexPath = indexPath {
-                currentUpdate?.objectChanges.append((.update,[indexPath]))
+                currentUpdate?.objectChanges.append((.update, [indexPath]))
                 currentUpdate?.updatedObjects[indexPath] = anObject
             }
         }
@@ -149,11 +148,11 @@ open class CoreDataStorage<T:NSFetchRequestResult> : BaseStorage, Storage, Suppl
     { switch type
     {
     case .insert:
-        currentUpdate?.sectionChanges.append((.insert,[sectionIndex]))
+        currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
     case .delete:
-        currentUpdate?.sectionChanges.append((.delete,[sectionIndex]))
+        currentUpdate?.sectionChanges.append((.delete, [sectionIndex]))
     case .update:
-        currentUpdate?.sectionChanges.append((.update,[sectionIndex]))
+        currentUpdate?.sectionChanges.append((.update, [sectionIndex]))
     default: ()
         }
     }

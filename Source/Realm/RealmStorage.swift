@@ -30,7 +30,7 @@ import RealmSwift
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
+open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
 {
     /// Array of `RealmSection` objects
     open var sections = [Section]() {
@@ -67,7 +67,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     }
     
     /// Adds `RealmSection`, containing `results`.
-    open func addSection<T:Object>(with results: Results<T>) {
+    open func addSection<T: Object>(with results: Results<T>) {
         setSection(with: results, forSection: sections.count)
     }
     
@@ -75,7 +75,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     ///  Calls `delegate.storageNeedsReloading()` after section is set. Subscribes for Realm notifications to automatically update section when update occurs.
     /// - Note: if index is less than number of section, this method won't do anything.
-    open func setSection<T:Object>(with results: Results<T>, forSection index: Int) {
+    open func setSection<T: Object>(with results: Results<T>, forSection index: Int) {
         guard index <= sections.count else { return }
         
         let section = RealmSection(results: results)
@@ -107,13 +107,13 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
         startUpdate()
         deletions.forEach{ [weak self] in
-            self?.currentUpdate?.objectChanges.append((.delete,[IndexPath(item: $0, section: inSection)]))
+            self?.currentUpdate?.objectChanges.append((.delete, [IndexPath(item: $0, section: inSection)]))
         }
         insertions.forEach{ [weak self] in
-            self?.currentUpdate?.objectChanges.append((.insert,[IndexPath(item: $0, section: inSection)]))
+            self?.currentUpdate?.objectChanges.append((.insert, [IndexPath(item: $0, section: inSection)]))
         }
         modifications.forEach{ [weak self] in
-            self?.currentUpdate?.objectChanges.append((.update,[IndexPath(item: $0, section: inSection)]))
+            self?.currentUpdate?.objectChanges.append((.update, [IndexPath(item: $0, section: inSection)]))
             self?.currentUpdate?.updatedObjects[IndexPath(item: $0, section: inSection)] = self?.item(at: IndexPath(item: $0, section: inSection))
         }
         finishUpdate()
@@ -169,7 +169,7 @@ open class RealmStorage : BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Sets supplementary `models` for supplementary of `kind`.
     ///
     /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
-    open func setSupplementaries(_ models : [[Int: Any]], forKind kind: String)
+    open func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
     {
         if models.count == 0 {
             for index in 0 ..< self.sections.count {

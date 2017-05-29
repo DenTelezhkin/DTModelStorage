@@ -32,5 +32,5 @@ public protocol Section
     var items : [Any] { get }
     
     ///  Number of items in current section.
-    var numberOfItems : Int { get }
+    var numberOfItems: Int { get }
 }

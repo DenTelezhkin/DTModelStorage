@@ -26,7 +26,7 @@
 import Foundation
 
 /// Data holder for single section in `MemoryStorage`.
-open class SectionModel : Section, SupplementaryAccessible
+open class SectionModel: Section, SupplementaryAccessible
 {
     /// Items for current section
     /// - Warning: If you try to set new array to this property [T], the only way to do this without exception is to wrap it into items.map { $0 }. This is a workaround that exists because of Swift inability to cast [T] to [Any]. You can call `setItems` method instead of doing so.
@@ -42,7 +42,7 @@ open class SectionModel : Section, SupplementaryAccessible
     }
 
     /// Supplementaries dictionary.
-    open var supplementaries = [String:[Int:Any]]()
+    open var supplementaries = [String: [Int: Any]]()
     
     // Creates empty section model.
     public init() {}
@@ -68,7 +68,7 @@ open class SectionModel : Section, SupplementaryAccessible
 
 // DEPRECATED
 extension SectionModel {
-    @available(*,unavailable,renamed: "items(ofType:)")
+    @available(*, unavailable, renamed: "items(ofType:)")
     open func itemsOfType<T>(_ type: T.Type) -> [T]
     {
         fatalError("UNAVAILABLE")

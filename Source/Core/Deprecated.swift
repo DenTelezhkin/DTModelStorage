@@ -27,50 +27,50 @@ import Foundation
 import UIKit
 
 public extension Storage {
-    @available(*,unavailable,renamed:"item(at:)")
+    @available(*, unavailable, renamed:"item(at:)")
     func itemAtIndexPath(_ : IndexPath) -> Any? {
         fatalError("UNAVAILABLE")
     }
 }
 
 public extension SupplementaryStorage {
-    @available(*,unavailable,renamed:"supplementaryModel(ofKind:forSectionAt:)")
-    func supplementaryModelOfKind(_ kind: String, sectionIndexPath : IndexPath) -> Any? {
+    @available(*, unavailable, renamed:"supplementaryModel(ofKind:forSectionAt:)")
+    func supplementaryModelOfKind(_ kind: String, sectionIndexPath: IndexPath) -> Any? {
         fatalError("UNAVAILABLE")
     }
 }
 
 public extension HeaderFooterStorage {
-    @available(*,unavailable,renamed: "headerModel(forSection:)")
+    @available(*, unavailable, renamed: "headerModel(forSection:)")
     func headerModelForSectionIndex(_ index: Int) -> Any? {
         fatalError("UNAVAILABLE")
     }
-    @available(*,unavailable,renamed: "footerModel(forSection:)")
+    @available(*, unavailable, renamed: "footerModel(forSection:)")
     func footerModelForSectionIndex(_ index: Int) -> Any? {
         fatalError("UNAVAILABLE")
     }
 }
 
 public extension SupplementaryAccessible {
-    @available(*,unavailable,renamed:"supplementaryModel(ofKind:atIndex:)")
+    @available(*, unavailable, renamed:"supplementaryModel(ofKind:atIndex:)")
     public func supplementaryModelOfKind(_ kind: String, atIndex index: Int) -> Any?
     {
         fatalError("UNAVAILABLE")
     }
 }
 
-@available(*,unavailable,renamed:"Storage")
+@available(*, unavailable, renamed:"Storage")
 public protocol StorageProtocol {}
 
-@available(*,unavailable,renamed:"SupplementaryStorage")
+@available(*, unavailable, renamed:"SupplementaryStorage")
 public protocol SupplementaryStorageProtocol {}
 
-@available(*,unavailable,renamed:"HeaderFooterStorage")
+@available(*, unavailable, renamed:"HeaderFooterStorage")
 public protocol HeaderFooterStorageProtocol {}
 
 public extension UINib {
-    @available(*,unavailable,renamed:"nibExists(withNibName:inBundle:)")
-    @nonobjc public class func nibExistsWithNibName(_ nibName :String,
+    @available(*, unavailable, renamed:"nibExists(withNibName:inBundle:)")
+    @nonobjc public class func nibExistsWithNibName(_ nibName: String,
                                                     inBundle bundle: Bundle = Bundle.main) -> Bool
     {
         fatalError("UNAVAILABLE")
@@ -90,69 +90,69 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
 }
 
 public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
-    @available(*,unavailable,renamed:"mappingCandidates(for:withModel:)")
+    @available(*, unavailable, renamed:"mappingCandidates(for:withModel:)")
     func mappingCandidatesForViewType(_ viewType: ViewType, model: Any) -> [ViewModelMapping] {
         fatalError("UNAVAILABLE")
     }
     
     @available(*, unavailable, renamed: "addMapping(for:viewClass:xibName:)")
-    mutating func addMappingForViewType<T:ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+    mutating func addMappingForViewType<T: ModelTransfer>(_ viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
         fatalError("UNAVAILABLE")
     }
 }
-@available(*,unavailable,renamed:"ViewModelMappingCustomizing")
+@available(*, unavailable, renamed:"ViewModelMappingCustomizing")
 public protocol DTViewModelMappingCustomizable {}
 
 public extension ViewModelMappingCustomizing {
-    @available(*,unavailable,renamed:"viewModelMapping(fromCandidates:withModel:)")
+    @available(*, unavailable, renamed:"viewModelMapping(fromCandidates:withModel:)")
     func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
         fatalError("UNAVAILABLE")
     }
 }
 
 extension MemoryStorage {
-    @available(*,unavailable,renamed:"item(at:)")
+    @available(*, unavailable, renamed:"item(at:)")
     open func itemAtIndexPath(_ indexPath: IndexPath) -> Any? {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"removeItems(at:)")
-    open func removeItemsAtIndexPaths(_ indexPaths : [IndexPath])
+    @available(*, unavailable, renamed:"removeItems(at:)")
+    open func removeItemsAtIndexPaths(_ indexPaths: [IndexPath])
     {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"moveItem(at:to:)")
+    @available(*, unavailable, renamed:"moveItem(at:to:)")
     open func moveItemAtIndexPath(_ source: IndexPath, toIndexPath destination: IndexPath)
     {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"items(inSection:)")
+    @available(*, unavailable, renamed:"items(inSection:)")
     @nonobjc open func itemsInSection(_ section: Int) -> [Any]?
     {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"indexPath(forItem:)")
-    open func indexPathForItem<T: Equatable>(_ searchableItem : T) -> IndexPath?
+    @available(*, unavailable, renamed:"indexPath(forItem:)")
+    open func indexPathForItem<T: Equatable>(_ searchableItem: T) -> IndexPath?
     {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"indexPathArray(forItems:)")
-    final func indexPathArrayForItems<T:Equatable>(_ items:[T]) -> [IndexPath]
+    @available(*, unavailable, renamed:"indexPathArray(forItems:)")
+    final func indexPathArrayForItems<T: Equatable>(_ items: [T]) -> [IndexPath]
     {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"removeItems(fromSection:)")
+    @available(*, unavailable, renamed:"removeItems(fromSection:)")
     @nonobjc open func removeItemsFromSection(_ sectionIndex: Int) {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"section(atIndex:)")
-    open func sectionAtIndex(_ sectionIndex : Int) -> SectionModel?
+    @available(*, unavailable, renamed:"section(atIndex:)")
+    open func sectionAtIndex(_ sectionIndex: Int) -> SectionModel?
     {
         fatalError("UNAVAILABLE")
     }

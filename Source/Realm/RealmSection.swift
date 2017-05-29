@@ -36,10 +36,10 @@ protocol ItemAtIndexPathRetrievable {
 }
 
 /// Data holder for single section in `RealmStorage`.
-open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
+open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
-    open var results : Results<T>
+    open var results: Results<T>
     
     /// delegate, that knows about current section index in storage.
     open weak var sectionLocationDelegate: SectionLocationIdentifyable?
@@ -50,7 +50,7 @@ open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtInde
     }
     
     /// Supplementaries dictionary
-    open var supplementaries = [String:[Int:Any]]()
+    open var supplementaries = [String: [Int: Any]]()
     
     /// Creates RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query
@@ -66,7 +66,7 @@ open class RealmSection<T:Object> : SupplementaryAccessible, Section, ItemAtInde
     }
     
     /// Number of items in `RealmSection`
-    open var numberOfItems : Int {
+    open var numberOfItems: Int {
         return results.count
     }
     

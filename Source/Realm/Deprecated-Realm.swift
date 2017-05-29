@@ -16,12 +16,12 @@ extension RealmStorage {
     }
     
     @available(*, unavailable, renamed: "addSection(with:)")
-    open func addSectionWithResults<T:Object>(_ results: Results<T>) {
+    open func addSectionWithResults<T: Object>(_ results: Results<T>) {
         fatalError("UNAVAILABLE")
     }
     
-    @available(*,unavailable,renamed:"setSection(with:forSection:)")
-    open func setSectionWithResults<T:Object>(_ results: Results<T>, forSectionIndex index: Int) {
+    @available(*, unavailable, renamed:"setSection(with:forSection:)")
+    open func setSectionWithResults<T: Object>(_ results: Results<T>, forSectionIndex index: Int) {
         fatalError("UNAVAILABLE")
     }
 }

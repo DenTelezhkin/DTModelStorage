@@ -28,7 +28,7 @@ import UIKit
 
 public extension UINib {
     /// Returns true, if nib file with `nibName` exists in `bundle`.
-    public class func nibExists(withNibName nibName :String,
+    public class func nibExists(withNibName nibName: String,
                                            inBundle bundle: Bundle = Bundle.main) -> Bool
     {
         return bundle.path(forResource: nibName, ofType: "nib") != nil

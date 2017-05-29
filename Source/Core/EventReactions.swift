@@ -31,16 +31,16 @@ import UIKit
 open class EventReaction {
     
     // view -> model mapping of this reaction
-    open let viewModelMapping : ViewModelMapping
+    open let viewModelMapping: ViewModelMapping
     
     /// 3 arguments reaction block with all arguments type-erased.
-    open var reaction : ((Any,Any,Any) -> Any)?
+    open var reaction : ((Any, Any, Any) -> Any)?
     
     /// Objective-C method signature
     open let methodSignature: String
     
     /// Creates reaction with `signature`.
-    public init<T:ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
+    public init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         self.methodSignature = signature
         viewModelMapping = ViewModelMapping(viewType: viewType, viewClass: T.self)
     }
@@ -51,7 +51,7 @@ open class EventReaction {
     }
     
     /// Creates reaction with type-erased T and T.ModelType into Any types.
-    open func makeReaction<T:ModelTransfer,U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U) {
+    open func makeReaction<T: ModelTransfer, U>(_ block: @escaping (T, T.ModelType, IndexPath) -> U) {
         reaction = { cell, model, indexPath in
             guard let model = model as? T.ModelType,
                 let indexPath = indexPath as? IndexPath,
@@ -64,7 +64,7 @@ open class EventReaction {
     }
     
     /// Creates reaction with type-erased T into Any type.
-    open func makeReaction<T,U>(_ block: @escaping (T, IndexPath) -> U) {
+    open func makeReaction<T, U>(_ block: @escaping (T, IndexPath) -> U) {
         reaction = { cell, model, indexPath in
             guard let model = model as? T,
                 let indexPath = indexPath as? IndexPath else {
@@ -75,18 +75,18 @@ open class EventReaction {
     }
     
     /// Performs reaction with `arguments`.
-    open func performWithArguments(_ arguments: (Any,Any,Any)) -> Any {
-        return reaction?(arguments.0,arguments.1,arguments.2) ?? 0
+    open func performWithArguments(_ arguments: (Any, Any, Any)) -> Any {
+        return reaction?(arguments.0, arguments.1, arguments.2) ?? 0
     }
 }
 
 /// Subclass of `EventReaction`, tuned to work with 4 arguments.
-open class FourArgumentsEventReaction : EventReaction {
+open class FourArgumentsEventReaction: EventReaction {
     
     /// Type-erased reaction with 4 arguments
-    open var reaction4Arguments : ((Any,Any,Any,Any) -> Any)?
+    open var reaction4Arguments : ((Any, Any, Any, Any) -> Any)?
     
-    public override init<T:ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
+    public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
     
@@ -101,12 +101,12 @@ open class FourArgumentsEventReaction : EventReaction {
 }
 
 /// Subclass of `EventReaction`, tuned to work with 5 arguments.
-open class FiveArgumentsEventReaction : EventReaction {
+open class FiveArgumentsEventReaction: EventReaction {
     
     /// Type-erased reaction with 5 arguments
-    open var reaction5Arguments : ((Any,Any,Any,Any,Any) -> Any)?
+    open var reaction5Arguments : ((Any, Any, Any, Any, Any) -> Any)?
     
-    public override init<T:ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
+    public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
     
@@ -145,6 +145,6 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
         guard let reaction = reaction(of: type, signature: signature, forModel: model, view: view as? UIView) else {
             return 0
         }
-        return reaction.performWithArguments((view ?? 0,model,location))
+        return reaction.performWithArguments((view ?? 0, model, location))
     }
 }

@@ -32,13 +32,13 @@ public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
 /// Base class for storage classes
-open class BaseStorage : NSObject, HeaderFooterStorage
+open class BaseStorage: NSObject, HeaderFooterStorage
 {
     /// Supplementary kind for header in current storage
-    open var supplementaryHeaderKind : String?
+    open var supplementaryHeaderKind: String?
     
     /// Supplementary kind for footer in current storage
-    open var supplementaryFooterKind : String?
+    open var supplementaryFooterKind: String?
     
     /// Current update
     open var currentUpdate: StorageUpdate?
@@ -47,7 +47,7 @@ open class BaseStorage : NSObject, HeaderFooterStorage
     open var batchUpdatesInProgress = false
     
     /// Delegate for storage updates
-    open weak var delegate : StorageUpdating?
+    open weak var delegate: StorageUpdating?
     
     /// Performs update `block` in storage. After update is finished, delegate will be notified.
     /// Parameter block: Block to execute

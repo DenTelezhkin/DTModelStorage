@@ -34,42 +34,42 @@ public enum ChangeType: String {
 }
 
 /// Object representing update in storage.
-public struct StorageUpdate : Equatable, CustomStringConvertible
+public struct StorageUpdate: Equatable, CustomStringConvertible
 {
     /// Object changes in update, in order of occurence
-    public var objectChanges = [(ChangeType,[IndexPath])]()
+    public var objectChanges = [(ChangeType, [IndexPath])]()
     
     /// Section changes in update, in order of occurence
     public var sectionChanges = [(ChangeType, [Int])]()
     
     /// Objects that were updated, with initial index paths
     /// Discussion: This is done because UITableView and UICollectionView defer updating of items after all insertions and deletions are made. Therefore, resulting indexPaths are shifted, and update may be called on wrong indexPath. By storing objects from initial update call, we ensure, that objects used in update are correct.
-    public var updatedObjects = [IndexPath:Any]()
+    public var updatedObjects = [IndexPath: Any]()
     
     /// Create an empty update.
     public init(){}
     
     /// Returns true, if update is empty.
-    public var isEmpty : Bool {
+    public var isEmpty: Bool {
         return objectChanges.isEmpty && sectionChanges.isEmpty
     }
     
     /// Compare StorageUpdates
-    static public func ==(left : StorageUpdate, right: StorageUpdate) -> Bool
+    static public func ==(left: StorageUpdate, right: StorageUpdate) -> Bool
     {
         if left.objectChanges.count != right.objectChanges.count ||
             left.sectionChanges.count != right.sectionChanges.count {
             return false
         }
         
-        for (index,_) in left.objectChanges.enumerated() {
+        for (index, _) in left.objectChanges.enumerated() {
             if left.objectChanges[index].0 != right.objectChanges[index].0 ||
                 left.objectChanges[index].1 != right.objectChanges[index].1
             {
                 return false
             }
         }
-        for (index,_) in left.sectionChanges.enumerated() {
+        for (index, _) in left.sectionChanges.enumerated() {
             if left.sectionChanges[index].0 != right.sectionChanges[index].0 ||
                 left.sectionChanges[index].1 != right.sectionChanges[index].1
             {
@@ -79,14 +79,13 @@ public struct StorageUpdate : Equatable, CustomStringConvertible
         return true
     }
     
-    public var description : String {
-        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ change,indexPaths in
+    public var description: String {
+        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ change, indexPaths in
             return change.rawValue.capitalized + " \(indexPaths)"
-        }).reduce("",+)
-        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ change,index in
+        }).reduce("", +)
+        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ change, index in
             return change.rawValue.capitalized + " \(index))"
-        }).reduce("",+)
+        }).reduce("", +)
         return objectChangesString + "\n" + sectionChangesString
     }
 }
-
