@@ -67,7 +67,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     }
     
     /// Adds `RealmSection`, containing `results`.
-    open func addSection<T: Object>(with results: Results<T>) {
+    open func addSection<T:RealmCollection>(with results: T) where T.Element: Object {
         setSection(with: results, forSection: sections.count)
     }
     
@@ -75,10 +75,10 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     ///
     ///  Calls `delegate.storageNeedsReloading()` after section is set. Subscribes for Realm notifications to automatically update section when update occurs.
     /// - Note: if index is less than number of section, this method won't do anything.
-    open func setSection<T: Object>(with results: Results<T>, forSection index: Int) {
+    open func setSection<T:RealmCollection>(with results: T, forSection index: Int) where T.Element: Object {
         guard index <= sections.count else { return }
         
-        let section = RealmSection(results: results)
+        let section = RealmSection(results: AnyRealmCollection(results))
         notificationTokens[index]?.stop()
         notificationTokens[index] = nil
         if index == sections.count {
