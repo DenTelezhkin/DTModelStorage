@@ -39,7 +39,7 @@ protocol ItemAtIndexPathRetrievable {
 open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
-    open var results: Results<T>
+    open var results: AnyRealmCollection<T>
     
     /// delegate, that knows about current section index in storage.
     open weak var sectionLocationDelegate: SectionLocationIdentifyable?
@@ -54,7 +54,7 @@ open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtInd
     
     /// Creates RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query
-    public init(results: Results<T>) {
+    public init(results: AnyRealmCollection<T>) {
         self.results = results
     }
     

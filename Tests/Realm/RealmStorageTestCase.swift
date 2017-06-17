@@ -40,6 +40,33 @@ class RealmStorageTestCase: XCTestCase {
         }
     }
     
+    func giveDogs(names: [String], to personName: String) -> Person {
+        let person = Person()
+        try! realm.write {
+            person.name = personName
+            realm.add(person)
+
+            let dogs = names.map{(name: String) -> Dog in
+                let dog = Dog()
+                dog.name = name
+                realm.add(dog)
+                return dog
+            }
+            
+            person.dogs.append(objectsIn: dogs)
+        }
+        
+        return person
+    }
+        
+    func testRealmStorageAddList() {
+        let person = giveDogs(names: ["Rex", "Spot"], to: "Joe")
+        
+        storage.addSection(with: person.dogs)
+        
+        expect((self.storage.item(at: indexPath(1, 0)) as? Dog)?.name) == "Spot"
+    }
+    
     func testRealmStorageHandlesSectionAddition() {
         addDogNamed("Rex")
         
