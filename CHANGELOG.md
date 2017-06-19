@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [5.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.1.0)
+
 * Swift 3.2 support(Xcode 9 beta 1).
 * `RealmStorage` now accepts `RealmCollection` objects into section, thus allowing `List` and `LinkingObjects` to be used(previously only `Results` objects could be used in section).
 
