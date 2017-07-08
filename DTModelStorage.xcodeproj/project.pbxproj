@@ -9,12 +9,8 @@
 /* Begin PBXBuildFile section */
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
-		9A41A6341DC8B5E000B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
 		9A41A6351DC8BAFC00B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
-		9A41A6361DC8BB0200B9A015 /* Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6331DC8B5E000B9A015 /* Deprecated.swift */; };
 		9A4C3BE71BE4E377000931BA /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
-		9A638D881E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */; };
-		9A638D891E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */; };
 		9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5ED1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EE1CCCE92800DC69B1 /* MemoryStorage.swift */; };
@@ -243,10 +239,8 @@
 		9A2A38DF1C37FE1100783317 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../Carthage/Checkouts/realm-cocoa/build/Debug/RealmSwift.framework"; sourceTree = "<group>"; };
 		9A2A38E11C37FE5900783317 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../Carthage/Checkouts/realm-cocoa/build/Debug/Realm.framework"; sourceTree = "<group>"; };
 		9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionProtocols.swift; path = Source/Core/SectionProtocols.swift; sourceTree = "<group>"; };
-		9A41A6331DC8B5E000B9A015 /* Deprecated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = Source/Core/Deprecated.swift; sourceTree = "<group>"; };
 		9A4C3BBC1BE4E32B000931BA /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4C3BED1BE4E377000931BA /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Deprecated-Realm.swift"; path = "Source/Realm/Deprecated-Realm.swift"; sourceTree = "<group>"; };
 		9A63E5B71CCCE8BA00DC69B1 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		9A63E5CC1CCCE8C700DC69B1 /* Realm.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Realm.xcodeproj; path = "Carthage/Checkouts/realm-cocoa/Realm.xcodeproj"; sourceTree = "<group>"; };
 		9A63E5E71CCCE8D300DC69B1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
@@ -362,7 +356,6 @@
 			children = (
 				9A63E5F41CCCE93600DC69B1 /* RealmSection.swift */,
 				9A63E5F51CCCE93600DC69B1 /* RealmStorage.swift */,
-				9A638D871E3DE982001BF8A1 /* Deprecated-Realm.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -459,8 +452,7 @@
 				9A24F69E19DA032C009DE5D4 /* MemoryStorage */,
 				9A5240401C0A694200DD136F /* Utilities */,
 			);
-			name = Tests;
-			path = XCTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		9AD430AC1BE21AD600EB2918 /* Helpers */ = {
@@ -482,7 +474,6 @@
 				9A63E60E1CCCE95A00DC69B1 /* StorageProtocols.swift */,
 				9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */,
 				9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */,
-				9A41A6331DC8B5E000B9A015 /* Deprecated.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -629,14 +620,14 @@
 				TargetAttributes = {
 					9A2A385A1AEE24340021E97D = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 					9A4C3BBB1BE4E32B000931BA = {
 						CreatedOnToolsVersion = 7.1;
 					};
 					9A7D5BAA19D860700083673D = {
 						CreatedOnToolsVersion = 6.0.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -797,7 +788,6 @@
 			files = (
 				9A63E6121CCCE95A00DC69B1 /* Section.swift in Sources */,
 				9A63E6161CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */,
-				9A638D881E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */,
 				9A63E5F61CCCE93600DC69B1 /* RealmSection.swift in Sources */,
 				9A63E6061CCCE94B00DC69B1 /* UINib+Existance.swift in Sources */,
 				9A63E60A1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,
@@ -812,7 +802,6 @@
 				9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
 				9A63E5F81CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F21CCCE92800DC69B1 /* SectionModel.swift in Sources */,
-				9A41A6341DC8B5E000B9A015 /* Deprecated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,7 +811,6 @@
 			files = (
 				9A63E6131CCCE95A00DC69B1 /* Section.swift in Sources */,
 				9A63E5F71CCCE93600DC69B1 /* RealmSection.swift in Sources */,
-				9A638D891E3DE982001BF8A1 /* Deprecated-Realm.swift in Sources */,
 				9A63E6171CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */,
 				9A63E6071CCCE94B00DC69B1 /* UINib+Existance.swift in Sources */,
 				9A63E60B1CCCE94B00DC69B1 /* ViewModelMapping.swift in Sources */,
@@ -837,7 +825,6 @@
 				9A63E5F11CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
 				9A63E5F91CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F31CCCE92800DC69B1 /* SectionModel.swift in Sources */,
-				9A41A6361DC8BB0200B9A015 /* Deprecated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,7 +938,6 @@
 				PRODUCT_NAME = DTModelStorage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -971,7 +957,6 @@
 				PRODUCT_NAME = DTModelStorage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1081,7 +1066,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1098,7 +1082,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1147,7 +1130,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1192,7 +1176,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

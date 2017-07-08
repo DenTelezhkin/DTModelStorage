@@ -10,8 +10,8 @@ import Foundation
 import RealmSwift
 
 class Dog: Object {
-    dynamic var name = ""
-    dynamic var age = 0
+    @objc dynamic var name = ""
+    @objc dynamic var age = 0
 }
 
 func == (left: Dog, right: Dog) -> Bool
@@ -20,7 +20,7 @@ func == (left: Dog, right: Dog) -> Bool
 }
 
 class Person: Object {
-    dynamic var name = ""
-    dynamic var picture: Data? = nil // optionals supported
+    @objc dynamic var name = ""
+    @objc dynamic var picture: Data? = nil // optionals supported
     let dogs = List<Dog>()
 }

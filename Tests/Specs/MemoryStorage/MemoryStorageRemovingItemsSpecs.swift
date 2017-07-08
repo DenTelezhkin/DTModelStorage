@@ -86,7 +86,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 2
         expect(self.storage.item(at: indexPath(1, 0)) as? Int) == 5
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $1 } ) == [indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)]
+        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 } ) == [indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)]
     }
     
     func testRemoveItemsFromSection()
@@ -96,6 +96,6 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         expect(self.storage.section(atIndex: 0)?.items.count) == 0
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete}.flatMap { $1 }) == [indexPath(0, 0),indexPath(1, 0), indexPath(2, 0)]
+        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete}.flatMap { $0.1 }) == [indexPath(0, 0),indexPath(1, 0), indexPath(2, 0)]
     }
 }

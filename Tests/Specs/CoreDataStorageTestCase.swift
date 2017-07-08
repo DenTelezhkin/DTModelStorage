@@ -40,14 +40,14 @@ class CoreDataStorageTestCase: XCTestCase {
     {
         let _ = ListItem.createItemWithValue(5)
         
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert}.flatMap { $1 }) == [indexPath(0, 0)]
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert}.flatMap { $0.1 }) == [indexPath(0, 0)]
     }
     
     func testDeletion()
     {
         let item = ListItem.createItemWithValue(5)
         item.managedObjectContext?.delete(item)
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $1 }).toEventually(equal([indexPath(0, 0)]))
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testItemAtIndexPathGetter()
@@ -64,8 +64,8 @@ class CoreDataStorageTestCase: XCTestCase {
         item1.value = 3
         let _ = try? item1.managedObjectContext?.save()
         
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $1 }).toEventually(equal([indexPath(1, 0)]))
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $1 }).toEventually(equal([indexPath(0, 0)]))
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }).toEventually(equal([indexPath(1, 0)]))
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testUpdatingValues()
@@ -75,7 +75,7 @@ class CoreDataStorageTestCase: XCTestCase {
         item.value = 5
         let _ = try? item.managedObjectContext?.save()
         
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .update }.flatMap { $1 }).toEventually(equal([indexPath(0, 0)]))
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .update }.flatMap { $0.1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testGettingAllObjects() {

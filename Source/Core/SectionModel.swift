@@ -65,12 +65,3 @@ open class SectionModel: Section, SupplementaryAccessible
         return self.items.count
     }
 }
-
-// DEPRECATED
-extension SectionModel {
-    @available(*, unavailable, renamed: "items(ofType:)")
-    open func itemsOfType<T>(_ type: T.Type) -> [T]
-    {
-        fatalError("UNAVAILABLE")
-    }
-}

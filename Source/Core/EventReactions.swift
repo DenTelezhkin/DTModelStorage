@@ -120,18 +120,12 @@ open class FiveArgumentsEventReaction: EventReaction {
     }
 }
 
-public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
-    /// Returns reaction of `type`, with `signature` and `model`. Returns nil, if reaction was not found.
-    @available(*, deprecated, message: "Please use reaction(of:signature:forModel:view:) method instead")
-    public func reaction(of type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
-        return reaction(of: type, signature: signature, forModel: model, view: nil)
-    }
-    
+public extension Sequence where Self.Iterator.Element: EventReaction {
     public func reaction(of type: ViewType,
                          signature: String,
                          forModel model: Any,
                          view: UIView?) -> EventReaction? {
-        return filter({ reaction in
+        return self.filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
             return reaction.viewModelMapping.viewType == type &&
                 reaction.viewModelMapping.modelTypeCheckingBlock(unwrappedModel) &&

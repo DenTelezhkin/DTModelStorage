@@ -276,7 +276,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
         performUpdates {
-            indexPaths.enumerated().forEach { itemIndex, indexPath in
+            indexPaths.enumerated().forEach { (arg) in
+                let (itemIndex, indexPath) = arg
                 let section = getValidSection(indexPath.section)
                 guard section.items.count >= indexPath.item else {
                     return
