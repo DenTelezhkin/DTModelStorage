@@ -18,11 +18,11 @@ lane :test_tvos10 do
 end
 
 lane :test_ios10_legacy do
-  scan(devices: ["iPhone 6s (10.3)"], scheme: 'DTModelStorage iOS', xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["iPhone 6s (10.3)"], scheme: 'DTModelStorage-iOS', xcargs: "SWIFT_VERSION=3.0")
 end
 
 lane :test_tvos10_legacy do
-  scan(devices: ["Apple TV 1080p (10.2)"], scheme: 'DTModelStorage tvOS', xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["Apple TV 1080p (10.2)"], scheme: 'DTModelStorage-tvOS', xcargs: "SWIFT_VERSION=3.0")
 end
 
 # lane :test_macos do
