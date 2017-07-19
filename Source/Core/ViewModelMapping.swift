@@ -135,7 +135,9 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
-            return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel) && mapping.condition.isCompatible(with: indexPath, model: model)
+            return viewType == mapping.viewType &&
+                mapping.modelTypeCheckingBlock(unwrappedModel) &&
+                mapping.condition.isCompatible(with: indexPath, model: model)
             }
     }
 }
