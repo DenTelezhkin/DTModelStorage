@@ -14,7 +14,7 @@ class CoreDataManager {
     
     fileprivate let managedObjectModel : NSManagedObjectModel = {
         let modelURL = Bundle(for:CoreDataManager.self).url(forResource:"DTModelStorageDatabase", withExtension: "momd")
-        return NSManagedObjectModel(contentsOf: modelURL!)!
+        return NSManagedObjectModel(contentsOf: modelURL!)
     }()
     
     fileprivate lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
