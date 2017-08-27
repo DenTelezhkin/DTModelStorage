@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* `MemoryStorage` now has a convenience method for moving item without animations: `moveItemWithoutAnimation(from:to:)`.
+* `EventReaction` class now has 4 and 5 argument reactions
+* All storage protocols are now class-bound.
+* Implemented mapping conditions. `ViewModelMapping` was changed to be able to work with mapping blocks.
+
 ## [5.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.1.0)
 
 * Swift 3.2 support(Xcode 9 beta 1).
