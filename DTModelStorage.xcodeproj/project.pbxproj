@@ -19,8 +19,6 @@
 		9A63E5F31CCCE92800DC69B1 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EF1CCCE92800DC69B1 /* SectionModel.swift */; };
 		9A63E5F61CCCE93600DC69B1 /* RealmSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5F41CCCE93600DC69B1 /* RealmSection.swift */; };
 		9A63E5F71CCCE93600DC69B1 /* RealmSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5F41CCCE93600DC69B1 /* RealmSection.swift */; };
-		9A63E5F81CCCE93600DC69B1 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5F51CCCE93600DC69B1 /* RealmStorage.swift */; };
-		9A63E5F91CCCE93600DC69B1 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5F51CCCE93600DC69B1 /* RealmStorage.swift */; };
 		9A63E6001CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5FA1CCCE94A00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9A63E6011CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5FA1CCCE94A00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		9A63E6021CCCE94B00DC69B1 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5FB1CCCE94A00DC69B1 /* ModelTransfer.swift */; };
@@ -43,8 +41,6 @@
 		9A63E6171CCCE95A00DC69B1 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E60F1CCCE95A00DC69B1 /* StorageUpdate.swift */; };
 		9A63E61A1CCCE99200DC69B1 /* RealmFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6181CCCE99200DC69B1 /* RealmFixtures.swift */; };
 		9A63E61B1CCCE99200DC69B1 /* RealmFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6181CCCE99200DC69B1 /* RealmFixtures.swift */; };
-		9A63E61C1CCCE99200DC69B1 /* RealmStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6191CCCE99200DC69B1 /* RealmStorageTestCase.swift */; };
-		9A63E61D1CCCE99200DC69B1 /* RealmStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6191CCCE99200DC69B1 /* RealmStorageTestCase.swift */; };
 		9A63E6221CCCE9B400DC69B1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E61E1CCCE9B400DC69B1 /* CoreDataManager.swift */; };
 		9A63E6231CCCE9B400DC69B1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E61E1CCCE9B400DC69B1 /* CoreDataManager.swift */; };
 		9A63E6241CCCE9B400DC69B1 /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E61F1CCCE9B400DC69B1 /* DTModelStorageDatabase.xcdatamodeld */; };
@@ -83,8 +79,6 @@
 		9A63E6571CCCEA4800DC69B1 /* RuntimeHelperTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6521CCCEA4800DC69B1 /* RuntimeHelperTestCase.swift */; };
 		9A63E6581CCCEA4800DC69B1 /* UIReactionsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6531CCCEA4800DC69B1 /* UIReactionsTestCase.swift */; };
 		9A63E6591CCCEA4800DC69B1 /* UIReactionsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E6531CCCEA4800DC69B1 /* UIReactionsTestCase.swift */; };
-		9A63E65E1CCCEA9B00DC69B1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A63E5E41CCCE8C700DC69B1 /* RealmSwift.framework */; };
-		9A63E6641CCCEABA00DC69B1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A63E5E41CCCE8C700DC69B1 /* RealmSwift.framework */; };
 		9A63E66A1CCCEADA00DC69B1 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A63E5C11CCCE8BB00DC69B1 /* Nimble.framework */; };
 		9A63E66D1CCCEAEA00DC69B1 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A63E5C91CCCE8BB00DC69B1 /* Nimble.framework */; };
 /* End PBXBuildFile section */
@@ -202,20 +196,6 @@
 			remoteGlobalIDString = 5D660FD81BE98C7C0021E04F;
 			remoteInfo = "RealmSwift Tests";
 		};
-		9A63E65C1CCCEA9000DC69B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A63E5CC1CCCE8C700DC69B1 /* Realm.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D660FCB1BE98C560021E04F;
-			remoteInfo = RealmSwift;
-		};
-		9A63E6601CCCEAAE00DC69B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A63E5CC1CCCE8C700DC69B1 /* Realm.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 5D660FCB1BE98C560021E04F;
-			remoteInfo = RealmSwift;
-		};
 		9A63E6681CCCEAD400DC69B1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A63E5B71CCCE8BA00DC69B1 /* Nimble.xcodeproj */;
@@ -292,7 +272,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A63E65E1CCCEA9B00DC69B1 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +279,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A63E6641CCCEABA00DC69B1 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,7 +524,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9A63E65D1CCCEA9000DC69B1 /* PBXTargetDependency */,
 			);
 			name = "DTModelStorage-iOS";
 			productName = "DTModelStorage iOS";
@@ -563,7 +540,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9A63E6611CCCEAAE00DC69B1 /* PBXTargetDependency */,
 			);
 			name = "DTModelStorage-tvOS";
 			productName = "DTModelStorage-tvOS";
@@ -800,7 +776,6 @@
 				9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */,
 				9A63E6101CCCE95A00DC69B1 /* BaseStorage.swift in Sources */,
 				9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
-				9A63E5F81CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F21CCCE92800DC69B1 /* SectionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,7 +798,6 @@
 				9A41A6351DC8BAFC00B9A015 /* SectionProtocols.swift in Sources */,
 				9A63E6111CCCE95A00DC69B1 /* BaseStorage.swift in Sources */,
 				9A63E5F11CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
-				9A63E5F91CCCE93600DC69B1 /* RealmStorage.swift in Sources */,
 				9A63E5F31CCCE92800DC69B1 /* SectionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -849,7 +823,6 @@
 				9A63E6231CCCE9B400DC69B1 /* CoreDataManager.swift in Sources */,
 				9A63E63B1CCCE9DD00DC69B1 /* SectionModelTestCase.swift in Sources */,
 				9A63E64A1CCCEA3B00DC69B1 /* CoreDataStorageTestCase.swift in Sources */,
-				9A63E61D1CCCE99200DC69B1 /* RealmStorageTestCase.swift in Sources */,
 				9A63E6501CCCEA3B00DC69B1 /* StorageUpdateTestCase.swift in Sources */,
 				9A63E64C1CCCEA3B00DC69B1 /* NibExistanceTestCase.swift in Sources */,
 			);
@@ -876,7 +849,6 @@
 				9A63E6221CCCE9B400DC69B1 /* CoreDataManager.swift in Sources */,
 				9A63E63A1CCCE9DD00DC69B1 /* SectionModelTestCase.swift in Sources */,
 				9A63E6491CCCEA3B00DC69B1 /* CoreDataStorageTestCase.swift in Sources */,
-				9A63E61C1CCCE99200DC69B1 /* RealmStorageTestCase.swift in Sources */,
 				9A63E64F1CCCEA3B00DC69B1 /* StorageUpdateTestCase.swift in Sources */,
 				9A63E64B1CCCEA3B00DC69B1 /* NibExistanceTestCase.swift in Sources */,
 			);
@@ -894,16 +866,6 @@
 			isa = PBXTargetDependency;
 			target = 9A4C3BBB1BE4E32B000931BA /* DTModelStorage-tvOS */;
 			targetProxy = 9A4C3BF41BE4E9EE000931BA /* PBXContainerItemProxy */;
-		};
-		9A63E65D1CCCEA9000DC69B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RealmSwift;
-			targetProxy = 9A63E65C1CCCEA9000DC69B1 /* PBXContainerItemProxy */;
-		};
-		9A63E6611CCCEAAE00DC69B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RealmSwift;
-			targetProxy = 9A63E6601CCCEAAE00DC69B1 /* PBXContainerItemProxy */;
 		};
 		9A63E6691CCCEAD400DC69B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
