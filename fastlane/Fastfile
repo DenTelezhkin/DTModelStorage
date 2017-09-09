@@ -43,7 +43,14 @@ lane :release do |params|
   abort "You must specify a version in semver format." if version.nil? || version.scan(/\d+\.\d+\.\d+(-\w+\.\d+)?/).length == 0
 
   puts "Setting Framework version"
-  increment_version_number(version_number: version)
+  increment_version_number_in_plist(
+      version_number: version,
+      target: "DTModelStorage"
+  )
+  increment_version_number_in_plist(
+      version_number: version,
+      target: "RealmStorage"
+  )
 
   Dir.chdir("..") do
 
@@ -68,13 +75,22 @@ lane :release do |params|
     puts "Pushing to CocoaPods trunk."
     sh "bundle exec pod trunk push DTModelStorage.podspec --allow-warnings"
 
+    puts "Preparing Carthage binary framework."
+
+    sh "carthage build --no-skip-current"
+    sh "carthage archive DTModelStorage"
+
     puts "Pushing as a GitHub Release."
     fastlane_require 'octokit'
     stripped_changelog = changelog.split(/^## /)[1].split("\n")[1..-1].join("\n").strip
-    Octokit::Client.new(netrc: true).
-      create_release('DenHeadless/DTModelStorage',
+    client = Octokit::Client.new(netrc: true)
+    client.create_release('DenHeadless/DTModelStorage',
                      version,
                      name: version,
                      body: stripped_changelog)
+
+    puts "Attaching Carthage prebuilt binary to release."
+    releases = client.releases('DenHeadless/DTModelStorage')
+    client.upload_asset(releases[0].url, 'DTModelStorage.framework.zip')
   end
 end
