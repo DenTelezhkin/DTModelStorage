@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 * All storage protocols are now class-bound.
 * Implemented mapping conditions. `ViewModelMapping` was changed to be able to work with mapping blocks.
 
+# Breaking
+
+* `setItems` method, that accepted array of arrays of items to set items for all sections, has been renamed to `setItemsForAllSections` to provide more clarity and not to clash with `setItems(_:forSection:)` method.
+
 ## [5.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.1.0)
 
 * Swift 3.2 support(Xcode 9 beta 1).

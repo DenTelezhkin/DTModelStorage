@@ -181,7 +181,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Sets `items` for sections in memory storage. This method creates all required sections, if necessary.
     ///
     /// - Note: This will reload UI after updating.
-    open func setItems<T>(_ items: [[T]]) {
+    open func setItemsForAllSections<T>(_ items: [[T]]) {
         for (index, array) in items.enumerated() {
             let section = getValidSection(index)
             section.items.removeAll()

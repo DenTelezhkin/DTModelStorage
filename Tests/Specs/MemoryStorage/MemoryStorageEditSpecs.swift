@@ -372,7 +372,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     }
     
     func testSettingAllItemsInStorage() {
-        storage.setItems([[1],[2],[3]])
+        storage.setItemsForAllSections([[1],[2],[3]])
         
         expect(self.storage.totalNumberOfItems) == 3
         expect(self.storage.sections.count) == 3

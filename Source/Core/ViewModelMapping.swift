@@ -53,11 +53,26 @@ public enum ViewType: Equatable
     }
 }
 
+
+/// Defines condition, under which mapping is going to be applied.
 public enum MappingCondition {
+    
+    // Mapping is applicable at all times
     case none
+    
+    // Mapping is applicable only in specific section
     case section(Int)
+    
+    // Mapping is applicable only under custom condition
     case custom((_ indexPath: IndexPath, _ model: Any) -> Bool)
     
+    
+    /// Defines whether mapping is compatible with `model` at `indexPath`.
+    ///
+    /// - Parameters:
+    ///   - indexPath: location of the model in storage
+    ///   - model: model to apply mapping to
+    /// - Returns: whether current mapping condition is applicable.
     func isCompatible(with indexPath: IndexPath, model: Any) -> Bool {
         switch self {
         case .none: return true
@@ -85,8 +100,10 @@ open class ViewModelMapping
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
     public let updateBlock : (Any, Any) -> Void
     
+    /// Mapping condition, under which this mapping is going to work. Defaults to .none.
     public var condition: MappingCondition = .none
     
+    /// Reuse identifier to be used for reusable views.
     public var reuseIdentifier : String
     
     public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil, mappingBlock: ((ViewModelMapping) -> Void)?) {
