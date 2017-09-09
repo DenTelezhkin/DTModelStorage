@@ -2,6 +2,10 @@ language: objective-c
 sudo: false
 osx_image: xcode9
 
+cache:
+  directories:
+  - Carthage
+
 matrix:
   include:
     - os: osx
@@ -28,6 +32,11 @@ matrix:
 before_script:
   - brew update
   - brew outdated carthage || brew upgrade carthage
+  - carthage bootstrap --cache-builds
 
 script:
   - bundle exec fastlane $ACTION
+
+env:
+  global:
+    secure: Q4p3wB9NmkyDhg2tUDzGKh5l5p3i7jeETLNOxgx8FhSPLY1ef0V561OZEI2+M/qicL5IiBG6VttMm++145hvVVBGm7VZu24LNDrwvB1d5++LbCX80BwFlW7xsjT2STgag/qz9Qan10W/HOBS1ZkIYnBb3iMn9i2hQndcrENC0Ok=
