@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.0.0-beta.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0-beta.1)
+
 **This is major release, containing breaking API changes, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenHeadless/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md)**
 
 * `MemoryStorage` now has a convenience method for moving item without animations: `moveItemWithoutAnimation(from:to:)`.
