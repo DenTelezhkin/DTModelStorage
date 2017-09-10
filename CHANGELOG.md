@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+**This is major release, containing breaking API changes, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenHeadless/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md)**
+
 * `MemoryStorage` now has a convenience method for moving item without animations: `moveItemWithoutAnimation(from:to:)`.
 * `EventReaction` class now has 4 and 5 argument reactions
 * All storage protocols are now class-bound.
@@ -10,7 +12,7 @@ All notable changes to this project will be documented in this file.
 
 # Breaking
 
-* `RealmStorage` is not included in Carthage releases, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenHeadless/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md) for clarification.
+* `RealmStorage` is not included in Carthage releases.
 * `setItems` method, that accepted array of arrays of items to set items for all sections, has been renamed to `setItemsForAllSections` to provide more clarity and not to clash with `setItems(_:forSection:)` method.
 
 ## [5.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.1.0)
