@@ -33,10 +33,6 @@ lane :carthage_build do
   carthage(command: "build", no_skip_current: true, verbose: false)
 end
 
-# lane :spm_macos do
-#   sh "swift build"
-# end
-
 lane :release do |params|
   version = params[:version]
 
