@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Fixed warnings for Xcode 9.1 / Swift 4.0.2
+
 ## [6.0.0-beta.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0-beta.2)
 
 * Build with Xcode 9.0 release.

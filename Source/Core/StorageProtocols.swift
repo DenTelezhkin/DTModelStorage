@@ -62,7 +62,7 @@ public protocol HeaderFooterStorage : class
 
 
 /// Allows setting supplementaries for kind for various storage subclasses. Currently `MemoryStorage` and `RealmStorage` implement this protocol.
-public protocol HeaderFooterSettable : class, HeaderFooterStorage {
+public protocol HeaderFooterSettable : HeaderFooterStorage {
     func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
 }
 
