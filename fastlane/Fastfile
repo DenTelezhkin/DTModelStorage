@@ -10,7 +10,7 @@ lane :test_ios10 do
 end
 
 lane :test_tvos11 do
-  scan(devices: ["Apple TV 1080p (11.1)"])
+  scan(devices: ["Apple TV 1080p (11.0)"])
 end
 
 lane :test_tvos10 do
