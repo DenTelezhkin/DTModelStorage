@@ -10,7 +10,7 @@ lane :test_ios10 do
 end
 
 lane :test_tvos11 do
-  scan(devices: ["Apple TV 1080p (11.0)"])
+  scan(devices: ["Apple TV 4K"])
 end
 
 lane :test_tvos10 do
@@ -22,7 +22,7 @@ lane :test_ios10_legacy do
 end
 
 lane :test_tvos10_legacy do
-  scan(devices: ["Apple TV 1080p (10.2)"], xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["Apple TV 4K"], xcargs: "SWIFT_VERSION=3.0")
 end
 
 lane :pod_lint do
