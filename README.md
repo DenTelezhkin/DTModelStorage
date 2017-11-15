@@ -3,12 +3,13 @@
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
+
 DTModelStorage
 ================
 
 > This is a child-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenHeadless/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
 
-- [x] Written in Swift 3
+- [x] Written in Swift
 - [x] Support for any data structure - class, struct, enum, tuple
 - [x] Protocol-oriented implementation with generic and associated types
 - [x] Powerful events system for storage consumers.
@@ -113,6 +114,12 @@ storage.updateWithoutAnimations {
 // Calling reloadData is mandatory after calling this method. or you will get crash runtime
 ```
 
+For reordering of items, when animation is not needed, you can call `moveItemWithoutAnimation(from:to:)` method:
+
+```swift
+storage.moveItemWithoutAnimation(from: sourceIndexPath, to: destinationIndexPath)
+```
+
 #### Supplementary models
 
 ```swift
@@ -145,17 +152,17 @@ Installation
 
 [CocoaPods](https://cocoapods.org):
 
-    pod 'DTModelStorage', '~> 4.1.0'
+    pod 'DTModelStorage', '~> 6.0'
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 4.1.0
+    github "DenHeadless/DTModelStorage" ~> 6.0
 
 Requirements
 ============
 
-* Xcode 8
-* Swift 3
+* Xcode 8/Xcode 9
+* Swift 3/4
 * iOS 8 and higher / tvOS 9.0 and higher
 
 Objective-C

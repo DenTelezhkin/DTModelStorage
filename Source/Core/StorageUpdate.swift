@@ -80,10 +80,12 @@ public struct StorageUpdate: Equatable, CustomStringConvertible
     }
     
     public var description: String {
-        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ change, indexPaths in
+        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ (arg) -> String? in
+            let (change, indexPaths) = arg
             return change.rawValue.capitalized + " \(indexPaths)"
         }).reduce("", +)
-        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ change, index in
+        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ (arg) -> String? in
+            let (change, index) = arg
             return change.rawValue.capitalized + " \(index))"
         }).reduce("", +)
         return objectChangesString + "\n" + sectionChangesString

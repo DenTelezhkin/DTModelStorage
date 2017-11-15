@@ -354,7 +354,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 1
         
-        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $1}) == [1]
+        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1}) == [1]
         let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
         expect(moves?.first?.1) == [indexPath(0, 0), indexPath(0,1)]
     }
@@ -372,7 +372,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     }
     
     func testSettingAllItemsInStorage() {
-        storage.setItems([[1],[2],[3]])
+        storage.setItemsForAllSections([[1],[2],[3]])
         
         expect(self.storage.totalNumberOfItems) == 3
         expect(self.storage.sections.count) == 3
@@ -436,8 +436,8 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setItems([1,2,3])
         storage.insertSection(section, atIndex: 0)
         
-        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $1}) == [0]
-        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $1 }) == [indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)]
+        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1}) == [0]
+        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)]
         
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"

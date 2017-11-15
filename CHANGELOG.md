@@ -3,6 +3,33 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0)
+
+* Fixed warnings for Xcode 9.1 / Swift 4.0.2
+
+## [6.0.0-beta.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0-beta.2)
+
+* Build with Xcode 9.0 release.
+
+## [6.0.0-beta.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0-beta.1)
+
+**This is major release, containing breaking API changes, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenHeadless/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md)**
+
+* `MemoryStorage` now has a convenience method for moving item without animations: `moveItemWithoutAnimation(from:to:)`.
+* `EventReaction` class now has 4 and 5 argument reactions
+* All storage protocols are now class-bound.
+* Implemented mapping conditions. `ViewModelMapping` was changed to be able to work with mapping blocks.
+
+# Breaking
+
+* `RealmStorage` is not included in Carthage releases.
+* `setItems` method, that accepted array of arrays of items to set items for all sections, has been renamed to `setItemsForAllSections` to provide more clarity and not to clash with `setItems(_:forSection:)` method.
+
+## [5.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.1.0)
+
+* Swift 3.2 support(Xcode 9 beta 1).
+* `RealmStorage` now accepts `RealmCollection` objects into section, thus allowing `List` and `LinkingObjects` to be used(previously only `Results` objects could be used in section).
+
 ## [5.0.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/5.0.1)
 
 * Improved handling of `NSFetchedResultsControllerDelegate` `NSFetchedResultsChangeType.update` change type in cases, where object inserts/removal/moves is used simultaneously with object updates(#17).

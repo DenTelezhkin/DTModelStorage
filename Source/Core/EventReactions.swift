@@ -42,12 +42,12 @@ open class EventReaction {
     /// Creates reaction with `signature`.
     public init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         self.methodSignature = signature
-        viewModelMapping = ViewModelMapping(viewType: viewType, viewClass: T.self)
+        viewModelMapping = ViewModelMapping(viewType: viewType, viewClass: T.self, mappingBlock: nil)
     }
     
     public init<T>(signature: String, viewType: ViewType, modelType: T.Type) {
         self.methodSignature = signature
-        viewModelMapping = ViewModelMapping(viewType: viewType, modelClass: T.self)
+        viewModelMapping = ViewModelMapping.eventsModelMapping(viewType: viewType, modelClass: T.self)
     }
     
     /// Creates reaction with type-erased T and T.ModelType into Any types.
@@ -86,6 +86,16 @@ open class FourArgumentsEventReaction: EventReaction {
     /// Type-erased reaction with 4 arguments
     open var reaction4Arguments : ((Any, Any, Any, Any) -> Any)?
     
+    open func make4ArgumentsReaction<View:ModelTransfer, Argument, ReturnType>(_ block: @escaping (Argument, View, View.ModelType, IndexPath)-> ReturnType) {
+        reaction4Arguments = { argument, view, model, indexPath in
+            guard let model = model as? View.ModelType,
+                let indexPath = indexPath as? IndexPath,
+                let argument = argument as? Argument,
+                let view = view as? View else { return 0 }
+            return block(argument, view, model, indexPath)
+        }
+    }
+    
     public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
@@ -106,6 +116,17 @@ open class FiveArgumentsEventReaction: EventReaction {
     /// Type-erased reaction with 5 arguments
     open var reaction5Arguments : ((Any, Any, Any, Any, Any) -> Any)?
     
+    open func make5ArgumentsReaction<View:ModelTransfer, ArgumentOne, ArgumentTwo, ReturnType>(_ block: @escaping (ArgumentOne, ArgumentTwo, View, View.ModelType, IndexPath)-> ReturnType) {
+        reaction5Arguments = { argumentOne, argumentTwo, view, model, indexPath in
+            guard let model = model as? View.ModelType,
+                let indexPath = indexPath as? IndexPath,
+                let argument1 = argumentOne as? ArgumentOne,
+                let argument2 = argumentTwo as? ArgumentTwo,
+                let view = view as? View else { return 0 }
+            return block(argument1, argument2, view, model, indexPath)
+        }
+    }
+    
     public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
@@ -120,18 +141,12 @@ open class FiveArgumentsEventReaction: EventReaction {
     }
 }
 
-public extension RangeReplaceableCollection where Self.Iterator.Element: EventReaction {
-    /// Returns reaction of `type`, with `signature` and `model`. Returns nil, if reaction was not found.
-    @available(*, deprecated, message: "Please use reaction(of:signature:forModel:view:) method instead")
-    public func reaction(of type: ViewType, signature: String, forModel model: Any) -> EventReaction? {
-        return reaction(of: type, signature: signature, forModel: model, view: nil)
-    }
-    
+public extension Sequence where Self.Iterator.Element: EventReaction {
     public func reaction(of type: ViewType,
                          signature: String,
                          forModel model: Any,
                          view: UIView?) -> EventReaction? {
-        return filter({ reaction in
+        return self.filter({ reaction in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
             return reaction.viewModelMapping.viewType == type &&
                 reaction.viewModelMapping.modelTypeCheckingBlock(unwrappedModel) &&
@@ -146,5 +161,15 @@ public extension RangeReplaceableCollection where Self.Iterator.Element: EventRe
             return 0
         }
         return reaction.performWithArguments((view ?? 0, model, location))
+    }
+    
+    public func perform4ArgumentsReaction(of type: ViewType, signature: String, argument: Any, view: Any?, model: Any, location: Any) -> Any {
+        guard let reaction = reaction(of: type, signature: signature, forModel: model, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
+        return reaction.performWithArguments((argument, view ?? 0, model, location))
+    }
+    
+    public func perform5ArgumentsReaction(of type: ViewType, signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: Any) -> Any {
+        guard let reaction = reaction(of: type, signature: signature, forModel: model, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
+        return reaction.performWithArguments((firstArgument, secondArgument, view ?? 0, model, location))
     }
 }

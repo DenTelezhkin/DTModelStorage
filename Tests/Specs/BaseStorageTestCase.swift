@@ -29,7 +29,7 @@ class BaseStorageTestCase: XCTestCase {
             storage.addItems([2], toSection: 1)
         }
         
-        expect(self.updateObserver.update?.objectChanges.flatMap { $1 }) == [indexPath(0, 0), indexPath(0, 1)]
+        expect(self.updateObserver.update?.objectChanges.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(0, 1)]
     }
     
 }

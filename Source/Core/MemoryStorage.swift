@@ -181,7 +181,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Sets `items` for sections in memory storage. This method creates all required sections, if necessary.
     ///
     /// - Note: This will reload UI after updating.
-    open func setItems<T>(_ items: [[T]]) {
+    open func setItemsForAllSections<T>(_ items: [[T]]) {
         for (index, array) in items.enumerated() {
             let section = getValidSection(index)
             section.items.removeAll()
@@ -276,7 +276,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
         performUpdates {
-            indexPaths.enumerated().forEach { itemIndex, indexPath in
+            indexPaths.enumerated().forEach { (arg) in
+                let (itemIndex, indexPath) = arg
                 let section = getValidSection(indexPath.section)
                 guard section.items.count >= indexPath.item else {
                     return
@@ -430,6 +431,28 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         sourceSection.items.remove(at: source.row)
         destinationSection.items.insert(sourceItem, at: destination.item)
         currentUpdate?.objectChanges.append((.move, [source, destination]))
+    }
+    
+    /// Moves item from `sourceIndexPath` to `destinationIndexPath` without animations.
+    ///
+    /// - Note: This method can be used inside `tableView(UITableView, moveRowAt: IndexPath, to: IndexPath)` to update datasource without UI animation since UI animation has already happened. This is also useful for iOS 11 Drop reordering, that behaves the same way.
+    /// - Precondition: This method will check for existance of sections and number of items in both source and destination section prior to actually moving item. If sections do not exist, or have insufficient number of items to perform an operation, this method won't do anything.
+    /// - Parameters:
+    ///   - sourceIndexPath: source indexPath to move item from
+    ///   - destinationIndexPath: destination indexPath to move item to.
+    open func moveItemWithoutAnimation(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)
+    {
+        if let from = section(atIndex: sourceIndexPath.section),
+            let to = section(atIndex: destinationIndexPath.section)
+        {
+            if from.items.count > sourceIndexPath.row, to.items.count >= destinationIndexPath.row {
+                let item = from.items[sourceIndexPath.row]
+                from.items.remove(at: sourceIndexPath.row)
+                to.items.insert(item, at: destinationIndexPath.row)
+            } else {
+                print("MemoryStorage: failed to move item from \(sourceIndexPath) to \(destinationIndexPath), \(from.items.count) items in source section and \(to.items.count) items in destination section")
+            }
+        }
     }
     
     /// Removes all items from storage.

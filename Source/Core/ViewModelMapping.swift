@@ -53,8 +53,37 @@ public enum ViewType: Equatable
     }
 }
 
+
+/// Defines condition, under which mapping is going to be applied.
+public enum MappingCondition {
+    
+    // Mapping is applicable at all times
+    case none
+    
+    // Mapping is applicable only in specific section
+    case section(Int)
+    
+    // Mapping is applicable only under custom condition
+    case custom((_ indexPath: IndexPath, _ model: Any) -> Bool)
+    
+    
+    /// Defines whether mapping is compatible with `model` at `indexPath`.
+    ///
+    /// - Parameters:
+    ///   - indexPath: location of the model in storage
+    ///   - model: model to apply mapping to
+    /// - Returns: whether current mapping condition is applicable.
+    func isCompatible(with indexPath: IndexPath, model: Any) -> Bool {
+        switch self {
+        case .none: return true
+        case .section(let section): return indexPath.section == section
+        case .custom(let condition): return condition(indexPath, model)
+        }
+    }
+}
+
 /// `ViewModelMapping` struct serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
-public struct ViewModelMapping
+open class ViewModelMapping
 {
     /// View type for this mapping
     public let viewType: ViewType
@@ -71,23 +100,36 @@ public struct ViewModelMapping
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
     public let updateBlock : (Any, Any) -> Void
     
-    public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
+    /// Mapping condition, under which this mapping is going to work. Defaults to .none.
+    public var condition: MappingCondition = .none
+    
+    /// Reuse identifier to be used for reusable views.
+    public var reuseIdentifier : String
+    
+    public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil, mappingBlock: ((ViewModelMapping) -> Void)?) {
         self.viewType = viewType
         self.viewClass = viewClass
         self.xibName = xibName
+        self.reuseIdentifier = String(describing: T.self)
         modelTypeCheckingBlock = { $0 is T.ModelType }
         updateBlock = { view, model in
             guard let view = view as? T, let model = model as? T.ModelType else { return }
             view.update(with: model)
         }
+        mappingBlock?(self)
     }
     
-    public init<T>(viewType: ViewType, modelClass: T.Type, xibName: String? = nil) {
+    public static func eventsModelMapping<T>(viewType: ViewType, modelClass: T.Type) -> ViewModelMapping {
+        return ViewModelMapping(viewType: viewType, modelClass: modelClass)
+    }
+    
+    private init<T>(viewType: ViewType, modelClass: T.Type) {
         self.viewType = viewType
-        self.viewClass = NSObject.self
-        self.xibName = xibName
+        viewClass = NSObject.self
         modelTypeCheckingBlock = { $0 is T }
         updateBlock = { _, _ in }
+        reuseIdentifier = ""
+        xibName = nil
     }
 }
 
@@ -107,18 +149,12 @@ public extension RangeReplaceableCollection where Self.Iterator.Element == ViewM
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    func mappingCandidates(for viewType: ViewType, withModel model: Any) -> [ViewModelMapping] {
+    func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
-            return viewType == mapping.viewType && mapping.modelTypeCheckingBlock(unwrappedModel)
-        }
-    }
-    
-    /// Add mapping for `viewType` for `viewClass` with `xibName`. 
-    /// - SeeAlso: `mappingCandidatesForViewType(_:model:)`
-    mutating func addMapping<T: ModelTransfer>(for viewType: ViewType, viewClass: T.Type, xibName: String? = nil) {
-        append(ViewModelMapping(viewType: viewType,
-            viewClass: T.self,
-              xibName: xibName))
+            return viewType == mapping.viewType &&
+                mapping.modelTypeCheckingBlock(unwrappedModel) &&
+                mapping.condition.isCompatible(with: indexPath, model: model)
+            }
     }
 }

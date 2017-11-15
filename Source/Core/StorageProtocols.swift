@@ -27,7 +27,7 @@ import Foundation
 import UIKit
 
 /// `Storage` protocol is used to define common interface for storage classes.
-public protocol Storage
+public protocol Storage : class
 {
     /// Array of sections, conforming to `Section` protocol.
     var sections: [Section] { get }
@@ -39,13 +39,13 @@ public protocol Storage
     weak var delegate: StorageUpdating? {get set}
 }
 
-public protocol SupplementaryStorage
+public protocol SupplementaryStorage : class
 {
     /// Returns supplementary model of `kind` for section at `indexPath`.
     func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any?
 }
 
-public protocol HeaderFooterStorage
+public protocol HeaderFooterStorage : class
 {
     /// Returns header model for section with section `index` or nil if not found.
     func headerModel(forSection index: Int) -> Any?
@@ -62,7 +62,7 @@ public protocol HeaderFooterStorage
 
 
 /// Allows setting supplementaries for kind for various storage subclasses. Currently `MemoryStorage` and `RealmStorage` implement this protocol.
-public protocol HeaderFooterSettable : class, HeaderFooterStorage {
+public protocol HeaderFooterSettable : HeaderFooterStorage {
     func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
 }
 
