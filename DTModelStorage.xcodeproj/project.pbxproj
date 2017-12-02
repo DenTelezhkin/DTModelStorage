@@ -315,6 +315,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A2A38721AEE24350021E97D /* Build configuration list for PBXNativeTarget "DTModelStorage" */;
 			buildPhases = (
+				9A5DE7891FD2DA4C000FE218 /* SwiftLint */,
 				9A2A38561AEE24340021E97D /* Sources */,
 				9A2A38571AEE24340021E97D /* Frameworks */,
 			);
@@ -427,6 +428,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9A5DE7891FD2DA4C000FE218 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\nif which swiftlint > /dev/null; then\n  swiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\n  swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\nelse\n  echo \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\n  fi\nfi";
+		};
 		9AA8C87E1F64700100018408 /* Link Xibs */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -610,7 +625,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

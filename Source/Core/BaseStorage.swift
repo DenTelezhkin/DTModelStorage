@@ -101,7 +101,7 @@ open class BaseStorage: NSObject, HeaderFooterStorage
         self.supplementaryFooterKind = UICollectionElementKindSectionFooter
     }
     
-    // MARK - HeaderFooterStorage
+    // MARK: - HeaderFooterStorage
     
     /// Returns header model from section with section `index` or nil, if it was not set.
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method

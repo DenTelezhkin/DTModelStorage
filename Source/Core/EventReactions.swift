@@ -27,10 +27,12 @@
 import Foundation
 import UIKit
 
+//swiftlint:disable large_tuple
+
 /// Data holder for reaction
 open class EventReaction {
     
-    // view -> model mapping of this reaction
+    /// view -> model mapping of this reaction
     open let viewModelMapping: ViewModelMapping
     
     /// 3 arguments reaction block with all arguments type-erased.
@@ -45,6 +47,7 @@ open class EventReaction {
         viewModelMapping = ViewModelMapping(viewType: viewType, viewClass: T.self, mappingBlock: nil)
     }
     
+    /// Creates reaction with `signature`, `viewType` and `modelType`.
     public init<T>(signature: String, viewType: ViewType, modelType: T.Type) {
         self.methodSignature = signature
         viewModelMapping = ViewModelMapping.eventsModelMapping(viewType: viewType, modelClass: T.self)
@@ -86,7 +89,8 @@ open class FourArgumentsEventReaction: EventReaction {
     /// Type-erased reaction with 4 arguments
     open var reaction4Arguments : ((Any, Any, Any, Any) -> Any)?
     
-    open func make4ArgumentsReaction<View:ModelTransfer, Argument, ReturnType>(_ block: @escaping (Argument, View, View.ModelType, IndexPath)-> ReturnType) {
+    /// Makes 4 argument reaction based on `View`.
+    open func make4ArgumentsReaction<View:ModelTransfer, Argument, ReturnType>(_ block: @escaping (Argument, View, View.ModelType, IndexPath) -> ReturnType) {
         reaction4Arguments = { argument, view, model, indexPath in
             guard let model = model as? View.ModelType,
                 let indexPath = indexPath as? IndexPath,
@@ -96,10 +100,12 @@ open class FourArgumentsEventReaction: EventReaction {
         }
     }
     
+    /// Creates FourArgumentsEventReaction for `viewClass`
     public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
     
+    /// Creates FourArgumentsEventReaction for `modelType`
     public override init<T>(signature: String, viewType: ViewType, modelType: T.Type) {
         super.init(signature: signature, viewType: viewType, modelType: modelType)
     }
@@ -116,7 +122,8 @@ open class FiveArgumentsEventReaction: EventReaction {
     /// Type-erased reaction with 5 arguments
     open var reaction5Arguments : ((Any, Any, Any, Any, Any) -> Any)?
     
-    open func make5ArgumentsReaction<View:ModelTransfer, ArgumentOne, ArgumentTwo, ReturnType>(_ block: @escaping (ArgumentOne, ArgumentTwo, View, View.ModelType, IndexPath)-> ReturnType) {
+    /// Makes 5 argument reaction based on `View`.
+    open func make5ArgumentsReaction<View:ModelTransfer, ArgumentOne, ArgumentTwo, ReturnType>(_ block: @escaping (ArgumentOne, ArgumentTwo, View, View.ModelType, IndexPath) -> ReturnType) {
         reaction5Arguments = { argumentOne, argumentTwo, view, model, indexPath in
             guard let model = model as? View.ModelType,
                 let indexPath = indexPath as? IndexPath,
@@ -127,10 +134,12 @@ open class FiveArgumentsEventReaction: EventReaction {
         }
     }
     
+    /// Creates FiveArgumentsEventReaction for `viewClass`
     public override init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         super.init(signature: signature, viewType: viewType, viewClass: viewClass)
     }
     
+    /// Creates FiveArgumentsEventReaction for `modelType`
     public override init<T>(signature: String, viewType: ViewType, modelType: T.Type) {
         super.init(signature: signature, viewType: viewType, modelType: modelType)
     }
@@ -141,18 +150,19 @@ open class FiveArgumentsEventReaction: EventReaction {
     }
 }
 
-public extension Sequence where Self.Iterator.Element: EventReaction {
+extension Sequence where Self.Iterator.Element: EventReaction {
+    /// Searches for reaction using specified parameters.
     public func reaction(of type: ViewType,
                          signature: String,
                          forModel model: Any,
                          view: UIView?) -> EventReaction? {
-        return self.filter({ reaction in
-            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false}
+        return first(where: { reaction in
+            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
             return reaction.viewModelMapping.viewType == type &&
                 reaction.viewModelMapping.modelTypeCheckingBlock(unwrappedModel) &&
                 view?.isKind(of: reaction.viewModelMapping.viewClass) ?? true &&
                 reaction.methodSignature == signature
-        }).first
+        })
     }
     
     /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
@@ -163,11 +173,14 @@ public extension Sequence where Self.Iterator.Element: EventReaction {
         return reaction.performWithArguments((view ?? 0, model, location))
     }
     
+    //swiftlint:disable function_parameter_count
+    /// Performs reaction of `type`, `signature`, with `argument`, `view`, `model` in `location`.
     public func perform4ArgumentsReaction(of type: ViewType, signature: String, argument: Any, view: Any?, model: Any, location: Any) -> Any {
         guard let reaction = reaction(of: type, signature: signature, forModel: model, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((argument, view ?? 0, model, location))
     }
     
+    /// Performs reaction of `type`, `signature`, with `firstArgument`, `secondArgument`, `view`, `model` in `location`.
     public func perform5ArgumentsReaction(of type: ViewType, signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: Any) -> Any {
         guard let reaction = reaction(of: type, signature: signature, forModel: model, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((firstArgument, secondArgument, view ?? 0, model, location))

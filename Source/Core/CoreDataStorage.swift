@@ -137,35 +137,34 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Supp
         case .update:
             if let indexPath = indexPath {
                 if let newIndexPath = newIndexPath, indexPath != newIndexPath {
-                    currentUpdate?.objectChanges.append((.delete,[indexPath]))
-                    currentUpdate?.objectChanges.append((.insert,[newIndexPath]))
-                }
-                else {
-                    currentUpdate?.objectChanges.append((.update,[indexPath]))
+                    currentUpdate?.objectChanges.append((.delete, [indexPath]))
+                    currentUpdate?.objectChanges.append((.insert, [newIndexPath]))
+                } else {
+                    currentUpdate?.objectChanges.append((.update, [indexPath]))
                     currentUpdate?.updatedObjects[indexPath] = anObject
                 }
             }
         }
     }
     
-    /// React to changed section in NSFetchedResultsController.    
+    
     @objc
+    /// React to changed section in NSFetchedResultsController. 
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
-    { switch type
     {
-    case .insert:
-        currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
-    case .delete:
-        currentUpdate?.sectionChanges.append((.delete, [sectionIndex]))
-    case .update:
-        currentUpdate?.sectionChanges.append((.update, [sectionIndex]))
-    default: ()
+        switch type {
+        case .insert:
+            currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
+        case .delete:
+            currentUpdate?.sectionChanges.append((.delete, [sectionIndex]))
+        case .update:
+            currentUpdate?.sectionChanges.append((.update, [sectionIndex]))
+        default: ()
         }
     }
     
     /// Finish update from NSFetchedResultsController
-    @objc
-    open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    @objc open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.finishUpdate()
     }
 }

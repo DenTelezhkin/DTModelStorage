@@ -127,10 +127,8 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         defer { self.finishUpdate() }
         
         var markedForDeletion = [Int]()
-        for section in indexes {
-            if section < self.sections.count {
-                markedForDeletion.append(section)
-            }
+        for section in indexes where section < self.sections.count {
+            markedForDeletion.append(section)
         }
         for section in markedForDeletion.sorted().reversed() {
             notificationTokens[section]?.invalidate()
@@ -149,9 +147,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
+        guard let headerKind = supplementaryHeaderKind else {
+            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
+        }
         let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
+        section?.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
     }
     
     /// Sets section footer `model` for section at `sectionIndex`
@@ -161,9 +161,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
+        guard let footerKind = supplementaryFooterKind else {
+            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
+        }
         let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
+        section?.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
     }
     
     /// Sets supplementary `models` for supplementary of `kind`.

@@ -44,7 +44,7 @@ open class SectionModel: Section, SupplementaryAccessible
     /// Supplementaries dictionary.
     open var supplementaries = [String: [Int: Any]]()
     
-    // Creates empty section model.
+    /// Creates empty section model.
     public init() {}
     
     /// Set items of specific time to items property.

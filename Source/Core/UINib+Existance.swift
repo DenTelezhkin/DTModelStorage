@@ -26,7 +26,7 @@
 import Foundation
 import UIKit
 
-public extension UINib {
+extension UINib {
     /// Returns true, if nib file with `nibName` exists in `bundle`.
     public class func nibExists(withNibName nibName: String,
                                            inBundle bundle: Bundle = Bundle.main) -> Bool

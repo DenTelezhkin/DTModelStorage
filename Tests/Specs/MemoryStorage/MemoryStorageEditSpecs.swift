@@ -25,14 +25,14 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testShouldInsertItems()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
         
         try! storage.insertItem(1, to: storage.indexPath(forItem: 6)!)
         
         var update = StorageUpdate()
-        update.objectChanges.append((.insert,[indexPath(2,0)]))
+        update.objectChanges.append((.insert, [indexPath(2, 0)]))
         
         expect(self.delegate.update) == update
         
@@ -40,16 +40,16 @@ class MemoryStorageEditSpecs: XCTestCase {
         try! storage.insertItem(3, to: storage.indexPath(forItem: 5)!)
         
         update = StorageUpdate()
-        update.objectChanges.append((.insert,[indexPath(0,1)]))
+        update.objectChanges.append((.insert, [indexPath(0, 1)]))
         
         expect(self.delegate.update) == update
     }
     
     func testSetItems() {
-        storage.addItems([1,2,3])
-        storage.setItems([4,5,6])
+        storage.addItems([1, 2, 3])
+        storage.setItems([4, 5, 6])
         
-        expect(self.storage.section(atIndex: 0)?.items.map { $0 as! Int} ) == [4,5,6]
+        expect(self.storage.section(atIndex: 0)?.items.map { $0 as! Int }) == [4, 5, 6]
     }
     
     func testSetSectionSupplementariesModel()
@@ -63,7 +63,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testInsertionOfStructs()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         
         try! storage.insertItem(1, to: indexPath(0, 0))
         
@@ -75,37 +75,35 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         do {
           try storage.insertItem(1, to: indexPath(1, 0))
-        }
-        catch let error as MemoryStorageError  {
+        } catch let error as MemoryStorageError  {
             guard case MemoryStorageError.insertionFailed(reason: _) = error else {
                 XCTFail()
                 return
             }
-        }
-        catch {
+        } catch {
             XCTFail()
         }
     }
 
     func testShouldReloadRows()
     {
-        storage.addItems([2,4,6])
+        storage.addItems([2, 4, 6])
         
         storage.reloadItem(4)
         
         var update = StorageUpdate()
-        update.objectChanges.append((.update,[indexPath(1,0)]))
+        update.objectChanges.append((.update, [indexPath(1, 0)]))
         
         expect(self.delegate.update) == update
     }
     
     func testShouldReplaceRows()
     {
-        storage.addItems([2,4,6])
+        storage.addItems([2, 4, 6])
         try! storage.replaceItem(4, with: 5)
         
         var update = StorageUpdate()
-        update.objectChanges.append((.update,[indexPath(1,0)]))
+        update.objectChanges.append((.update, [indexPath(1, 0)]))
         
         expect(self.delegate.update) == update
     }
@@ -114,32 +112,30 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         do {
             try storage.replaceItem(1, with: "foo")
-        }
-        catch let error as MemoryStorageError  {
+        } catch let error as MemoryStorageError  {
             guard case MemoryStorageError.searchFailed(reason: _) = error else {
                 XCTFail()
                 return
             }
-        }
-        catch {
+        } catch {
             XCTFail()
         }
     }
     
     func testShouldRemoveItem()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
         try! storage.removeItem(2)
         
         var update = StorageUpdate()
-        update.objectChanges.append((.delete,[indexPath(0,0)]))
+        update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.delegate.update) == update
         
         try! storage.removeItem(5)
-        update.objectChanges = [(.delete,[indexPath(0,1)])]
+        update.objectChanges = [(.delete, [indexPath(0, 1)])]
         
         expect(self.delegate.update) == update
     }
@@ -148,53 +144,51 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         do {
             try storage.removeItem(3)
-        }
-        catch let error as MemoryStorageError  {
+        } catch let error as MemoryStorageError  {
             guard case MemoryStorageError.searchFailed(reason: _) = error else {
                 XCTFail()
                 return
             }
-        }
-        catch {
+        } catch {
             XCTFail()
         }
     }
     
     func testShouldRemoveItemAtIndexPath()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
         storage.removeItems(at: [indexPath(0, 0)])
         
         var update = StorageUpdate()
-        update.objectChanges.append((.delete,[indexPath(0,0)]))
+        update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.delegate.update) == update
         
         storage.removeItems(at: [indexPath(0, 1)])
-        update.objectChanges = [(.delete,[indexPath(0,1)])]
+        update.objectChanges = [(.delete, [indexPath(0, 1)])]
         
         expect(self.delegate.update) == update
     }
     
     func testShouldRemoveItemsAtIndexPaths()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
-        storage.removeItems(at: [indexPath(0, 0),indexPath(0, 1)])
+        storage.removeItems(at: [indexPath(0, 0), indexPath(0, 1)])
         
         var update = StorageUpdate()
-        update.objectChanges.append((.delete,[indexPath(0,1)]))
-        update.objectChanges.append((.delete,[indexPath(0,0)]))
+        update.objectChanges.append((.delete, [indexPath(0, 1)]))
+        update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.delegate.update) == update
     }
     
     func testShouldNotCrashWhenRemovingNonExistingItem()
     {
-        storage.addItems([2,4,6], toSection: 0)
+        storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
         
         storage.removeItems(at: [indexPath(5, 0), indexPath(2, 1)])
@@ -202,13 +196,13 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testShouldRemoveItems()
     {
-        storage.addItems([1,3], toSection: 0)
-        storage.addItems([2,4], toSection: 1)
+        storage.addItems([1, 3], toSection: 0)
+        storage.addItems([2, 4], toSection: 1)
         
         var update = StorageUpdate()
-        update.objectChanges.append((.delete,[indexPath(0,0)]))
-        update.objectChanges.append((.delete,[indexPath(1,1)]))
-        update.objectChanges.append((.delete,[indexPath(1,0)]))
+        update.objectChanges.append((.delete, [indexPath(0, 0)]))
+        update.objectChanges.append((.delete, [indexPath(1, 1)]))
+        update.objectChanges.append((.delete, [indexPath(1, 0)]))
     }
     
     func testShouldDeleteSectionsEvenIfThereAreNone()
@@ -225,7 +219,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.deleteSections(IndexSet(integer: 1))
         
         var update = StorageUpdate()
-        update.sectionChanges.append((.delete,[1]))
+        update.sectionChanges.append((.delete, [1]))
         
         expect(self.delegate.update) == update
     }
@@ -241,8 +235,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.deleteSections(set as IndexSet)
         
         var update = StorageUpdate()
-        update.sectionChanges.append((.delete,[1]))
-        update.sectionChanges.append((.delete,[3]))
+        update.sectionChanges.append((.delete, [1]))
+        update.sectionChanges.append((.delete, [3]))
         
         expect(self.delegate.update) == update
         expect(self.storage.sections.count) == 2
@@ -271,7 +265,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldSetSupplementaries()
     {
         let kind = "foo"
-        storage.setSupplementaries([[0: 1], [0: 2],[0: 3]], forKind: kind)
+        storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
         
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 1
         expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 2
@@ -281,7 +275,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldNilOutSupplementaries()
     {
         let kind = "foo"
-        storage.setSupplementaries([[0: 1], [0: 2],[0: 3]], forKind: kind)
+        storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
         
         storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: kind)
         
@@ -322,28 +316,28 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testMovingSections()
     {
         storage.addItems([1])
-        storage.addItems([1,1], toSection: 1)
-        storage.addItems([1,1,1], toSection: 2)
+        storage.addItems([1, 1], toSection: 1)
+        storage.addItems([1, 1, 1], toSection: 2)
         
         storage.moveSection(0, toSection: 1)
         expect(self.storage.section(atIndex: 0)?.items.count) == 2
         expect(self.storage.section(atIndex: 1)?.items.count) == 1
         let moves = delegate.update?.sectionChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [0,1]
+        expect(moves?.first?.1) == [0, 1]
     }
     
     func testMovingItem()
     {
         storage.addItems([1])
-        storage.addItems([2,3], toSection: 1)
-        storage.addItems([4,5,6], toSection: 2)
+        storage.addItems([2, 3], toSection: 1)
+        storage.addItems([4, 5, 6], toSection: 2)
         
         storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 1))
         
         expect(self.storage.item(at: indexPath(1, 1)) as? Int) == 1
         
         let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(1,1)]
+        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(1, 1)]
     }
     
     func testMovingItemIntoNonExistingSection()
@@ -354,9 +348,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 1
         
-        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1}) == [1]
+        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [1]
         let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(0,1)]
+        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(0, 1)]
     }
     
     func testMovingNotExistingIndexPath()
@@ -372,7 +366,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     }
     
     func testSettingAllItemsInStorage() {
-        storage.setItemsForAllSections([[1],[2],[3]])
+        storage.setItemsForAllSections([[1], [2], [3]])
         
         expect(self.storage.totalNumberOfItems) == 3
         expect(self.storage.sections.count) == 3
@@ -394,7 +388,7 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testSectionHeaderModelsSetter()
     {
-        storage.setSectionHeaderModels([1,2,3])
+        storage.setSectionHeaderModels([1, 2, 3])
         
         expect(self.storage.sections.count) == 3
         expect(self.storage.headerModel(forSection: 0) as? Int) == 1
@@ -404,7 +398,7 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testSectionFooterModelsSetter()
     {
-        storage.setSectionFooterModels([1,2,3])
+        storage.setSectionFooterModels([1, 2, 3])
         
         expect(self.storage.sections.count) == 3
         expect(self.storage.footerModel(forSection: 0) as? Int) == 1
@@ -414,7 +408,7 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testNillifySectionHeaders()
     {
-        storage.setSectionHeaderModels([1,2,3])
+        storage.setSectionHeaderModels([1, 2, 3])
         storage.setSectionHeaderModels([Int]())
         
         expect(self.storage.headerModel(forSection: 1) as? Int).to(beNil())
@@ -422,7 +416,7 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testNillifySectionFooters()
     {
-        storage.setSectionFooterModels([1,2,3])
+        storage.setSectionFooterModels([1, 2, 3])
         storage.setSectionFooterModels([Int]())
         
         expect(self.storage.footerModel(forSection: 1) as? Int).to(beNil())
@@ -433,11 +427,11 @@ class SectionSupplementariesTestCase : XCTestCase
         let section = SectionModel()
         section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader, atIndex: 0)
         section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter, atIndex: 0)
-        section.setItems([1,2,3])
+        section.setItems([1, 2, 3])
         storage.insertSection(section, atIndex: 0)
         
-        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1}) == [0]
-        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0),indexPath(1, 0),indexPath(2, 0)]
+        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [0]
+        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)]
         
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"
@@ -456,49 +450,46 @@ class SectionSupplementariesTestCase : XCTestCase
     {
         do {
             try storage.insertItem(1, to: indexPath(0, 0))
-        }
-        catch _ {
+        } catch _ {
             XCTFail()
         }
     }
     
     func testSetSectionMethod() {
-        storage.addItems([1,2,3], toSection: 0)
-        storage.addItems([4,5,6], toSection: 1)
+        storage.addItems([1, 2, 3], toSection: 0)
+        storage.addItems([4, 5, 6], toSection: 1)
         
         let section = SectionModel()
-        section.setItems([7,8,9])
+        section.setItems([7, 8, 9])
         storage.setSection(section, forSection: 1)
         
-        expect(self.storage.section(atIndex: 1)?.items(ofType: Int.self)) == [7,8,9]
+        expect(self.storage.section(atIndex: 1)?.items(ofType: Int.self)) == [7, 8, 9]
     }
     
     func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
-        try! storage.insertItems([1,2,3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
+        try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
         
         expect(self.storage.items(inSection: 0)?.count) == 3
-        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1,2,3]
+        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1, 2, 3]
     }
     
     func testWrongCountsRaisesException() {
         do {
-            try storage.insertItems([1,2], to: [indexPath(0, 0)])
-        }
-        catch let error as MemoryStorageError  {
+            try storage.insertItems([1, 2], to: [indexPath(0, 0)])
+        } catch let error as MemoryStorageError  {
             guard case MemoryStorageError.batchInsertionFailed(reason: _) = error else {
                 XCTFail()
                 return
             }
-        }
-        catch {
+        } catch {
             XCTFail()
         }
     }
     
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
-        try! storage.insertItems([1,2,3], to: [indexPath(0, 0), indexPath(1, 0),indexPath(3, 0)])
+        try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
         
         expect(self.storage.items(inSection: 0)?.count) == 2
-        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1,2]
+        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1, 2]
     }
 }

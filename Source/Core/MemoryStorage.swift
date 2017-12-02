@@ -58,6 +58,7 @@ public enum MemoryStorageError: LocalizedError
     case batchInsertionFailed(reason: BatchInsertionReason)
     case searchFailed(reason: SearchReason)
     
+    /// Description of error 
     public var localizedDescription: String {
         switch self {
         case .insertionFailed(reason: _):
@@ -108,6 +109,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         if indexPath.section >= self.sections.count {
             return nil
         } else {
+            //swiftlint:disable:next force_cast
             sectionModel = self.sections[indexPath.section] as! SectionModel
             if indexPath.item >= sectionModel.numberOfItems {
                 return nil
@@ -123,9 +125,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionHeaderModel<T>(_ model: T?, forSection sectionIndex: Int)
     {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
+        guard let headerKind = supplementaryHeaderKind else {
+            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
+        }
         let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
+        section.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
     
@@ -136,9 +140,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionFooterModel<T>(_ model: T?, forSection sectionIndex: Int)
     {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
+        guard let footerKind = supplementaryFooterKind else {
+            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
+        }
         let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
+        section.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
     
@@ -382,10 +388,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         
         var markedForDeletion = [Int]()
-        for section in indexes {
-            if section < self.sections.count {
-                markedForDeletion.append(section)
-            }
+        for section in indexes where section < self.sections.count {
+            markedForDeletion.append(section)
         }
         for section in markedForDeletion.sorted().reversed() {
             sections.remove(at: section)
@@ -475,7 +479,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         
         guard let section = section(atIndex: sectionIndex) else { return }
         
-        for (index, _) in section.items.enumerated(){
+        for index in section.items.indices {
             currentUpdate?.objectChanges.append((.delete, [IndexPath(item: index, section: sectionIndex)]))
         }
         section.items.removeAll()
@@ -528,6 +532,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         if sectionIndex < self.sections.count
         {
+            //swiftlint:disable:next force_cast
             return sections[sectionIndex] as! SectionModel
         } else {
             for i in sections.count...sectionIndex {
@@ -535,7 +540,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
                 currentUpdate?.sectionChanges.append((.insert, [i]))
             }
         }
-        return self.sections.last as! SectionModel
+        //swiftlint:disable:next force_cast
+        return sections.last as! SectionModel
     }
     
     /// Returns index path array for `items`

@@ -133,13 +133,13 @@ class MappingTestCase: XCTestCase {
     
     func testCustomConditionIsVeryfiable() {
         let firstMapping = ViewModelMapping(viewType: .cell, viewClass: IntTableViewCell.self) { mapping in
-            mapping.condition = .custom({ indexPath, model  in
+            mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) > 5
             })
         }
         
         let secondMapping = ViewModelMapping(viewType: .cell, viewClass: OtherIntTableViewCell.self) { mapping in
-            mapping.condition = .custom({ indexPath, model  in
+            mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) <= 5
             })
         }

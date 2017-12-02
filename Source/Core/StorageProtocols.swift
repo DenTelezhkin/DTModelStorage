@@ -36,15 +36,17 @@ public protocol Storage : class
     func item(at indexPath: IndexPath) -> Any?
     
     /// Delegate property used to notify about current data storage changes.
-    weak var delegate: StorageUpdating? {get set}
+    weak var delegate: StorageUpdating? { get set }
 }
 
+/// `SupplementaryStorage` protocol defines interface for storages, that can hold supplementary objects(like header and footer models).
 public protocol SupplementaryStorage : class
 {
     /// Returns supplementary model of `kind` for section at `indexPath`.
     func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any?
 }
 
+/// `HeaderFooterStorage` protocol defines interface for storages, that can hold header and footer objects of specific supplementary type(for example like UICollectionElementKindSectionHeader)
 public protocol HeaderFooterStorage : class
 {
     /// Returns header model for section with section `index` or nil if not found.
@@ -72,12 +74,14 @@ extension HeaderFooterSettable {
     /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
     public func setSectionHeaderModels<T>(_ models: [T])
     {
-        assert(supplementaryHeaderKind != nil, "Please set supplementaryHeaderKind property before setting section header models")
+        guard let headerKind = supplementaryHeaderKind else {
+            assertionFailure("Please set supplementaryHeaderKind property before setting section header models"); return
+        }
         var supplementaries = [[Int: Any]]()
         for model in models {
             supplementaries.append([0: model])
         }
-        setSupplementaries(supplementaries, forKind: supplementaryHeaderKind!)
+        setSupplementaries(supplementaries, forKind: headerKind)
     }
     
     /// Sets section footer `models`, using `supplementaryFooterKind`.
@@ -85,12 +89,14 @@ extension HeaderFooterSettable {
     /// - Note: `supplementaryFooterKind` property should be set before calling this method.
     public func setSectionFooterModels<T>(_ models: [T])
     {
-        assert(supplementaryFooterKind != nil, "Please set supplementaryFooterKind property before setting section header models")
+        guard let footerKind = supplementaryFooterKind else {
+            assertionFailure("Please set supplementaryFooterKind property before setting section footer models"); return
+        }
         var supplementaries = [[Int: Any]]()
         for model in models {
             supplementaries.append([0: model])
         }
-        setSupplementaries(supplementaries, forKind: supplementaryFooterKind!)
+        setSupplementaries(supplementaries, forKind: footerKind)
     }
 }
 

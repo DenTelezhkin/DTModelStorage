@@ -11,7 +11,7 @@ import XCTest
 @testable import DTModelStorage
 import Nimble
 
-class TableCell: UITableViewCell,ModelTransfer
+class TableCell: UITableViewCell, ModelTransfer
 {
     func update(with model: Int) {
     }
@@ -45,8 +45,8 @@ class MemoryStorageSearchSpec: XCTestCase {
     }
     
     func testShouldCorrectlyReturnItemAtIndexPath() {
-        storage.addItems(["1","2"])
-        storage.addItems(["3","4"], toSection: 1)
+        storage.addItems(["1", "2"])
+        storage.addItems(["3", "4"], toSection: 1)
         var model = storage.item(at: indexPath(1, 1))
      
         expect(model as? String) == "4"
@@ -58,8 +58,8 @@ class MemoryStorageSearchSpec: XCTestCase {
     
     func testShouldReturnIndexPathOfItem()
     {
-        storage.addItems([1,2], toSection: 0)
-        storage.addItems([3,4], toSection: 1)
+        storage.addItems([1, 2], toSection: 0)
+        storage.addItems([3, 4], toSection: 1)
         
         let indexPath = storage.indexPath(forItem: 3)
         
@@ -70,24 +70,24 @@ class MemoryStorageSearchSpec: XCTestCase {
     
     func testShouldReturnItemsInSection()
     {
-        storage.addItems([1,2], toSection: 0)
-        storage.addItems([3,4], toSection: 1)
+        storage.addItems([1, 2], toSection: 0)
+        storage.addItems([3, 4], toSection: 1)
         
         let section0 = storage.items(inSection: 0)?.map{ $0 as! Int }
         let section1 = storage.items(inSection: 1)?.map{ $0 as! Int }
         
-        expect(section0) == [1,2]
-        expect(section1) == [3,4]
+        expect(section0) == [1, 2]
+        expect(section1) == [3, 4]
     }
     
     func testTableItemIndexPath()
     {
-        storage.addItems([1,2,3])
-        storage.addItems([4,5,6], toSection: 1)
-        storage.addItems([7,8,9], toSection: 2)
+        storage.addItems([1, 2, 3])
+        storage.addItems([4, 5, 6], toSection: 1)
+        storage.addItems([7, 8, 9], toSection: 2)
         
-        let indexPathArray = storage.indexPathArray(forItems: [1,5,9])
-        expect(indexPathArray) == [indexPath(0, 0),indexPath(1, 1),indexPath(2, 2)]
+        let indexPathArray = storage.indexPathArray(forItems: [1, 5, 9])
+        expect(indexPathArray) == [indexPath(0, 0), indexPath(1, 1), indexPath(2, 2)]
     }
     
     func testUpdateWithoutAnimations() {
@@ -110,7 +110,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     {
         let storageNeedsReloading = StorageUpdatingInstance()
         storage.delegate = storageNeedsReloading
-        storage.addItems([12,3,5,6])
+        storage.addItems([12, 3, 5, 6])
         
         expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beFalse())
         storage.removeAllItems()

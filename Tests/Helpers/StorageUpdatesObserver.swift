@@ -9,7 +9,7 @@
 import Foundation
 import DTModelStorage
 
-func indexPath(_ item:Int,_ section:Int) -> IndexPath
+func indexPath(_ item:Int, _ section:Int) -> IndexPath
 {
     return IndexPath(item: item, section: section)
 }

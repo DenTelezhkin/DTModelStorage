@@ -24,17 +24,17 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     }
 
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {
-        storage.addItems([1,2,3], toSection: 0)
-        storage.removeItems(at: [indexPath(0, 0),indexPath(1, 0)])
+        storage.addItems([1, 2, 3], toSection: 0)
+        storage.removeItems(at: [indexPath(0, 0), indexPath(1, 0)])
         expect(self.storage.item(at: indexPath(0, 0)) as? Int).to(equal(3))
     }
     
     func testRemovingSubsequentItemsWorksInDifferentSections()
     {
-        storage.addItems([1,2,3], toSection: 0)
-        storage.addItems([4,5,6], toSection: 1)
+        storage.addItems([1, 2, 3], toSection: 0)
+        storage.addItems([4, 5, 6], toSection: 1)
         
-        self.storage.removeItems(at: [indexPath(1, 0), indexPath(2, 0),indexPath(0, 1),indexPath(2, 1)])
+        self.storage.removeItems(at: [indexPath(1, 0), indexPath(2, 0), indexPath(0, 1), indexPath(2, 1)])
         
         expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
         expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 5
@@ -45,10 +45,10 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     
     func testRemovingItemsWorksWithSubsequentItems()
     {
-        self.storage.addItems([1,2,3], toSection: 0)
-        self.storage.addItems([4,5,6], toSection: 1)
+        self.storage.addItems([1, 2, 3], toSection: 0)
+        self.storage.addItems([4, 5, 6], toSection: 1)
         
-        self.storage.removeItems([2,3,4,5])
+        self.storage.removeItems([2, 3, 4, 5])
         
         expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
         expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 6
@@ -59,7 +59,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     
     func testSortingOfIndexPathsInSingleSection()
     {
-        let indexPaths = [indexPath(0, 0),indexPath(5, 0),indexPath(3, 0)]
+        let indexPaths = [indexPath(0, 0), indexPath(5, 0), indexPath(3, 0)]
         let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         
         expect(sortedIndexPaths.first?.item) == 5
@@ -69,33 +69,33 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     
     func testSortingOfIndexPathsInDifferentSections()
     {
-        let indexPaths = [indexPath(0, 0),indexPath(3, 0),indexPath(3,2),indexPath(2, 2),indexPath(1, 1)]
+        let indexPaths = [indexPath(0, 0), indexPath(3, 0), indexPath(3, 2), indexPath(2, 2), indexPath(1, 1)]
         let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         
-        let expectedIndexPaths = [indexPath(3, 2),indexPath(2, 2),indexPath(1, 1),indexPath(3, 0),indexPath(0, 0)]
+        let expectedIndexPaths = [indexPath(3, 2), indexPath(2, 2), indexPath(1, 1), indexPath(3, 0), indexPath(0, 0)]
         
         expect(sortedIndexPaths) == expectedIndexPaths
     }
     
     func testRemovingAndEnumerating()
     {
-        storage.addItems([1,2,3,4,5])
-        storage.removeItems([1,3,4,6])
+        storage.addItems([1, 2, 3, 4, 5])
+        storage.removeItems([1, 3, 4, 6])
         
         expect(self.storage.section(atIndex: 0)?.items.count) == 2
         expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 2
         expect(self.storage.item(at: indexPath(1, 0)) as? Int) == 5
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 } ) == [indexPath(0, 0),indexPath(2, 0), indexPath(3, 0)]
+        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(2, 0), indexPath(3, 0)]
     }
     
     func testRemoveItemsFromSection()
     {
-        storage.addItems([1,2,3])
+        storage.addItems([1, 2, 3])
         storage.removeItems(fromSection: 0)
         
         expect(self.storage.section(atIndex: 0)?.items.count) == 0
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete}.flatMap { $0.1 }) == [indexPath(0, 0),indexPath(1, 0), indexPath(2, 0)]
+        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)]
     }
 }
