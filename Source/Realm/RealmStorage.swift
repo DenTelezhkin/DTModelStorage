@@ -44,7 +44,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
         return sections.index(where: {
-            return ($0 as? RealmSection) === (section as? RealmSection)
+            return ($0 as AnyObject) === (section as AnyObject)
         })
     }
     
@@ -53,7 +53,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     
     deinit {
         notificationTokens.values.forEach { token in
-            token.stop()
+            token.invalidate()
         }
     }
     
@@ -79,7 +79,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         guard index <= sections.count else { return }
         
         let section = RealmSection(results: AnyRealmCollection(results))
-        notificationTokens[index]?.stop()
+        notificationTokens[index]?.invalidate()
         notificationTokens[index] = nil
         if index == sections.count {
             sections.append(section)
@@ -88,7 +88,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         }
         if results.realm?.configuration.readOnly == false {
             let sectionIndex = sections.count - 1
-            notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
+            notificationTokens[index] = results.observe({ [weak self] change in
                 self?.handleChange(change, inSection: sectionIndex)
                 })
         }
@@ -133,7 +133,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
             }
         }
         for section in markedForDeletion.sorted().reversed() {
-            notificationTokens[section]?.stop()
+            notificationTokens[section]?.invalidate()
             notificationTokens[section] = nil
             self.sections.remove(at: section)
         }

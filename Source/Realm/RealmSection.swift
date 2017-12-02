@@ -36,7 +36,7 @@ protocol ItemAtIndexPathRetrievable {
 }
 
 /// Data holder for single section in `RealmStorage`.
-open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
+open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
     
     /// Results object
     open var results: AnyRealmCollection<T>
