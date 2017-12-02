@@ -17,14 +17,6 @@ lane :test_tvos10 do
   scan(device: "Apple TV 1080p (10.2)")
 end
 
-lane :test_ios10_legacy do
-  scan(devices: ["iPhone 6s (10.3)"], xcargs: "SWIFT_VERSION=3.0")
-end
-
-lane :test_tvos10_legacy do
-  scan(devices: ["Apple TV 4K"], xcargs: "SWIFT_VERSION=3.0")
-end
-
 lane :pod_lint do
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
