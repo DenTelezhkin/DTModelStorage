@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
+		9A5DE78B1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */; };
 		9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EB1CCCE91E00DC69B1 /* CoreDataStorage.swift */; };
 		9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EE1CCCE92800DC69B1 /* MemoryStorage.swift */; };
 		9A63E5F21CCCE92800DC69B1 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A63E5EF1CCCE92800DC69B1 /* SectionModel.swift */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionProtocols.swift; path = Source/Core/SectionProtocols.swift; sourceTree = "<group>"; };
+		9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoryStorageDeferredUpdatesTestCase.swift; path = Specs/MemoryStorage/MemoryStorageDeferredUpdatesTestCase.swift; sourceTree = "<group>"; };
 		9A63E5E71CCCE8D300DC69B1 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		9A63E5E91CCCE8FF00DC69B1 /* Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Framework.plist; path = "Supporting files/Framework.plist"; sourceTree = "<group>"; };
 		9A63E5EA1CCCE8FF00DC69B1 /* Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Tests.plist; path = "Supporting files/Tests.plist"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9A63E62E1CCCE9DD00DC69B1 /* MemoryStorageEditSpecs.swift */,
 				9A63E62F1CCCE9DD00DC69B1 /* MemoryStorageRemovingItemsSpecs.swift */,
 				9A63E6301CCCE9DD00DC69B1 /* MemoryStorageSearchSpec.swift */,
+				9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */,
 				9A63E6311CCCE9DD00DC69B1 /* SectionModelTestCase.swift */,
 				9A63E63C1CCCE9F600DC69B1 /* iOSEmptyNib.xib */,
 				9AA8C87C1F646FE100018408 /* tvOSEmptyNib.xib */,
@@ -504,6 +507,7 @@
 				9A63E6561CCCEA4800DC69B1 /* RuntimeHelperTestCase.swift in Sources */,
 				9A63E6581CCCEA4800DC69B1 /* UIReactionsTestCase.swift in Sources */,
 				9A63E64D1CCCEA3B00DC69B1 /* StorageProtocolTestCase.swift in Sources */,
+				9A5DE78B1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift in Sources */,
 				9A63E6471CCCEA3B00DC69B1 /* BaseStorageTestCase.swift in Sources */,
 				9A63E6281CCCE9B400DC69B1 /* ListItem+CoreDataProperties.swift in Sources */,
 				9A63E6241CCCE9B400DC69B1 /* DTModelStorageDatabase.xcdatamodeld in Sources */,

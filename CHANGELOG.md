@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Implemented mechanism for deferring datasource updates of `MemoryStorage`. To turn it on, set `MemoryStorage.defersDatasourceUpdates` property to `true`. When turned on, updates are no longer applied automatically, but can be applied calling `StorageUpdate.applyDeferredDatasourceUpdates()` method. Keep in mind, that not only datasource updates are not applied, but object and section changes are also empty until updates are applied. This behaviour is experimental and is turned off by default.
+* Ream podspec now requires `Realm` version 3.x
+
 ## [6.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/6.0.0)
 
 * Fixed warnings for Xcode 9.1 / Swift 4.0.2

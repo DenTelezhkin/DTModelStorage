@@ -24,7 +24,7 @@ class MemoryStorageAddSpec: XCTestCase {
     }
 
     func testShouldReceiveCorrectUpdateCallWhenAddingItem() {
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.sectionChanges.append((.insert, [0]))
         update.objectChanges.append((.insert, [indexPath(0, 0)]))
         
@@ -38,7 +38,7 @@ class MemoryStorageAddSpec: XCTestCase {
         let foo = [1, 2, 3]
         storage.addItems(foo, toSection: 1)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.sectionChanges.append((.insert, [0]))
         update.sectionChanges.append((.insert, [1]))
         update.objectChanges.append((.insert, [indexPath(0, 1)]))

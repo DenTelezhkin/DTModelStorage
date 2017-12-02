@@ -76,9 +76,7 @@ open class BaseStorage: NSObject, HeaderFooterStorage
     open func finishUpdate()
     {
         guard batchUpdatesInProgress == false else { return }
-        
         defer { currentUpdate = nil }
-        
         if let update = currentUpdate {
             if update.isEmpty {
                 return

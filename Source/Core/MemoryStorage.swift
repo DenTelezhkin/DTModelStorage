@@ -78,11 +78,26 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
 {
+    /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
+    /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
+    /// This flag is currently experimental and defaults to `false`.
+    open var defersDatasourceUpdates: Bool = false
+    
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {
         didSet {
             sections.forEach {
                 ($0 as? SectionModel)?.sectionLocationDelegate = self
+            }
+        }
+    }
+    
+    func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
+        if defersDatasourceUpdates {
+            currentUpdate?.enqueueDatasourceUpdate(block)
+        } else {
+            if let update = currentUpdate {
+                try? block(update)
             }
         }
     }
@@ -128,7 +143,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         guard let headerKind = supplementaryHeaderKind else {
             assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
         }
-        let section = getValidSection(sectionIndex)
+        let section = getValidSection(sectionIndex, collectChangesIn: nil)
         section.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
@@ -143,7 +158,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         guard let footerKind = supplementaryFooterKind else {
             assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
         }
-        let section = getValidSection(sectionIndex)
+        let section = getValidSection(sectionIndex, collectChangesIn: nil)
         section.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
@@ -165,7 +180,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             return
         }
         
-        _ = getValidSection(models.count - 1)
+        _ = getValidSection(models.count - 1, collectChangesIn: nil)
         
         for index in 0 ..< models.count {
             let section = self.sections[index] as? SupplementaryAccessible
@@ -178,7 +193,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Note: This will reload UI after updating.
     open func setItems<T>(_ items: [T], forSection index: Int = 0)
     {
-        let section = self.getValidSection(index)
+        let section = self.getValidSection(index, collectChangesIn: nil)
         section.items.removeAll(keepingCapacity: false)
         section.items = items.map { $0 }
         self.delegate?.storageNeedsReloading()
@@ -189,7 +204,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Note: This will reload UI after updating.
     open func setItemsForAllSections<T>(_ items: [[T]]) {
         for (index, array) in items.enumerated() {
-            let section = getValidSection(index)
+            let section = getValidSection(index, collectChangesIn: nil)
             section.items.removeAll()
             section.items = array.map { $0 }
         }
@@ -202,7 +217,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Parameter index: index of section
     open func setSection(_ section: SectionModel, forSection index: Int)
     {
-        _ = self.getValidSection(index)
+        _ = self.getValidSection(index, collectChangesIn: nil)
         sections.replaceSubrange(index...index, with: [section as Section])
         delegate?.storageNeedsReloading()
     }
@@ -216,10 +231,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func insertSection(_ section: SectionModel, atIndex sectionIndex: Int) {
         guard sectionIndex <= sections.count else { return }
         startUpdate()
-        sections.insert(section, at: sectionIndex)
-        currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
-        for item in 0..<section.numberOfItems {
-            currentUpdate?.objectChanges.append((.insert, [IndexPath(item: item, section: sectionIndex)]))
+        performDatasourceUpdate { [weak self] update in
+            self?.sections.insert(section, at: sectionIndex)
+            update.sectionChanges.append((.insert, [sectionIndex]))
+            for item in 0..<section.numberOfItems {
+                update.objectChanges.append((.insert, [IndexPath(item: item, section: sectionIndex)]))
+            }
         }
         finishUpdate()
     }
@@ -230,12 +247,14 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func addItems<T>(_ items: [T], toSection index: Int = 0)
     {
         startUpdate()
-        let section = getValidSection(index)
-        
-        for item in items {
-            let numberOfItems = section.numberOfItems
-            section.items.append(item)
-            currentUpdate?.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(index, collectChangesIn: update)
+            
+            for item in items {
+                let numberOfItems = section?.numberOfItems ?? 0
+                section?.items.append(item)
+                update.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+            }
         }
         finishUpdate()
     }
@@ -247,10 +266,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func addItem<T>(_ item: T, toSection index: Int = 0)
     {
         startUpdate()
-        let section = self.getValidSection(index)
-        let numberOfItems = section.numberOfItems
-        section.items.append(item)
-        currentUpdate?.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(index, collectChangesIn: update)
+            let numberOfItems = section?.numberOfItems ?? 0
+            section?.items.append(item)
+            update.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        }
         finishUpdate()
     }
     
@@ -260,16 +281,18 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Throws: if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
     open func insertItem<T>(_ item: T, to indexPath: IndexPath) throws
     {
-        self.startUpdate()
-        let section = self.getValidSection(indexPath.section)
-        
-        guard section.items.count >= indexPath.item else {
-            throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
+            
+            guard (section?.items.count ?? 0) >= indexPath.item else {
+                throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+            }
+            
+            section?.items.insert(item, at: indexPath.item)
+            update.objectChanges.append((.insert, [indexPath]))
         }
-        
-        section.items.insert(item, at: indexPath.item)
-        currentUpdate?.objectChanges.append((.insert, [indexPath]))
-        self.finishUpdate()
+        finishUpdate()
     }
     
     /// Inserts `items` to `indexPaths`
@@ -281,15 +304,29 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         if items.count != indexPaths.count {
             throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
-        performUpdates {
-            indexPaths.enumerated().forEach { (arg) in
-                let (itemIndex, indexPath) = arg
-                let section = getValidSection(indexPath.section)
-                guard section.items.count >= indexPath.item else {
-                    return
+        if defersDatasourceUpdates {
+            performDatasourceUpdate { [weak self] update in
+                indexPaths.enumerated().forEach { (arg) in
+                    let (itemIndex, indexPath) = arg
+                    let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
+                    guard (section?.items.count ?? 0) >= indexPath.item else {
+                        return
+                    }
+                    section?.items.insert(items[itemIndex], at: indexPath.item)
+                    update.objectChanges.append((.insert, [indexPath]))
                 }
-                section.items.insert(items[itemIndex], at: indexPath.item)
-                currentUpdate?.objectChanges.append((.insert, [indexPath]))
+            }
+        } else {
+            performUpdates {
+                indexPaths.enumerated().forEach { (arg) in
+                    let (itemIndex, indexPath) = arg
+                    let section = getValidSection(indexPath.section, collectChangesIn: currentUpdate)
+                    guard section.items.count >= indexPath.item else {
+                        return
+                    }
+                    section.items.insert(items[itemIndex], at: indexPath.item)
+                    currentUpdate?.objectChanges.append((.insert, [indexPath]))
+                }
             }
         }
     }
@@ -298,9 +335,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func reloadItem<T: Equatable>(_ item: T)
     {
         startUpdate()
-        if let indexPath = self.indexPath(forItem: item) {
-            currentUpdate?.objectChanges.append((.update, [indexPath]))
-            currentUpdate?.updatedObjects[indexPath] = item
+        performDatasourceUpdate { [weak self] update in
+            if let indexPath = self?.indexPath(forItem: item) {
+                update.objectChanges.append((.update, [indexPath]))
+                update.updatedObjects[indexPath] = item
+            }
         }
         finishUpdate()
     }
@@ -313,15 +352,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { self.finishUpdate() }
         
-        guard let originalIndexPath = self.indexPath(forItem: itemToReplace) else {
-            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
+        performDatasourceUpdate { [weak self] update in
+            guard let originalIndexPath = self?.indexPath(forItem: itemToReplace) else {
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
+            }
+            
+            let section = self?.getValidSection(originalIndexPath.section, collectChangesIn: update)
+            section?.items[originalIndexPath.item] = replacingItem
+            
+            update.objectChanges.append((.update, [originalIndexPath]))
+            update.updatedObjects[originalIndexPath] = replacingItem
         }
-        
-        let section = self.getValidSection(originalIndexPath.section)
-        section.items[originalIndexPath.item] = replacingItem
-        
-        currentUpdate?.objectChanges.append((.update, [originalIndexPath]))
-        currentUpdate?.updatedObjects[originalIndexPath] = replacingItem
     }
     
     /// Removes `item`.
@@ -332,12 +373,13 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { self.finishUpdate() }
         
-        guard let indexPath = self.indexPath(forItem: item) else {
-            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
+        performDatasourceUpdate { [weak self] update in
+            guard let indexPath = self?.indexPath(forItem: item) else {
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
+            }
+            self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+            update.objectChanges.append((.delete, [indexPath]))
         }
-        getValidSection(indexPath.section).items.remove(at: indexPath.item)
-        
-        currentUpdate?.objectChanges.append((.delete, [indexPath]))
     }
     
     /// Removes `items` from storage.
@@ -347,14 +389,15 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func removeItems<T: Equatable>(_ items: [T])
     {
         startUpdate()
-        
-        let indexPaths = indexPathArray(forItems: items)
-        for indexPath in type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
-        {
-            getValidSection(indexPath.section).items.remove(at: indexPath.item)
-        }
-        indexPaths.forEach {
-            currentUpdate?.objectChanges.append((.delete, [$0]))
+        performDatasourceUpdate { [weak self] update in
+            let indexPaths = self?.indexPathArray(forItems: items) ?? []
+            for indexPath in MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+            {
+                self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+            }
+            indexPaths.forEach {
+                update.objectChanges.append((.delete, [$0]))
+            }
         }
         finishUpdate()
     }
@@ -366,17 +409,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func removeItems(at indexPaths: [IndexPath])
     {
         startUpdate()
-        
-        let reverseSortedIndexPaths = type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
-        for indexPath in reverseSortedIndexPaths
-        {
-            if let _ = self.item(at: indexPath)
+        performDatasourceUpdate { [weak self] update in
+            let reverseSortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+            for indexPath in reverseSortedIndexPaths
             {
-                getValidSection(indexPath.section).items.remove(at: indexPath.item)
-                currentUpdate?.objectChanges.append((.delete, [indexPath]))
+                if let _ = self?.item(at: indexPath)
+                {
+                    self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+                    update.objectChanges.append((.delete, [indexPath]))
+                }
             }
         }
-        
         finishUpdate()
     }
     
@@ -386,16 +429,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func deleteSections(_ indexes: IndexSet)
     {
         startUpdate()
-        
-        var markedForDeletion = [Int]()
-        for section in indexes where section < self.sections.count {
-            markedForDeletion.append(section)
-        }
-        for section in markedForDeletion.sorted().reversed() {
-            sections.remove(at: section)
-        }
-        markedForDeletion.forEach {
-            currentUpdate?.sectionChanges.append((.delete, [$0]))
+        performDatasourceUpdate { [weak self] update in
+            var markedForDeletion = [Int]()
+            for section in indexes where section < (self?.sections.count ?? 0) {
+                markedForDeletion.append(section)
+            }
+            for section in markedForDeletion.sorted().reversed() {
+                self?.sections.remove(at: section)
+            }
+            markedForDeletion.forEach {
+                update.sectionChanges.append((.delete, [$0]))
+            }
         }
         finishUpdate()
     }
@@ -404,13 +448,15 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     /// Sections prior to `sourceSectionIndex` and `destinationSectionIndex` will be automatically created, unless they already exist.
     open func moveSection(_ sourceSectionIndex: Int, toSection destinationSectionIndex: Int) {
-        self.startUpdate()
-        let validSectionFrom = getValidSection(sourceSectionIndex)
-        _ = getValidSection(destinationSectionIndex)
-        sections.remove(at: sourceSectionIndex)
-        sections.insert(validSectionFrom, at: destinationSectionIndex)
-        currentUpdate?.sectionChanges.append((.move, [sourceSectionIndex, destinationSectionIndex]))
-        self.finishUpdate()
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            guard let validSectionFrom = self?.getValidSection(sourceSectionIndex, collectChangesIn: update) else { return }
+            _ = self?.getValidSection(destinationSectionIndex, collectChangesIn: update)
+            self?.sections.remove(at: sourceSectionIndex)
+            self?.sections.insert(validSectionFrom, at: destinationSectionIndex)
+            update.sectionChanges.append((.move, [sourceSectionIndex, destinationSectionIndex]))
+        }
+        finishUpdate()
     }
     
     /// Moves item from `source` indexPath to `destination` indexPath.
@@ -418,23 +464,25 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Sections prior to `source`.section and `destination`.section will be automatically created, unless they already exist. If source item or destination index path are unreachable(too large), this method does nothing.
     open func moveItem(at source: IndexPath, to destination: IndexPath)
     {
-        self.startUpdate()
+        startUpdate()
         defer { self.finishUpdate() }
         
-        guard let sourceItem = item(at: source) else {
-            print("MemoryStorage: source indexPath should not be nil when moving item")
-            return
+        performDatasourceUpdate { [weak self] update in
+            guard let sourceItem = self?.item(at: source) else {
+                print("MemoryStorage: source indexPath should not be nil when moving item")
+                return
+            }
+            let sourceSection = self?.getValidSection(source.section, collectChangesIn: update)
+            let destinationSection = self?.getValidSection(destination.section, collectChangesIn: update)
+            
+            if (destinationSection?.items.count ?? 0) < destination.row {
+                print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection?.items.count ?? 0) items in section")
+                return
+            }
+            sourceSection?.items.remove(at: source.row)
+            destinationSection?.items.insert(sourceItem, at: destination.item)
+            update.objectChanges.append((.move, [source, destination]))
         }
-        let sourceSection = getValidSection(source.section)
-        let destinationSection = getValidSection(destination.section)
-        
-        if destinationSection.items.count < destination.row {
-            print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection.items.count) items in section")
-            return
-        }
-        sourceSection.items.remove(at: source.row)
-        destinationSection.items.insert(sourceItem, at: destination.item)
-        currentUpdate?.objectChanges.append((.move, [source, destination]))
     }
     
     /// Moves item from `sourceIndexPath` to `destinationIndexPath` without animations.
@@ -477,12 +525,14 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { finishUpdate() }
         
-        guard let section = section(atIndex: sectionIndex) else { return }
-        
-        for index in section.items.indices {
-            currentUpdate?.objectChanges.append((.delete, [IndexPath(item: index, section: sectionIndex)]))
+        performDatasourceUpdate { [weak self] update in
+            guard let section = self?.section(atIndex: sectionIndex) else { return }
+            
+            for index in section.items.indices {
+                update.objectChanges.append((.delete, [IndexPath(item: index, section: sectionIndex)]))
+            }
+            section.items.removeAll()
         }
-        section.items.removeAll()
     }
     
     // MARK: - Searching in storage
@@ -528,7 +578,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     /// - Note: This method finds or create a SectionModel. It means that if you create section 2, section 0 and 1 will be automatically created.
     /// - Returns: SectionModel
-    final func getValidSection(_ sectionIndex: Int) -> SectionModel
+    final func getValidSection(_ sectionIndex: Int, collectChangesIn update: StorageUpdate?) -> SectionModel
     {
         if sectionIndex < self.sections.count
         {
@@ -537,7 +587,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         } else {
             for i in sections.count...sectionIndex {
                 sections.append(SectionModel())
-                currentUpdate?.sectionChanges.append((.insert, [i]))
+                update?.sectionChanges.append((.insert, [i]))
             }
         }
         //swiftlint:disable:next force_cast

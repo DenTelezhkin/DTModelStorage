@@ -34,7 +34,7 @@ public enum ChangeType: String {
 }
 
 /// Object representing update in storage.
-public struct StorageUpdate: Equatable, CustomStringConvertible
+public class StorageUpdate: Equatable, CustomStringConvertible
 {
     /// Object changes in update, in order of occurence
     public var objectChanges = [(ChangeType, [IndexPath])]()
@@ -47,12 +47,31 @@ public struct StorageUpdate: Equatable, CustomStringConvertible
     /// Therefore, resulting indexPaths are shifted, and update may be called on wrong indexPath. By storing objects from initial update call, we ensure, that objects used in update are correct.
     public var updatedObjects = [IndexPath: Any]()
     
+    /// If update contains deferred datasource updates, they need to be applied before applying any animations.
+    /// SeeAlso: - `applyDeferredDatasourceUpdates` method.
+    public var containsDeferredDatasourceUpdates : Bool {
+        return enqueuedDatasourceUpdates.count > 0
+    }
+    
+    var enqueuedDatasourceUpdates = [(StorageUpdate) throws -> Void]()
+    
     /// Create an empty update.
     public init(){}
     
     /// Returns true, if update is empty.
     public var isEmpty: Bool {
-        return objectChanges.isEmpty && sectionChanges.isEmpty
+        return objectChanges.isEmpty && sectionChanges.isEmpty && enqueuedDatasourceUpdates.isEmpty
+    }
+    
+    /// Call this method to apply all deferred datasource updates.
+    /// This method works only when using `MemoryStorage` with `defersDatasourceUpdates` flag turned on.
+    public func applyDeferredDatasourceUpdates() {
+        enqueuedDatasourceUpdates.forEach { try? $0(self) }
+        enqueuedDatasourceUpdates = []
+    }
+    
+    func enqueueDatasourceUpdate(_ update: @escaping (StorageUpdate) throws -> Void) {
+        enqueuedDatasourceUpdates.append(update)
     }
     
     /// Compare StorageUpdates
@@ -77,7 +96,7 @@ public struct StorageUpdate: Equatable, CustomStringConvertible
                 return false
             }
         }
-        return true
+        return left.enqueuedDatasourceUpdates.count == right.enqueuedDatasourceUpdates.count
     }
     
     /// Description of object changes

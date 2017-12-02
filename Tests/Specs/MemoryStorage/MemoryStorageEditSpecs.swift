@@ -91,7 +91,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.reloadItem(4)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.update, [indexPath(1, 0)]))
         
         expect(self.delegate.update) == update
@@ -102,7 +102,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2, 4, 6])
         try! storage.replaceItem(4, with: 5)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.update, [indexPath(1, 0)]))
         
         expect(self.delegate.update) == update
@@ -129,7 +129,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         try! storage.removeItem(2)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.delegate.update) == update
@@ -161,7 +161,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.removeItems(at: [indexPath(0, 0)])
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.delegate.update) == update
@@ -179,7 +179,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.removeItems(at: [indexPath(0, 0), indexPath(0, 1)])
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.delete, [indexPath(0, 1)]))
         update.objectChanges.append((.delete, [indexPath(0, 0)]))
         
@@ -199,7 +199,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 3], toSection: 0)
         storage.addItems([2, 4], toSection: 1)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.objectChanges.append((.delete, [indexPath(0, 0)]))
         update.objectChanges.append((.delete, [indexPath(1, 1)]))
         update.objectChanges.append((.delete, [indexPath(1, 0)]))
@@ -218,7 +218,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.deleteSections(IndexSet(integer: 1))
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.sectionChanges.append((.delete, [1]))
         
         expect(self.delegate.update) == update
@@ -234,7 +234,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         set.add(3)
         storage.deleteSections(set as IndexSet)
         
-        var update = StorageUpdate()
+        let update = StorageUpdate()
         update.sectionChanges.append((.delete, [1]))
         update.sectionChanges.append((.delete, [3]))
         
