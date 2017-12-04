@@ -42,6 +42,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
+        storage.defersDatasourceUpdates = false
     }
     
     func testShouldCorrectlyReturnItemAtIndexPath() {

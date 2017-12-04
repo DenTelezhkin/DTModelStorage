@@ -20,6 +20,7 @@ class BaseStorageTestCase: XCTestCase {
         storage = MemoryStorage()
         updateObserver = StorageUpdatesObserver()
         storage.delegate = updateObserver
+        storage.defersDatasourceUpdates = false
     }
     
     func testTwoInsertions()

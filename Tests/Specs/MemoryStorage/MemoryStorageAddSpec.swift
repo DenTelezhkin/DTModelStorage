@@ -21,6 +21,7 @@ class MemoryStorageAddSpec: XCTestCase {
         delegate = StorageUpdatesObserver()
         storage = MemoryStorage()
         storage.delegate = delegate
+        storage.defersDatasourceUpdates = false
     }
 
     func testShouldReceiveCorrectUpdateCallWhenAddingItem() {

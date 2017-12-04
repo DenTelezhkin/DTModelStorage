@@ -21,6 +21,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         self.storage = MemoryStorage()
         storageUpdatesObserver = StorageUpdatesObserver()
         storage.delegate = storageUpdatesObserver
+        storage.defersDatasourceUpdates = false
     }
 
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {

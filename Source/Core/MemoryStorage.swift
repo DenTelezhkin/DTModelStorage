@@ -80,8 +80,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
 {
     /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
     /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
-    /// This flag is currently experimental and defaults to `false`.
-    open var defersDatasourceUpdates: Bool = false
+    /// Defaults to `true`.
+    /// - SeeAlso: https://github.com/DenHeadless/DTCollectionViewManager/issues/27
+    open var defersDatasourceUpdates: Bool = true
     
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {

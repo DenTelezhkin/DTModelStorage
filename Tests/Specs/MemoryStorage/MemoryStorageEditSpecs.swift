@@ -21,6 +21,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         delegate = StorageUpdatesObserver()
         storage = MemoryStorage()
         storage.delegate = delegate
+        storage.defersDatasourceUpdates = false
     }
     
     func testShouldInsertItems()
@@ -384,6 +385,7 @@ class SectionSupplementariesTestCase : XCTestCase
         self.storage.configureForTableViewUsage()
         updatesObserver = StorageUpdatesObserver()
         storage.delegate = updatesObserver
+        storage.defersDatasourceUpdates = false
     }
     
     func testSectionHeaderModelsSetter()
