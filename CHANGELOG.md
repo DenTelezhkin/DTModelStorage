@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.0)
+
 ## [7.0.0-beta.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.0-beta.1)
 
 * Implemented mechanism for deferring datasource updates of `MemoryStorage`.  When turned on, updates are no longer applied automatically, but can be applied calling `StorageUpdate.applyDeferredDatasourceUpdates()` method. Keep in mind, that not only datasource updates are not applied, but object and section changes are also empty until updates are applied. This behaviour is turned on by default, to disable it, call
