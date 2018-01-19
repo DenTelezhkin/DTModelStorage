@@ -11,7 +11,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.frameworks = 'UIKit', 'Foundation', 'CoreData'
-
+  s.swift_version = '4.0'
+  
   s.subspec 'Core' do |core|
       core.source_files = 'Source/Core/*.swift'
   end
