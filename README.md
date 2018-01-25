@@ -1,6 +1,6 @@
-![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.svg?branch=master) &nbsp;
+[![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.svg?branch=master)](https://travis-ci.org/DenHeadless/DTModelStorage)
 [![codecov.io](http://codecov.io/github/DenHeadless/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenHeadless/DTModelStorage?branch=master)
-![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTModelStorage/badge.png) &nbsp;
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/DTModelStorage.svg)](https://cocoapods.org/pods/DTModelStorage)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
