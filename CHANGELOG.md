@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.0.1](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.1)
+
 * Fixed a bug, that prevented datasource from being updated when `updateWithoutAnimations` method on `MemoryStorage` was used.
 
 ## [7.0.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.0)
