@@ -35,16 +35,18 @@ extension MemoryStorage
         let recordingDelegate = RecordingDelegate()
         self.delegate = recordingDelegate
         block()
-        recordingDelegate.update?.applyDeferredDatasourceUpdates()
+        recordingDelegate.updates.forEach {
+            $0.applyDeferredDatasourceUpdates()
+        }
         self.delegate = delegate
     }
 }
 
 private class RecordingDelegate: StorageUpdating {
-    var update : StorageUpdate?
+    var updates: [StorageUpdate] = []
     
     func storageDidPerformUpdate(_ update: StorageUpdate) {
-        self.update = update
+        updates.append(update)
     }
     
     func storageNeedsReloading() {}

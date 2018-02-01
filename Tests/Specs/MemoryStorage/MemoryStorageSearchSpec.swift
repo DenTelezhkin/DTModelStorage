@@ -96,7 +96,14 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.updateWithoutAnimations {
             storage.addItems([1,2])
         }
+        
         expect(self.storage.items(inSection: 0)?.flatMap { $0 as? Int} ?? []) == [1,2]
+        
+        storage.updateWithoutAnimations {
+            storage.addItems([3,4])
+            storage.addItems([5,6])
+        }
+        expect(self.storage.items(inSection: 0)?.flatMap { $0 as? Int} ?? []) == [1,2,3,4,5,6]
     }
     
     func testEmptySection()
