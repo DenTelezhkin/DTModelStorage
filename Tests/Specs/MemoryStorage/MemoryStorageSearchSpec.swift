@@ -92,9 +92,11 @@ class MemoryStorageSearchSpec: XCTestCase {
     }
     
     func testUpdateWithoutAnimations() {
+        storage.defersDatasourceUpdates = true
         storage.updateWithoutAnimations {
-            expect(self.storage.delegate).to(beNil())
+            storage.addItems([1,2])
         }
+        expect(self.storage.items(inSection: 0)?.flatMap { $0 as? Int} ?? []) == [1,2]
     }
     
     func testEmptySection()

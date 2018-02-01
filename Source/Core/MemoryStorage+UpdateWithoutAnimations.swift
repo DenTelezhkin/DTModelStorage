@@ -32,8 +32,20 @@ extension MemoryStorage
     open func updateWithoutAnimations(_ block: () -> Void)
     {
         let delegate = self.delegate
-        self.delegate = nil
+        let recordingDelegate = RecordingDelegate()
+        self.delegate = recordingDelegate
         block()
+        recordingDelegate.update?.applyDeferredDatasourceUpdates()
         self.delegate = delegate
     }
+}
+
+private class RecordingDelegate: StorageUpdating {
+    var update : StorageUpdate?
+    
+    func storageDidPerformUpdate(_ update: StorageUpdate) {
+        self.update = update
+    }
+    
+    func storageNeedsReloading() {}
 }
