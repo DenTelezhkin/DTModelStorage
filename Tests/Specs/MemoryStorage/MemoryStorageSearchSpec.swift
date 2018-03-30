@@ -11,6 +11,16 @@ import XCTest
 @testable import DTModelStorage
 import Nimble
 
+#if swift(>=4.1)
+#else
+/// Extension for adding Swift 4.1 methods, to support Swift 4.0 and Swift 3.2/3.3 concurrently.
+extension Sequence {
+    func compactMap<ElementOfResult>(_ transform: (Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
+        return try flatMap(transform)
+    }
+}
+#endif
+
 class TableCell: UITableViewCell, ModelTransfer
 {
     func update(with model: Int) {
@@ -96,14 +106,13 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.updateWithoutAnimations {
             storage.addItems([1,2])
         }
-        
-        expect(self.storage.items(inSection: 0)?.flatMap { $0 as? Int} ?? []) == [1,2]
+        expect((self.storage.items(inSection: 0) ?? []).compactMap { $0 as? Int } ) == [1,2]
         
         storage.updateWithoutAnimations {
             storage.addItems([3,4])
             storage.addItems([5,6])
         }
-        expect(self.storage.items(inSection: 0)?.flatMap { $0 as? Int} ?? []) == [1,2,3,4,5,6]
+        expect((self.storage.items(inSection: 0) ?? []).compactMap { $0 as? Int }) == [1,2,3,4,5,6]
     }
     
     func testEmptySection()

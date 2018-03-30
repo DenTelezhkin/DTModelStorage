@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E75031A206E504E004D6EAA /* BackwardsCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E750319206E504E004D6EAA /* BackwardsCompatibility.swift */; };
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
 		9A5DE78B1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E750319206E504E004D6EAA /* BackwardsCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackwardsCompatibility.swift; path = Source/Core/BackwardsCompatibility.swift; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionProtocols.swift; path = Source/Core/SectionProtocols.swift; sourceTree = "<group>"; };
 		9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoryStorageDeferredUpdatesTestCase.swift; path = Specs/MemoryStorage/MemoryStorageDeferredUpdatesTestCase.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				9A63E5FD1CCCE94B00DC69B1 /* UINib+Existance.swift */,
 				9A63E5FE1CCCE94B00DC69B1 /* EventReactions.swift */,
 				9A63E5FF1CCCE94B00DC69B1 /* ViewModelMapping.swift */,
+				3E750319206E504E004D6EAA /* BackwardsCompatibility.swift */,
 			);
 			name = Utitlities;
 			sourceTree = "<group>";
@@ -377,7 +380,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Denys Telezhkin";
 				TargetAttributes = {
 					9A2A385A1AEE24340021E97D = {
@@ -489,6 +492,7 @@
 				9A63E5EC1CCCE91E00DC69B1 /* CoreDataStorage.swift in Sources */,
 				9A63E6041CCCE94B00DC69B1 /* RuntimeHelper.swift in Sources */,
 				9A63E6081CCCE94B00DC69B1 /* EventReactions.swift in Sources */,
+				3E75031A206E504E004D6EAA /* BackwardsCompatibility.swift in Sources */,
 				9A63E6021CCCE94B00DC69B1 /* ModelTransfer.swift in Sources */,
 				9A63E6001CCCE94B00DC69B1 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */,
@@ -688,11 +692,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -754,11 +760,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;

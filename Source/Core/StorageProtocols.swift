@@ -36,7 +36,7 @@ public protocol Storage : class
     func item(at indexPath: IndexPath) -> Any?
     
     /// Delegate property used to notify about current data storage changes.
-    weak var delegate: StorageUpdating? { get set }
+    var delegate: StorageUpdating? { get set }
 }
 
 /// `SupplementaryStorage` protocol defines interface for storages, that can hold supplementary objects(like header and footer models).

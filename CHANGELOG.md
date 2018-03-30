@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Updates for Xcode 9.3 and Swift 4.1
+
 ## [7.0.2](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.2)
 
 * Properly collect all updates from updateWithoutAnimations block.

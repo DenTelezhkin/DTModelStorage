@@ -278,7 +278,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let kind = "foo"
         storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
         
-        storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: kind)
+        storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: kind)
         
         expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
         expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
