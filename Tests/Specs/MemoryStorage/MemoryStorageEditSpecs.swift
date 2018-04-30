@@ -45,6 +45,17 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         expect(self.delegate.update) == update
     }
+#if swift(>=4.1)
+    func testBatchInsertionWithDifferentItemCountsTriggersAnomaly() {
+        let exp = expectation(description: "Insert with different counts")
+        let anomaly = MemoryStorageAnomaly.batchInsertionItemCountMismatch(itemsCount: 1, indexPathsCount: 2)
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        try? storage.insertItems([1], to: [indexPath(0, 0), indexPath(1, 0)])
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert batch of items, items count: 1, indexPaths count: 2")
+    }
+#endif
     
     func testSetItems() {
         storage.addItems([1, 2, 3])
@@ -85,6 +96,20 @@ class MemoryStorageEditSpecs: XCTestCase {
             XCTFail()
         }
     }
+    
+#if swift(>=4.1)
+    func testInsertingIntoTooLargeIndexPathLeadsToAnomaly() {
+        let exp = expectation(description: "Insert into not that large section")
+        let anomaly = MemoryStorageAnomaly.insertionIndexPathTooBig(indexPath: indexPath(10, 1), countOfElementsInSection: 5)
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        storage.addItems([1,2,3])
+        storage.addItems([4,5,6,7,8], toSection: 1)
+        try? storage.insertItem(7, to: indexPath(10, 1))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert item into IndexPath, section: [1, 10], count of elements in the section: 5")
+    }
+#endif
 
     func testShouldReloadRows()
     {
@@ -122,6 +147,17 @@ class MemoryStorageEditSpecs: XCTestCase {
             XCTFail()
         }
     }
+#if swift(>=4.1)
+    func testReplacingItemLeadsToAnomalyWhenNotFound() {
+        let exp = expectation(description: "Replacing unknown item")
+        let anomaly = MemoryStorageAnomaly.replaceItemFailedItemNotFound(itemDescription: "3")
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        try? storage.replaceItem(3, with: "Foo")
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for replacement: 3")
+    }
+#endif
     
     func testShouldRemoveItem()
     {
@@ -154,6 +190,19 @@ class MemoryStorageEditSpecs: XCTestCase {
             XCTFail()
         }
     }
+    
+#if swift(>=4.1)
+    func testRemovingItemLeadsToAnomalyWhenNotFound() {
+        let exp = expectation(description: "Removing unknown item")
+        let anomaly = MemoryStorageAnomaly.removeItemFailedItemNotFound(itemDescription: "3")
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        try? storage.removeItem(3)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for removal: 3")
+    }
+#endif
+    
     
     func testShouldRemoveItemAtIndexPath()
     {
@@ -357,6 +406,47 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testMovingNotExistingIndexPath()
     {
         storage.moveItem(at: indexPath(0, 0), to: indexPath(0, 1))
+    }
+    
+#if swift(>=4.1)
+    func testMovingItemThatIsUnfindableLeadsToAnomaly() {
+        let exp = expectation(description: "Moving unknown item")
+        let anomaly = MemoryStorageAnomaly.moveItemFailedItemNotFound(indexPath: indexPath(0, 0))
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 0))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for moving at indexPath: [0, 0]")
+    }
+    
+    func testMovingItemToIndexPathThatIsTooBigLeadsToAnomaly() {
+        let exp = expectation(description: "Moving unknown item")
+        let anomaly = MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(indexPath: indexPath(1, 0), countOfElementsInSection: 0)
+        storage.addItem(1)
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 0))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to move item, destination indexPath is too big: [0, 1], number of items in section after removing source item: 0")
+    }
+    
+    func testMovingForInvalidIndexPathsLeadsToAnomaly() {
+        let exp = expectation(description: "Moving item with invalid indexPaths")
+        let anomaly = MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(sourceIndexPath: indexPath(0, 0), destinationIndexPath: indexPath(3, 1), sourceElementsInSection: 1, destinationElementsInSection: 1)
+        storage.addItem(1)
+        storage.addItem(2, toSection: 1)
+        storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        storage.moveItemWithoutAnimation(from: indexPath(0, 0), to: indexPath(3, 1))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to move item, sourceIndexPath: [0, 0], destination indexPath: [1, 3], number of items in source section: 1, number of items in destination section after removing source item: 1")
+    }
+
+#endif
+    
+    func testMovingItemWithoutAnimationsActuallyUnderstandsSectionBounds() {
+        storage.addItem(1)
+        storage.moveItemWithoutAnimation(from: indexPath(0, 0), to: indexPath(1, 0))
     }
     
     func testMovingItemIntoTooBigSection()

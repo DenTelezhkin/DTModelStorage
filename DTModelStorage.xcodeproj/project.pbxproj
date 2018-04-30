@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E75031A206E504E004D6EAA /* BackwardsCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E750319206E504E004D6EAA /* BackwardsCompatibility.swift */; };
+		3EDFF70E2095128900172371 /* AnomalyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFF70D2095128900172371 /* AnomalyHandler.swift */; };
+		3EDFF711209513A400172371 /* AnomaliesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDFF710209513A400172371 /* AnomaliesTestCase.swift */; };
 		9A3110931BB8643C00741F90 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2A385B1AEE24340021E97D /* DTModelStorage.framework */; };
 		9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */; };
 		9A5DE78B1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */; };
@@ -66,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		3E750319206E504E004D6EAA /* BackwardsCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackwardsCompatibility.swift; path = Source/Core/BackwardsCompatibility.swift; sourceTree = "<group>"; };
+		3EDFF70D2095128900172371 /* AnomalyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnomalyHandler.swift; path = Source/Core/AnomalyHandler.swift; sourceTree = "<group>"; };
+		3EDFF710209513A400172371 /* AnomaliesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnomaliesTestCase.swift; path = Specs/AnomaliesTestCase.swift; sourceTree = "<group>"; };
 		9A2A385B1AEE24340021E97D /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A41A6311DC8B5B600B9A015 /* SectionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionProtocols.swift; path = Source/Core/SectionProtocols.swift; sourceTree = "<group>"; };
 		9A5DE78A1FD2F502000FE218 /* MemoryStorageDeferredUpdatesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoryStorageDeferredUpdatesTestCase.swift; path = Specs/MemoryStorage/MemoryStorageDeferredUpdatesTestCase.swift; sourceTree = "<group>"; };
@@ -139,9 +143,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EDFF70C2095126E00172371 /* Anomalies */ = {
+			isa = PBXGroup;
+			children = (
+				3EDFF70D2095128900172371 /* AnomalyHandler.swift */,
+			);
+			name = Anomalies;
+			sourceTree = "<group>";
+		};
+		3EDFF70F2095139000172371 /* Anomalies */ = {
+			isa = PBXGroup;
+			children = (
+				3EDFF710209513A400172371 /* AnomaliesTestCase.swift */,
+			);
+			name = Anomalies;
+			sourceTree = "<group>";
+		};
 		95E178721861B8D300D1B083 /* DTModelStorage */ = {
 			isa = PBXGroup;
 			children = (
+				3EDFF70C2095126E00172371 /* Anomalies */,
 				9AF8E4B91B527C80005A2406 /* CoreData */,
 				9AF8E4BA1B527C91005A2406 /* Memory */,
 				9A034ECE1C1D8F5700739D48 /* Realm */,
@@ -221,6 +242,7 @@
 		9A7D5BAC19D860700083673D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3EDFF70F2095139000172371 /* Anomalies */,
 				9A4D2ED31C37F4D3001000B6 /* Realm */,
 				9AD430AC1BE21AD600EB2918 /* Helpers */,
 				9A24F69E19DA032C009DE5D4 /* MemoryStorage */,
@@ -498,6 +520,7 @@
 				9A41A6321DC8B5B600B9A015 /* SectionProtocols.swift in Sources */,
 				9A63E6101CCCE95A00DC69B1 /* BaseStorage.swift in Sources */,
 				9A63E5F01CCCE92800DC69B1 /* MemoryStorage.swift in Sources */,
+				3EDFF70E2095128900172371 /* AnomalyHandler.swift in Sources */,
 				9A63E5F21CCCE92800DC69B1 /* SectionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,6 +548,7 @@
 				9A63E6491CCCEA3B00DC69B1 /* CoreDataStorageTestCase.swift in Sources */,
 				9A63E64F1CCCEA3B00DC69B1 /* StorageUpdateTestCase.swift in Sources */,
 				9A63E64B1CCCEA3B00DC69B1 /* NibExistanceTestCase.swift in Sources */,
+				3EDFF711209513A400172371 /* AnomaliesTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

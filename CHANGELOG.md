@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Anomaly detecting system for various errors in `MemoryStorage`.
+
+### Fixed
+
+* Crash that could happen if move operation for `MemoryStorage` happened from and to the same section with not enough items in section.
+
 ## [7.0.3](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.0.3)
 
 * Updates for Xcode 9.3 and Swift 4.1
