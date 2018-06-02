@@ -107,7 +107,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         try? storage.insertItem(7, to: indexPath(10, 1))
         waitForExpectations(timeout: 0.1)
         
-        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert item into IndexPath, section: [1, 10], count of elements in the section: 5")
+        XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert item into IndexPath: [1, 10], count of elements in the section: 5")
     }
 #endif
 
