@@ -90,7 +90,7 @@ public enum MemoryStorageAnomaly: Equatable, CustomStringConvertible, CustomDebu
 open class MemoryStorageAnomalyHandler : AnomalyHandler {
     
     /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
-    open static var defaultAction : (MemoryStorageAnomaly) -> Void = { print($0.debugDescription) }
+    public static var defaultAction : (MemoryStorageAnomaly) -> Void = { print($0.debugDescription) }
     
     /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
     open var anomalyAction: (MemoryStorageAnomaly) -> Void = MemoryStorageAnomalyHandler.defaultAction
@@ -562,7 +562,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         
         performDatasourceUpdate { [weak self] update in
             guard let sourceItem = self?.item(at: source) else {
+#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedItemNotFound(indexPath: source))
+#endif
                 return
             }
             let sourceSection = self?.getValidSection(source.section, collectChangesIn: update)
@@ -572,7 +574,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             
             let numberOfItemsInSectionAfterRemovingSource = source.section == destination.section ? destinationSectionItemsCount - 1 : destinationSectionItemsCount
             if numberOfItemsInSectionAfterRemovingSource < destination.row {
+#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(indexPath: destination, countOfElementsInSection: numberOfItemsInSectionAfterRemovingSource))
+#endif
                 return
             }
             sourceSection?.items.remove(at: source.row)
@@ -599,10 +603,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
                 from.items.remove(at: sourceIndexPath.row)
                 to.items.insert(item, at: destinationIndexPath.row)
             } else {
+#if swift(>=4.1)
                 anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(sourceIndexPath: sourceIndexPath,
                                                                                                   destinationIndexPath: destinationIndexPath,
                                                                                                   sourceElementsInSection: from.items.count,
                                                                                                   destinationElementsInSection: destinationSectionItemCountAfterRemoval))
+#endif
             }
         }
     }

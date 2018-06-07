@@ -33,13 +33,13 @@ import UIKit
 open class EventReaction {
     
     /// view -> model mapping of this reaction
-    open let viewModelMapping: ViewModelMapping
+    public let viewModelMapping: ViewModelMapping
     
     /// 3 arguments reaction block with all arguments type-erased.
     open var reaction : ((Any, Any, Any) -> Any)?
     
     /// Objective-C method signature
-    open let methodSignature: String
+    public let methodSignature: String
     
     /// Creates reaction with `signature`.
     public init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {

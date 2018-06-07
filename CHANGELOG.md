@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 * Anomaly detecting system for various errors in `MemoryStorage`.
 
+### Changed
+
+* Support for Xcode 10 (beta 1) with Swift 4.1.
+
 ### Fixed
 
 * Crash that could happen if move operation for `MemoryStorage` happened from and to the same section with not enough items in section.

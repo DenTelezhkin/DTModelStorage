@@ -43,7 +43,7 @@ private struct DTFetchedResultsSectionInfoWrapper: Section
 open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
-    open let fetchedResultsController: NSFetchedResultsController<T>
+    public let fetchedResultsController: NSFetchedResultsController<T>
     
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]

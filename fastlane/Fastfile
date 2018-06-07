@@ -21,6 +21,14 @@ lane :pod_lint do
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
 
+lane :test_ios_swift3 do
+  scan(devices: ["iPhone 8 (11.3)"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
+end
+
+lane :test_tvos_swift3 do
+  scan(devices: ["Apple TV 4K"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
+end
+
 lane :carthage_build do
   carthage(command: "build", no_skip_current: true, verbose: false)
 end
