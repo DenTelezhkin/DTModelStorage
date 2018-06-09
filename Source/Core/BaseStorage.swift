@@ -95,8 +95,8 @@ open class BaseStorage: NSObject, HeaderFooterStorage
     /// Configures storage for using with UICollectionViewFlowLayout
     open func configureForCollectionViewFlowLayoutUsage()
     {
-        self.supplementaryHeaderKind = UICollectionElementKindSectionHeader
-        self.supplementaryFooterKind = UICollectionElementKindSectionFooter
+        self.supplementaryHeaderKind = DTCollectionViewElementSectionHeader
+        self.supplementaryFooterKind = DTCollectionViewElementSectionFooter
     }
     
     // MARK: - HeaderFooterStorage

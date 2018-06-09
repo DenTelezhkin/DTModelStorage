@@ -29,8 +29,8 @@ class StorageProtocolTestCase: XCTestCase {
     func testCollectionViewFlowLayoutUsage() {
         storage.configureForCollectionViewFlowLayoutUsage()
         
-        expect(self.storage.supplementaryHeaderKind) == UICollectionElementKindSectionHeader
-        expect(self.storage.supplementaryFooterKind) == UICollectionElementKindSectionFooter
+        expect(self.storage.supplementaryHeaderKind) == DTCollectionViewElementSectionHeader
+        expect(self.storage.supplementaryFooterKind) == DTCollectionViewElementSectionFooter
         
         storage.configureForTableViewUsage()
         

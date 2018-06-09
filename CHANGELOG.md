@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-* Anomaly detecting system for various errors in `MemoryStorage`.
+* Anomaly detecting system for various errors in `MemoryStorage`.  Read more about it in [DTTableViewManager Anomaly Handler Readme section](https://github.com/DenHeadless/DTTableViewManager#anomaly-handler). Anomaly handler system **requires Swift 4.1 and higher**.
 
 ### Changed
 
-* Support for Xcode 10 (beta 1) with Swift 4.1.
+* Support for Xcode 10 (beta 1) with Swift 4.1 and Swift 4.2.
 
 ### Fixed
 

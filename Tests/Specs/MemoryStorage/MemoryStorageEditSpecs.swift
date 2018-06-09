@@ -517,16 +517,16 @@ class SectionSupplementariesTestCase : XCTestCase
     func testInsertingSection()
     {
         let section = SectionModel()
-        section.setSupplementaryModel("Foo", forKind: UICollectionElementKindSectionHeader, atIndex: 0)
-        section.setSupplementaryModel("Bar", forKind: UICollectionElementKindSectionFooter, atIndex: 0)
+        section.setSupplementaryModel("Foo", forKind: DTCollectionViewElementSectionHeader, atIndex: 0)
+        section.setSupplementaryModel("Bar", forKind: DTCollectionViewElementSectionFooter, atIndex: 0)
         section.setItems([1, 2, 3])
         storage.insertSection(section, atIndex: 0)
         
         expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [0]
         expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)]
         
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0) as? String) == "Foo"
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0) as? String) == "Bar"
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionHeader, atIndex: 0) as? String) == "Foo"
+        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionFooter, atIndex: 0) as? String) == "Bar"
         expect(self.storage.section(atIndex: 0)?.items.first as? Int) == 1
         expect(self.storage.section(atIndex: 0)?.items.last as? Int) == 3
     }
