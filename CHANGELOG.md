@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.1.0)
+
 ### Added
 
 * Anomaly detecting system for various errors in `MemoryStorage`.  Read more about it in [DTTableViewManager Anomaly Handler Readme section](https://github.com/DenHeadless/DTTableViewManager#anomaly-handler). Anomaly handler system **requires Swift 4.1 and higher**.
