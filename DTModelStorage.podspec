@@ -5,14 +5,14 @@ Pod::Spec.new do |s|
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenHeadless/DTModelStorage'
   s.social_media_url = 'https://twitter.com/DTCoder'
-  s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin@yandex.ru' }
+  s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin.oss@gmail.com' }
   s.source   = { :git => 'https://github.com/DenHeadless/DTModelStorage.git', :tag => s.version.to_s }
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.frameworks = 'UIKit', 'Foundation', 'CoreData'
   s.swift_version = '4.0'
-  
+
   s.subspec 'Core' do |core|
       core.source_files = 'Source/Core/*.swift'
   end
