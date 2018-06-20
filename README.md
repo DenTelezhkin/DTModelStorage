@@ -152,17 +152,17 @@ Installation
 
 [CocoaPods](https://cocoapods.org):
 
-    pod 'DTModelStorage', '~> 6.0'
+    pod 'DTModelStorage', '~> 7.1'
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 6.0
+    github "DenHeadless/DTModelStorage" ~> 7.1
 
 Requirements
 ============
 
-* Xcode 8/Xcode 9
-* Swift 3/4
+* Xcode 8 and higher
+* Swift 3 - Swift 4.2
 * iOS 8 and higher / tvOS 9.0 and higher
 
 Objective-C

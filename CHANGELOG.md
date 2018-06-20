@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Convenience method to create `MappingCondition` from ModelTransfer objects, for example, if used with `DTTableViewManager`:
+
+```swift
+manager.register(PostCell.self) { mapping in
+  mapping.condition = PostCell.modelCondition { indexPath, model in
+    return model.isMyPost // here model type is inferred from PostCell ModelTransfer implementation
+  }
+}
+```
+
 ## [7.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.1.0)
 
 ### Added

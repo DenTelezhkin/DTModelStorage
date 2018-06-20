@@ -23,6 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+
 /// Protocol used to pass `model` data to your cell or supplementary view. Every cell or supplementary view you have should conform to this protocol.
 /// 
 /// `ModelType` is associated type, that works as generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.
@@ -39,4 +41,14 @@ public protocol ModelTransfer : class
     
     /// Updates view with `model`.
     func update(with model: ModelType)
+}
+
+extension ModelTransfer {
+    /// Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.
+    public static func modelCondition(_ condition: @escaping (IndexPath, ModelType) -> Bool) -> MappingCondition {
+        return .custom { indexPath, model in
+            guard let model = model as? ModelType else { return false }
+            return condition(indexPath, model)
+        }
+    }
 }
