@@ -14,6 +14,22 @@ manager.register(PostCell.self) { mapping in
   }
 }
 ```
+* Ability to silence anomalies, if they are expected:
+
+```swift
+memoryStorage.anomalyHandler.silenceAnomaly(.moveItemFailedItemNotFound(indexPath: IndexPath(section: 0, row: 0)))
+```
+
+Alternatively, you may want to silence anomaly using closure, if anomaly contents are only calculatable at runtime:
+
+```swift
+memoryStorage.anomalyHandler.silenceAnomaly { anomaly in 
+    switch anomaly {
+    case .replaceItemFailedItemNotFound: return true
+    default: return false
+    }
+}
+```
 
 ## [7.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.1.0)
 

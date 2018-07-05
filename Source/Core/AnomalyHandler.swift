@@ -31,11 +31,30 @@ public protocol AnomalyHandler: class {
     associatedtype Anomaly : Equatable, CustomDebugStringConvertible
     var anomalyAction : (Anomaly) -> Void { get set }
     func reportAnomaly(_ anomaly: Anomaly)
+    func silenceAnomaly(_ anomaly: Anomaly)
 }
 
 extension AnomalyHandler {
     /// Executes anomalyAction for each reported anomaly.
     public func reportAnomaly(_ anomaly: Anomaly) {
         anomalyAction(anomaly)
+    }
+    
+    /// Silences specific anomaly, anomalyHandler for it will never be called.
+    public func silenceAnomaly(_ anomalyToSilence: Anomaly) {
+        let tempAnomalyAction = anomalyAction
+        anomalyAction = { anomaly in
+            if anomaly == anomalyToSilence { return }
+            tempAnomalyAction(anomaly)
+        }
+    }
+    
+    /// Silences anomalies, based on provided `condition`. If this condition returns true, anomalyHandler will not be called for this anomaly.
+    public func silenceAnomaly(usingCondition condition: @escaping (Anomaly) -> Bool) {
+        let tempAnomalyAction = anomalyAction
+        anomalyAction = { anomaly in
+            if condition(anomaly) { return }
+            tempAnomalyAction(anomaly)
+        }
     }
 }
