@@ -10,11 +10,11 @@ lane :test_ios11 do
 end
 
 lane :test_tvos12 do
-  scan(devices: ["Apple TV 4K"])
+  scan(devices: ["Apple TV"])
 end
 
 lane :test_tvos11 do
-  scan(device: "Apple TV 1080p (11.4)")
+  scan(device: "Apple TV")
 end
 
 lane :pod_lint do
@@ -30,11 +30,11 @@ lane :test_ios_swift4 do
 end
 
 lane :test_tvos_swift3 do
-  scan(devices: ["Apple TV 4K"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["Apple TV"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
 end
 
 lane :test_tvos_swift4 do
-  scan(devices: ["Apple TV 4K"], scheme: 'Tests', xcargs: "SWIFT_VERSION=4.0")
+  scan(devices: ["Apple TV"], scheme: 'Tests', xcargs: "SWIFT_VERSION=4.0")
 end
 
 lane :carthage_build do
