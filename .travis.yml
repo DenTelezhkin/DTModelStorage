@@ -1,4 +1,5 @@
 sudo: false
+language: objective-c
 os: osx
 osx_image: xcode10
 
