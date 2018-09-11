@@ -60,6 +60,11 @@ fastlane test_tvos_swift3
 fastlane test_tvos_swift4
 ```
 
+### test_xcode9_ios_swift3
+```
+fastlane test_xcode9_ios_swift3
+```
+
 ### carthage_build
 ```
 fastlane carthage_build

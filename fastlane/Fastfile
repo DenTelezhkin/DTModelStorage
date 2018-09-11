@@ -22,19 +22,27 @@ lane :pod_lint do
 end
 
 lane :test_ios_swift3 do
-  scan(devices: ["iPhone X (12.0)"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["iPhone X (12.0)"], xcargs: "SWIFT_VERSION=3.0")
 end
 
 lane :test_ios_swift4 do
-  scan(devices: ["iPhone X (12.0)"], scheme: 'Tests', xcargs: "SWIFT_VERSION=4.0")
+  scan(devices: ["iPhone X (12.0)"], xcargs: "SWIFT_VERSION=4.0")
 end
 
 lane :test_tvos_swift3 do
-  scan(devices: ["Apple TV"], scheme: 'Tests', xcargs: "SWIFT_VERSION=3.0")
+  scan(devices: ["Apple TV"], xcargs: "SWIFT_VERSION=3.0")
 end
 
 lane :test_tvos_swift4 do
-  scan(devices: ["Apple TV"], scheme: 'Tests', xcargs: "SWIFT_VERSION=4.0")
+  scan(devices: ["Apple TV"], xcargs: "SWIFT_VERSION=4.0")
+end
+
+lane :test_xcode9_ios_swift3 do
+  scan(device: "iPhone X (11.4)", xcargs: "SWIFT_VERSION=3.0")
+end
+
+lane :test_xcode9_ios_swift4 do
+  scan(device: "iPhone X (11.4)", xcargs: "SWIFT_VERSION=4.0")
 end
 
 lane :carthage_build do

@@ -17,6 +17,10 @@ matrix:
     - env: ACTION=test_ios_swift4
     - env: ACTION=test_tvos_swift3
     - env: ACTION=test_tvos_swift4
+    - osx_image: xcode9.4
+      env: ACTION=test_xcode9_ios_swift3
+    - osx_image: xcode9.4
+      env: ACTION=test_xcode9_ios_swift4
     - env: ACTION=pod_lint
     - env: ACTION=carthage_build
 
