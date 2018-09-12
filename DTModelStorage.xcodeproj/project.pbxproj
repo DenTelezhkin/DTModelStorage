@@ -43,6 +43,25 @@
 		3E2ADD792146BB620082B2E6 /* StorageUpdatesObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD5A02146B7420082B2E6 /* StorageUpdatesObserver.swift */; };
 		3E2ADD7A2146BB620082B2E6 /* ListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD5A12146B7420082B2E6 /* ListItem+CoreDataProperties.swift */; };
 		3E2ADD7B2146BB650082B2E6 /* DTModelStorageDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E2AD59E2146B7420082B2E6 /* DTModelStorageDatabase.xcdatamodeld */; };
+		3E2ADD98214922AE0082B2E6 /* RealmStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E2ADD96214922AE0082B2E6 /* RealmStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3E2ADD9C214922C70082B2E6 /* RealmStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD4D2146B78D0082B2E6 /* RealmStorage.swift */; };
+		3E2ADD9D214922C70082B2E6 /* RealmSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD4E2146B78D0082B2E6 /* RealmSection.swift */; };
+		3E30475C214925570051B8C6 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD3C2146B78D0082B2E6 /* ViewModelMapping.swift */; };
+		3E30475D214925570051B8C6 /* SectionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD3D2146B78D0082B2E6 /* SectionProtocols.swift */; };
+		3E30475E214925570051B8C6 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD3E2146B78D0082B2E6 /* CoreDataStorage.swift */; };
+		3E30475F214925570051B8C6 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD3F2146B78D0082B2E6 /* MemoryStorage.swift */; };
+		3E304760214925570051B8C6 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD402146B78D0082B2E6 /* SectionModel.swift */; };
+		3E304761214925570051B8C6 /* StorageProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD412146B78D0082B2E6 /* StorageProtocols.swift */; };
+		3E304762214925570051B8C6 /* StorageUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD422146B78D0082B2E6 /* StorageUpdate.swift */; };
+		3E304763214925570051B8C6 /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD432146B78D0082B2E6 /* RuntimeHelper.swift */; };
+		3E304764214925570051B8C6 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD442146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
+		3E304765214925570051B8C6 /* AnomalyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD452146B78D0082B2E6 /* AnomalyHandler.swift */; };
+		3E304766214925570051B8C6 /* BackwardsCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD462146B78D0082B2E6 /* BackwardsCompatibility.swift */; };
+		3E304767214925570051B8C6 /* EventReactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD472146B78D0082B2E6 /* EventReactions.swift */; };
+		3E304768214925570051B8C6 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD482146B78D0082B2E6 /* Section.swift */; };
+		3E304769214925570051B8C6 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD492146B78D0082B2E6 /* BaseStorage.swift */; };
+		3E30476A214925570051B8C6 /* ModelTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD4A2146B78D0082B2E6 /* ModelTransfer.swift */; };
+		3E30476B214925570051B8C6 /* UINib+Existance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD4B2146B78D0082B2E6 /* UINib+Existance.swift */; };
 		3E59693C21468684009C3DE8 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E59693221468684009C3DE8 /* DTModelStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,11 +120,25 @@
 		3E2ADD4E2146B78D0082B2E6 /* RealmSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSection.swift; sourceTree = "<group>"; };
 		3E2ADD622146B7A20082B2E6 /* Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tests.plist; sourceTree = "<group>"; };
 		3E2ADD632146B7A20082B2E6 /* Framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Framework.plist; sourceTree = "<group>"; };
+		3E2ADD85214921710082B2E6 /* RealmStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmStorage.h; sourceTree = "<group>"; };
+		3E2ADD86214921710082B2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E2ADD96214922AE0082B2E6 /* RealmStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmStorage.h; sourceTree = "<group>"; };
+		3E2ADD97214922AE0082B2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E2ADD9F214923800082B2E6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../Downloads/realm-swift-3.9.0/ios/swift-4.1/Realm.framework"; sourceTree = "<group>"; };
+		3E2ADDA0214923800082B2E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-3.9.0/ios/swift-4.1/RealmSwift.framework"; sourceTree = "<group>"; };
 		3E59693221468684009C3DE8 /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3E2ADD91214922AE0082B2E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E59692E21468684009C3DE8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,13 +272,43 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
+		3E2ADD84214921710082B2E6 /* RealmStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3E2ADD85214921710082B2E6 /* RealmStorage.h */,
+				3E2ADD86214921710082B2E6 /* Info.plist */,
+			);
+			path = RealmStorage;
+			sourceTree = "<group>";
+		};
+		3E2ADD95214922AE0082B2E6 /* RealmStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3E2ADD96214922AE0082B2E6 /* RealmStorage.h */,
+				3E2ADD97214922AE0082B2E6 /* Info.plist */,
+			);
+			path = RealmStorage;
+			sourceTree = "<group>";
+		};
+		3E2ADD9E214923800082B2E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E2ADD9F214923800082B2E6 /* Realm.framework */,
+				3E2ADDA0214923800082B2E6 /* RealmSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3E59692821468684009C3DE8 = {
 			isa = PBXGroup;
 			children = (
 				3E2AD7E72146B76B0082B2E6 /* Source */,
 				3E2AD5872146B7410082B2E6 /* Tests */,
+				3E2ADD84214921710082B2E6 /* RealmStorage */,
+				3E2ADD95214922AE0082B2E6 /* RealmStorage */,
 				3E59693321468684009C3DE8 /* Products */,
 				3E2ADD612146B7A20082B2E6 /* Supporting files */,
+				3E2ADD9E214923800082B2E6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -254,6 +317,7 @@
 			children = (
 				3E59693221468684009C3DE8 /* DTModelStorage.framework */,
 				3E59693B21468684009C3DE8 /* Tests.xctest */,
+				3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,6 +325,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3E2ADD8F214922AE0082B2E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E2ADD98214922AE0082B2E6 /* RealmStorage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E59692F21468684009C3DE8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -271,6 +343,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3E2ADD93214922AE0082B2E6 /* RealmStorage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E2ADD99214922AE0082B2E6 /* Build configuration list for PBXNativeTarget "RealmStorage" */;
+			buildPhases = (
+				3E2ADD8F214922AE0082B2E6 /* Headers */,
+				3E2ADD90214922AE0082B2E6 /* Sources */,
+				3E2ADD91214922AE0082B2E6 /* Frameworks */,
+				3E2ADD92214922AE0082B2E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RealmStorage;
+			productName = RealmStorage;
+			productReference = 3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		3E59693121468684009C3DE8 /* DTModelStorage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E59694621468684009C3DE8 /* Build configuration list for PBXNativeTarget "DTModelStorage" */;
@@ -319,6 +409,9 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Denys Telezhkin";
 				TargetAttributes = {
+					3E2ADD93214922AE0082B2E6 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 					3E59693121468684009C3DE8 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -342,11 +435,19 @@
 			targets = (
 				3E59693121468684009C3DE8 /* DTModelStorage */,
 				3E59693A21468684009C3DE8 /* Tests */,
+				3E2ADD93214922AE0082B2E6 /* RealmStorage */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3E2ADD92214922AE0082B2E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E59693021468684009C3DE8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,6 +497,31 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3E2ADD90214922AE0082B2E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E304768214925570051B8C6 /* Section.swift in Sources */,
+				3E30475F214925570051B8C6 /* MemoryStorage.swift in Sources */,
+				3E30475E214925570051B8C6 /* CoreDataStorage.swift in Sources */,
+				3E304764214925570051B8C6 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
+				3E304762214925570051B8C6 /* StorageUpdate.swift in Sources */,
+				3E30475C214925570051B8C6 /* ViewModelMapping.swift in Sources */,
+				3E304763214925570051B8C6 /* RuntimeHelper.swift in Sources */,
+				3E304766214925570051B8C6 /* BackwardsCompatibility.swift in Sources */,
+				3E30476A214925570051B8C6 /* ModelTransfer.swift in Sources */,
+				3E304761214925570051B8C6 /* StorageProtocols.swift in Sources */,
+				3E30476B214925570051B8C6 /* UINib+Existance.swift in Sources */,
+				3E2ADD9C214922C70082B2E6 /* RealmStorage.swift in Sources */,
+				3E304767214925570051B8C6 /* EventReactions.swift in Sources */,
+				3E2ADD9D214922C70082B2E6 /* RealmSection.swift in Sources */,
+				3E304769214925570051B8C6 /* BaseStorage.swift in Sources */,
+				3E304760214925570051B8C6 /* SectionModel.swift in Sources */,
+				3E304765214925570051B8C6 /* AnomalyHandler.swift in Sources */,
+				3E30475D214925570051B8C6 /* SectionProtocols.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E59692D21468684009C3DE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,6 +583,60 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3E2ADD9A214922AE0082B2E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks";
+				INFOPLIST_FILE = RealmStorage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mlsdev.RealmStorage;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3E2ADD9B214922AE0082B2E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/Frameworks";
+				INFOPLIST_FILE = RealmStorage/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mlsdev.RealmStorage;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3E59694421468684009C3DE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -587,6 +767,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -612,6 +803,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -671,6 +873,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3E2ADD99214922AE0082B2E6 /* Build configuration list for PBXNativeTarget "RealmStorage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E2ADD9A214922AE0082B2E6 /* Debug */,
+				3E2ADD9B214922AE0082B2E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3E59692C21468684009C3DE8 /* Build configuration list for PBXProject "DTModelStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
