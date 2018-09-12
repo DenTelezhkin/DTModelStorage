@@ -120,8 +120,6 @@
 		3E2ADD4E2146B78D0082B2E6 /* RealmSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSection.swift; sourceTree = "<group>"; };
 		3E2ADD622146B7A20082B2E6 /* Tests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Tests.plist; sourceTree = "<group>"; };
 		3E2ADD632146B7A20082B2E6 /* Framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Framework.plist; sourceTree = "<group>"; };
-		3E2ADD85214921710082B2E6 /* RealmStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmStorage.h; sourceTree = "<group>"; };
-		3E2ADD86214921710082B2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RealmStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E2ADD96214922AE0082B2E6 /* RealmStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RealmStorage.h; sourceTree = "<group>"; };
 		3E2ADD97214922AE0082B2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -266,28 +264,12 @@
 		3E2ADD612146B7A20082B2E6 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				3E2ADD96214922AE0082B2E6 /* RealmStorage.h */,
+				3E2ADD97214922AE0082B2E6 /* Info.plist */,
 				3E2ADD622146B7A20082B2E6 /* Tests.plist */,
 				3E2ADD632146B7A20082B2E6 /* Framework.plist */,
 			);
 			path = "Supporting files";
-			sourceTree = "<group>";
-		};
-		3E2ADD84214921710082B2E6 /* RealmStorage */ = {
-			isa = PBXGroup;
-			children = (
-				3E2ADD85214921710082B2E6 /* RealmStorage.h */,
-				3E2ADD86214921710082B2E6 /* Info.plist */,
-			);
-			path = RealmStorage;
-			sourceTree = "<group>";
-		};
-		3E2ADD95214922AE0082B2E6 /* RealmStorage */ = {
-			isa = PBXGroup;
-			children = (
-				3E2ADD96214922AE0082B2E6 /* RealmStorage.h */,
-				3E2ADD97214922AE0082B2E6 /* Info.plist */,
-			);
-			path = RealmStorage;
 			sourceTree = "<group>";
 		};
 		3E2ADD9E214923800082B2E6 /* Frameworks */ = {
@@ -304,8 +286,6 @@
 			children = (
 				3E2AD7E72146B76B0082B2E6 /* Source */,
 				3E2AD5872146B7410082B2E6 /* Tests */,
-				3E2ADD84214921710082B2E6 /* RealmStorage */,
-				3E2ADD95214922AE0082B2E6 /* RealmStorage */,
 				3E59693321468684009C3DE8 /* Products */,
 				3E2ADD612146B7A20082B2E6 /* Supporting files */,
 				3E2ADD9E214923800082B2E6 /* Frameworks */,
@@ -767,17 +747,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/tvOS",
-					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -803,17 +772,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Checkouts/Nimble/Carthage/Build/tvOS",
-					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
