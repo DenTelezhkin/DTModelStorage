@@ -1,1 +1,2 @@
 github "Quick/Nimble" "v7.3.0"
+github "jflinter/Dwifft" "0.8"
