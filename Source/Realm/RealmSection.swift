@@ -29,6 +29,7 @@ import Foundation
 import Realm.RLMResults
 import RealmSwift
 #else
+//swiftlint:disable:next line_length
 let error = "RealmSwift framework is needed for RealmStorage to work, which is currently not included in DTModelStorage repo. In order to compile RealmStorage target, please add RealmSwift framework manually. If you need RealmStorage to be included in your app using CocoaPods, use DTModelStorage/Realm subspec."
 #endif
 

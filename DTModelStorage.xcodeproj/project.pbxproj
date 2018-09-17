@@ -351,6 +351,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E59694621468684009C3DE8 /* Build configuration list for PBXNativeTarget "DTModelStorage" */;
 			buildPhases = (
+				3E479353214F988400BE2A8E /* ShellScript */,
 				3E59692D21468684009C3DE8 /* Sources */,
 				3E59692E21468684009C3DE8 /* Frameworks */,
 				3E59692F21468684009C3DE8 /* Headers */,
@@ -473,6 +474,7 @@
 			inputPaths = (
 				Nimble.framework,
 				Dwifft.framework,
+				HeckelDiff.framework,
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -480,6 +482,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"\n";
+		};
+		3E479353214F988400BE2A8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\nif which swiftlint > /dev/null; then\nswiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\nswiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\nelse\necho \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\nfi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

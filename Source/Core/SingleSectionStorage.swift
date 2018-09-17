@@ -25,16 +25,8 @@
 
 import Foundation
 
-public protocol Identifiable: Equatable {
-    associatedtype HashType: Hashable
-    
-    var identifier: HashType { get }
-}
-
-extension Identifiable where Self: Hashable {
-    var identifier: Self {
-        return self
-    }
+public protocol Identifiable {
+    var identifier: AnyHashable { get }
 }
 
 public enum SingleSectionOperation {
@@ -44,35 +36,68 @@ public enum SingleSectionOperation {
     case update(Int)
 }
 
-public protocol DiffingAlgorithm {
-    func diff<T: Identifiable>(from: [T], to: [T]) -> [SingleSectionOperation]
+public protocol HashableDiffingAlgorithm {
+    func diff<T: Identifiable & Hashable>(from: [T], to: [T]) -> [SingleSectionOperation]
+}
+
+public protocol EquatableDiffingAlgorithm {
+    func diff<T: Identifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation]
+}
+
+open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSectionStorage<T> {
+    public let differ: EquatableDiffingAlgorithm
+    
+    public init(items: [T], differ: EquatableDiffingAlgorithm) {
+        self.differ = differ
+        super.init(items: items)
+    }
+    
+    open override func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
+        return differ.diff(from: items, to: newItems)
+    }
+}
+
+open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSectionStorage<T> {
+    public let differ: HashableDiffingAlgorithm
+    
+    public init(items: [T], differ: HashableDiffingAlgorithm) {
+        self.differ = differ
+        super.init(items: items)
+    }
+    
+    open override func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
+        return differ.diff(from: items, to: newItems)
+    }
 }
 
 open class SingleSectionStorage<T: Identifiable> : BaseStorage {
-    private(set) var items : [T]
-    let differ: DiffingAlgorithm
+    private(set) open var items : [T]
     
-    public init(items: [T], differ: DiffingAlgorithm) {
+    init(items: [T]) {
         self.items = items
-        self.differ = differ
+    }
+    
+    open func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
+        fatalError("This method needs to be overridden in subclasses")
     }
     
     public func setItems(_ newItems: [T]) {
-        animateChanges(from: items, to: newItems)
+        let diffs = calculateDiffs(to: newItems)
+        animateChanges(diffs, to: newItems)
     }
-    
+
     public func addItems(_ newItems: [T]) {
         let newArray = items + newItems
-        animateChanges(from: items, to: newArray)
+        let diffs = calculateDiffs(to: newArray)
+        animateChanges(diffs, to: newArray)
     }
     
-    func animateChanges(from old: [T], to new: [T]) {
+    func animateChanges(_ changes: [SingleSectionOperation], to new: [T]) {
         let update = StorageUpdate()
         update.enqueueDatasourceUpdate { [weak self] _ in
             self?.items = new
         }
-        let diffs = differ.diff(from: old, to: new)
-        for diff in diffs {
+        for diff in changes {
             switch diff {
             case .delete(let item):
                 update.objectChanges.append((.delete, [IndexPath(item: item, section: 0)]))
