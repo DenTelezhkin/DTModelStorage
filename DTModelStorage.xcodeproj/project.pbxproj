@@ -473,7 +473,7 @@
 			);
 			inputPaths = (
 				Nimble.framework,
-				Dwifft.framework,
+				"$(DWIFFT_FRAMEWORK_NAME).framework",
 				HeckelDiff.framework,
 			);
 			name = "Copy Carthage frameworks";
@@ -822,6 +822,9 @@
 				DTPLATFORM_PREFIX = "";
 				"DTPLATFORM_PREFIX[sdk=appletv*]" = tvOS;
 				"DTPLATFORM_PREFIX[sdk=iphone*]" = iOS;
+				DWIFFT_FRAMEWORK_NAME = "";
+				"DWIFFT_FRAMEWORK_NAME[sdk=appletv*]" = Dwifft_tvOS;
+				"DWIFFT_FRAMEWORK_NAME[sdk=iphone*]" = Dwifft;
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletv*]" = "$(SRCROOT)/Carthage/Build/tvOS/";
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphone*]" = "$(SRCROOT)/Carthage/Build/iOS/";
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
@@ -842,6 +845,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DTPLATFORM_PREFIX = "";
+				DWIFFT_FRAMEWORK_NAME = "";
 				"FRAMEWORK_SEARCH_PATHS[sdk=appletv*]" = "$(SRCROOT)/Carthage/Build/tvOS/";
 				"FRAMEWORK_SEARCH_PATHS[sdk=iphone*]" = "$(SRCROOT)/Carthage/Build/iOS/";
 				INFOPLIST_FILE = "Supporting files/Tests.plist";

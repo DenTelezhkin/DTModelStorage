@@ -7,7 +7,11 @@
 //
 
 import XCTest
+#if canImport(Dwifft)
 import Dwifft
+#elseif canImport(Dwifft_tvOS)
+import Dwifft_tvOS
+#endif
 import DTModelStorage
 import HeckelDiff
 

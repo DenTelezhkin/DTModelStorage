@@ -28,7 +28,7 @@ before_script:
   - brew update
   - brew outdated carthage || brew upgrade carthage
   - carthage bootstrap --cache-builds --platform iOS,tvOS
-
+  
 script:
   - bundle exec fastlane $ACTION
 
