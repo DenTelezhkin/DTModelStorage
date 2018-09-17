@@ -46,7 +46,7 @@ lane :test_xcode9_ios_swift4 do
 end
 
 lane :carthage_build do
-  carthage(command: "build", no_skip_current: true, verbose: false)
+  carthage(command: "build", platform: "iOS,tvOS", no_skip_current: true, verbose: false)
 end
 
 lane :release do |params|
@@ -89,7 +89,7 @@ lane :release do |params|
 
     puts "Preparing Carthage binary framework."
 
-    sh "carthage build --no-skip-current"
+    sh "carthage build --no-skip-current --platform iOS,tvOS"
     sh "carthage archive DTModelStorage"
 
     puts "Pushing as a GitHub Release."
