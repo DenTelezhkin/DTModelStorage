@@ -53,7 +53,27 @@ extension String: Identifiable {
     }
 }
 
+struct UpdatableData : Equatable, Identifiable, Hashable {
+    let id: Int
+    let data: String
+    
+    var identifier: AnyHashable { return id }
+    
+    init(_ id: Int, _ data: String) {
+        self.id = id
+        self.data = data
+    }
+}
+
 class SingleSectionStorageTestCase: XCTestCase {
+    
+    func verifyObjectChanges(_ observer: StorageUpdatesObserver, _ changes: [(ChangeType, [IndexPath])]) {
+        XCTAssertEqual(observer.update?.objectChanges.count, changes.count)
+        for (index, change) in changes.enumerated() {
+            XCTAssertEqual(observer.update?.objectChanges[index].0, change.0)
+            XCTAssertEqual(observer.update?.objectChanges[index].1, change.1)
+        }
+    }
 
     func testChangesAreCalculatableUsingEquatableDiffer() {
         let observer = StorageUpdatesObserver()
@@ -61,11 +81,10 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.delegate = observer
         stringStorage.setItems(["bar", "foo"])
         
-        XCTAssertEqual(observer.update?.objectChanges.count, 2)
-        XCTAssertEqual(observer.update?.objectChanges.first?.0, .delete)
-        XCTAssertEqual(observer.update?.objectChanges.last?.0, .insert)
-        XCTAssertEqual(observer.update?.objectChanges.first?.1, [indexPath(0, 0)])
-        XCTAssertEqual(observer.update?.objectChanges.last?.1, [indexPath(1, 0)])
+        verifyObjectChanges(observer, [
+            (.delete, [indexPath(0, 0)]),
+            (.insert, [indexPath(1, 0)]),
+        ])
         
         observer.update?.applyDeferredDatasourceUpdates()
         
@@ -78,15 +97,88 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.delegate = observer
         stringStorage.setItems(["bar", "foo"])
         
-        XCTAssertEqual(observer.update?.objectChanges.count, 2)
-        XCTAssertEqual(observer.update?.objectChanges.first?.0, .move)
-        XCTAssertEqual(observer.update?.objectChanges.last?.0, .move)
-        XCTAssertEqual(observer.update?.objectChanges.first?.1, [indexPath(1, 0), indexPath(0, 0)])
-        XCTAssertEqual(observer.update?.objectChanges.last?.1, [indexPath(0, 0), indexPath(1, 0)])
+        verifyObjectChanges(observer, [
+            (.move,  [indexPath(1, 0), indexPath(0, 0)]),
+            (.move, [indexPath(0, 0), indexPath(1, 0)])
+        ])
         
         observer.update?.applyDeferredDatasourceUpdates()
         
         XCTAssertEqual(stringStorage.items, ["bar", "foo"])
     }
-
+    
+    func testAdditionAccumulationStrategyIgnoresOldItems() {
+        let items = [
+            UpdatableData(1, "foo"),
+            UpdatableData(2, "bar")
+        ]
+        let observer = StorageUpdatesObserver()
+        let stringStorage = SingleSectionEquatableStorage(items: items, differ: DwifftDiffer())
+        stringStorage.delegate = observer
+        stringStorage.setItems([
+            UpdatableData(1, "bar"),
+            UpdatableData(3, "xyz")
+        ])
+        
+        verifyObjectChanges(observer, [
+            (.delete, [indexPath(1, 0)]),
+            (.delete, [indexPath(0, 0)]),
+            (.insert, [indexPath(0, 0)]),
+            (.insert, [indexPath(1, 0)]),
+        ])
+    }
+    
+    func testUpdateOldValuesAccumulationStrategy() {
+        let items = [
+            UpdatableData(1, "foo"),
+            UpdatableData(2, "bar")
+        ]
+        
+        let observer = StorageUpdatesObserver()
+        let stringStorage = SingleSectionHashableStorage(items: items, differ: HeckelDiffer())
+        stringStorage.delegate = observer
+        stringStorage.addItems([UpdatableData(1, "bar"),
+                               UpdatableData(3, "xyz")], UpdateOldValuesAccumulationStrategy())
+        
+        verifyObjectChanges(observer, [
+                (.delete, [indexPath(0, 0)]),
+                (.insert, [indexPath(0, 0)]),
+                (.insert, [indexPath(2, 0)])
+            ])
+        
+        observer.update?.applyDeferredDatasourceUpdates()
+        
+        XCTAssertEqual(stringStorage.items, [
+                UpdatableData(1, "bar"),
+                UpdatableData(2, "bar"),
+                UpdatableData(3, "xyz")
+            ])
+    }
+    
+    func testDeleteOldValuesAccumulationStrategy() {
+        let items = [
+            UpdatableData(1, "foo"),
+            UpdatableData(2, "bar")
+        ]
+        
+        let observer = StorageUpdatesObserver()
+        let stringStorage = SingleSectionHashableStorage(items: items, differ: HeckelDiffer())
+        stringStorage.delegate = observer
+        stringStorage.addItems([UpdatableData(1, "bar"),
+                                UpdatableData(3, "xyz")], DeleteOldValuesAccumulationStrategy())
+        
+        verifyObjectChanges(observer, [
+            (.delete, [indexPath(0, 0)]),
+            (.insert, [indexPath(1, 0)]),
+            (.insert, [indexPath(2, 0)]),
+            ])
+        
+        observer.update?.applyDeferredDatasourceUpdates()
+        
+        XCTAssertEqual(stringStorage.items, [
+            UpdatableData(2, "bar"),
+            UpdatableData(1, "bar"),
+            UpdatableData(3, "xyz")
+            ])
+    }
 }

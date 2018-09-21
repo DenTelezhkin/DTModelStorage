@@ -65,6 +65,8 @@
 		3E479352214D2A7F00BE2A8E /* SingleSectionStorageTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E479351214D2A7F00BE2A8E /* SingleSectionStorageTestCase.swift */; };
 		3E59693C21468684009C3DE8 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E59693221468684009C3DE8 /* DTModelStorage.framework */; };
 		3EB621D9214AB0E100C01877 /* SingleSectionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB621D8214AB0E100C01877 /* SingleSectionStorage.swift */; };
+		3EE31B472155102200FA9361 /* AccumulationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE31B462155102200FA9361 /* AccumulationStrategy.swift */; };
+		3EE31B492155373E00FA9361 /* SingleSectionDiffing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE31B482155373E00FA9361 /* SingleSectionDiffing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		3E59693221468684009C3DE8 /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB621D8214AB0E100C01877 /* SingleSectionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionStorage.swift; sourceTree = "<group>"; };
+		3EE31B462155102200FA9361 /* AccumulationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccumulationStrategy.swift; sourceTree = "<group>"; };
+		3EE31B482155373E00FA9361 /* SingleSectionDiffing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionDiffing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,7 +251,9 @@
 				3E2ADD482146B78D0082B2E6 /* Section.swift */,
 				3E2ADD402146B78D0082B2E6 /* SectionModel.swift */,
 				3E2ADD3D2146B78D0082B2E6 /* SectionProtocols.swift */,
+				3EE31B482155373E00FA9361 /* SingleSectionDiffing.swift */,
 				3EB621D8214AB0E100C01877 /* SingleSectionStorage.swift */,
+				3EE31B462155102200FA9361 /* AccumulationStrategy.swift */,
 				3E2ADD412146B78D0082B2E6 /* StorageProtocols.swift */,
 				3E2ADD422146B78D0082B2E6 /* StorageUpdate.swift */,
 				3E2ADD4B2146B78D0082B2E6 /* UINib+Existance.swift */,
@@ -545,9 +551,11 @@
 				3E2ADD552146B78D0082B2E6 /* StorageUpdate.swift in Sources */,
 				3EB621D9214AB0E100C01877 /* SingleSectionStorage.swift in Sources */,
 				3E2ADD532146B78D0082B2E6 /* SectionModel.swift in Sources */,
+				3EE31B492155373E00FA9361 /* SingleSectionDiffing.swift in Sources */,
 				3E2ADD5A2146B78D0082B2E6 /* EventReactions.swift in Sources */,
 				3E2ADD582146B78D0082B2E6 /* AnomalyHandler.swift in Sources */,
 				3E2ADD5D2146B78D0082B2E6 /* ModelTransfer.swift in Sources */,
+				3EE31B472155102200FA9361 /* AccumulationStrategy.swift in Sources */,
 				3E2ADD542146B78D0082B2E6 /* StorageProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

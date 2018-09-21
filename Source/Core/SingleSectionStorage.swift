@@ -25,25 +25,6 @@
 
 import Foundation
 
-public protocol Identifiable {
-    var identifier: AnyHashable { get }
-}
-
-public enum SingleSectionOperation {
-    case delete(Int)
-    case insert(Int)
-    case move(from: Int, to: Int)
-    case update(Int)
-}
-
-public protocol HashableDiffingAlgorithm {
-    func diff<T: Identifiable & Hashable>(from: [T], to: [T]) -> [SingleSectionOperation]
-}
-
-public protocol EquatableDiffingAlgorithm {
-    func diff<T: Identifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation]
-}
-
 open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSectionStorage<T> {
     public let differ: EquatableDiffingAlgorithm
     
@@ -86,10 +67,10 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage {
         animateChanges(diffs, to: newItems)
     }
 
-    public func addItems(_ newItems: [T]) {
-        let newArray = items + newItems
-        let diffs = calculateDiffs(to: newArray)
-        animateChanges(diffs, to: newArray)
+    public func addItems(_ newItems: [T], _ strategy: AccumulationStrategy = AdditiveAccumulationStrategy()) {
+        let accumulatedItems = strategy.accumulate(oldItems: items, newItems: newItems)
+        let diffs = calculateDiffs(to: accumulatedItems)
+        animateChanges(diffs, to: accumulatedItems)
     }
     
     func animateChanges(_ changes: [SingleSectionOperation], to new: [T]) {
