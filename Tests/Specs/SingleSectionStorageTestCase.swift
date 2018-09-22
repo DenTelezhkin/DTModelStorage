@@ -115,16 +115,14 @@ class SingleSectionStorageTestCase: XCTestCase {
         let observer = StorageUpdatesObserver()
         let stringStorage = SingleSectionEquatableStorage(items: items, differ: DwifftDiffer())
         stringStorage.delegate = observer
-        stringStorage.setItems([
+        stringStorage.addItems([
             UpdatableData(1, "bar"),
             UpdatableData(3, "xyz")
         ])
         
         verifyObjectChanges(observer, [
-            (.delete, [indexPath(1, 0)]),
-            (.delete, [indexPath(0, 0)]),
-            (.insert, [indexPath(0, 0)]),
-            (.insert, [indexPath(1, 0)]),
+            (.insert, [indexPath(2, 0)]),
+            (.insert, [indexPath(3, 0)]),
         ])
     }
     
@@ -180,5 +178,14 @@ class SingleSectionStorageTestCase: XCTestCase {
             UpdatableData(1, "bar"),
             UpdatableData(3, "xyz")
             ])
+    }
+    
+    func testItemsAreSettableAndGettable() {
+        let storage = SingleSectionEquatableStorage(items: ["1","2","3"], differ: DwifftDiffer())
+        
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? String, "1")
+        XCTAssertEqual(storage.item(at: indexPath(2, 0)) as? String, "3")
+        XCTAssertNil(storage.item(at: indexPath(3, 0)))
+        XCTAssertNil(storage.item(at: indexPath(0, 1)))
     }
 }

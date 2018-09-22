@@ -67,9 +67,8 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     
     public func item(at indexPath: IndexPath) -> Any? {
         guard indexPath.section == 0 else { return nil }
-        guard let firstSection = sections.first else { return nil }
-        guard indexPath.item >= firstSection.items.count else { return nil }
-        return firstSection.items[indexPath.item]
+        guard indexPath.item < section.items.count else { return nil }
+        return section.items[indexPath.item]
     }
     
     public var sections: [Section] {
@@ -126,7 +125,7 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     func animateChanges(_ changes: [SingleSectionOperation], to new: [T]) {
         let update = StorageUpdate()
         update.enqueueDatasourceUpdate { [weak self] _ in
-            self?.section.items = new
+            self?.section.setItems(new)
         }
         for diff in changes {
             switch diff {
