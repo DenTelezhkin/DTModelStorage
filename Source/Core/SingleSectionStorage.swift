@@ -51,12 +51,62 @@ open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSecti
     }
 }
 
-open class SingleSectionStorage<T: Identifiable> : BaseStorage {
-    private(set) open var items : [T]
+open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, SupplementaryStorage, HeaderFooterSettable {
+    
+    open var items : [T] { return section.items(ofType: T.self) }
+    
+    private var section : SectionModel
     
     init(items: [T]) {
-        self.items = items
+        let sectionModel = SectionModel()
+        sectionModel.setItems(items)
+        section = sectionModel
     }
+    
+    // Storage
+    
+    public func item(at indexPath: IndexPath) -> Any? {
+        guard indexPath.section == 0 else { return nil }
+        guard let firstSection = sections.first else { return nil }
+        guard indexPath.item >= firstSection.items.count else { return nil }
+        return firstSection.items[indexPath.item]
+    }
+    
+    public var sections: [Section] {
+        get {
+            return [section]
+        }
+        set {
+            if newValue.count > 1 {
+                print("Attempt to set more than 1 section to SingleSectionStorage. If you need more than 1 section, consider using MemoryStorage.")
+            } else if let compatibleSection = newValue.first as? SectionModel {
+                section = compatibleSection
+            } else {
+                print("Attempt to set empty or incompatible section to SingleSectionStorage. Please use SectionModel object for SingleSectionStorage section.")
+            }
+        }
+    }
+    
+    // SupplementaryStorage
+    
+    public func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
+        guard indexPath.section == 0 else { return nil }
+        return section.supplementaryModel(ofKind: kind, atIndex: indexPath.item)
+    }
+    
+    public func setSupplementaries(_ models: [[Int : Any]], forKind kind: String) {
+        guard models.count <= 1 else {
+            print("Attempt to set more than 1 section of supplementaries to SingleSectionStorage.")
+            return
+        }
+        if models.count == 0 {
+            section.supplementaries[kind] = nil
+        } else {
+            section.supplementaries[kind] = models[0]
+        }
+    }
+    
+    // Diffing and updates
     
     open func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
         fatalError("This method needs to be overridden in subclasses")
@@ -76,7 +126,7 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage {
     func animateChanges(_ changes: [SingleSectionOperation], to new: [T]) {
         let update = StorageUpdate()
         update.enqueueDatasourceUpdate { [weak self] _ in
-            self?.items = new
+            self?.section.items = new
         }
         for diff in changes {
             switch diff {

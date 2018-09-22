@@ -198,10 +198,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
-        guard indexPath.section < self.sections.count else {
+        guard indexPath.section < sections.count else {
             return nil
         }
-        return (sections[indexPath.section] as? ItemAtIndexPathRetrievable)?.itemAt(indexPath)
+        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
+        return sections[indexPath.section].items[indexPath.item]
     }
     
     // MARK: - SupplementaryStorage

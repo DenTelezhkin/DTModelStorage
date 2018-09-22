@@ -201,17 +201,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
-        let sectionModel: SectionModel
-        if indexPath.section >= self.sections.count {
-            return nil
-        } else {
-            //swiftlint:disable:next force_cast
-            sectionModel = self.sections[indexPath.section] as! SectionModel
-            if indexPath.item >= sectionModel.numberOfItems {
-                return nil
-            }
-        }
-        return sectionModel.items[indexPath.item]
+        guard indexPath.section < sections.count else { return nil }
+        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
+        return sections[indexPath.section].items[indexPath.item]
     }
     
     /// Sets section header `model` for section at `sectionIndex`

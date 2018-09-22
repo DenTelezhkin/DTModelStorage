@@ -62,6 +62,6 @@ open class SectionModel: Section, SupplementaryAccessible
     
     /// Number of items in current section
     open var numberOfItems: Int {
-        return self.items.count
+        return items.count
     }
 }
