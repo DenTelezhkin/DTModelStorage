@@ -25,38 +25,70 @@
 
 import Foundation
 
+/// `SingleSectionStorage` that requires all it's elements to be `Equatable`.
 open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSectionStorage<T> {
+    
+    /// Diffing algorithm that requires all it's elements to be `Equatable`.
     public let differ: EquatableDiffingAlgorithm
     
+    /// Creates storage with `items` and concrete implementation of `EquatableDiffingAlgorithm` - `differ`.
+    ///
+    /// - Parameters:
+    ///   - items: starting items in storage
+    ///   - differ: concrete diffing implementation
     public init(items: [T], differ: EquatableDiffingAlgorithm) {
         self.differ = differ
         super.init(items: items)
     }
     
+    /// Calculate diffs between `items` and `newItems`.
+    ///
+    /// - Parameter newItems: new items collection
+    /// - Returns: Array of changes between `items` and `newItems`.
     open override func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
         return differ.diff(from: items, to: newItems)
     }
 }
 
+/// `SingleSectionStorage` that requires all it's elements to be `Hashable`.
 open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSectionStorage<T> {
+    
+    /// Diffing algorithm that requires all it's elements to be `Hashable`.
     public let differ: HashableDiffingAlgorithm
     
+    /// Creates storage with `items` and concrete implementation of `HashableDiffingAlgorithm` - `differ`.
+    ///
+    /// - Parameters:
+    ///   - items: starting items in storage
+    ///   - differ: concrete diffing implementation
     public init(items: [T], differ: HashableDiffingAlgorithm) {
         self.differ = differ
         super.init(items: items)
     }
     
+    /// Calculate diffs between `items` and `newItems`.
+    ///
+    /// - Parameter newItems: new items collection
+    /// - Returns: Array of changes between `items` and `newItems`.
     open override func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
         return differ.diff(from: items, to: newItems)
     }
 }
 
+/// Abstract base class that represents a single section of items. Supports supplementary items to allow representing supplementary views in section.
+/// - SeeAlso: `SingleSectionHashableStorage`
+/// - SeeAlso: `SingleSectionEquatableStorage`
 open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, SupplementaryStorage, HeaderFooterSettable {
     
+    /// Array of items, that section contains.
     open var items : [T] { return section.items(ofType: T.self) }
     
+    /// Internal representation of a single section
     private var section : SectionModel
     
+    /// Creates storage with array of items. Do not call this method directly. Instead use concrete subclasses of `SingleSectionStorage`, such as `SingleSectionEquatableStorage`.
+    ///
+    /// - Parameter items: array of starting items in section.
     public init(items: [T]) {
         let sectionModel = SectionModel()
         sectionModel.setItems(items)
@@ -65,12 +97,17 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     
     // Storage
     
+    /// Retrieve item at given `indexPath`.
+    ///
+    /// - Parameter indexPath: indexPath of item in storage
+    /// - Returns: item at specified indexPath, or nil if indexPath is out of bounds.
     public func item(at indexPath: IndexPath) -> Any? {
         guard indexPath.section == 0 else { return nil }
         guard indexPath.item < section.items.count else { return nil }
         return section.items[indexPath.item]
     }
     
+    /// Array of sections in storage. This method will always return array with single section. Attempting to set any amount of sections different from one, or a section that is not `SectionModel` does nothing.
     public var sections: [Section] {
         get {
             return [section]
@@ -88,11 +125,22 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     
     // SupplementaryStorage
     
+    /// Retrieve supplementary model of `kind` for section at `indexPath`.
+    ///
+    /// - Parameters:
+    ///   - kind: supplementary kind
+    ///   - indexPath: indexPath for determining supplementary location
+    /// - Returns: supplementary model, or nil if indexPath is out of bounds, or section is different from 0.
     public func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
         guard indexPath.section == 0 else { return nil }
         return section.supplementaryModel(ofKind: kind, atIndex: indexPath.item)
     }
     
+    /// Set supplementaries for specific `kind`. Attempting to set any amount of models that is more than 1 does nothing.
+    ///
+    /// - Parameters:
+    ///   - models: array of models. Must consist of zero or one element, otherwise is ignored.
+    ///   - kind: supplementary kind
     public func setSupplementaries(_ models: [[Int : Any]], forKind kind: String) {
         guard models.count <= 1 else {
             print("Attempt to set more than 1 section of supplementaries to SingleSectionStorage.")
@@ -107,22 +155,41 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     
     // Diffing and updates
     
+    /// Abstract method to calculate diffs. Do not use this method directly. Instead, use subclassed method, for example `SingleSectionEquatableStorage.calculateDiffs(to:)`.
+    /// - SeeAlso: `setItems`
+    /// - SeeAlso: `addItems`
+    ///
+    /// - Parameter newItems: new array, to which diffs are calculated
+    /// - Returns: Array of changes between `items` and `newItems`.
     open func calculateDiffs(to newItems: [T]) -> [SingleSectionOperation] {
         fatalError("This method needs to be overridden in subclasses")
     }
     
+    /// Replaces `items` with `newItems`, collecting changes along the way. Changes are calculated using `calculateDiffs(to:)` method and delivered to `StorageUpdating` delegate, which can animate changes in resulting UI(for example UITableView or UICollectionView).
+    ///
+    /// - Parameter newItems: new array of items
     public func setItems(_ newItems: [T]) {
         let diffs = calculateDiffs(to: newItems)
-        animateChanges(diffs, to: newItems)
+        collectChanges(diffs, to: newItems)
     }
 
+    /// Adds `newItems` on top of `items`, using specified accumulation strategy.
+    ///
+    /// - Parameters:
+    ///   - newItems: new items array
+    ///   - strategy: strategy to use when accumulating items. Defaults to AdditiveAccumulationStrategy.
     public func addItems(_ newItems: [T], _ strategy: AccumulationStrategy = AdditiveAccumulationStrategy()) {
         let accumulatedItems = strategy.accumulate(oldItems: items, newItems: newItems)
         let diffs = calculateDiffs(to: accumulatedItems)
-        animateChanges(diffs, to: accumulatedItems)
+        collectChanges(diffs, to: accumulatedItems)
     }
     
-    func animateChanges(_ changes: [SingleSectionOperation], to new: [T]) {
+    /// Convert `changes` to `StorageUpdate` and deliver it to `StorageUpdating` delegate.
+    ///
+    /// - Parameters:
+    ///   - changes: changes to collect
+    ///   - new: new collection of items
+    func collectChanges(_ changes: [SingleSectionOperation], to new: [T]) {
         let update = StorageUpdate()
         update.enqueueDatasourceUpdate { [weak self] _ in
             self?.section.setItems(new)

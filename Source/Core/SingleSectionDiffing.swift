@@ -25,10 +25,19 @@
 
 import Foundation
 
+/// A type that can be identified by `identifier`.
 public protocol Identifiable {
+    
+    /// Unique identifier of object. It must never change for this specific object.
     var identifier: AnyHashable { get }
 }
 
+/// Edit operation in single section.
+///
+/// - delete: item is deleted at index
+/// - insert: item is inserted at index
+/// - move: item is moved `from` index `to` index.
+/// - update: item is updated at index.
 public enum SingleSectionOperation {
     case delete(Int)
     case insert(Int)
@@ -36,10 +45,12 @@ public enum SingleSectionOperation {
     case update(Int)
 }
 
+/// Algorithm that requires elements in collection to be `Hashable`
 public protocol HashableDiffingAlgorithm {
     func diff<T: Identifiable & Hashable>(from: [T], to: [T]) -> [SingleSectionOperation]
 }
 
+/// Algorithm that requires elements in collection to be `Equatable`
 public protocol EquatableDiffingAlgorithm {
     func diff<T: Identifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation]
 }

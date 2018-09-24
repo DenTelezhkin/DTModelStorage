@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+* Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section. 
+
+Read more about it [in README](https://github.com/DenHeadless/DTModelStorage#singlesectionstorage).
+
 * Convenience method to create `MappingCondition` from ModelTransfer objects, for example, if used with `DTTableViewManager`:
 
 ```swift
@@ -30,6 +34,8 @@ memoryStorage.anomalyHandler.silenceAnomaly { anomaly in
     }
 }
 ```
+
+* Support for Swift 4.2 and Xcode 10.
 
 ## [7.1.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.1.0)
 

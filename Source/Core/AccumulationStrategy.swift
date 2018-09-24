@@ -25,21 +25,49 @@
 
 import Foundation
 
+/// Strategy to accumulate `oldItems` and `newItems` into resulting array.
 public protocol AccumulationStrategy {
+    
+    /// Accumulate `oldItems` and `newItems` into resulting array.
+    ///
+    /// - Parameters:
+    ///   - oldItems: array of items, already present in storage
+    ///   - newItems: array of items, that will be accumulated
+    /// - Returns: Accumulated items array.
     func accumulate<T:Identifiable>(oldItems: [T], newItems: [T]) -> [T]
 }
 
+/// Strategy, that adds new items to old items, without comparing their identifiers.
+/// This strategy is used by default by `addItems` method of `SingleSectionStorage`.
 public struct AdditiveAccumulationStrategy: AccumulationStrategy {
+    
+    /// Creates additive accumulation strategy
     public init() {}
     
+    /// Accumulate `oldItems` and `newItems` into resulting array by appending `newItems` to `oldItems`.
+    ///
+    /// - Parameters:
+    ///   - oldItems: array of items, already present in storage
+    ///   - newItems: array of items, that will be accumulated
+    /// - Returns: Array, that consists of old items and new items.
     public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
         return oldItems + newItems
     }
 }
 
+/// Strategy to update old values with a new ones, using old items position.
 public struct UpdateOldValuesAccumulationStrategy: AccumulationStrategy {
+    
+    /// Creates update old values accumulation strategy
     public init() {}
     
+    /// Accumulate `oldItems` and `newItems` into resulting array by updating old items with new values, using old item positions in collection.
+    /// Identity of item is determined by `identifier` property.
+    ///
+    /// - Parameters:
+    ///   - oldItems: array of items, already present in storage
+    ///   - newItems: array of items, that will be accumulated
+    /// - Returns: Accumulated items array, that contains old items updated with new values and new unique values.
     public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
         var newArray = oldItems
         var existingIdentifiers = [AnyHashable:Int]()
@@ -60,9 +88,19 @@ public struct UpdateOldValuesAccumulationStrategy: AccumulationStrategy {
     }
 }
 
+/// Strategy to delete old values when accumulating newItems
 public struct DeleteOldValuesAccumulationStrategy: AccumulationStrategy {
+    
+    /// Creates strategy
     public init() {}
     
+    /// Accumulate `oldItems` and `newItems` into resulting array by deleting old items, that have new values in `newItems`, from `oldItems`.
+    /// This way old duplicated values are basically moved to their location in `newItems` and updated with new data.
+    ///
+    /// - Parameters:
+    ///   - oldItems: array of items, already present in storage
+    ///   - newItems: array of items, that will be accumulated
+    /// - Returns: Accumulated items array.
     public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
         var newArray = oldItems
         var existingIdentifiers = [AnyHashable:Int]()
