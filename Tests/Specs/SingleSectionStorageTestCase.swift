@@ -115,7 +115,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         observer.update?.applyDeferredDatasourceUpdates()
 
-        XCTAssertEqual(stringStorage.items.compactMap { $0 as? String }, ["bar", "foo"])
+        XCTAssertEqual(stringStorage.items, ["bar", "foo"])
     }
 
     func testChangesAreCalculatedUsingHashableDiffer() {
@@ -131,7 +131,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         observer.update?.applyDeferredDatasourceUpdates()
 
-        XCTAssertEqual(stringStorage.items.compactMap { $0 as? String }, ["bar", "foo"])
+        XCTAssertEqual(stringStorage.items, ["bar", "foo"])
     }
 
     func testAdditionAccumulationStrategyIgnoresOldItems() {
@@ -173,7 +173,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         observer.update?.applyDeferredDatasourceUpdates()
 
-        XCTAssertEqual(stringStorage.items.compactMap { $0 as? UpdatableData }, [
+        XCTAssertEqual(stringStorage.items, [
                 UpdatableData(1, "bar"),
                 UpdatableData(2, "bar"),
                 UpdatableData(3, "xyz")
@@ -200,7 +200,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         observer.update?.applyDeferredDatasourceUpdates()
 
-        XCTAssertEqual(stringStorage.items.compactMap { $0 as? UpdatableData }, [
+        XCTAssertEqual(stringStorage.items, [
             UpdatableData(2, "bar"),
             UpdatableData(1, "bar"),
             UpdatableData(3, "xyz")

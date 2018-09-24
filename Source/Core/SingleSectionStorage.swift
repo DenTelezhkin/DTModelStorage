@@ -57,7 +57,7 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
     
     private var section : SectionModel
     
-    init(items: [T]) {
+    public init(items: [T]) {
         let sectionModel = SectionModel()
         sectionModel.setItems(items)
         section = sectionModel
