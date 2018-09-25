@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.2.0](https://github.com/DenHeadless/DTModelStorage/releases/tag/7.2.0)
+
 ### Added
 
 * Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section. 
