@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.license  = 'MIT'
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenHeadless/DTModelStorage'
-  s.social_media_url = 'https://twitter.com/DTCoder'
+  s.social_media_url = 'https://twitter.com/DenTelezhkin'
   s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin.oss@gmail.com' }
   s.source   = { :git => 'https://github.com/DenHeadless/DTModelStorage.git', :tag => s.version.to_s }
   s.requires_arc = true
