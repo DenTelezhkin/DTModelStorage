@@ -9,26 +9,26 @@ cache:
 
 matrix:
   include:
-    - env: ACTION=test_ios12
-    - env: ACTION=test_ios11
-    - env: ACTION=test_tvos12
-    - env: ACTION=test_tvos11
-    - env: ACTION=test_ios_swift3
-    - env: ACTION=test_ios_swift4
-    - env: ACTION=test_tvos_swift3
-    - env: ACTION=test_tvos_swift4
+    - env: ACTION=test_ios12 PLATFORM=iOS
+    - env: ACTION=test_ios11 PLATFORM=iOS
+    - env: ACTION=test_tvos12 PLATFORM=tvOS
+    - env: ACTION=test_tvos11 PLATFORM=tvOS
+    - env: ACTION=test_ios_swift3 PLATFORM=iOS
+    - env: ACTION=test_ios_swift4 PLATFORM=iOS
+    - env: ACTION=test_tvos_swift3 PLATFORM=tvOS
+    - env: ACTION=test_tvos_swift4 PLATFORM=tvOS
     - osx_image: xcode9.4
-      env: ACTION=test_xcode9_ios_swift3
+      env: ACTION=test_xcode9_ios_swift3 PLATFORM=iOS
     - osx_image: xcode9.4
-      env: ACTION=test_xcode9_ios_swift4
-    - env: ACTION=pod_lint
-    - env: ACTION=carthage_build
+      env: ACTION=test_xcode9_ios_swift4 PLATFORM=iOS
+    - env: ACTION=pod_lint PLATFORM="iOS,tvOS"
+    - env: ACTION=carthage_build PLATFORM="iOS,tvOS"
 
 before_script:
   - brew update
   - brew outdated carthage || brew upgrade carthage
-  - carthage bootstrap --cache-builds --platform iOS,tvOS
-  
+  - carthage bootstrap --cache-builds --platform $PLATFORM
+
 script:
   - bundle exec fastlane $ACTION
 
