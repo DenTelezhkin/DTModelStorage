@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/DenHeadless/DTModelStorage.svg?branch=master)](https://travis-ci.org/DenHeadless/DTModelStorage)
-[![codecov.io](http://codecov.io/github/DenHeadless/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenHeadless/DTModelStorage?branch=master)
+[![Build Status](https://travis-ci.org/DenTelezhkin/DTModelStorage.svg?branch=master)](https://travis-ci.org/DenTelezhkin/DTModelStorage)
+[![codecov.io](http://codecov.io/github/DenTelezhkin/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenTelezhkin/DTModelStorage?branch=master)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/DTModelStorage.svg)](https://cocoapods.org/pods/DTModelStorage)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
@@ -7,7 +7,7 @@
 DTModelStorage
 ================
 
-> This project is used as a dependency by [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenHeadless/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
+> This project is used as a dependency by [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenTelezhkin/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
 
 - [x] Support for any data structure - class, struct, enum, tuple
 - [x] Support for automatic diffing in section
@@ -39,7 +39,7 @@ Internal structure of these will be different, but we need a common interface an
 
 Memory storage classes will provide convenience methods to update storage, CoreData storage classes will rely on updates from `NSFetchedResultsControllerDelegate` protocol. So the first step will be different, but the second step stays the same. And delegate for storage classes will receive the same message, and it will not actually care, which storage is used. They will look the same from its point of view.
 
-`DTModelStorage` provides convenience methods to be used with `UITableView` or `UICollectionView`, but does not force any specific use, and does not imply, which UI components are compatible with it. However, storage classes are designed to work with "sections" and "items", which generally means some kind of table or collection of items. 
+`DTModelStorage` provides convenience methods to be used with `UITableView` or `UICollectionView`, but does not force any specific use, and does not imply, which UI components are compatible with it. However, storage classes are designed to work with "sections" and "items", which generally means some kind of table or collection of items.
 
 SingleSectionStorage
 ================
@@ -48,7 +48,7 @@ While sometimes you need such fine-grained control, that `MemoryStorage` provide
 
 In this case, mostly used methods from `MemoryStorage` are `setItems` and `addItems`, because in this case you probably don't need any other methods. What you may want, however, is an ability to automatically calculate diffs between old and new state to be able to animate UI without the need to call `reloadData`. That's where `SingleSectionStorage` comes in.
 
-But before showing any usage examples, let's talk about diffing a little bit. There are a lot of great collection differs outhere, and `DTModelStorage` is not aimed to providing another one. Instead, it provides an API to work with currently available differs. 
+But before showing any usage examples, let's talk about diffing a little bit. There are a lot of great collection differs outhere, and `DTModelStorage` is not aimed to providing another one. Instead, it provides an API to work with currently available differs.
 
 #### Algorithms
 
@@ -61,7 +61,7 @@ There are a lot of community-built algorithms to compute diff between two collec
 There are other algorithms and implementations available, for example:
 
 - [Dwifft](https://github.com/jflinter/Dwifft) - Longest common subsequence algorithm
-- [Differ](https://github.com/tonyarnold/Differ) - Longest common subsequence algorithm 
+- [Differ](https://github.com/tonyarnold/Differ) - Longest common subsequence algorithm
 - [Changeset](https://github.com/osteslag/Changeset) - Wagner-Fischer algorithm (specific implementation of Levenstein algorithm).
 
 Because algorithms are built differently, but have some common traits, `SingleSectionStorage` implements two concrete subclasses, that work with algorithms with `Equatable` elements and algorithms that work with `Hashable` elements - `SingleSectionEquatableStorage` and `SingleSectionHashableStorage`.
@@ -70,9 +70,9 @@ Because algorithms are built differently, but have some common traits, `SingleSe
 
 To work with specific algorithm, you would need to create a thin adapter, that converts results of algorithm work to models, compatible with `DTModelStorage`. Here are some examples of how this can be done:
 
-- [Adapter for Dwifft](https://github.com/DenHeadless/DTModelStorage/blob/master/Tests/Specs/SingleSectionStorageTestCase.swift#L18-L30)
-- [Adapter for HeckelDiff](https://github.com/DenHeadless/DTModelStorage/blob/master/Tests/Specs/SingleSectionStorageTestCase.swift#L32-L48)
-- [Adapter for Changeset](https://github.com/DenHeadless/DTTableViewManager/blob/master/Example/Example%20controllers/AutoDiffSearchViewController.swift#L14-L26)
+- [Adapter for Dwifft](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Tests/Specs/SingleSectionStorageTestCase.swift#L18-L30)
+- [Adapter for HeckelDiff](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Tests/Specs/SingleSectionStorageTestCase.swift#L32-L48)
+- [Adapter for Changeset](https://github.com/DenTelezhkin/DTTableViewManager/blob/master/Example/Example%20controllers/AutoDiffSearchViewController.swift#L14-L26)
 
 #### Example
 
@@ -96,7 +96,7 @@ Set new array of items and automatically calculate all diffs:
 storage.setItems(newPosts)
 ```
 
-Full example of automatically animating items in `UITableView` can be seen in [DTTableViewManager repo](https://github.com/DenHeadless/DTTableViewManager/blob/master/Example/Example%20controllers/AutoDiffSearchViewController.swift)
+Full example of automatically animating items in `UITableView` can be seen in [DTTableViewManager repo](https://github.com/DenTelezhkin/DTTableViewManager/blob/master/Example/Example%20controllers/AutoDiffSearchViewController.swift)
 
 #### Adding items
 
@@ -128,7 +128,7 @@ storage.addItems(newItems, UpdateOldValuesAccumulationStrategy())
 
 #### Several model types in SingleSectionStorage
 
-`SingleSectionStorage` class uses generics to determine it's item type. While it provides compile-time guarantees for item type, it unfortunately prevents using several model types in `SingleSectionStorage` using `Any` type or a protocol. To do that, Swift needs to implement feature called [Generalized existentials](https://github.com/apple/swift/blob/master/docs/GenericsManifesto.md#existentials). Unfortunately, at the moment of writing (Xcode 10, Swift 4.2) this feature is not implemented. 
+`SingleSectionStorage` class uses generics to determine it's item type. While it provides compile-time guarantees for item type, it unfortunately prevents using several model types in `SingleSectionStorage` using `Any` type or a protocol. To do that, Swift needs to implement feature called [Generalized existentials](https://github.com/apple/swift/blob/master/docs/GenericsManifesto.md#existentials). Unfortunately, at the moment of writing (Xcode 10, Swift 4.2) this feature is not implemented.
 
 Therefore, to support several data models type in `SingleSection` we can use technique called type-erasing. We can build generic wrapper class, that implements all protocols that are required, but actually accepts `Any` value:
 
@@ -282,7 +282,7 @@ Installation
 
 [Carthage](https://github.com/Carthage/Carthage)
 
-    github "DenHeadless/DTModelStorage" ~> 7.1
+    github "DenTelezhkin/DTModelStorage" ~> 7.1
 
 Requirements
 ============
@@ -294,4 +294,4 @@ Requirements
 Objective-C
 ============
 
-Due to generic implementation of DTModelStorage currently there are no plans to support Objective-C. If you want to use `DTModelStorage` in Objective-C project, you can use [latest compatible release](https://github.com/DenHeadless/DTModelStorage/releases/tag/1.3.1) of the framework, that was previously written in Objective-C.
+Due to generic implementation of DTModelStorage currently there are no plans to support Objective-C. If you want to use `DTModelStorage` in Objective-C project, you can use [latest compatible release](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/1.3.1) of the framework, that was previously written in Objective-C.
