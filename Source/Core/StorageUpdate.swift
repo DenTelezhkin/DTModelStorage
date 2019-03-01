@@ -53,7 +53,9 @@ public class StorageUpdate: Equatable, CustomStringConvertible
         return enqueuedDatasourceUpdates.count > 0
     }
     
-    var enqueuedDatasourceUpdates = [(StorageUpdate) throws -> Void]()
+    /// Enqueued datasource updates for later execution. This can be used by `UICollectionView` and `UITableView` batch updates mechanisms to update datasources inside of `performBatchUpdates(_:completion:)` method.
+    /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
+    public var enqueuedDatasourceUpdates = [(StorageUpdate) throws -> Void]()
     
     /// Create an empty update.
     public init(){}
@@ -70,7 +72,11 @@ public class StorageUpdate: Equatable, CustomStringConvertible
         enqueuedDatasourceUpdates = []
     }
     
-    func enqueueDatasourceUpdate(_ update: @escaping (StorageUpdate) throws -> Void) {
+    /// Enqueues datasource update for later execution into `enqueuedDatasourceUpdates` property. This can be used by `UICollectionView` and `UITableView` batch updates mechanisms to update datasources inside of `performBatchUpdates(_:completion:)` method.
+    /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
+    ///
+    /// - Parameter update: datasource update.
+    public func enqueueDatasourceUpdate(_ update: @escaping (StorageUpdate) throws -> Void) {
         enqueuedDatasourceUpdates.append(update)
     }
     

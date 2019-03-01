@@ -104,5 +104,6 @@ lane :release do |params|
     puts "Attaching Carthage prebuilt binary to release."
     releases = client.releases('DenTelezhkin/DTModelStorage')
     client.upload_asset(releases[0].url, 'DTModelStorage.framework.zip')
+    sh "rm -rf DTModelStorage.framework.zip"
   end
 end

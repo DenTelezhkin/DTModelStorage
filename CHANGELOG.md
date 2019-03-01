@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates. 
+
 ## [7.2.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.0)
 
 ### Added
