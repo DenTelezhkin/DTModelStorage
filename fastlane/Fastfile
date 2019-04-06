@@ -1,7 +1,7 @@
 fastlane_version "1.98.0"
 
 lane :test_ios12 do
-  scan(devices: ["iPhone X (12.0)"])
+  scan(devices: ["iPhone X (12.2)"])
   sh "bash ../codecov.sh"
 end
 
@@ -14,35 +14,27 @@ lane :test_tvos12 do
 end
 
 lane :test_tvos11 do
-  scan(device: "Apple TV")
+  scan(device: "Apple TV 4K (11.4)")
 end
 
 lane :pod_lint do
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
 
-lane :test_ios_swift3 do
-  scan(devices: ["iPhone X (12.0)"], xcargs: "SWIFT_VERSION=3.0")
-end
-
 lane :test_ios_swift4 do
-  scan(devices: ["iPhone X (12.0)"], xcargs: "SWIFT_VERSION=4.0")
+  scan(devices: ["iPhone X (12.2)"], xcargs: "SWIFT_VERSION=4.0")
 end
 
-lane :test_tvos_swift3 do
-  scan(devices: ["Apple TV"], xcargs: "SWIFT_VERSION=3.0")
+lane :test_ios_swift4_2 do
+  scan(devices: ["iPhone X (12.2)"], xcargs: "SWIFT_VERSION=4.2")
 end
 
 lane :test_tvos_swift4 do
   scan(devices: ["Apple TV"], xcargs: "SWIFT_VERSION=4.0")
 end
 
-lane :test_xcode9_ios_swift3 do
-  scan(device: "iPhone X (11.4)", xcargs: "SWIFT_VERSION=3.0")
-end
-
-lane :test_xcode9_ios_swift4 do
-  scan(device: "iPhone X (11.4)", xcargs: "SWIFT_VERSION=4.0")
+lane :test_tvos_swift4_2 do
+  scan(devices: ["Apple TV"], xcargs: "SWIFT_VERSION=4.2")
 end
 
 lane :carthage_build do

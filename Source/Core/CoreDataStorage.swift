@@ -156,6 +156,7 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Supp
                     currentUpdate?.updatedObjects[indexPath] = anObject
                 }
             }
+        default: ()
         }
     }
     

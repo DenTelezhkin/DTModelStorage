@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added support for Swift 5 and Xcode 10.2
+* Dropped support for Xcode 9 and Swift 3
+
 ## [7.2.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.1)
 
 * Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates. 

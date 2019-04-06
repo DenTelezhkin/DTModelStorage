@@ -185,7 +185,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     
     /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
-        return sections.index(where: {
+        return sections.firstIndex(where: {
             return ($0 as? SectionModel) === (section as? SectionModel)
         })
     }
