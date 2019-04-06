@@ -11,16 +11,6 @@ import XCTest
 @testable import DTModelStorage
 import Nimble
 
-#if swift(>=4.1)
-#else
-/// Extension for adding Swift 4.1 methods, to support Swift 4.0 and Swift 3.2/3.3 concurrently.
-extension Sequence {
-    func compactMap<ElementOfResult>(_ transform: (Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
-        return try flatMap(transform)
-    }
-}
-#endif
-
 class TableCell: UITableViewCell, ModelTransfer
 {
     func update(with model: Int) {

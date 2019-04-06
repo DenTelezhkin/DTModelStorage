@@ -25,7 +25,6 @@
 
 import Foundation
 
-#if swift(>=4.1)
 /// `MemoryStorageAnomaly` represents various errors and unwanted behaviors that can happen when using `MemoryStorage` class.
 /// - SeeAlso: `DTTableViewManagerAnomaly`, `DTCollectionViewManagerAnomaly`
 public enum MemoryStorageAnomaly: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
@@ -98,7 +97,6 @@ open class MemoryStorageAnomalyHandler : AnomalyHandler {
     /// Creates `MemoryStorageAnomalyHandler`.
     public init() {}
 }
-#endif
 
 /// This struct contains error types that can be thrown for various MemoryStorage errors
 public enum MemoryStorageError: LocalizedError
@@ -160,10 +158,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27
     open var defersDatasourceUpdates: Bool = true
 
-#if swift(>=4.1)
     /// Anomaly handler, that handles reported by `MemoryStorage` anomalies.
     open var anomalyHandler : MemoryStorageAnomalyHandler = .init()
-#endif
+
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {
         didSet {
@@ -359,9 +356,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
             
             guard (section?.items.count ?? 0) >= indexPath.item else {
-#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.insertionIndexPathTooBig(indexPath: indexPath, countOfElementsInSection: section?.items.count ?? 0))
-#endif
                 throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
             }
             
@@ -378,9 +373,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath]) throws
     {
         if items.count != indexPaths.count {
-#if swift(>=4.1)
             anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))
-#endif
             throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
         if defersDatasourceUpdates {
@@ -433,9 +426,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         
         performDatasourceUpdate { [weak self] update in
             guard let originalIndexPath = self?.indexPath(forItem: itemToReplace) else {
-#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.replaceItemFailedItemNotFound(itemDescription: String(describing: itemToReplace)))
-#endif
                 throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
             }
             
@@ -457,9 +448,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         
         performDatasourceUpdate { [weak self] update in
             guard let indexPath = self?.indexPath(forItem: item) else {
-#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.removeItemFailedItemNotFound(itemDescription: String(describing: item)))
-#endif
                 throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
             }
             self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
@@ -554,9 +543,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         
         performDatasourceUpdate { [weak self] update in
             guard let sourceItem = self?.item(at: source) else {
-#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedItemNotFound(indexPath: source))
-#endif
                 return
             }
             let sourceSection = self?.getValidSection(source.section, collectChangesIn: update)
@@ -566,9 +553,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             
             let numberOfItemsInSectionAfterRemovingSource = source.section == destination.section ? destinationSectionItemsCount - 1 : destinationSectionItemsCount
             if numberOfItemsInSectionAfterRemovingSource < destination.row {
-#if swift(>=4.1)
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(indexPath: destination, countOfElementsInSection: numberOfItemsInSectionAfterRemovingSource))
-#endif
                 return
             }
             sourceSection?.items.remove(at: source.row)
@@ -595,12 +580,10 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
                 from.items.remove(at: sourceIndexPath.row)
                 to.items.insert(item, at: destinationIndexPath.row)
             } else {
-#if swift(>=4.1)
                 anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(sourceIndexPath: sourceIndexPath,
                                                                                                   destinationIndexPath: destinationIndexPath,
                                                                                                   sourceElementsInSection: from.items.count,
                                                                                                   destinationElementsInSection: destinationSectionItemCountAfterRemoval))
-#endif
             }
         }
     }

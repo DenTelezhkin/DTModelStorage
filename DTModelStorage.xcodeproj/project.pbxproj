@@ -17,7 +17,6 @@
 		3E2ADD562146B78D0082B2E6 /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD432146B78D0082B2E6 /* RuntimeHelper.swift */; };
 		3E2ADD572146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD442146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		3E2ADD582146B78D0082B2E6 /* AnomalyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD452146B78D0082B2E6 /* AnomalyHandler.swift */; };
-		3E2ADD592146B78D0082B2E6 /* BackwardsCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD462146B78D0082B2E6 /* BackwardsCompatibility.swift */; };
 		3E2ADD5A2146B78D0082B2E6 /* EventReactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD472146B78D0082B2E6 /* EventReactions.swift */; };
 		3E2ADD5B2146B78D0082B2E6 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD482146B78D0082B2E6 /* Section.swift */; };
 		3E2ADD5C2146B78D0082B2E6 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD492146B78D0082B2E6 /* BaseStorage.swift */; };
@@ -56,7 +55,6 @@
 		3E304763214925570051B8C6 /* RuntimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD432146B78D0082B2E6 /* RuntimeHelper.swift */; };
 		3E304764214925570051B8C6 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD442146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift */; };
 		3E304765214925570051B8C6 /* AnomalyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD452146B78D0082B2E6 /* AnomalyHandler.swift */; };
-		3E304766214925570051B8C6 /* BackwardsCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD462146B78D0082B2E6 /* BackwardsCompatibility.swift */; };
 		3E304767214925570051B8C6 /* EventReactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD472146B78D0082B2E6 /* EventReactions.swift */; };
 		3E304768214925570051B8C6 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD482146B78D0082B2E6 /* Section.swift */; };
 		3E304769214925570051B8C6 /* BaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ADD492146B78D0082B2E6 /* BaseStorage.swift */; };
@@ -116,7 +114,6 @@
 		3E2ADD432146B78D0082B2E6 /* RuntimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeHelper.swift; sourceTree = "<group>"; };
 		3E2ADD442146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MemoryStorage+UpdateWithoutAnimations.swift"; sourceTree = "<group>"; };
 		3E2ADD452146B78D0082B2E6 /* AnomalyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnomalyHandler.swift; sourceTree = "<group>"; };
-		3E2ADD462146B78D0082B2E6 /* BackwardsCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackwardsCompatibility.swift; sourceTree = "<group>"; };
 		3E2ADD472146B78D0082B2E6 /* EventReactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventReactions.swift; sourceTree = "<group>"; };
 		3E2ADD482146B78D0082B2E6 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		3E2ADD492146B78D0082B2E6 /* BaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseStorage.swift; sourceTree = "<group>"; };
@@ -251,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				3E2ADD452146B78D0082B2E6 /* AnomalyHandler.swift */,
-				3E2ADD462146B78D0082B2E6 /* BackwardsCompatibility.swift */,
 				3E2ADD492146B78D0082B2E6 /* BaseStorage.swift */,
 				3E2ADD3E2146B78D0082B2E6 /* CoreDataStorage.swift */,
 				3E2ADD472146B78D0082B2E6 /* EventReactions.swift */,
@@ -532,7 +528,6 @@
 				3E304762214925570051B8C6 /* StorageUpdate.swift in Sources */,
 				3E30475C214925570051B8C6 /* ViewModelMapping.swift in Sources */,
 				3E304763214925570051B8C6 /* RuntimeHelper.swift in Sources */,
-				3E304766214925570051B8C6 /* BackwardsCompatibility.swift in Sources */,
 				3E30476A214925570051B8C6 /* ModelTransfer.swift in Sources */,
 				3E304761214925570051B8C6 /* StorageProtocols.swift in Sources */,
 				3E30476B214925570051B8C6 /* UINib+Existance.swift in Sources */,
@@ -555,7 +550,6 @@
 				3E2ADD5B2146B78D0082B2E6 /* Section.swift in Sources */,
 				3E2ADD572146B78D0082B2E6 /* MemoryStorage+UpdateWithoutAnimations.swift in Sources */,
 				3E2ADD562146B78D0082B2E6 /* RuntimeHelper.swift in Sources */,
-				3E2ADD592146B78D0082B2E6 /* BackwardsCompatibility.swift in Sources */,
 				3E2ADD512146B78D0082B2E6 /* CoreDataStorage.swift in Sources */,
 				3E2ADD5C2146B78D0082B2E6 /* BaseStorage.swift in Sources */,
 				3E2ADD522146B78D0082B2E6 /* MemoryStorage.swift in Sources */,

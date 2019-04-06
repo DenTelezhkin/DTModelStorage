@@ -287,8 +287,8 @@ Installation
 Requirements
 ============
 
-* Xcode 9 and higher
-* Swift 3 - Swift 4.2
+* Xcode 10 and higher
+* Swift 4.1 and higher
 * iOS 8 and higher / tvOS 9.0 and higher
 
 Objective-C

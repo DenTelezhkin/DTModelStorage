@@ -9,8 +9,6 @@
 import XCTest
 import DTModelStorage
 
-#if swift(>=4.1)
-
 enum TestAnomaly : Equatable, CustomDebugStringConvertible {
     case itemEventCalledWithCellType(ObjectIdentifier)
     case weirdIndexPathAction(IndexPath)
@@ -103,5 +101,3 @@ class AnomaliesTestCase: XCTestCase {
         waitForExpectations(timeout: 0.1)
     }
 }
-
-#endif
