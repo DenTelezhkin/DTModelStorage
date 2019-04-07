@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BaseStorage Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/BaseStorage" class="dashAnchor"></a>
+    <a title="BaseStorage Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">DTModelStorage Docs</a> (89% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">DTModelStorage Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        BaseStorage Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BaseStorage.html">BaseStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CoreDataStorage.html">CoreDataStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventReaction.html">EventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FiveArgumentsEventReaction.html">FiveArgumentsEventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FourArgumentsEventReaction.html">FourArgumentsEventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemoryStorage.html">MemoryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SectionModel.html">SectionModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleSectionEquatableStorage.html">SingleSectionEquatableStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleSectionHashableStorage.html">SingleSectionHashableStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SingleSectionStorage.html">SingleSectionStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/StorageUpdate.html">StorageUpdate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ViewModelMapping.html">ViewModelMapping</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/DTCollectionViewElementSectionFooter">DTCollectionViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionFooterSSvp">DTCollectionViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/DTCollectionViewElementSectionHeader">DTCollectionViewElementSectionHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionHeaderSSvp">DTCollectionViewElementSectionHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/ChangeType.html">ChangeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MappingCondition.html">MappingCondition</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MemoryStorageAnomaly.html">MemoryStorageAnomaly</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MemoryStorageError.html">MemoryStorageError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RuntimeHelper.html">RuntimeHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SingleSectionOperation.html">SingleSectionOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ViewType.html">ViewType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UINib.html">UINib</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/AccumulationStrategy.html">AccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AnomalyHandler.html">AnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Identifiable.html">Identifiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ModelTransfer.html">ModelTransfer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Storage.html">Storage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/StorageUpdating.html">StorageUpdating</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AdditiveAccumulationStrategy.html">AdditiveAccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DeleteOldValuesAccumulationStrategy.html">DeleteOldValuesAccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UpdateOldValuesAccumulationStrategy.html">UpdateOldValuesAccumulationStrategy</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>BaseStorage</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">BaseStorage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Base class for storage classes</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C23supplementaryHeaderKindSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/supplementaryHeaderKind" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C23supplementaryHeaderKindSSSgvp">supplementaryHeaderKind</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Supplementary kind for header in current storage</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">supplementaryHeaderKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C23supplementaryFooterKindSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/supplementaryFooterKind" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C23supplementaryFooterKindSSSgvp">supplementaryFooterKind</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Supplementary kind for footer in current storage</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">supplementaryFooterKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C13currentUpdateAA0bE0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/currentUpdate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C13currentUpdateAA0bE0CSgvp">currentUpdate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current update</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">currentUpdate</span><span class="p">:</span> <span class="kt"><a href="../Classes/StorageUpdate.html">StorageUpdate</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C22batchUpdatesInProgressSbvp"></a>
+                    <a name="//apple_ref/swift/Property/batchUpdatesInProgress" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C22batchUpdatesInProgressSbvp">batchUpdatesInProgress</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Batch updates are in progress. If true, update will not be finished.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">batchUpdatesInProgress</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C8delegateAA0B8Updating_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C8delegateAA0B8Updating_pSgvp">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate for storage updates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/StorageUpdating.html">StorageUpdating</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C14performUpdatesyyyyXEF"></a>
+                    <a name="//apple_ref/swift/Method/performUpdates(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C14performUpdatesyyyyXEF">performUpdates(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs update <code>block</code> in storage. After update is finished, delegate will be notified.
+Parameter block: Block to execute</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This method allows to execute several updates in a single batch. It is similar to UICollectionView method <code>performBatchUpdates:</code>.
+
+</div>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    Performing mutually exclusive updates inside block can cause application crash.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">performUpdates</span><span class="p">(</span><span class="n">_</span> <span class="nv">block</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C11startUpdateyyF"></a>
+                    <a name="//apple_ref/swift/Method/startUpdate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C11startUpdateyyF">startUpdate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starts update in storage. </p>
+
+<p>This creates StorageUpdate instance and stores it into <code><a href="../Classes/BaseStorage.html#/s:14DTModelStorage04BaseB0C13currentUpdateAA0bE0CSgvp">currentUpdate</a></code> property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">startUpdate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C12finishUpdateyyF"></a>
+                    <a name="//apple_ref/swift/Method/finishUpdate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C12finishUpdateyyF">finishUpdate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Finishes update. </p>
+
+<p>Method verifies, that update is not empty, and sends updates to the delegate. After this method finishes, <code><a href="../Classes/BaseStorage.html#/s:14DTModelStorage04BaseB0C13currentUpdateAA0bE0CSgvp">currentUpdate</a></code> property is nilled out.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">finishUpdate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C26configureForTableViewUsageyyF"></a>
+                    <a name="//apple_ref/swift/Method/configureForTableViewUsage()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C26configureForTableViewUsageyyF">configureForTableViewUsage()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Configures storage for using with UITableView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">configureForTableViewUsage</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C41configureForCollectionViewFlowLayoutUsageyyF"></a>
+                    <a name="//apple_ref/swift/Method/configureForCollectionViewFlowLayoutUsage()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C41configureForCollectionViewFlowLayoutUsageyyF">configureForCollectionViewFlowLayoutUsage()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Configures storage for using with UICollectionViewFlowLayout</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">configureForCollectionViewFlowLayoutUsage</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/HeaderFooterStorage"></a>
+                <a name="//apple_ref/swift/Section/HeaderFooterStorage" class="dashAnchor"></a>
+                <a href="#/HeaderFooterStorage">
+                  <h3 class="section-name">HeaderFooterStorage</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C11headerModel10forSectionypSgSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/headerModel(forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C11headerModel10forSectionypSgSi_tF">headerModel(forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns header model from section with section <code>index</code> or nil, if it was not set.</p>
+<div class="aside aside-requires">
+    <p class="aside-title">Requires</p>
+    supplementaryHeaderKind to be set prior to calling this method
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">headerModel</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage04BaseB0C11footerModel10forSectionypSgSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/footerModel(forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage04BaseB0C11footerModel10forSectionypSgSi_tF">footerModel(forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns footer model from section with section <code>index</code> or nil, if it was not set.</p>
+<div class="aside aside-requires">
+    <p class="aside-title">Requires</p>
+    supplementaryFooterKind to be set prior to calling this method
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">footerModel</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin/DTModelStorage" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
