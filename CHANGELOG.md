@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.3.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.3.0)
+
 ### Added
 
 * Support for Swift 5 and Xcode 10.2
