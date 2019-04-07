@@ -40,19 +40,14 @@ fastlane test_tvos11
 fastlane pod_lint
 ```
 
-### test_ios_swift3
-```
-fastlane test_ios_swift3
-```
-
 ### test_ios_swift4
 ```
 fastlane test_ios_swift4
 ```
 
-### test_tvos_swift3
+### test_ios_swift4_2
 ```
-fastlane test_tvos_swift3
+fastlane test_ios_swift4_2
 ```
 
 ### test_tvos_swift4
@@ -60,14 +55,9 @@ fastlane test_tvos_swift3
 fastlane test_tvos_swift4
 ```
 
-### test_xcode9_ios_swift3
+### test_tvos_swift4_2
 ```
-fastlane test_xcode9_ios_swift3
-```
-
-### test_xcode9_ios_swift4
-```
-fastlane test_xcode9_ios_swift4
+fastlane test_tvos_swift4_2
 ```
 
 ### carthage_build
