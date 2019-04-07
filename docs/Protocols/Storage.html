@@ -4,214 +4,244 @@
     <title>Storage Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
+
     <a name="//apple_ref/swift/Protocol/Storage" class="dashAnchor"></a>
+
     <a title="Storage Protocol Reference"></a>
-    <header>
-      <div class="content-wrapper">
-        <p><a href="../index.html">DTModelStorage Docs</a> (89% documented)</p>
-      </div>
-    </header>
-    <div class="content-wrapper">
-      <p id="breadcrumbs">
-        <a href="../index.html">DTModelStorage Reference</a>
-        <img id="carat" src="../img/carat.png" />
-        Storage Protocol Reference
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DTModelStorage Docs
+        </a>
+         (89% documented)
       </p>
-    </div>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/DenTelezhkin/DTModelStorage">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fdentelezhkin%2Egithub%2Eio%2FDTModelStorage%2Fdocsets%2FDTModelStorage%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DTModelStorage Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Storage Protocol Reference
+    </p>
+
     <div class="content-wrapper">
-      <nav class="sidebar">
+      <nav class="navigation">
         <ul class="nav-groups">
           <li class="nav-group-name">
-            <a href="../Classes.html">Classes</a>
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/BaseStorage.html">BaseStorage</a>
+                <a class="nav-group-task-link" href="../Classes/BaseStorage.html">BaseStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/CoreDataStorage.html">CoreDataStorage</a>
+                <a class="nav-group-task-link" href="../Classes/CoreDataStorage.html">CoreDataStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/EventReaction.html">EventReaction</a>
+                <a class="nav-group-task-link" href="../Classes/EventReaction.html">EventReaction</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/FiveArgumentsEventReaction.html">FiveArgumentsEventReaction</a>
+                <a class="nav-group-task-link" href="../Classes/FiveArgumentsEventReaction.html">FiveArgumentsEventReaction</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/FourArgumentsEventReaction.html">FourArgumentsEventReaction</a>
+                <a class="nav-group-task-link" href="../Classes/FourArgumentsEventReaction.html">FourArgumentsEventReaction</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/MemoryStorage.html">MemoryStorage</a>
+                <a class="nav-group-task-link" href="../Classes/MemoryStorage.html">MemoryStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
+                <a class="nav-group-task-link" href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SectionModel.html">SectionModel</a>
+                <a class="nav-group-task-link" href="../Classes/SectionModel.html">SectionModel</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SingleSectionEquatableStorage.html">SingleSectionEquatableStorage</a>
+                <a class="nav-group-task-link" href="../Classes/SingleSectionEquatableStorage.html">SingleSectionEquatableStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SingleSectionHashableStorage.html">SingleSectionHashableStorage</a>
+                <a class="nav-group-task-link" href="../Classes/SingleSectionHashableStorage.html">SingleSectionHashableStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SingleSectionStorage.html">SingleSectionStorage</a>
+                <a class="nav-group-task-link" href="../Classes/SingleSectionStorage.html">SingleSectionStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/StorageUpdate.html">StorageUpdate</a>
+                <a class="nav-group-task-link" href="../Classes/StorageUpdate.html">StorageUpdate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/ViewModelMapping.html">ViewModelMapping</a>
+                <a class="nav-group-task-link" href="../Classes/ViewModelMapping.html">ViewModelMapping</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Global Variables.html">Global Variables</a>
+            <a class="nav-group-name-link" href="../Global Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/DTCollectionViewElementSectionFooter">DTCollectionViewElementSectionFooter</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/DTCollectionViewElementSectionFooter">DTCollectionViewElementSectionFooter</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionFooterSSvp">DTCollectionViewElementSectionFooter</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionFooterSSvp">DTCollectionViewElementSectionFooter</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/DTCollectionViewElementSectionHeader">DTCollectionViewElementSectionHeader</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/DTCollectionViewElementSectionHeader">DTCollectionViewElementSectionHeader</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionHeaderSSvp">DTCollectionViewElementSectionHeader</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionHeaderSSvp">DTCollectionViewElementSectionHeader</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a>
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Enums.html">Enumerations</a>
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/ChangeType.html">ChangeType</a>
+                <a class="nav-group-task-link" href="../Enums/ChangeType.html">ChangeType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MappingCondition.html">MappingCondition</a>
+                <a class="nav-group-task-link" href="../Enums/MappingCondition.html">MappingCondition</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MemoryStorageAnomaly.html">MemoryStorageAnomaly</a>
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageAnomaly.html">MemoryStorageAnomaly</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MemoryStorageError.html">MemoryStorageError</a>
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError.html">MemoryStorageError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/RuntimeHelper.html">RuntimeHelper</a>
+                <a class="nav-group-task-link" href="../Enums/RuntimeHelper.html">RuntimeHelper</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SingleSectionOperation.html">SingleSectionOperation</a>
+                <a class="nav-group-task-link" href="../Enums/SingleSectionOperation.html">SingleSectionOperation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/ViewType.html">ViewType</a>
+                <a class="nav-group-task-link" href="../Enums/ViewType.html">ViewType</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Extensions.html">Extensions</a>
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
+                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Extensions/Sequence.html">Sequence</a>
+                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Extensions/UINib.html">UINib</a>
+                <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Protocols.html">Protocols</a>
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/AccumulationStrategy.html">AccumulationStrategy</a>
+                <a class="nav-group-task-link" href="../Protocols/AccumulationStrategy.html">AccumulationStrategy</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/AnomalyHandler.html">AnomalyHandler</a>
+                <a class="nav-group-task-link" href="../Protocols/AnomalyHandler.html">AnomalyHandler</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
+                <a class="nav-group-task-link" href="../Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
+                <a class="nav-group-task-link" href="../Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
+                <a class="nav-group-task-link" href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
+                <a class="nav-group-task-link" href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/Identifiable.html">Identifiable</a>
+                <a class="nav-group-task-link" href="../Protocols/Identifiable.html">Identifiable</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/ModelTransfer.html">ModelTransfer</a>
+                <a class="nav-group-task-link" href="../Protocols/ModelTransfer.html">ModelTransfer</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/Section.html">Section</a>
+                <a class="nav-group-task-link" href="../Protocols/Section.html">Section</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
+                <a class="nav-group-task-link" href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/Storage.html">Storage</a>
+                <a class="nav-group-task-link" href="../Protocols/Storage.html">Storage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/StorageUpdating.html">StorageUpdating</a>
+                <a class="nav-group-task-link" href="../Protocols/StorageUpdating.html">StorageUpdating</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
+                <a class="nav-group-task-link" href="../Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
+                <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Structs.html">Structures</a>
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/AdditiveAccumulationStrategy.html">AdditiveAccumulationStrategy</a>
+                <a class="nav-group-task-link" href="../Structs/AdditiveAccumulationStrategy.html">AdditiveAccumulationStrategy</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/DeleteOldValuesAccumulationStrategy.html">DeleteOldValuesAccumulationStrategy</a>
+                <a class="nav-group-task-link" href="../Structs/DeleteOldValuesAccumulationStrategy.html">DeleteOldValuesAccumulationStrategy</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/UpdateOldValuesAccumulationStrategy.html">UpdateOldValuesAccumulationStrategy</a>
+                <a class="nav-group-task-link" href="../Structs/UpdateOldValuesAccumulationStrategy.html">UpdateOldValuesAccumulationStrategy</a>
               </li>
             </ul>
           </li>
         </ul>
       </nav>
       <article class="main-content">
-        <section>
-          <section class="section">
+
+        <section class="section">
+          <div class="section-content">
             <h1>Storage</h1>
               <div class="declaration">
                 <div class="language">
@@ -221,10 +251,13 @@
               </div>
             <p><code>Storage</code> protocol is used to define common interface for storage classes.</p>
 
-          </section>
-          <section class="section task-group-section">
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
             <div class="task-group">
-              <ul>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -308,14 +341,15 @@
                 </li>
               </ul>
             </div>
-          </section>
+          </div>
         </section>
-        <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin/DTModelStorage" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-04-07)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
-        </section>
+
       </article>
     </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
   </body>
 </div>
 </html>
