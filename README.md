@@ -14,6 +14,7 @@ DTModelStorage
 - [x] Protocol-oriented implementation with generic and associated types
 - [x] Powerful events system for storage consumers.
 - [x] High test coverage
+- [x] [Complete documentation](https://dentelezhkin.github.io/DTModelStorage/)
 
 What this is all about?
 ==============
