@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Changed
+
+* Improved StorageUpdate description.
+
 ## [7.3.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.3.0)
 
 ### Added
