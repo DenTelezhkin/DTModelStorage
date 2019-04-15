@@ -109,11 +109,11 @@ public class StorageUpdate: Equatable, CustomStringConvertible
     public var description: String {
         let objectChangesString = "Object changes: \n" + objectChanges.compactMap({ (arg) -> String? in
             let (change, indexPaths) = arg
-            return change.rawValue.capitalized + " \(indexPaths)"
+            return change.rawValue.capitalized + " \(indexPaths) "
         }).reduce("", +)
-        let sectionChangesString = "Section changes:" + objectChanges.compactMap({ (arg) -> String? in
+        let sectionChangesString = "Section changes:" + sectionChanges.compactMap({ (arg) -> String? in
             let (change, index) = arg
-            return change.rawValue.capitalized + " \(index))"
+            return change.rawValue.capitalized + " \(index)) "
         }).reduce("", +)
         return objectChangesString + "\n" + sectionChangesString
     }
