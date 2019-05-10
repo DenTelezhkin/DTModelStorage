@@ -38,17 +38,29 @@ private struct DTFetchedResultsSectionInfoWrapper: Section
     }
 }
 
+#if swift(>=4.2)
+/// Compatibility constant to support Swift 4.2 and higher
+public let DTCollectionViewElementSectionHeader = UICollectionView.elementKindSectionHeader
+/// Compatibility constant to support Swift 4.2 and higher
+public let DTCollectionViewElementSectionFooter = UICollectionView.elementKindSectionFooter
+#else
+/// Compatibility constant to support Swift 4.1 and lower
+public let DTCollectionViewElementSectionHeader = UICollectionElementKindSectionHeader
+/// Compatibility constant to support Swift 4.1 and lower
+public let DTCollectionViewElementSectionFooter = UICollectionElementKindSectionFooter
+#endif
+
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
 open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
-    open let fetchedResultsController: NSFetchedResultsController<T>
+    public let fetchedResultsController: NSFetchedResultsController<T>
     
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
     /// - Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.
-    open var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, UICollectionElementKindSectionHeader]
+    open var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, DTCollectionViewElementSectionHeader]
     
     /// Initialize CoreDataStorage with NSFetchedResultsController
     /// - Parameter fetchedResultsController: fetch results controller
@@ -137,35 +149,35 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Supp
         case .update:
             if let indexPath = indexPath {
                 if let newIndexPath = newIndexPath, indexPath != newIndexPath {
-                    currentUpdate?.objectChanges.append((.delete,[indexPath]))
-                    currentUpdate?.objectChanges.append((.insert,[newIndexPath]))
-                }
-                else {
-                    currentUpdate?.objectChanges.append((.update,[indexPath]))
+                    currentUpdate?.objectChanges.append((.delete, [indexPath]))
+                    currentUpdate?.objectChanges.append((.insert, [newIndexPath]))
+                } else {
+                    currentUpdate?.objectChanges.append((.update, [indexPath]))
                     currentUpdate?.updatedObjects[indexPath] = anObject
                 }
             }
+        default: ()
         }
     }
     
-    /// React to changed section in NSFetchedResultsController.    
+    
     @objc
+    /// React to changed section in NSFetchedResultsController. 
     open func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
-    { switch type
     {
-    case .insert:
-        currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
-    case .delete:
-        currentUpdate?.sectionChanges.append((.delete, [sectionIndex]))
-    case .update:
-        currentUpdate?.sectionChanges.append((.update, [sectionIndex]))
-    default: ()
+        switch type {
+        case .insert:
+            currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
+        case .delete:
+            currentUpdate?.sectionChanges.append((.delete, [sectionIndex]))
+        case .update:
+            currentUpdate?.sectionChanges.append((.update, [sectionIndex]))
+        default: ()
         }
     }
     
     /// Finish update from NSFetchedResultsController
-    @objc
-    open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    @objc open func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.finishUpdate()
     }
 }

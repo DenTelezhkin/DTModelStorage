@@ -133,15 +133,35 @@ class MappingTestCase: XCTestCase {
     
     func testCustomConditionIsVeryfiable() {
         let firstMapping = ViewModelMapping(viewType: .cell, viewClass: IntTableViewCell.self) { mapping in
-            mapping.condition = .custom({ indexPath, model  in
+            mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) > 5
             })
         }
         
         let secondMapping = ViewModelMapping(viewType: .cell, viewClass: OtherIntTableViewCell.self) { mapping in
-            mapping.condition = .custom({ indexPath, model  in
+            mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) <= 5
             })
+        }
+        mappings.append(firstMapping)
+        mappings.append(secondMapping)
+        
+        let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: 3, at: indexPath(0, 0))
+        XCTAssertEqual(firstCandidates.count, 1)
+        XCTAssert(firstCandidates.first?.viewClass === OtherIntTableViewCell.self)
+        
+        let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: 6, at: indexPath(0, 1))
+        XCTAssertEqual(secondCandidates.count, 1)
+        XCTAssert(secondCandidates.first?.viewClass === IntTableViewCell.self)
+    }
+    
+    func testModelMappingInferringModelType() {
+        let firstMapping = ViewModelMapping(viewType: .cell, viewClass: IntTableViewCell.self) { mapping in
+            mapping.condition = IntTableViewCell.modelCondition { _, model in model > 5 }
+        }
+        
+        let secondMapping = ViewModelMapping(viewType: .cell, viewClass: OtherIntTableViewCell.self) { mapping in
+            mapping.condition = OtherIntTableViewCell.modelCondition { _, model in model <= 5 }
         }
         mappings.append(firstMapping)
         mappings.append(secondMapping)

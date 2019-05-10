@@ -25,8 +25,13 @@
 // THE SOFTWARE.
 
 import Foundation
+#if canImport(RealmSwift)
 import Realm.RLMResults
 import RealmSwift
+#else
+//swiftlint:disable:next line_length
+let error = "RealmSwift framework is needed for RealmStorage to work, which is currently not included in DTModelStorage repo. In order to compile RealmStorage target, please add RealmSwift framework manually. If you need RealmStorage to be included in your app using CocoaPods, use DTModelStorage/Realm subspec."
+#endif
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
@@ -44,7 +49,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
         return sections.index(where: {
-            return ($0 as? RealmSection) === (section as? RealmSection)
+            return ($0 as AnyObject) === (section as AnyObject)
         })
     }
     
@@ -53,7 +58,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     
     deinit {
         notificationTokens.values.forEach { token in
-            token.stop()
+            token.invalidate()
         }
     }
     
@@ -79,7 +84,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         guard index <= sections.count else { return }
         
         let section = RealmSection(results: AnyRealmCollection(results))
-        notificationTokens[index]?.stop()
+        notificationTokens[index]?.invalidate()
         notificationTokens[index] = nil
         if index == sections.count {
             sections.append(section)
@@ -88,7 +93,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         }
         if results.realm?.configuration.readOnly == false {
             let sectionIndex = sections.count - 1
-            notificationTokens[index] = results.addNotificationBlock({ [weak self] change in
+            notificationTokens[index] = results.observe({ [weak self] change in
                 self?.handleChange(change, inSection: sectionIndex)
                 })
         }
@@ -127,13 +132,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         defer { self.finishUpdate() }
         
         var markedForDeletion = [Int]()
-        for section in indexes {
-            if section < self.sections.count {
-                markedForDeletion.append(section)
-            }
+        for section in indexes where section < self.sections.count {
+            markedForDeletion.append(section)
         }
         for section in markedForDeletion.sorted().reversed() {
-            notificationTokens[section]?.stop()
+            notificationTokens[section]?.invalidate()
             notificationTokens[section] = nil
             self.sections.remove(at: section)
         }
@@ -149,9 +152,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
+        guard let headerKind = supplementaryHeaderKind else {
+            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
+        }
         let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
+        section?.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
     }
     
     /// Sets section footer `model` for section at `sectionIndex`
@@ -161,9 +166,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
     {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
+        guard let footerKind = supplementaryFooterKind else {
+            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
+        }
         let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
+        section?.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
     }
     
     /// Sets supplementary `models` for supplementary of `kind`.
@@ -191,10 +198,11 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
-        guard indexPath.section < self.sections.count else {
+        guard indexPath.section < sections.count else {
             return nil
         }
-        return (sections[indexPath.section] as? ItemAtIndexPathRetrievable)?.itemAt(indexPath)
+        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
+        return sections[indexPath.section].items[indexPath.item]
     }
     
     // MARK: - SupplementaryStorage

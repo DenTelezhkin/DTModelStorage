@@ -38,11 +38,10 @@ public enum RuntimeHelper
         {
             return any
         }
-        if mirror.children.count == 0
-        {
-            return nil
+        if let child = mirror.children.first {
+            let (_, some) = child
+            return recursivelyUnwrapAnyValue(some)
         }
-        let (_, some) = mirror.children.first!
-        return recursivelyUnwrapAnyValue(some)
+        return nil
     }
 }

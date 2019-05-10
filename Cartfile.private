@@ -1,1 +1,3 @@
-github "Quick/Nimble" "v7.0.2"
+github "Quick/Nimble"
+github "jflinter/Dwifft"
+github "mcudich/HeckelDiff" "master"

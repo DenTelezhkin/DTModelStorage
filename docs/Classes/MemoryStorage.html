@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MemoryStorage Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/MemoryStorage" class="dashAnchor"></a>
+
+    <a title="MemoryStorage Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DTModelStorage Docs
+        </a>
+         (88% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/DenTelezhkin/DTModelStorage">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fdentelezhkin%2Egithub%2Eio%2FDTModelStorage%2Fdocsets%2FDTModelStorage%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DTModelStorage Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      MemoryStorage Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BaseStorage.html">BaseStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CoreDataStorage.html">CoreDataStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/EventReaction.html">EventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FiveArgumentsEventReaction.html">FiveArgumentsEventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FourArgumentsEventReaction.html">FourArgumentsEventReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MemoryStorage.html">MemoryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SectionModel.html">SectionModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SingleSectionEquatableStorage.html">SingleSectionEquatableStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SingleSectionHashableStorage.html">SingleSectionHashableStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/SingleSectionStorage.html">SingleSectionStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StorageUpdate.html">StorageUpdate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ViewModelMapping.html">ViewModelMapping</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/DTCollectionViewElementSectionFooter">DTCollectionViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionFooterSSvp">DTCollectionViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/DTCollectionViewElementSectionHeader">DTCollectionViewElementSectionHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage36DTCollectionViewElementSectionHeaderSSvp">DTCollectionViewElementSectionHeader</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ChangeType.html">ChangeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MappingCondition.html">MappingCondition</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageAnomaly.html">MemoryStorageAnomaly</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError.html">MemoryStorageError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/RuntimeHelper.html">RuntimeHelper</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SingleSectionOperation.html">SingleSectionOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ViewType.html">ViewType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AccumulationStrategy.html">AccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AnomalyHandler.html">AnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Identifiable.html">Identifiable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ModelTransfer.html">ModelTransfer</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Storage.html">Storage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/StorageUpdating.html">StorageUpdating</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AdditiveAccumulationStrategy.html">AdditiveAccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/DeleteOldValuesAccumulationStrategy.html">DeleteOldValuesAccumulationStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/UpdateOldValuesAccumulationStrategy.html">UpdateOldValuesAccumulationStrategy</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>MemoryStorage</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">MemoryStorage</span> <span class="p">:</span> <span class="kt"><a href="../Classes/BaseStorage.html">BaseStorage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Storage of models in memory.</p>
+
+<p><code>MemoryStorage</code> stores data models using array of <code><a href="../Classes/SectionModel.html">SectionModel</a></code> instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    It also notifies it&rsquo;s delegate about underlying changes so that delegate can update interface accordingly
+
+</div>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Classes/SectionModel.html">SectionModel</a></code>
+
+</div>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C23defersDatasourceUpdatesSbvp"></a>
+                    <a name="//apple_ref/swift/Property/defersDatasourceUpdates" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C23defersDatasourceUpdatesSbvp">defersDatasourceUpdates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>When enabled, datasource updates are not applied immediately and saved inside <code><a href="../Classes/StorageUpdate.html">StorageUpdate</a></code> <code>enqueuedDatasourceUpdates</code> property.
+Call <code>StorageUpdate.applyDeferredDatasourceUpdates</code> method to apply all deferred changes.
+Defaults to <code>true</code>.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <a href="https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27">https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27</a>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">defersDatasourceUpdates</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C14anomalyHandlerAA0cb7AnomalyE0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/anomalyHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C14anomalyHandlerAA0cb7AnomalyE0Cvp">anomalyHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Anomaly handler, that handles reported by <code>MemoryStorage</code> anomalies.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">anomalyHandler</span><span class="p">:</span> <span class="kt"><a href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C8sectionsSayAA7Section_pGvp"></a>
+                    <a name="//apple_ref/swift/Property/sections" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C8sectionsSayAA7Section_pGvp">sections</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>sections of MemoryStorage</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">sections</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/Section.html">Section</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C12sectionIndex3forSiSgAA7Section_p_tF"></a>
+                    <a name="//apple_ref/swift/Method/sectionIndex(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C12sectionIndex3forSiSgAA7Section_p_tF">sectionIndex(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns index of <code>section</code> or nil, if section is now found</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">sectionIndex</span><span class="p">(</span><span class="k">for</span> <span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Section.html">Section</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C18totalNumberOfItemsSivp"></a>
+                    <a name="//apple_ref/swift/Property/totalNumberOfItems" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C18totalNumberOfItemsSivp">totalNumberOfItems</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns total number of items contained in all <code>MemoryStorage</code> sections</p>
+<div class="aside aside-complexity">
+    <p class="aside-title">Complexity</p>
+    O(n) where n - number of sections
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">totalNumberOfItems</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C4item2atypSg10Foundation9IndexPathV_tF"></a>
+                    <a name="//apple_ref/swift/Method/item(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C4item2atypSg10Foundation9IndexPathV_tF">item(at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns item at <code>indexPath</code> or nil, if it is not found.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">item</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C21setSectionHeaderModel_03forE0yxSg_SitlF"></a>
+                    <a name="//apple_ref/swift/Method/setSectionHeaderModel(_:forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C21setSectionHeaderModel_03forE0yxSg_SitlF">setSectionHeaderModel(_:forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets section header <code>model</code> for section at <code>sectionIndex</code></p>
+
+<p>This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>configureForTableViewUsage</code>
+
+</div>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>configureForCollectionViewUsage</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">setSectionHeaderModel</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">T</span><span class="p">?,</span> <span class="n">forSection</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C21setSectionFooterModel_03forE0yxSg_SitlF"></a>
+                    <a name="//apple_ref/swift/Method/setSectionFooterModel(_:forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C21setSectionFooterModel_03forE0yxSg_SitlF">setSectionFooterModel(_:forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets section footer <code>model</code> for section at <code>sectionIndex</code></p>
+
+<p>This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>configureForTableViewUsage</code>
+
+</div>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>configureForCollectionViewUsage</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">setSectionFooterModel</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">T</span><span class="p">?,</span> <span class="n">forSection</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C18setSupplementaries_7forKindySaySDySiypGG_SStF"></a>
+                    <a name="//apple_ref/swift/Method/setSupplementaries(_:forKind:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C18setSupplementaries_7forKindySaySDySiypGG_SStF">setSupplementaries(_:forKind:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets supplementary <code>models</code> for supplementary of <code>kind</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">setSupplementaries</span><span class="p">(</span><span class="n">_</span> <span class="nv">models</span><span class="p">:</span> <span class="p">[[</span><span class="kt">Int</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]],</span> <span class="n">forKind</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C8setItems_10forSectionySayxG_SitlF"></a>
+                    <a name="//apple_ref/swift/Method/setItems(_:forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C8setItems_10forSectionySayxG_SitlF">setItems(_:forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets <code>items</code> for section at <code>index</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This will reload UI after updating.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">setItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C22setItemsForAllSectionsyySaySayxGGlF"></a>
+                    <a name="//apple_ref/swift/Method/setItemsForAllSections(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C22setItemsForAllSectionsyySaySayxGGlF">setItemsForAllSections(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets <code>items</code> for sections in memory storage. This method creates all required sections, if necessary.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This will reload UI after updating.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">setItemsForAllSections</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[[</span><span class="kt">T</span><span class="p">]])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C10setSection_03forE0yAA0E5ModelC_SitF"></a>
+                    <a name="//apple_ref/swift/Method/setSection(_:forSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C10setSection_03forE0yAA0E5ModelC_SitF">setSection(_:forSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets <code>section</code> for <code>index</code>. This will reload UI after updating</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">setSection</span><span class="p">(</span><span class="n">_</span> <span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Classes/SectionModel.html">SectionModel</a></span><span class="p">,</span> <span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>SectionModel to set</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>index of section</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C13insertSection_7atIndexyAA0E5ModelC_SitF"></a>
+                    <a name="//apple_ref/swift/Method/insertSection(_:atIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C13insertSection_7atIndexyAA0E5ModelC_SitF">insertSection(_:atIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts <code>section</code> at <code>sectionIndex</code>.</p>
+<li>Discussion: this method is assumed to be used, when you need to insert section with items and supplementaries in one batch operation. If you need to simply add items, use <code>addItems</code> or <code>setItems</code> instead.</li>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    If <code>sectionIndex</code> is larger than number of sections, method does nothing.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">insertSection</span><span class="p">(</span><span class="n">_</span> <span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Classes/SectionModel.html">SectionModel</a></span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>section to insert</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sectionIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>index of section to insert.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C8addItems_9toSectionySayxG_SitlF"></a>
+                    <a name="//apple_ref/swift/Method/addItems(_:toSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C8addItems_9toSectionySayxG_SitlF">addItems(_:toSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds <code>items</code> to section with section <code>index</code>.</p>
+
+<p>This method creates all sections prior to <code>index</code>, unless they are already created.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">addItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">toSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C7addItem_9toSectionyx_SitlF"></a>
+                    <a name="//apple_ref/swift/Method/addItem(_:toSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C7addItem_9toSectionyx_SitlF">addItem(_:toSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds <code>item</code> to section with section <code>index</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">addItem</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">toSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>item</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>item to add</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>toSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>index of section to add item</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C10insertItem_2toyx_10Foundation9IndexPathVtKlF"></a>
+                    <a name="//apple_ref/swift/Method/insertItem(_:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C10insertItem_2toyx_10Foundation9IndexPathVtKlF">insertItem(_:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts <code>item</code> to <code>indexPath</code>.</p>
+
+<p>This method creates all sections prior to indexPath.section, unless they are already created.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">insertItem</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">to</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtKlF"></a>
+                    <a name="//apple_ref/swift/Method/insertItems(_:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtKlF">insertItems(_:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts <code>items</code> to <code>indexPaths</code></p>
+
+<p>This method creates sections prior to maximum indexPath.section in <code>indexPaths</code>, unless they are already created.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    if items.count is different from indexPaths.count, will throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">insertItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">to</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C10reloadItemyyxSQRzlF"></a>
+                    <a name="//apple_ref/swift/Method/reloadItem(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C10reloadItemyyxSQRzlF">reloadItem(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reloads <code>item</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">reloadItem</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11replaceItem_4withyx_yptKSQRzlF"></a>
+                    <a name="//apple_ref/swift/Method/replaceItem(_:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11replaceItem_4withyx_yptKSQRzlF">replaceItem(_:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replace item <code>itemToReplace</code> with <code>replacingItem</code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    if <code>itemToReplace</code> is not found, will throw MemoryStorageErrors.Replacement.ItemNotFound
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">replaceItem</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">itemToReplace</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">with</span> <span class="nv">replacingItem</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="k">throws</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C10removeItemyyxKSQRzlF"></a>
+                    <a name="//apple_ref/swift/Method/removeItem(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C10removeItemyyxKSQRzlF">removeItem(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes <code>item</code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    if item is not found, will throw MemoryStorageErrors.Removal.ItemNotFound
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">removeItem</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">throws</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11removeItemsyySayxGSQRzlF"></a>
+                    <a name="//apple_ref/swift/Method/removeItems(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11removeItemsyySayxGSQRzlF">removeItems(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes <code>items</code> from storage.</p>
+
+<p>Any items that were not found, will be skipped. Items are deleted in reverse order, starting from largest indexPath to prevent unintended gaps.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Classes/MemoryStorage.html#/s:14DTModelStorage06MemoryB0C11removeItems2atySay10Foundation9IndexPathVG_tF">removeItems(at:)</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">removeItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11removeItems2atySay10Foundation9IndexPathVG_tF"></a>
+                    <a name="//apple_ref/swift/Method/removeItems(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11removeItems2atySay10Foundation9IndexPathVG_tF">removeItems(at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes items at <code>indexPaths</code>.</p>
+
+<p>Any indexPaths that will not be found, will be skipped. Items are deleted in reverse order, starting from largest indexPath to prevent unintended gaps.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Classes/MemoryStorage.html#/s:14DTModelStorage06MemoryB0C11removeItemsyySayxGSQRzlF">removeItems(_:)</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">removeItems</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C14deleteSectionsyy10Foundation8IndexSetVF"></a>
+                    <a name="//apple_ref/swift/Method/deleteSections(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C14deleteSectionsyy10Foundation8IndexSetVF">deleteSections(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes <code>indexes</code> from storage.</p>
+
+<p>Sections will be deleted in backwards order, starting from the last one.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">deleteSections</span><span class="p">(</span><span class="n">_</span> <span class="nv">indexes</span><span class="p">:</span> <span class="kt">IndexSet</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11moveSection_02toE0ySi_SitF"></a>
+                    <a name="//apple_ref/swift/Method/moveSection(_:toSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11moveSection_02toE0ySi_SitF">moveSection(_:toSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves section from <code>sourceSectionIndex</code> to <code>destinationSectionIndex</code>.</p>
+
+<p>Sections prior to <code>sourceSectionIndex</code> and <code>destinationSectionIndex</code> will be automatically created, unless they already exist.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">moveSection</span><span class="p">(</span><span class="n">_</span> <span class="nv">sourceSectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">toSection</span> <span class="nv">destinationSectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C8moveItem2at2toy10Foundation9IndexPathV_AItF"></a>
+                    <a name="//apple_ref/swift/Method/moveItem(at:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C8moveItem2at2toy10Foundation9IndexPathV_AItF">moveItem(at:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves item from <code>source</code> indexPath to <code>destination</code> indexPath.</p>
+
+<p>Sections prior to <code>source</code>.section and <code>destination</code>.section will be automatically created, unless they already exist. If source item or destination index path are unreachable(too large), this method does nothing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">moveItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destination</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C24moveItemWithoutAnimation4from2toy10Foundation9IndexPathV_AItF"></a>
+                    <a name="//apple_ref/swift/Method/moveItemWithoutAnimation(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C24moveItemWithoutAnimation4from2toy10Foundation9IndexPathV_AItF">moveItemWithoutAnimation(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves item from <code>sourceIndexPath</code> to <code>destinationIndexPath</code> without animations.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    This method can be used inside <code>tableView(UITableView, moveRowAt: IndexPath, to: IndexPath)</code> to update datasource without UI animation since UI animation has already happened. This is also useful for iOS 11 Drop reordering, that behaves the same way.
+
+</div>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    This method will check for existance of sections and number of items in both source and destination section prior to actually moving item. If sections do not exist, or have insufficient number of items to perform an operation, this method won&rsquo;t do anything.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">moveItemWithoutAnimation</span><span class="p">(</span><span class="n">from</span> <span class="nv">sourceIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">to</span> <span class="nv">destinationIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>source indexPath to move item from</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destinationIndexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>destination indexPath to move item to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C14removeAllItemsyyF"></a>
+                    <a name="//apple_ref/swift/Method/removeAllItems()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C14removeAllItemsyyF">removeAllItems()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all items from storage.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    method will call .storageNeedsReloading() when it finishes.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">removeAllItems</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11removeItems11fromSectionySi_tF"></a>
+                    <a name="//apple_ref/swift/Method/removeItems(fromSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11removeItems11fromSectionySi_tF">removeItems(fromSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove items from section with <code>sectionIndex</code>.</p>
+
+<p>If section at <code>sectionIndex</code> does not exist, this method does nothing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">removeItems</span><span class="p">(</span><span class="n">fromSection</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Searching%20in%20storage"></a>
+                <a name="//apple_ref/swift/Section/Searching in storage" class="dashAnchor"></a>
+                <a href="#/Searching%20in%20storage">
+                  <h3 class="section-name">Searching in storage</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C5items9inSectionSayypGSgSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/items(inSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C5items9inSectionSayypGSgSi_tF">items(inSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns items in section with section <code>index</code>, or nil if section does not exist</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">items</span><span class="p">(</span><span class="n">inSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Any</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C9indexPath7forItem10Foundation05IndexE0VSgx_tSQRzlF"></a>
+                    <a name="//apple_ref/swift/Method/indexPath(forItem:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C9indexPath7forItem10Foundation05IndexE0VSgx_tSQRzlF">indexPath(forItem:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns indexPath of <code>searchableItem</code> in MemoryStorage or nil, if it&rsquo;s not found.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">indexPath</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">forItem</span> <span class="nv">searchableItem</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IndexPath</span><span class="p">?</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C7section7atIndexAA12SectionModelCSgSi_tF"></a>
+                    <a name="//apple_ref/swift/Method/section(atIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C7section7atIndexAA12SectionModelCSgSi_tF">section(atIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns section at <code>sectionIndex</code> or nil, if it does not exist</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">section</span><span class="p">(</span><span class="n">atIndex</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/SectionModel.html">SectionModel</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/SupplementaryStorage"></a>
+                <a name="//apple_ref/swift/Section/SupplementaryStorage" class="dashAnchor"></a>
+                <a href="#/SupplementaryStorage">
+                  <h3 class="section-name">SupplementaryStorage</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF"></a>
+                    <a name="//apple_ref/swift/Method/supplementaryModel(ofKind:forSectionAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF">supplementaryModel(ofKind:forSectionAt:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns supplementary model of supplementary <code>kind</code> for section at <code>sectionIndexPath</code>. Returns nil if not found.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>headerModelForSectionIndex</code>
+
+</div>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code>footerModelForSectionIndex</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">supplementaryModel</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forSectionAt</span> <span class="nv">sectionIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C23updateWithoutAnimationsyyyyXEF"></a>
+                    <a name="//apple_ref/swift/Method/updateWithoutAnimations(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C23updateWithoutAnimationsyyyyXEF">updateWithoutAnimations(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Runs <code>block</code> of actions without notifying self.delegate.</p>
+
+<p>You can think of this method as a way of <q>manual</q> management for memory storage. Typical usage would be multiple insertions/deletions etc., if you don&rsquo;t need any animations. You can batch any changes in block, and call reloadData on your UI component after this method was call.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    You must call reloadData after calling this method, or you will get NSInternalInconsistencyException runtime, thrown by either UITableView or UICollectionView.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">updateWithoutAnimations</span><span class="p">(</span><span class="n">_</span> <span class="nv">block</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

@@ -76,9 +76,7 @@ open class BaseStorage: NSObject, HeaderFooterStorage
     open func finishUpdate()
     {
         guard batchUpdatesInProgress == false else { return }
-        
         defer { currentUpdate = nil }
-        
         if let update = currentUpdate {
             if update.isEmpty {
                 return
@@ -97,11 +95,11 @@ open class BaseStorage: NSObject, HeaderFooterStorage
     /// Configures storage for using with UICollectionViewFlowLayout
     open func configureForCollectionViewFlowLayoutUsage()
     {
-        self.supplementaryHeaderKind = UICollectionElementKindSectionHeader
-        self.supplementaryFooterKind = UICollectionElementKindSectionFooter
+        self.supplementaryHeaderKind = DTCollectionViewElementSectionHeader
+        self.supplementaryFooterKind = DTCollectionViewElementSectionFooter
     }
     
-    // MARK - HeaderFooterStorage
+    // MARK: - HeaderFooterStorage
     
     /// Returns header model from section with section `index` or nil, if it was not set.
     /// - Requires: supplementaryHeaderKind to be set prior to calling this method

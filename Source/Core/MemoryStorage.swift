@@ -25,6 +25,79 @@
 
 import Foundation
 
+/// `MemoryStorageAnomaly` represents various errors and unwanted behaviors that can happen when using `MemoryStorage` class.
+/// - SeeAlso: `DTTableViewManagerAnomaly`, `DTCollectionViewManagerAnomaly`
+public enum MemoryStorageAnomaly: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+    
+    /// When inserting item to `indexPath`, there were only `countOfElementsInSection` items in section
+    case insertionIndexPathTooBig(indexPath: IndexPath, countOfElementsInSection: Int)
+    
+    /// When inserting batch of items, number of items and number of indexPaths was different
+    case batchInsertionItemCountMismatch(itemsCount: Int, indexPathsCount: Int)
+    
+    /// Attempt to replace item, that is not found in storage
+    case replaceItemFailedItemNotFound(itemDescription: String)
+    
+    /// Attempt to remove item, that is not found in storage
+    case removeItemFailedItemNotFound(itemDescription: String)
+    
+    /// Attempt to move item, that is not found in storage
+    case moveItemFailedItemNotFound(indexPath: IndexPath)
+    
+    /// Attempt to move item to too big `indexPath`.
+    case moveItemFailedIndexPathTooBig(indexPath: IndexPath, countOfElementsInSection: Int)
+    
+    /// Inconsistent indexPaths when moving item from `sourceIndexPath` to `destinationIndexPath`.
+    case moveItemFailedInvalidIndexPaths(sourceIndexPath: IndexPath, destinationIndexPath: IndexPath, sourceElementsInSection: Int, destinationElementsInSection: Int)
+    
+    /// Debug information for `MemoryStorageAnomaly`.
+    public var debugDescription: String {
+        switch self {
+        case .insertionIndexPathTooBig(indexPath: let indexPath, countOfElementsInSection: let count):
+            return "⚠️ [MemoryStorage] Failed to insert item into IndexPath: \(indexPath), count of elements in the section: \(count)"
+        case .batchInsertionItemCountMismatch(itemsCount: let itemsCount, indexPathsCount: let indexPathsCount):
+            return "⚠️ [MemoryStorage] Failed to insert batch of items, items count: \(itemsCount), indexPaths count: \(indexPathsCount)"
+        case .replaceItemFailedItemNotFound(itemDescription:let description):
+            return "⚠️ [MemoryStorage] Failed to find item for replacement: \(description)"
+        case .removeItemFailedItemNotFound(itemDescription: let description):
+            return "⚠️ [MemoryStorage] Failed to find item for removal: \(description)"
+        case .moveItemFailedItemNotFound(indexPath: let indexPath):
+            return "⚠️ [MemoryStorage] Failed to find item for moving at indexPath: \(indexPath)"
+        case .moveItemFailedIndexPathTooBig(indexPath: let indexPath, countOfElementsInSection: let count):
+            return "⚠️ [MemoryStorage] Failed to move item, destination indexPath is too big: \(indexPath), number of items in section after removing source item: \(count)"
+        case .moveItemFailedInvalidIndexPaths(sourceIndexPath: let source, destinationIndexPath: let destination, sourceElementsInSection: let sourceCount, destinationElementsInSection: let destinationCount):
+            return "⚠️ [MemoryStorage] Failed to move item, sourceIndexPath: \(source), destination indexPath: \(destination), number of items in source section: \(sourceCount), number of items in destination section after removing source item: \(destinationCount)"
+        }
+    }
+    
+    /// Short description for `MemoryStorageAnomaly`. Useful for sending to analytics, which might have character limit.
+    public var description: String {
+        switch self {
+        case .insertionIndexPathTooBig(indexPath: let indexPath, countOfElementsInSection: let count): return "MemoryStorageAnomaly.insertionIndexPathTooBig(\(indexPath), \(count))"
+        case .batchInsertionItemCountMismatch(itemsCount: let itemsCount, indexPathsCount: let indexPathsCount): return "MemoryStorageAnomaly.batchInsertionItemCountMismatch(\(itemsCount), \(indexPathsCount))"
+        case .replaceItemFailedItemNotFound(itemDescription: let itemDescription): return "MemoryStorageAnomaly.replaceItemFailedItemNotFound(\(itemDescription))"
+        case .removeItemFailedItemNotFound(itemDescription: let itemDescription): return "MemoryStorageAnomaly.removeItemFailedItemNotFound(\(itemDescription))"
+        case .moveItemFailedItemNotFound(indexPath: let indexPath): return "MemoryStorageAnomaly.moveItemFailedItemNotFound(\(indexPath))"
+        case .moveItemFailedIndexPathTooBig(indexPath: let indexPath, countOfElementsInSection: let count): return "MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(\(indexPath), \(count))"
+        case .moveItemFailedInvalidIndexPaths(sourceIndexPath: let source, destinationIndexPath: let destination, sourceElementsInSection: let sourceCount, destinationElementsInSection: let destinationCount):
+            return "MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(\(source), \(destination), \(sourceCount), \(destinationCount))"
+        }
+    }
+}
+
+/// `MemoryStorageAnomalyHandler` handles anomalies from `MemoryStorage`.
+open class MemoryStorageAnomalyHandler : AnomalyHandler {
+    
+    /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
+    public static var defaultAction : (MemoryStorageAnomaly) -> Void = { print($0.debugDescription) }
+    
+    /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
+    open var anomalyAction: (MemoryStorageAnomaly) -> Void = MemoryStorageAnomalyHandler.defaultAction
+    
+    /// Creates `MemoryStorageAnomalyHandler`.
+    public init() {}
+}
+
 /// This struct contains error types that can be thrown for various MemoryStorage errors
 public enum MemoryStorageError: LocalizedError
 {
@@ -34,6 +107,7 @@ public enum MemoryStorageError: LocalizedError
         case indexPathTooBig(IndexPath)
     }
     
+    @available(*, deprecated, message: "BatchInsertionReason is being replaced by `AnomalyHandler` implementation on MemoryStorage and will be removed in future versions.")
     /// Errors that can be thrown, when calling `insertItems(_:to:)` method
     public enum BatchInsertionReason
     {
@@ -58,6 +132,7 @@ public enum MemoryStorageError: LocalizedError
     case batchInsertionFailed(reason: BatchInsertionReason)
     case searchFailed(reason: SearchReason)
     
+    /// Description of error 
     public var localizedDescription: String {
         switch self {
         case .insertionFailed(reason: _):
@@ -77,6 +152,15 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
 {
+    /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
+    /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
+    /// Defaults to `true`.
+    /// - SeeAlso: https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27
+    open var defersDatasourceUpdates: Bool = true
+
+    /// Anomaly handler, that handles reported by `MemoryStorage` anomalies.
+    open var anomalyHandler : MemoryStorageAnomalyHandler = .init()
+
     /// sections of MemoryStorage
     open var sections: [Section] = [SectionModel]() {
         didSet {
@@ -86,9 +170,19 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
     }
     
+    func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
+        if defersDatasourceUpdates {
+            currentUpdate?.enqueueDatasourceUpdate(block)
+        } else {
+            if let update = currentUpdate {
+                try? block(update)
+            }
+        }
+    }
+    
     /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
-        return sections.index(where: {
+        return sections.firstIndex(where: {
             return ($0 as? SectionModel) === (section as? SectionModel)
         })
     }
@@ -104,16 +198,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
-        let sectionModel: SectionModel
-        if indexPath.section >= self.sections.count {
-            return nil
-        } else {
-            sectionModel = self.sections[indexPath.section] as! SectionModel
-            if indexPath.item >= sectionModel.numberOfItems {
-                return nil
-            }
-        }
-        return sectionModel.items[indexPath.item]
+        guard indexPath.section < sections.count else { return nil }
+        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
+        return sections[indexPath.section].items[indexPath.item]
     }
     
     /// Sets section header `model` for section at `sectionIndex`
@@ -123,9 +210,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionHeaderModel<T>(_ model: T?, forSection sectionIndex: Int)
     {
-        assert(self.supplementaryHeaderKind != nil, "supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method")
-        let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryHeaderKind!, atIndex: 0)
+        guard let headerKind = supplementaryHeaderKind else {
+            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
+        }
+        let section = getValidSection(sectionIndex, collectChangesIn: nil)
+        section.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
     
@@ -136,9 +225,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - SeeAlso: `configureForCollectionViewUsage`
     open func setSectionFooterModel<T>(_ model: T?, forSection sectionIndex: Int)
     {
-        assert(self.supplementaryFooterKind != nil, "supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method")
-        let section = getValidSection(sectionIndex)
-        section.setSupplementaryModel(model, forKind: self.supplementaryFooterKind!, atIndex: 0)
+        guard let footerKind = supplementaryFooterKind else {
+            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
+        }
+        let section = getValidSection(sectionIndex, collectChangesIn: nil)
+        section.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
         delegate?.storageNeedsReloading()
     }
     
@@ -159,7 +250,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             return
         }
         
-        _ = getValidSection(models.count - 1)
+        _ = getValidSection(models.count - 1, collectChangesIn: nil)
         
         for index in 0 ..< models.count {
             let section = self.sections[index] as? SupplementaryAccessible
@@ -172,7 +263,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Note: This will reload UI after updating.
     open func setItems<T>(_ items: [T], forSection index: Int = 0)
     {
-        let section = self.getValidSection(index)
+        let section = self.getValidSection(index, collectChangesIn: nil)
         section.items.removeAll(keepingCapacity: false)
         section.items = items.map { $0 }
         self.delegate?.storageNeedsReloading()
@@ -183,7 +274,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Note: This will reload UI after updating.
     open func setItemsForAllSections<T>(_ items: [[T]]) {
         for (index, array) in items.enumerated() {
-            let section = getValidSection(index)
+            let section = getValidSection(index, collectChangesIn: nil)
             section.items.removeAll()
             section.items = array.map { $0 }
         }
@@ -196,7 +287,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Parameter index: index of section
     open func setSection(_ section: SectionModel, forSection index: Int)
     {
-        _ = self.getValidSection(index)
+        _ = self.getValidSection(index, collectChangesIn: nil)
         sections.replaceSubrange(index...index, with: [section as Section])
         delegate?.storageNeedsReloading()
     }
@@ -210,10 +301,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func insertSection(_ section: SectionModel, atIndex sectionIndex: Int) {
         guard sectionIndex <= sections.count else { return }
         startUpdate()
-        sections.insert(section, at: sectionIndex)
-        currentUpdate?.sectionChanges.append((.insert, [sectionIndex]))
-        for item in 0..<section.numberOfItems {
-            currentUpdate?.objectChanges.append((.insert, [IndexPath(item: item, section: sectionIndex)]))
+        performDatasourceUpdate { [weak self] update in
+            self?.sections.insert(section, at: sectionIndex)
+            update.sectionChanges.append((.insert, [sectionIndex]))
+            for item in 0..<section.numberOfItems {
+                update.objectChanges.append((.insert, [IndexPath(item: item, section: sectionIndex)]))
+            }
         }
         finishUpdate()
     }
@@ -224,12 +317,14 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func addItems<T>(_ items: [T], toSection index: Int = 0)
     {
         startUpdate()
-        let section = getValidSection(index)
-        
-        for item in items {
-            let numberOfItems = section.numberOfItems
-            section.items.append(item)
-            currentUpdate?.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(index, collectChangesIn: update)
+            
+            for item in items {
+                let numberOfItems = section?.numberOfItems ?? 0
+                section?.items.append(item)
+                update.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+            }
         }
         finishUpdate()
     }
@@ -241,10 +336,12 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func addItem<T>(_ item: T, toSection index: Int = 0)
     {
         startUpdate()
-        let section = self.getValidSection(index)
-        let numberOfItems = section.numberOfItems
-        section.items.append(item)
-        currentUpdate?.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(index, collectChangesIn: update)
+            let numberOfItems = section?.numberOfItems ?? 0
+            section?.items.append(item)
+            update.objectChanges.append((.insert, [IndexPath(item: numberOfItems, section: index)]))
+        }
         finishUpdate()
     }
     
@@ -254,16 +351,19 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// - Throws: if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
     open func insertItem<T>(_ item: T, to indexPath: IndexPath) throws
     {
-        self.startUpdate()
-        let section = self.getValidSection(indexPath.section)
-        
-        guard section.items.count >= indexPath.item else {
-            throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
+            
+            guard (section?.items.count ?? 0) >= indexPath.item else {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.insertionIndexPathTooBig(indexPath: indexPath, countOfElementsInSection: section?.items.count ?? 0))
+                throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+            }
+            
+            section?.items.insert(item, at: indexPath.item)
+            update.objectChanges.append((.insert, [indexPath]))
         }
-        
-        section.items.insert(item, at: indexPath.item)
-        currentUpdate?.objectChanges.append((.insert, [indexPath]))
-        self.finishUpdate()
+        finishUpdate()
     }
     
     /// Inserts `items` to `indexPaths`
@@ -273,17 +373,32 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath]) throws
     {
         if items.count != indexPaths.count {
+            anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))
             throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
         }
-        performUpdates {
-            indexPaths.enumerated().forEach { (arg) in
-                let (itemIndex, indexPath) = arg
-                let section = getValidSection(indexPath.section)
-                guard section.items.count >= indexPath.item else {
-                    return
+        if defersDatasourceUpdates {
+            performDatasourceUpdate { [weak self] update in
+                indexPaths.enumerated().forEach { (arg) in
+                    let (itemIndex, indexPath) = arg
+                    let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
+                    guard (section?.items.count ?? 0) >= indexPath.item else {
+                        return
+                    }
+                    section?.items.insert(items[itemIndex], at: indexPath.item)
+                    update.objectChanges.append((.insert, [indexPath]))
                 }
-                section.items.insert(items[itemIndex], at: indexPath.item)
-                currentUpdate?.objectChanges.append((.insert, [indexPath]))
+            }
+        } else {
+            performUpdates {
+                indexPaths.enumerated().forEach { (arg) in
+                    let (itemIndex, indexPath) = arg
+                    let section = getValidSection(indexPath.section, collectChangesIn: currentUpdate)
+                    guard section.items.count >= indexPath.item else {
+                        return
+                    }
+                    section.items.insert(items[itemIndex], at: indexPath.item)
+                    currentUpdate?.objectChanges.append((.insert, [indexPath]))
+                }
             }
         }
     }
@@ -292,9 +407,11 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func reloadItem<T: Equatable>(_ item: T)
     {
         startUpdate()
-        if let indexPath = self.indexPath(forItem: item) {
-            currentUpdate?.objectChanges.append((.update, [indexPath]))
-            currentUpdate?.updatedObjects[indexPath] = item
+        performDatasourceUpdate { [weak self] update in
+            if let indexPath = self?.indexPath(forItem: item) {
+                update.objectChanges.append((.update, [indexPath]))
+                update.updatedObjects[indexPath] = item
+            }
         }
         finishUpdate()
     }
@@ -307,15 +424,18 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { self.finishUpdate() }
         
-        guard let originalIndexPath = self.indexPath(forItem: itemToReplace) else {
-            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
+        performDatasourceUpdate { [weak self] update in
+            guard let originalIndexPath = self?.indexPath(forItem: itemToReplace) else {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.replaceItemFailedItemNotFound(itemDescription: String(describing: itemToReplace)))
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
+            }
+            
+            let section = self?.getValidSection(originalIndexPath.section, collectChangesIn: update)
+            section?.items[originalIndexPath.item] = replacingItem
+            
+            update.objectChanges.append((.update, [originalIndexPath]))
+            update.updatedObjects[originalIndexPath] = replacingItem
         }
-        
-        let section = self.getValidSection(originalIndexPath.section)
-        section.items[originalIndexPath.item] = replacingItem
-        
-        currentUpdate?.objectChanges.append((.update, [originalIndexPath]))
-        currentUpdate?.updatedObjects[originalIndexPath] = replacingItem
     }
     
     /// Removes `item`.
@@ -326,12 +446,14 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { self.finishUpdate() }
         
-        guard let indexPath = self.indexPath(forItem: item) else {
-            throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
+        performDatasourceUpdate { [weak self] update in
+            guard let indexPath = self?.indexPath(forItem: item) else {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.removeItemFailedItemNotFound(itemDescription: String(describing: item)))
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
+            }
+            self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+            update.objectChanges.append((.delete, [indexPath]))
         }
-        getValidSection(indexPath.section).items.remove(at: indexPath.item)
-        
-        currentUpdate?.objectChanges.append((.delete, [indexPath]))
     }
     
     /// Removes `items` from storage.
@@ -341,14 +463,15 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func removeItems<T: Equatable>(_ items: [T])
     {
         startUpdate()
-        
-        let indexPaths = indexPathArray(forItems: items)
-        for indexPath in type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
-        {
-            getValidSection(indexPath.section).items.remove(at: indexPath.item)
-        }
-        indexPaths.forEach {
-            currentUpdate?.objectChanges.append((.delete, [$0]))
+        performDatasourceUpdate { [weak self] update in
+            let indexPaths = self?.indexPathArray(forItems: items) ?? []
+            for indexPath in MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+            {
+                self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+            }
+            indexPaths.forEach {
+                update.objectChanges.append((.delete, [$0]))
+            }
         }
         finishUpdate()
     }
@@ -360,17 +483,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func removeItems(at indexPaths: [IndexPath])
     {
         startUpdate()
-        
-        let reverseSortedIndexPaths = type(of: self).sortedArrayOfIndexPaths(indexPaths, ascending: false)
-        for indexPath in reverseSortedIndexPaths
-        {
-            if let _ = self.item(at: indexPath)
+        performDatasourceUpdate { [weak self] update in
+            let reverseSortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
+            for indexPath in reverseSortedIndexPaths
             {
-                getValidSection(indexPath.section).items.remove(at: indexPath.item)
-                currentUpdate?.objectChanges.append((.delete, [indexPath]))
+                if let _ = self?.item(at: indexPath)
+                {
+                    self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
+                    update.objectChanges.append((.delete, [indexPath]))
+                }
             }
         }
-        
         finishUpdate()
     }
     
@@ -380,18 +503,17 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     open func deleteSections(_ indexes: IndexSet)
     {
         startUpdate()
-        
-        var markedForDeletion = [Int]()
-        for section in indexes {
-            if section < self.sections.count {
+        performDatasourceUpdate { [weak self] update in
+            var markedForDeletion = [Int]()
+            for section in indexes where section < (self?.sections.count ?? 0) {
                 markedForDeletion.append(section)
             }
-        }
-        for section in markedForDeletion.sorted().reversed() {
-            sections.remove(at: section)
-        }
-        markedForDeletion.forEach {
-            currentUpdate?.sectionChanges.append((.delete, [$0]))
+            for section in markedForDeletion.sorted().reversed() {
+                self?.sections.remove(at: section)
+            }
+            markedForDeletion.forEach {
+                update.sectionChanges.append((.delete, [$0]))
+            }
         }
         finishUpdate()
     }
@@ -400,13 +522,15 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     /// Sections prior to `sourceSectionIndex` and `destinationSectionIndex` will be automatically created, unless they already exist.
     open func moveSection(_ sourceSectionIndex: Int, toSection destinationSectionIndex: Int) {
-        self.startUpdate()
-        let validSectionFrom = getValidSection(sourceSectionIndex)
-        _ = getValidSection(destinationSectionIndex)
-        sections.remove(at: sourceSectionIndex)
-        sections.insert(validSectionFrom, at: destinationSectionIndex)
-        currentUpdate?.sectionChanges.append((.move, [sourceSectionIndex, destinationSectionIndex]))
-        self.finishUpdate()
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            guard let validSectionFrom = self?.getValidSection(sourceSectionIndex, collectChangesIn: update) else { return }
+            _ = self?.getValidSection(destinationSectionIndex, collectChangesIn: update)
+            self?.sections.remove(at: sourceSectionIndex)
+            self?.sections.insert(validSectionFrom, at: destinationSectionIndex)
+            update.sectionChanges.append((.move, [sourceSectionIndex, destinationSectionIndex]))
+        }
+        finishUpdate()
     }
     
     /// Moves item from `source` indexPath to `destination` indexPath.
@@ -414,23 +538,28 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Sections prior to `source`.section and `destination`.section will be automatically created, unless they already exist. If source item or destination index path are unreachable(too large), this method does nothing.
     open func moveItem(at source: IndexPath, to destination: IndexPath)
     {
-        self.startUpdate()
+        startUpdate()
         defer { self.finishUpdate() }
         
-        guard let sourceItem = item(at: source) else {
-            print("MemoryStorage: source indexPath should not be nil when moving item")
-            return
+        performDatasourceUpdate { [weak self] update in
+            guard let sourceItem = self?.item(at: source) else {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedItemNotFound(indexPath: source))
+                return
+            }
+            let sourceSection = self?.getValidSection(source.section, collectChangesIn: update)
+            let destinationSection = self?.getValidSection(destination.section, collectChangesIn: update)
+            
+            let destinationSectionItemsCount = destinationSection?.items.count ?? 0
+            
+            let numberOfItemsInSectionAfterRemovingSource = source.section == destination.section ? destinationSectionItemsCount - 1 : destinationSectionItemsCount
+            if numberOfItemsInSectionAfterRemovingSource < destination.row {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(indexPath: destination, countOfElementsInSection: numberOfItemsInSectionAfterRemovingSource))
+                return
+            }
+            sourceSection?.items.remove(at: source.row)
+            destinationSection?.items.insert(sourceItem, at: destination.item)
+            update.objectChanges.append((.move, [source, destination]))
         }
-        let sourceSection = getValidSection(source.section)
-        let destinationSection = getValidSection(destination.section)
-        
-        if destinationSection.items.count < destination.row {
-            print("MemoryStorage: failed moving item to indexPath: \(destination), only \(destinationSection.items.count) items in section")
-            return
-        }
-        sourceSection.items.remove(at: source.row)
-        destinationSection.items.insert(sourceItem, at: destination.item)
-        currentUpdate?.objectChanges.append((.move, [source, destination]))
     }
     
     /// Moves item from `sourceIndexPath` to `destinationIndexPath` without animations.
@@ -445,12 +574,16 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         if let from = section(atIndex: sourceIndexPath.section),
             let to = section(atIndex: destinationIndexPath.section)
         {
-            if from.items.count > sourceIndexPath.row, to.items.count >= destinationIndexPath.row {
+            let destinationSectionItemCountAfterRemoval = sourceIndexPath.section == destinationIndexPath.section ? to.items.count - 1: to.items.count
+            if from.items.count > sourceIndexPath.row, destinationSectionItemCountAfterRemoval >= destinationIndexPath.row {
                 let item = from.items[sourceIndexPath.row]
                 from.items.remove(at: sourceIndexPath.row)
                 to.items.insert(item, at: destinationIndexPath.row)
             } else {
-                print("MemoryStorage: failed to move item from \(sourceIndexPath) to \(destinationIndexPath), \(from.items.count) items in source section and \(to.items.count) items in destination section")
+                anomalyHandler.reportAnomaly(MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(sourceIndexPath: sourceIndexPath,
+                                                                                                  destinationIndexPath: destinationIndexPath,
+                                                                                                  sourceElementsInSection: from.items.count,
+                                                                                                  destinationElementsInSection: destinationSectionItemCountAfterRemoval))
             }
         }
     }
@@ -473,12 +606,14 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         startUpdate()
         defer { finishUpdate() }
         
-        guard let section = section(atIndex: sectionIndex) else { return }
-        
-        for (index, _) in section.items.enumerated(){
-            currentUpdate?.objectChanges.append((.delete, [IndexPath(item: index, section: sectionIndex)]))
+        performDatasourceUpdate { [weak self] update in
+            guard let section = self?.section(atIndex: sectionIndex) else { return }
+            
+            for index in section.items.indices {
+                update.objectChanges.append((.delete, [IndexPath(item: index, section: sectionIndex)]))
+            }
+            section.items.removeAll()
         }
-        section.items.removeAll()
     }
     
     // MARK: - Searching in storage
@@ -500,10 +635,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
             let rows = self.sections[sectionIndex].items
             
             for rowIndex in 0..<rows.count {
-                if let item = rows[rowIndex] as? T {
-                    if item == searchableItem {
-                        return IndexPath(item: rowIndex, section: sectionIndex)
-                    }
+                if let item = rows[rowIndex] as? T, item == searchableItem {
+                    return IndexPath(item: rowIndex, section: sectionIndex)
                 }
             }
             
@@ -524,18 +657,20 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     /// - Note: This method finds or create a SectionModel. It means that if you create section 2, section 0 and 1 will be automatically created.
     /// - Returns: SectionModel
-    final func getValidSection(_ sectionIndex: Int) -> SectionModel
+    final func getValidSection(_ sectionIndex: Int, collectChangesIn update: StorageUpdate?) -> SectionModel
     {
         if sectionIndex < self.sections.count
         {
+            //swiftlint:disable:next force_cast
             return sections[sectionIndex] as! SectionModel
         } else {
             for i in sections.count...sectionIndex {
                 sections.append(SectionModel())
-                currentUpdate?.sectionChanges.append((.insert, [i]))
+                update?.sectionChanges.append((.insert, [i]))
             }
         }
-        return self.sections.last as! SectionModel
+        //swiftlint:disable:next force_cast
+        return sections.last as! SectionModel
     }
     
     /// Returns index path array for `items`

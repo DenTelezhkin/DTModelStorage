@@ -1,6 +1,7 @@
-language: objective-c
 sudo: false
-osx_image: xcode9.1
+language: objective-c
+os: osx
+osx_image: xcode10.2
 
 cache:
   directories:
@@ -8,29 +9,21 @@ cache:
 
 matrix:
   include:
-    - os: osx
-      env: ACTION=test_ios11
-    - os: osx
-      env: ACTION=test_ios10
-    - os: osx
-      env: ACTION=test_tvos11
-    - os: osx
-      env: ACTION=test_tvos10
-    - os: osx
-      osx_image: xcode8.3
-      env: ACTION=test_ios10_legacy
-    - os: osx
-      osx_image: xcode8.3
-      env: ACTION=test_tvos10_legacy
-    - os: osx
-      env: ACTION=pod_lint
-    - os: osx
-      env: ACTION=carthage_build
+    - env: ACTION=test_ios12 PLATFORM=iOS
+    - env: ACTION=test_ios11 PLATFORM=iOS
+    - env: ACTION=test_tvos12 PLATFORM=tvOS
+    - env: ACTION=test_tvos11 PLATFORM=tvOS
+    - env: ACTION=test_ios_swift4 PLATFORM=iOS
+    - env: ACTION=test_ios_swift4_2 PLATFORM=iOS
+    - env: ACTION=test_tvos_swift4 PLATFORM=tvOS
+    - env: ACTION=test_tvos_swift4_2 PLATFORM=tvOS
+    - env: ACTION=pod_lint PLATFORM="iOS,tvOS"
+    - env: ACTION=carthage_build PLATFORM="iOS,tvOS"
 
 before_script:
   - brew update
   - brew outdated carthage || brew upgrade carthage
-  - carthage bootstrap --cache-builds
+  - carthage bootstrap --cache-builds --platform $PLATFORM
 
 script:
   - bundle exec fastlane $ACTION

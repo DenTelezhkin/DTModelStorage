@@ -24,19 +24,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import RealmSwift
 import Foundation
-
-/// These following protocol is only needed because we can't cast to RealmSection without knowing what T type is in Swift 2 and Swift 3.
-/// For example following cast will fail:
-/// (fooSection as? RealmSection)
-/// nil
-protocol ItemAtIndexPathRetrievable {
-    func itemAt(_ indexPath: IndexPath) -> Any?
-}
+#if canImport(RealmSwift)
+import Realm.RLMResults
+import RealmSwift
+#else
+//swiftlint:disable:next line_length
+let error = "RealmSwift framework is needed for RealmStorage to work, which is currently not included in DTModelStorage repo. In order to compile RealmStorage target, please add RealmSwift framework manually. If you need RealmStorage to be included in your app using CocoaPods, use DTModelStorage/Realm subspec."
+#endif
 
 /// Data holder for single section in `RealmStorage`.
-open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtIndexPathRetrievable {
+open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Section {
     
     /// Results object
     open var results: AnyRealmCollection<T>
@@ -68,11 +66,5 @@ open class RealmSection<T: Object> : SupplementaryAccessible, Section, ItemAtInd
     /// Number of items in `RealmSection`
     open var numberOfItems: Int {
         return results.count
-    }
-    
-    // MARK: - ItemAtIndexPathRetrievable
-    
-    final func itemAt(_ indexPath: IndexPath) -> Any? {
-        return results[indexPath.item]
     }
 }

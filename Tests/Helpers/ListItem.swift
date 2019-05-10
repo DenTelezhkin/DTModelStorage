@@ -14,9 +14,10 @@ class ListItem: NSManagedObject {
     static func createItemWithValue(_ value: Int) -> ListItem {
         let context = CoreDataManager.sharedInstance.context
         
+        //swiftlint:disable:next force_cast
         let item = NSEntityDescription.insertNewObject(forEntityName: "ListItem", into:context) as! ListItem
         item.value = value as NSNumber
-        let _ = try? context.save()
+        _ = try? context.save()
         return item
     }
 }

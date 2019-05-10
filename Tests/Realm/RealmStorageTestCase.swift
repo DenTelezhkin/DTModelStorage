@@ -12,7 +12,7 @@ import XCTest
 import Nimble
 import RealmSwift
 
-func delay(_ delay:Double, _ closure:@escaping ()->()) {
+func delay(_ delay:Double, _ closure:@escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
@@ -219,7 +219,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionHeaderModels([1,2,3])
+        storage.setSectionHeaderModels([1, 2, 3])
         
         expect(self.storage.headerModel(forSection: 2) as? Int) == 3
         expect(self.storage.supplementaryModel(ofKind: DTTableViewElementSectionHeader, forSectionAt: IndexPath(item:0, section: 3))).to(beNil())
@@ -230,7 +230,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionFooterModels([1,2,3])
+        storage.setSectionFooterModels([1, 2, 3])
         
         expect(self.storage.footerModel(forSection: 2) as? Int) == 3
         expect(self.storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: IndexPath(item:0, section: 3))).to(beNil())
@@ -241,7 +241,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionFooterModels([1,2,3])
+        storage.setSectionFooterModels([1, 2, 3])
         
         storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: DTTableViewElementSectionFooter)
         expect(self.storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: IndexPath(item:0, section: 0))).to(beNil())
@@ -265,7 +265,7 @@ class RealmStorageTestCase: XCTestCase {
         let results = realm.objects(Dog.self)
         storage.addSection(with: results)
         
-        let section = storage.section(at: 0)! as? RealmSection<Dog>
+        let section = storage.section(at: 0) as? RealmSection<Dog>
         expect(section?.currentSectionIndex) == 0
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+//swiftlint:disable force_unwrapping
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
@@ -19,7 +20,7 @@ class CoreDataManager {
     
     fileprivate lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        try! coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+        _ = try? coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         return coordinator
     }()
     
@@ -42,7 +43,7 @@ class CoreDataManager {
                 }
             }
             
-            let _ = try? context.save()
+            _ = try? context.save()
         }
     }
     

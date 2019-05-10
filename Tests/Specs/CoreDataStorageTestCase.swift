@@ -38,9 +38,9 @@ class CoreDataStorageTestCase: XCTestCase {
     
     func testInsertion()
     {
-        let _ = ListItem.createItemWithValue(5)
+        _ = ListItem.createItemWithValue(5)
         
-        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert}.flatMap { $0.1 }) == [indexPath(0, 0)]
+        expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0)]
     }
     
     func testDeletion()
@@ -52,7 +52,7 @@ class CoreDataStorageTestCase: XCTestCase {
     
     func testItemAtIndexPathGetter()
     {
-        let _ = ListItem.createItemWithValue(3)
+        _ = ListItem.createItemWithValue(3)
         
         expect((self.storage.item(at: indexPath(0, 0)) as? ListItem)?.value) == 3
     }
@@ -60,9 +60,9 @@ class CoreDataStorageTestCase: XCTestCase {
     func testMovingValues()
     {
         let item1 = ListItem.createItemWithValue(1)
-        let _ = ListItem.createItemWithValue(2)
+        _ = ListItem.createItemWithValue(2)
         item1.value = 3
-        let _ = try? item1.managedObjectContext?.save()
+        _ = try? item1.managedObjectContext?.save()
         
         expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }).toEventually(equal([indexPath(1, 0)]))
         expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }).toEventually(equal([indexPath(0, 0)]))
@@ -71,15 +71,15 @@ class CoreDataStorageTestCase: XCTestCase {
     func testUpdatingValues()
     {
         let item = ListItem.createItemWithValue(1)
-        let _ = try? item.managedObjectContext?.save()
+        _ = try? item.managedObjectContext?.save()
         item.value = 5
-        let _ = try? item.managedObjectContext?.save()
+        _ = try? item.managedObjectContext?.save()
         
         expect(self.updateObserver.update?.objectChanges.filter { $0.0 == .update }.flatMap { $0.1 }).toEventually(equal([indexPath(0, 0)]))
     }
     
     func testGettingAllObjects() {
-        let _ = [1,2,3,4,5].map { ListItem.createItemWithValue($0) }
+        _ = [1, 2, 3, 4, 5].map { ListItem.createItemWithValue($0) }
         
         let items = storage.sections.first?.items
         

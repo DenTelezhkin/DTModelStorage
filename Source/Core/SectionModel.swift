@@ -44,7 +44,7 @@ open class SectionModel: Section, SupplementaryAccessible
     /// Supplementaries dictionary.
     open var supplementaries = [String: [Int: Any]]()
     
-    // Creates empty section model.
+    /// Creates empty section model.
     public init() {}
     
     /// Set items of specific time to items property.
@@ -57,11 +57,11 @@ open class SectionModel: Section, SupplementaryAccessible
     /// Returns items of `type` in current section
     open func items<T>(ofType type: T.Type) -> [T]
     {
-        return items.flatMap { $0 as? T }
+        return items.compactMap { $0 as? T }
     }
     
     /// Number of items in current section
     open var numberOfItems: Int {
-        return self.items.count
+        return items.count
     }
 }

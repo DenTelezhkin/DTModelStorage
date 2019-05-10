@@ -22,56 +22,56 @@ class StorageUpdateTestCase: XCTestCase {
     
     func testInsertedSectionIndexesStorageUpdateEqual()
     {
-        storage.sectionChanges.append((.insert,[3]))
+        storage.sectionChanges.append((.insert, [3]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testDeletedSectionIndexesStorageUpdateEqual()
     {
-        storage.sectionChanges.append((.delete,[2]))
+        storage.sectionChanges.append((.delete, [2]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testUpdatedSectionIndexesStorageUpdateEqual()
     {
-        storage.sectionChanges.append((.update,[2]))
+        storage.sectionChanges.append((.update, [2]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testInsertedRowsStorageUpdateEqual()
     {
-        storage.objectChanges.append((.insert,[indexPath(0,0)]))
+        storage.objectChanges.append((.insert, [indexPath(0, 0)]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testDeletedRowsStorageUpdateEqual()
     {
-        storage.objectChanges.append((.delete,[indexPath(0,0)]))
+        storage.objectChanges.append((.delete, [indexPath(0, 0)]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testUpdatedRowsStorageUpdateEqual()
     {
-        storage.objectChanges.append((.update,[indexPath(0,0)]))
+        storage.objectChanges.append((.update, [indexPath(0, 0)]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testMovedRowsStorageUpdateEqual()
     {
-        storage.objectChanges.append((.move,[indexPath(0,0),indexPath(1,1)]))
+        storage.objectChanges.append((.move, [indexPath(0, 0), indexPath(1, 1)]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }
     
     func testMovedSectionsStorageUpdateEqual()
     {
-        storage.sectionChanges.append((.move,[0,1]))
+        storage.sectionChanges.append((.move, [0, 1]))
         
         expect(self.emptyStorage == self.storage).to(beFalse())
     }

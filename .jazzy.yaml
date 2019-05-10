@@ -1,0 +1,7 @@
+author: Denys Telezhkin
+author_url: https://github.com/DenTelezhkin
+github_url: https://github.com/DenTelezhkin/DTModelStorage
+root_url: https://dentelezhkin.github.io/DTModelStorage/
+module: DTModelStorage
+output: docs
+theme: fullwidth

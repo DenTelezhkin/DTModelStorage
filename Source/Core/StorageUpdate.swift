@@ -25,7 +25,7 @@
 
 import Foundation
 
-// Possible change types for objects and sections
+/// Possible change types for objects and sections
 public enum ChangeType: String {
     case delete
     case move
@@ -34,7 +34,7 @@ public enum ChangeType: String {
 }
 
 /// Object representing update in storage.
-public struct StorageUpdate: Equatable, CustomStringConvertible
+public class StorageUpdate: Equatable, CustomStringConvertible
 {
     /// Object changes in update, in order of occurence
     public var objectChanges = [(ChangeType, [IndexPath])]()
@@ -43,50 +43,77 @@ public struct StorageUpdate: Equatable, CustomStringConvertible
     public var sectionChanges = [(ChangeType, [Int])]()
     
     /// Objects that were updated, with initial index paths
-    /// Discussion: This is done because UITableView and UICollectionView defer updating of items after all insertions and deletions are made. Therefore, resulting indexPaths are shifted, and update may be called on wrong indexPath. By storing objects from initial update call, we ensure, that objects used in update are correct.
+    /// Discussion: This is done because UITableView and UICollectionView defer updating of items after all insertions and deletions are made.
+    /// Therefore, resulting indexPaths are shifted, and update may be called on wrong indexPath. By storing objects from initial update call, we ensure, that objects used in update are correct.
     public var updatedObjects = [IndexPath: Any]()
+    
+    /// If update contains deferred datasource updates, they need to be applied before applying any animations.
+    /// SeeAlso: - `applyDeferredDatasourceUpdates` method.
+    public var containsDeferredDatasourceUpdates : Bool {
+        return enqueuedDatasourceUpdates.count > 0
+    }
+    
+    /// Enqueued datasource updates for later execution. This can be used by `UICollectionView` and `UITableView` batch updates mechanisms to update datasources inside of `performBatchUpdates(_:completion:)` method.
+    /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
+    public var enqueuedDatasourceUpdates = [(StorageUpdate) throws -> Void]()
     
     /// Create an empty update.
     public init(){}
     
     /// Returns true, if update is empty.
     public var isEmpty: Bool {
-        return objectChanges.isEmpty && sectionChanges.isEmpty
+        return objectChanges.isEmpty && sectionChanges.isEmpty && enqueuedDatasourceUpdates.isEmpty
+    }
+    
+    /// Call this method to apply all deferred datasource updates.
+    /// This method works only when using `MemoryStorage` with `defersDatasourceUpdates` flag turned on.
+    public func applyDeferredDatasourceUpdates() {
+        enqueuedDatasourceUpdates.forEach { try? $0(self) }
+        enqueuedDatasourceUpdates = []
+    }
+    
+    /// Enqueues datasource update for later execution into `enqueuedDatasourceUpdates` property. This can be used by `UICollectionView` and `UITableView` batch updates mechanisms to update datasources inside of `performBatchUpdates(_:completion:)` method.
+    /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
+    ///
+    /// - Parameter update: datasource update.
+    public func enqueueDatasourceUpdate(_ update: @escaping (StorageUpdate) throws -> Void) {
+        enqueuedDatasourceUpdates.append(update)
     }
     
     /// Compare StorageUpdates
-    static public func ==(left: StorageUpdate, right: StorageUpdate) -> Bool
+    static public func == (left: StorageUpdate, right: StorageUpdate) -> Bool
     {
         if left.objectChanges.count != right.objectChanges.count ||
             left.sectionChanges.count != right.sectionChanges.count {
             return false
         }
         
-        for (index, _) in left.objectChanges.enumerated() {
+        for index in left.objectChanges.indices {
             if left.objectChanges[index].0 != right.objectChanges[index].0 ||
                 left.objectChanges[index].1 != right.objectChanges[index].1
             {
                 return false
             }
         }
-        for (index, _) in left.sectionChanges.enumerated() {
+        for index in left.sectionChanges.indices {
             if left.sectionChanges[index].0 != right.sectionChanges[index].0 ||
                 left.sectionChanges[index].1 != right.sectionChanges[index].1
             {
                 return false
             }
         }
-        return true
+        return left.enqueuedDatasourceUpdates.count == right.enqueuedDatasourceUpdates.count
     }
     
+    /// Description of object changes
     public var description: String {
-        let objectChangesString = "Object changes: \n" + objectChanges.flatMap({ (arg) -> String? in
+        let objectChangesString = "Object changes: \n" + objectChanges.compactMap({ (arg) -> String? in
             let (change, indexPaths) = arg
-            return change.rawValue.capitalized + " \(indexPaths)"
+            return change.rawValue.capitalized + " \(indexPaths) "
         }).reduce("", +)
-        let sectionChangesString = "Section changes:" + objectChanges.flatMap({ (arg) -> String? in
+        let sectionChangesString = "Section changes:" + sectionChanges.compactMap({ (arg) -> String? in
             let (change, index) = arg
-            return change.rawValue.capitalized + " \(index))"
+            return change.rawValue.capitalized + " \(index)) "
         }).reduce("", +)
         return objectChangesString + "\n" + sectionChangesString
     }

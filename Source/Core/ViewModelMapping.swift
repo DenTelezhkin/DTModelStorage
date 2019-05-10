@@ -106,6 +106,7 @@ open class ViewModelMapping
     /// Reuse identifier to be used for reusable views.
     public var reuseIdentifier : String
     
+    /// Creates `ViewModelMapping` for `viewClass`
     public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil, mappingBlock: ((ViewModelMapping) -> Void)?) {
         self.viewType = viewType
         self.viewClass = viewClass
@@ -119,6 +120,7 @@ open class ViewModelMapping
         mappingBlock?(self)
     }
     
+    /// Creates `ViewModelMapping` for `modelType`
     public static func eventsModelMapping<T>(viewType: ViewType, modelClass: T.Type) -> ViewModelMapping {
         return ViewModelMapping(viewType: viewType, modelClass: modelClass)
     }
@@ -133,6 +135,7 @@ open class ViewModelMapping
     }
 }
 
+@available(*, deprecated, message: "ViewModelMappingCustomizing protocol is deprecated and will be removed in future versions. Please switch to using mapping conditions instead.")
 /// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates.
 public protocol ViewModelMappingCustomizing : class {
     
@@ -143,18 +146,18 @@ public protocol ViewModelMappingCustomizing : class {
     func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping?
 }
 
-public extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
+extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
     
     /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMapping] {
+    public func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMapping] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
             return viewType == mapping.viewType &&
                 mapping.modelTypeCheckingBlock(unwrappedModel) &&
                 mapping.condition.isCompatible(with: indexPath, model: model)
-            }
+        }
     }
 }
