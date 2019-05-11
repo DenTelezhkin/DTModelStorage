@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import DTModelStorage
 #if canImport(RealmSwift)
 import Realm.RLMResults
 import RealmSwift
@@ -48,7 +49,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
     
     /// Returns index of `section` or nil, if section is now found
     open func sectionIndex(for section: Section) -> Int? {
-        return sections.index(where: {
+        return sections.firstIndex(where: {
             return ($0 as AnyObject) === (section as AnyObject)
         })
     }

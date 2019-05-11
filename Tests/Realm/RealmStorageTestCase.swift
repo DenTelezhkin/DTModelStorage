@@ -8,9 +8,10 @@
 
 import UIKit
 import XCTest
-@testable import DTModelStorage
 import Nimble
 import RealmSwift
+import RealmStorage
+import DTModelStorage
 
 func delay(_ delay:Double, _ closure:@escaping () -> Void) {
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
@@ -243,7 +244,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSection(with: realm.objects(Dog.self))
         storage.setSectionFooterModels([1, 2, 3])
         
-        storage.setSupplementaries([[Int:Int]]().flatMap { $0 }, forKind: DTTableViewElementSectionFooter)
+        storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: DTTableViewElementSectionFooter)
         expect(self.storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: IndexPath(item:0, section: 0))).to(beNil())
     }
     
