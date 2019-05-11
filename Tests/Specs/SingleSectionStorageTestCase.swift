@@ -93,14 +93,6 @@ struct UpdatableData : Equatable, Identifiable, Hashable {
 }
 
 class SingleSectionStorageTestCase: XCTestCase {
-    
-    func verifyObjectChanges(_ observer: StorageUpdatesObserver, _ changes: [(ChangeType, [IndexPath])]) {
-        XCTAssertEqual(observer.update?.objectChanges.count, changes.count)
-        for (index, change) in changes.enumerated() {
-            XCTAssertEqual(observer.update?.objectChanges[index].0, change.0)
-            XCTAssertEqual(observer.update?.objectChanges[index].1, change.1)
-        }
-    }
 
     func testChangesAreCalculatableUsingEquatableDiffer() {
         let observer = StorageUpdatesObserver()
@@ -108,7 +100,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.delegate = observer
         stringStorage.setItems(["bar", "foo"])
         
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
             (.insert, [indexPath(1, 0)]),
         ])
@@ -124,7 +116,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.delegate = observer
         stringStorage.setItems(["bar", "foo"])
 
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
             (.move,  [indexPath(1, 0), indexPath(0, 0)]),
             (.move, [indexPath(0, 0), indexPath(1, 0)])
         ])
@@ -147,7 +139,7 @@ class SingleSectionStorageTestCase: XCTestCase {
             UpdatableData(3, "xyz")
         ])
 
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
             (.insert, [indexPath(2, 0)]),
             (.insert, [indexPath(3, 0)]),
         ])
@@ -165,7 +157,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.addItems([UpdatableData(1, "bar"),
                                UpdatableData(3, "xyz")], UpdateOldValuesAccumulationStrategy())
 
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
                 (.delete, [indexPath(0, 0)]),
                 (.insert, [indexPath(0, 0)]),
                 (.insert, [indexPath(2, 0)])
@@ -192,7 +184,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.addItems([UpdatableData(1, "bar"),
                                 UpdatableData(3, "xyz")], DeleteOldValuesAccumulationStrategy())
 
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
             (.insert, [indexPath(1, 0)]),
             (.insert, [indexPath(2, 0)]),
@@ -225,7 +217,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         storage.addItems([AnyIdentifiableEquatable(Foo())])
 
-        verifyObjectChanges(observer, [
+        observer.verifyObjectChanges([
             (.insert, [indexPath(2, 0)])
             ])
 

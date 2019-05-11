@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 import DTModelStorage
-import Nimble
 
 class UIReactionsTestCase: XCTestCase {
     
@@ -21,12 +20,12 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionTypeEquatable() {
-        expect(ViewType.cell) == ViewType.cell
+        XCTAssertEqual(ViewType.cell, ViewType.cell)
     }
     
     func testReactionTypeSupplementaryEquatable() {
-        expect(ViewType.supplementaryView(kind: "foo")) == ViewType.supplementaryView(kind: "foo")
-        expect(ViewType.supplementaryView(kind: "foo")) != ViewType.supplementaryView(kind: "bar")
+        XCTAssertEqual(ViewType.supplementaryView(kind: "foo"), ViewType.supplementaryView(kind: "foo"))
+        XCTAssertNotEqual(ViewType.supplementaryView(kind: "foo"), ViewType.supplementaryView(kind: "bar"))
     }
     
     func testReactionsAreSearchable() {
@@ -35,7 +34,7 @@ class UIReactionsTestCase: XCTestCase {
         reactions.append(reaction)
         
         let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: 5, view: nil)
-        expect(foundReaction).toNot(beNil())
+        XCTAssertNotNil(foundReaction)
     }
     
     func testReactionsForOptionalModelsAreSearchable() {
@@ -46,7 +45,7 @@ class UIReactionsTestCase: XCTestCase {
         let nilModel: Int? = 5
         
         let foundReaction = reactions.reaction(of: .cell, signature: "foo", forModel: nilModel as Any, view: nil)
-        expect(foundReaction).toNot(beNil())
+        XCTAssertNotNil(foundReaction)
     }
     
     func makeCellBlock<T, U>(_ block: @escaping ()->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U
@@ -73,7 +72,7 @@ class UIReactionsTestCase: XCTestCase {
             }, cell: TableCell(), returnValue: 3))
         let result = reaction.performWithArguments((TableCell(), 5, indexPath(0, 0)))
         waitForExpectations(timeout: 1, handler: nil)
-        expect(result as? Int) == 3
+        XCTAssertEqual(result as? Int, 3)
     }
     
     func testSupplementaryReactionIsExecutable() {
@@ -84,7 +83,7 @@ class UIReactionsTestCase: XCTestCase {
             }, cell: TableCell(), returnValue: 3))
         let result = reaction.performWithArguments((TableCell(), 5, indexPath(0, 5)))
         waitForExpectations(timeout: 1, handler: nil)
-        expect(result as? Int) == 3
+        XCTAssertEqual(result as? Int, 3)
     }
     
     func testReactionOfTypeIsPerformable() {
@@ -96,6 +95,6 @@ class UIReactionsTestCase: XCTestCase {
         reactions.append(reaction)
         let result = reactions.performReaction(of: .cell, signature: "foo", view: TableCell(), model: 5, location: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
-        expect(result as? Int) == 3
+        XCTAssertEqual(result as? Int, 3)
     }
 }

@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 import DTModelStorage
-import Nimble
 
 class SectionModelTestCase: XCTestCase {
 
@@ -29,20 +28,12 @@ class SectionModelTestCase: XCTestCase {
         section.setSupplementaryModel(nil, forKind: "foo", atIndex: 0)
         XCTAssert(section.supplementaryModel(ofKind: "foo", atIndex: 0) == nil)
     }
-
-//    func testAnyArrayWorks()
-//    {
-//        let arrayOfInts = [1,2,3]
-//        section.setItems(arrayOfInts)
-//        
-//        expect(section.items as? [Int]) == [1,2,3]
-//    }
     
     func testItemsOfTypeWorks()
     {
         let section = SectionModel()
         section.setItems([1, 2, 3])
         
-        expect(section.items(ofType: Int.self)) == [1, 2, 3]
+        XCTAssertEqual(section.items(ofType: Int.self), [1,2,3])
     }
 }

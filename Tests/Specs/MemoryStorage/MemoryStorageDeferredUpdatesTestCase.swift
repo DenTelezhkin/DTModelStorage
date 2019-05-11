@@ -9,7 +9,6 @@
 import XCTest
 import XCTest
 @testable import DTModelStorage
-import Nimble
 
 class MemoryStorageDeferredUpdatesTestCase: XCTestCase {
     
