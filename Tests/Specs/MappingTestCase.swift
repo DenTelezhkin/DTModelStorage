@@ -9,7 +9,6 @@
 import XCTest
 import UIKit
 import DTModelStorage
-import Nimble
 
 protocol MappingTestProtocol {}
 
@@ -65,8 +64,8 @@ class MappingTestCase: XCTestCase {
         
         let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
         
-        expect(candidates.count) == 1
-        expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
+        XCTAssertEqual(candidates.count, 1)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
     }
     
     func testOptionalModelOfProtocolIsFindable() {
@@ -74,8 +73,8 @@ class MappingTestCase: XCTestCase {
         mappings.append(mapping)
         let optional: ConformingClass? = ConformingClass()
         let candidates = mappings.mappingCandidates(for: .cell, withModel: optional ?? 0, at: indexPath(0, 0))
-        expect(candidates.count) == 1
-        expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
+        XCTAssertEqual(candidates.count, 1)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
     }
     
     func testSubclassModelMappingIsFindable() {
@@ -83,8 +82,8 @@ class MappingTestCase: XCTestCase {
         mappings.append(mapping)
         let candidates = mappings.mappingCandidates(for: .cell, withModel: Subclass(), at: indexPath(0, 0))
         
-        expect(candidates.count) == 1
-        expect(candidates.first?.viewClass == SubclassTestableTableViewCell.self).to(beTrue())
+        XCTAssertEqual(candidates.count, 1)
+        XCTAssert(candidates.first?.viewClass == SubclassTestableTableViewCell.self)
     }
     
     func testNilModelDoesNotReturnMappingCandidates() {
@@ -93,7 +92,7 @@ class MappingTestCase: XCTestCase {
         let model : AncestorClass? = nil
         let candidates = mappings.mappingCandidates(for: .cell, withModel: model as Any, at: indexPath(0, 0))
         
-        expect(candidates.count) == 0
+        XCTAssertEqual(candidates.count, 0)
     }
     
     func testUpdateBlockCanBeSuccessfullyCalled() {
@@ -102,13 +101,13 @@ class MappingTestCase: XCTestCase {
         
         let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
         
-        expect(candidates.count) == 1
-        expect(candidates.first?.viewClass == ProtocolTestableTableViewCell.self).to(beTrue())
+        XCTAssertEqual(candidates.count, 1)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
         
         let cell = ProtocolTestableTableViewCell()
         candidates.first?.updateBlock(cell, ConformingClass())
         
-        expect(cell.model is ConformingClass).to(beTrue())
+        XCTAssertTrue(cell.model is ConformingClass)
     }
     
     func testSectionConditionIsVeryfiable() {
@@ -185,15 +184,15 @@ class ViewModelMappingTestCase: XCTestCase {
     func testComparisons() {
         let type = ViewType.cell
         
-        expect(type.supplementaryKind()).to(beNil())
-        expect(ViewType.supplementaryView(kind: "foo")) == ViewType.supplementaryView(kind: "foo")
+        XCTAssertNil(type.supplementaryKind())
+        XCTAssertEqual(ViewType.supplementaryView(kind: "foo"), ViewType.supplementaryView(kind: "foo"))
     }
     
     func testSupplementaryKindEnum()
     {
         let type = ViewType.supplementaryView(kind: "foo")
         
-        expect(type.supplementaryKind()) == "foo"
+        XCTAssertEqual(type.supplementaryKind(), "foo")
     }
     
     func testComparisonsOfDifferentViewTypes()
@@ -201,7 +200,7 @@ class ViewModelMappingTestCase: XCTestCase {
         let cellType = ViewType.cell
         let supplementaryType = ViewType.supplementaryView(kind: "foo")
         
-        expect(cellType == supplementaryType).to(beFalse())
+        XCTAssertFalse(cellType == supplementaryType)
     }
     
 }

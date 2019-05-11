@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 @testable import DTModelStorage
-import Nimble
 
 class MemoryStorageRemovingItemsSpecs: XCTestCase {
 
@@ -27,7 +26,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {
         storage.addItems([1, 2, 3], toSection: 0)
         storage.removeItems(at: [indexPath(0, 0), indexPath(1, 0)])
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int).to(equal(3))
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 3)
     }
     
     func testRemovingSubsequentItemsWorksInDifferentSections()
@@ -37,11 +36,11 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         self.storage.removeItems(at: [indexPath(1, 0), indexPath(2, 0), indexPath(0, 1), indexPath(2, 1)])
         
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 5
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
+        XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 5)
         
-        expect(self.storage.section(atIndex: 0)?.items.count) == 1
-        expect(self.storage.section(atIndex: 1)?.items.count) == 1
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 1)
+        XCTAssertEqual(storage.section(atIndex: 1)?.items.count, 1)
     }
     
     func testRemovingItemsWorksWithSubsequentItems()
@@ -51,11 +50,11 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         self.storage.removeItems([2, 3, 4, 5])
         
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 6
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
+        XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 6)
         
-        expect(self.storage.section(atIndex: 0)?.items.count) == 1
-        expect(self.storage.section(atIndex: 1)?.items.count) == 1
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 1)
+        XCTAssertEqual(storage.section(atIndex: 1)?.items.count, 1)
     }
     
     func testSortingOfIndexPathsInSingleSection()
@@ -63,9 +62,9 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         let indexPaths = [indexPath(0, 0), indexPath(5, 0), indexPath(3, 0)]
         let sortedIndexPaths = MemoryStorage.sortedArrayOfIndexPaths(indexPaths, ascending: false)
         
-        expect(sortedIndexPaths.first?.item) == 5
-        expect(sortedIndexPaths.last?.item) == 0
-        expect(sortedIndexPaths.count) == 3
+        XCTAssertEqual(sortedIndexPaths.first?.item, 5)
+        XCTAssertEqual(sortedIndexPaths.last?.item, 0)
+        XCTAssertEqual(sortedIndexPaths.count, 3)
     }
     
     func testSortingOfIndexPathsInDifferentSections()
@@ -75,7 +74,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         
         let expectedIndexPaths = [indexPath(3, 2), indexPath(2, 2), indexPath(1, 1), indexPath(3, 0), indexPath(0, 0)]
         
-        expect(sortedIndexPaths) == expectedIndexPaths
+        XCTAssertEqual(sortedIndexPaths, expectedIndexPaths)
     }
     
     func testRemovingAndEnumerating()
@@ -83,11 +82,15 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         storage.addItems([1, 2, 3, 4, 5])
         storage.removeItems([1, 3, 4, 6])
         
-        expect(self.storage.section(atIndex: 0)?.items.count) == 2
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 2
-        expect(self.storage.item(at: indexPath(1, 0)) as? Int) == 5
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 2)
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 2)
+        XCTAssertEqual(storage.item(at: indexPath(1, 0)) as? Int, 5)
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(2, 0), indexPath(3, 0)]
+        storageUpdatesObserver.verifyObjectChanges([
+            (.delete, [indexPath(0, 0)]),
+            (.delete, [indexPath(2, 0)]),
+            (.delete, [indexPath(3, 0)])
+        ])
     }
     
     func testRemoveItemsFromSection()
@@ -95,8 +98,12 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         storage.addItems([1, 2, 3])
         storage.removeItems(fromSection: 0)
         
-        expect(self.storage.section(atIndex: 0)?.items.count) == 0
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 0)
         
-        expect(self.storageUpdatesObserver.update?.objectChanges.filter { $0.0 == .delete }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)]
+        storageUpdatesObserver.verifyObjectChanges([
+            (.delete, [indexPath(0, 0)]),
+            (.delete, [indexPath(1, 0)]),
+            (.delete, [indexPath(2, 0)])
+        ])
     }
 }

@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 import DTModelStorage
-import Nimble
 
 class MemoryStorageEditSpecs: XCTestCase {
 
@@ -31,19 +30,14 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         
         try! storage.insertItem(1, to: storage.indexPath(forItem: 6)!)
-        
-        var update = StorageUpdate()
-        update.objectChanges.append((.insert, [indexPath(2, 0)]))
-        
-        expect(self.delegate.update) == update
-        
+        delegate.verifyObjectChanges([
+            (.insert, [indexPath(2, 0)])
+        ])
         
         try! storage.insertItem(3, to: storage.indexPath(forItem: 5)!)
-        
-        update = StorageUpdate()
-        update.objectChanges.append((.insert, [indexPath(0, 1)]))
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.insert, [indexPath(0, 1)])
+        ])
     }
     func testBatchInsertionWithDifferentItemCountsTriggersAnomaly() {
         let exp = expectation(description: "Insert with different counts")
@@ -59,7 +53,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 2, 3])
         storage.setItems([4, 5, 6])
         
-        expect(self.storage.section(atIndex: 0)?.items.map { $0 as! Int }) == [4, 5, 6]
+        XCTAssertEqual(storage.section(atIndex: 0)?.items(ofType: Int.self), [4,5,6])
     }
     
     func testSetSectionSupplementariesModel()
@@ -67,8 +61,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.configureForTableViewUsage()
         storage.setSectionHeaderModel(1, forSection: 0)
         storage.setSectionFooterModel(2, forSection: 1)
-        expect(self.storage.headerModel(forSection: 0) as? Int) == 1
-        expect(self.storage.footerModel(forSection: 1) as? Int) == 2
+        XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
+        XCTAssertEqual(storage.footerModel(forSection: 1) as? Int, 2)
     }
     
     func testInsertionOfStructs()
@@ -77,8 +71,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         try! storage.insertItem(1, to: indexPath(0, 0))
         
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
-        expect(self.storage.item(at: indexPath(1, 0)) as? Int) == 2
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
+        XCTAssertEqual(storage.item(at: indexPath(1, 0)) as? Int, 2)
     }
     
     func testInsertionThrows()
@@ -113,10 +107,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.reloadItem(4)
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.update, [indexPath(1, 0)]))
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.update, [indexPath(1, 0)])
+        ])
     }
     
     func testShouldReplaceRows()
@@ -124,10 +117,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2, 4, 6])
         try! storage.replaceItem(4, with: 5)
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.update, [indexPath(1, 0)]))
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.update, [indexPath(1, 0)])
+        ])
     }
     
     func testShouldReplaceRowsThrows()
@@ -161,15 +153,13 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         try! storage.removeItem(2)
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.delete, [indexPath(0, 0)]))
-        
-        expect(self.delegate.update) == update
-        
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 0)])
+        ])
         try! storage.removeItem(5)
-        update.objectChanges = [(.delete, [indexPath(0, 1)])]
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 1)])
+        ])
     }
     
     func testShouldRemoveItemThrows()
@@ -203,15 +193,13 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.removeItems(at: [indexPath(0, 0)])
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.delete, [indexPath(0, 0)]))
-        
-        expect(self.delegate.update) == update
-        
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 0)])
+        ])
         storage.removeItems(at: [indexPath(0, 1)])
-        update.objectChanges = [(.delete, [indexPath(0, 1)])]
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 1)])
+        ])
     }
     
     func testShouldRemoveItemsAtIndexPaths()
@@ -221,11 +209,10 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.removeItems(at: [indexPath(0, 0), indexPath(0, 1)])
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.delete, [indexPath(0, 1)]))
-        update.objectChanges.append((.delete, [indexPath(0, 0)]))
-        
-        expect(self.delegate.update) == update
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 1)]),
+            (.delete, [indexPath(0, 0)])
+        ])
     }
     
     func testShouldNotCrashWhenRemovingNonExistingItem()
@@ -241,10 +228,13 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 3], toSection: 0)
         storage.addItems([2, 4], toSection: 1)
         
-        let update = StorageUpdate()
-        update.objectChanges.append((.delete, [indexPath(0, 0)]))
-        update.objectChanges.append((.delete, [indexPath(1, 1)]))
-        update.objectChanges.append((.delete, [indexPath(1, 0)]))
+        storage.removeItems([2,4,1])
+        
+        delegate.verifyObjectChanges([
+            (.delete, [indexPath(0, 1)]),
+            (.delete, [indexPath(1, 1)]),
+            (.delete, [indexPath(0, 0)])
+        ])
     }
     
     func testShouldDeleteSectionsEvenIfThereAreNone()
@@ -260,10 +250,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.deleteSections(IndexSet(integer: 1))
         
-        let update = StorageUpdate()
-        update.sectionChanges.append((.delete, [1]))
-        
-        expect(self.delegate.update) == update
+        delegate.verifySectionChanges([(.delete, [1])])
     }
     
     func testShouldDeleteMultipleSections() {
@@ -276,12 +263,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         set.add(3)
         storage.deleteSections(set as IndexSet)
         
-        let update = StorageUpdate()
-        update.sectionChanges.append((.delete, [1]))
-        update.sectionChanges.append((.delete, [3]))
-        
-        expect(self.delegate.update) == update
-        expect(self.storage.sections.count) == 2
+        delegate.verifySectionChanges([
+            (.delete, [1]),
+            (.delete, [3])
+        ])
+        XCTAssertEqual(storage.sections.count, 2)
     }
     
     func testShouldSafelySetAndRetrieveSupplementaryModel()
@@ -289,7 +275,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let section = SectionModel()
         section.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
         
-        expect(section.supplementaryModel(ofKind: "bar", atIndex: 0) as? String).to(equal("foo"))
+        XCTAssertEqual(section.supplementaryModel(ofKind: "bar", atIndex: 0) as? String, "foo")
     }
     
     func testShouldNotCallDelegateForOptionalMethod()
@@ -301,7 +287,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     {
         storage.addItem(1)
         storage.section(atIndex: 0)?.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
-        expect(self.storage.supplementaryModel(ofKind: "bar", forSectionAt: indexPath(0, 0)) as? String).to(equal("foo"))
+        XCTAssertEqual(storage.supplementaryModel(ofKind: "bar", forSectionAt: indexPath(0, 0)) as? String, "foo")
     }
     
     func testShouldSetSupplementaries()
@@ -309,9 +295,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         let kind = "foo"
         storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
         
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 1
-        expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 2
-        expect(self.storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int) == 3
+        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 1)
+        XCTAssertEqual(storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 2)
+        XCTAssertEqual(storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 3)
     }
     
     func testShouldNilOutSupplementaries()
@@ -321,9 +307,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: kind)
         
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
-        expect(self.storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
-        expect(self.storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int).to(beNil())
+        XCTAssertNil(storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0))
+        XCTAssertNil(storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0))
+        XCTAssertNil(storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0))
     }
     
     func testShouldGetItemCorrectly()
@@ -334,25 +320,24 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         var model = storage.item(at: indexPath(0, 1))
         
-        expect(model as? Int) == 2
+        XCTAssertEqual(model as? Int, 2)
         
         model = storage.item(at: indexPath(0, 2))
         
-        expect(model as? Int) == 3
+        XCTAssertEqual(model as? Int, 3)
     }
     
     func testShouldReturnNilForNotExistingIndexPath()
     {
         let model = storage.item(at: indexPath(5, 6))
-        expect(model as? Int).to(beNil())
+        XCTAssertNil(model)
     }
     
     func testShouldReturnNilForNotExistingIndexPathInExistingSection()
     {
         storage.addItem(1, toSection: 0)
         let model = storage.item(at: indexPath(1, 0))
-        
-        expect(model as? Int).to(beNil())
+        XCTAssertNil(model)
     }
     
     func testMovingSections()
@@ -362,10 +347,10 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 1, 1], toSection: 2)
         
         storage.moveSection(0, toSection: 1)
-        expect(self.storage.section(atIndex: 0)?.items.count) == 2
-        expect(self.storage.section(atIndex: 1)?.items.count) == 1
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 2)
+        XCTAssertEqual(storage.section(atIndex: 1)?.items.count, 1)
         let moves = delegate.update?.sectionChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [0, 1]
+        XCTAssertEqual(moves?.first?.1, [0, 1])
     }
     
     func testMovingItem()
@@ -376,10 +361,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 1))
         
-        expect(self.storage.item(at: indexPath(1, 1)) as? Int) == 1
+        XCTAssertEqual(storage.item(at: indexPath(1, 1)) as? Int, 1)
         
-        let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(1, 1)]
+        delegate.verifyObjectChanges([(.move, [indexPath(0, 0), indexPath(1, 1)])])
     }
     
     func testMovingItemIntoNonExistingSection()
@@ -388,11 +372,12 @@ class MemoryStorageEditSpecs: XCTestCase {
         
         storage.moveItem(at: indexPath(0, 0), to: indexPath(0, 1))
         
-        expect(self.storage.item(at: indexPath(0, 1)) as? Int) == 1
+        XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 1)
         
-        expect(self.delegate.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [1]
-        let moves = delegate.update?.objectChanges.filter { $0.0 == .move }
-        expect(moves?.first?.1) == [indexPath(0, 0), indexPath(0, 1)]
+        delegate.verifySectionChanges([(.insert, [1])])
+        delegate.verifyObjectChanges([
+            (.move, [indexPath(0, 0), indexPath(0, 1)])
+        ])
     }
     
     func testMovingNotExistingIndexPath()
@@ -448,9 +433,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testSettingAllItemsInStorage() {
         storage.setItemsForAllSections([[1], [2], [3]])
         
-        expect(self.storage.totalNumberOfItems) == 3
-        expect(self.storage.sections.count) == 3
-        expect(self.storage.item(at: indexPath(0, 0)) as? Int) == 1
+        XCTAssertEqual(storage.totalNumberOfItems, 3)
+        XCTAssertEqual(storage.sections.count, 3)
+        XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
     }
 }
 
@@ -471,20 +456,20 @@ class SectionSupplementariesTestCase : XCTestCase
     {
         storage.setSectionHeaderModels([1, 2, 3])
         
-        expect(self.storage.sections.count) == 3
-        expect(self.storage.headerModel(forSection: 0) as? Int) == 1
-        expect(self.storage.headerModel(forSection: 1) as? Int) == 2
-        expect(self.storage.headerModel(forSection: 2) as? Int) == 3
+        XCTAssertEqual(storage.sections.count, 3)
+        XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
+        XCTAssertEqual(storage.headerModel(forSection: 1) as? Int, 2)
+        XCTAssertEqual(storage.headerModel(forSection: 2) as? Int, 3)
     }
     
     func testSectionFooterModelsSetter()
     {
         storage.setSectionFooterModels([1, 2, 3])
         
-        expect(self.storage.sections.count) == 3
-        expect(self.storage.footerModel(forSection: 0) as? Int) == 1
-        expect(self.storage.footerModel(forSection: 1) as? Int) == 2
-        expect(self.storage.footerModel(forSection: 2) as? Int) == 3
+        XCTAssertEqual(storage.sections.count, 3)
+        XCTAssertEqual(storage.footerModel(forSection: 0) as? Int, 1)
+        XCTAssertEqual(storage.footerModel(forSection: 1) as? Int, 2)
+        XCTAssertEqual(storage.footerModel(forSection: 2) as? Int, 3)
     }
     
     func testNillifySectionHeaders()
@@ -492,7 +477,7 @@ class SectionSupplementariesTestCase : XCTestCase
         storage.setSectionHeaderModels([1, 2, 3])
         storage.setSectionHeaderModels([Int]())
         
-        expect(self.storage.headerModel(forSection: 1) as? Int).to(beNil())
+        XCTAssertNil(storage.headerModel(forSection: 1))
     }
     
     func testNillifySectionFooters()
@@ -500,7 +485,7 @@ class SectionSupplementariesTestCase : XCTestCase
         storage.setSectionFooterModels([1, 2, 3])
         storage.setSectionFooterModels([Int]())
         
-        expect(self.storage.footerModel(forSection: 1) as? Int).to(beNil())
+        XCTAssertNil(storage.footerModel(forSection: 1))
     }
     
     func testInsertingSection()
@@ -510,14 +495,17 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setSupplementaryModel("Bar", forKind: DTCollectionViewElementSectionFooter, atIndex: 0)
         section.setItems([1, 2, 3])
         storage.insertSection(section, atIndex: 0)
+        updatesObserver.verifySectionChanges([(.insert, [0])])
+        updatesObserver.verifyObjectChanges([
+            (.insert, [indexPath(0, 0)]),
+            (.insert, [indexPath(1, 0)]),
+            (.insert, [indexPath(2, 0)])
+        ])
         
-        expect(self.updatesObserver.update?.sectionChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [0]
-        expect(self.updatesObserver.update?.objectChanges.filter { $0.0 == .insert }.flatMap { $0.1 }) == [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)]
-        
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionHeader, atIndex: 0) as? String) == "Foo"
-        expect(self.storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionFooter, atIndex: 0) as? String) == "Bar"
-        expect(self.storage.section(atIndex: 0)?.items.first as? Int) == 1
-        expect(self.storage.section(atIndex: 0)?.items.last as? Int) == 3
+        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionHeader, atIndex: 0) as? String, "Foo")
+        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionFooter, atIndex: 0) as? String, "Bar")
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.first as? Int, 1)
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.last as? Int, 3)
     }
     
     func testInsertingSectionAtWrongIndexPathDoesNotWork()
@@ -544,14 +532,14 @@ class SectionSupplementariesTestCase : XCTestCase
         section.setItems([7, 8, 9])
         storage.setSection(section, forSection: 1)
         
-        expect(self.storage.section(atIndex: 1)?.items(ofType: Int.self)) == [7, 8, 9]
+        XCTAssertEqual(self.storage.section(atIndex: 1)?.items(ofType: Int.self), [7, 8, 9])
     }
     
     func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
         try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
         
-        expect(self.storage.items(inSection: 0)?.count) == 3
-        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1, 2, 3]
+        XCTAssertEqual(self.storage.items(inSection: 0)?.count, 3)
+        XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2, 3])
     }
     
     func testWrongCountsRaisesException() {
@@ -570,7 +558,7 @@ class SectionSupplementariesTestCase : XCTestCase
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
         try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
         
-        expect(self.storage.items(inSection: 0)?.count) == 2
-        expect(self.storage.section(atIndex: 0)?.items(ofType: Int.self)) == [1, 2]
+        XCTAssertEqual(self.storage.items(inSection: 0)?.count, 2)
+        XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2])
     }
 }

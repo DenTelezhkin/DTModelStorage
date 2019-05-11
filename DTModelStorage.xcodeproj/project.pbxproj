@@ -494,7 +494,6 @@
 			files = (
 			);
 			inputPaths = (
-				Nimble.framework,
 				"$(DWIFFT_FRAMEWORK_NAME).framework",
 				HeckelDiff.framework,
 				Realm.framework,
