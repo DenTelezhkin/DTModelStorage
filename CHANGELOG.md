@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Slightly improve RealmStorage `item(at:)` method perfomance.
 * Improved StorageUpdate description.
 
 ## [7.3.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.3.0)

@@ -17,6 +17,14 @@ class CoreDataStorageTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        configureStorage()
+        
+        updateObserver = StorageUpdatesObserver()
+        storage.delegate = updateObserver
+        CoreDataManager.sharedInstance.deleteAllObjects()
+    }
+    
+    func configureStorage() {
         let request = NSFetchRequest<ListItem>()
         request.entity = NSEntityDescription.entity(forEntityName: "ListItem", in: CoreDataManager.sharedInstance.context)
         let sortDescriptor = NSSortDescriptor(key: "value", ascending: true)
@@ -24,16 +32,13 @@ class CoreDataStorageTestCase: XCTestCase {
         let fetchedResultsController = NSFetchedResultsController<ListItem>(fetchRequest: request, managedObjectContext: CoreDataManager.sharedInstance.context, sectionNameKeyPath: nil, cacheName: nil)
         _ = try? fetchedResultsController.performFetch()
         storage = CoreDataStorage(fetchedResultsController: fetchedResultsController)
-        
-        updateObserver = StorageUpdatesObserver()
-        storage.delegate = updateObserver
-        CoreDataManager.sharedInstance.deleteAllObjects()
     }
     
     override func tearDown() {
         super.tearDown()
         updateObserver = nil
         storage = nil
+        CoreDataManager.sharedInstance.deleteAllObjects()
     }
     
     func testCoreDataStack()
@@ -127,5 +132,27 @@ class CoreDataStorageTestCase: XCTestCase {
     func testSettingDifferentSupplementaryKindAllowsUsingSectionName() {
         storage.displaySectionNameForSupplementaryKinds = ["Foo"]
         XCTAssertEqual(storage.supplementaryModel(ofKind: "Foo", forSectionAt: indexPath(0, 0)) as? String, "")
+    }
+    
+    func createSwarm(size: Int) {
+        CoreDataManager.sharedInstance.context.performAndWait {
+            let context = CoreDataManager.sharedInstance.context
+            for id in 0...size {
+                //swiftlint:disable:next force_cast
+                let item = NSEntityDescription.insertNewObject(forEntityName: "ListItem", into:context) as! ListItem
+                item.value = id as NSNumber
+            }
+            try! context.save()
+        }
+        
+    }
+    
+    func testItemAtIndexPathPerfomance() {
+        createSwarm(size: 10000)
+        configureStorage()
+        
+        measure {
+            _ = storage.item(at: indexPath(5000, 0))
+        }
     }
 }

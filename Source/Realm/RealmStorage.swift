@@ -202,7 +202,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         guard indexPath.section < sections.count else {
             return nil
         }
-        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
+        guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
         return sections[indexPath.section].items[indexPath.item]
     }
     

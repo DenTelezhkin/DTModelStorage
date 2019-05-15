@@ -70,6 +70,15 @@ class RealmStorageTestCase: XCTestCase {
         
         return person
     }
+    
+    func createSwarm(size: Int) {
+        try! realm.write {
+            for id in 0...size {
+                let swarmer = Swarmer()
+                swarmer.id = id
+            }
+        }
+    }
         
     func testRealmStorageAddList() {
         let person = giveDogs(names: ["Rex", "Spot"], to: "Joe")
@@ -295,5 +304,15 @@ class RealmStorageTestCase: XCTestCase {
         
         let section = storage.section(at: 0) as? RealmSection<Dog>
         XCTAssertEqual(section?.currentSectionIndex, 0)
+    }
+    
+    func testItemAtIndexPathPerfomance() {
+        createSwarm(size: 10000)
+        storage = RealmStorage()
+        storage.addSection(with: realm.objects(Swarmer.self))
+        
+        measure {
+            _ = storage.item(at: indexPath(5000, 0))
+        }
     }
 }
