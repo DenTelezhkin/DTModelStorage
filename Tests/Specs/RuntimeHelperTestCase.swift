@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 import DTModelStorage
-import Nimble
 
 class RuntimeHelperTestCase: XCTestCase {
 
@@ -17,6 +16,6 @@ class RuntimeHelperTestCase: XCTestCase {
     {
         let implicitlyUnwrapped : Int? = nil
         let unwrapped = RuntimeHelper.recursivelyUnwrapAnyValue(implicitlyUnwrapped as Any)
-        expect(unwrapped).to(beNil())
+        XCTAssertNil(unwrapped)
     }
 }

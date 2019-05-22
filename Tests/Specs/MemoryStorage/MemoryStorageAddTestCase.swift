@@ -9,18 +9,17 @@
 import UIKit
 import XCTest
 import DTModelStorage
-import Nimble
 
 class MemoryStorageAddSpec: XCTestCase {
 
     var storage : MemoryStorage!
-    var delegate : StorageUpdatesObserver!
+    var observer : StorageUpdatesObserver!
     
     override func setUp() {
         super.setUp()
-        delegate = StorageUpdatesObserver()
+        observer = StorageUpdatesObserver()
         storage = MemoryStorage()
-        storage.delegate = delegate
+        storage.delegate = observer
         storage.defersDatasourceUpdates = false
     }
 
@@ -31,7 +30,7 @@ class MemoryStorageAddSpec: XCTestCase {
         
         storage.addItem("")
         
-        expect(self.delegate.update) == update
+        XCTAssertEqual(observer.update, update)
     }
     
     func testShouldReceiveCorrectUpdateCallWhenAddingItems()
@@ -39,13 +38,14 @@ class MemoryStorageAddSpec: XCTestCase {
         let foo = [1, 2, 3]
         storage.addItems(foo, toSection: 1)
         
-        let update = StorageUpdate()
-        update.sectionChanges.append((.insert, [0]))
-        update.sectionChanges.append((.insert, [1]))
-        update.objectChanges.append((.insert, [indexPath(0, 1)]))
-        update.objectChanges.append((.insert, [indexPath(1, 1)]))
-        update.objectChanges.append((.insert, [indexPath(2, 1)]))
-        
-        expect(self.delegate.update) == update
+        observer.verifyObjectChanges([
+            (.insert, [indexPath(0, 1)]),
+            (.insert, [indexPath(1, 1)]),
+            (.insert, [indexPath(2, 1)])
+        ])
+        observer.verifySectionChanges([
+            (.insert, [0]),
+            (.insert, [1])
+        ])
     }
 }

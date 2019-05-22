@@ -8,7 +8,6 @@
 
 import XCTest
 import DTModelStorage
-import Nimble
 
 class StorageUpdateTestCase: XCTestCase {
     
@@ -24,55 +23,55 @@ class StorageUpdateTestCase: XCTestCase {
     {
         storage.sectionChanges.append((.insert, [3]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testDeletedSectionIndexesStorageUpdateEqual()
     {
         storage.sectionChanges.append((.delete, [2]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testUpdatedSectionIndexesStorageUpdateEqual()
     {
         storage.sectionChanges.append((.update, [2]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testInsertedRowsStorageUpdateEqual()
     {
         storage.objectChanges.append((.insert, [indexPath(0, 0)]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testDeletedRowsStorageUpdateEqual()
     {
         storage.objectChanges.append((.delete, [indexPath(0, 0)]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testUpdatedRowsStorageUpdateEqual()
     {
         storage.objectChanges.append((.update, [indexPath(0, 0)]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testMovedRowsStorageUpdateEqual()
     {
         storage.objectChanges.append((.move, [indexPath(0, 0), indexPath(1, 1)]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
     
     func testMovedSectionsStorageUpdateEqual()
     {
         storage.sectionChanges.append((.move, [0, 1]))
         
-        expect(self.emptyStorage == self.storage).to(beFalse())
+        XCTAssertNotEqual(emptyStorage, storage)
     }
 }

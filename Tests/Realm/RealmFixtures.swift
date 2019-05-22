@@ -24,3 +24,7 @@ class Person: Object {
     @objc dynamic var picture: Data? // optionals supported
     let dogs = List<Dog>()
 }
+
+class Swarmer: Object {
+    @objc dynamic var id = 0
+}

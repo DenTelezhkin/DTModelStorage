@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Nimble
 import DTModelStorage
 
 class NibExistanceTestCase: XCTestCase {
@@ -15,11 +14,11 @@ class NibExistanceTestCase: XCTestCase {
     func testNibDoesNotExist()
     {
         let bundle = Bundle(for: type(of: self))
-        expect(UINib.nibExists(withNibName: "Foo", inBundle: bundle)) == false
+        XCTAssertFalse(UINib.nibExists(withNibName: "Foo", inBundle: bundle))
         #if os(iOS)
-        expect(UINib.nibExists(withNibName: "iOSEmptyNib", inBundle: bundle)) == true
+        XCTAssert(UINib.nibExists(withNibName: "iOSEmptyNib", inBundle: bundle))
         #elseif os(tvOS)
-        expect(UINib.nibExists(withNibName: "tvOSEmptyNib", inBundle: bundle)) == true
+        XCTAssertTrue(UINib.nibExists(withNibName: "tvOSEmptyNib", inBundle: bundle))
         #endif
     }
 }

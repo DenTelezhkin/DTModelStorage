@@ -8,7 +8,6 @@
 
 import XCTest
 import DTModelStorage
-import Nimble
 
 class FooView : UIView, ModelTransfer {
     func update(with model: String) {
@@ -29,12 +28,12 @@ class StorageProtocolTestCase: XCTestCase {
     func testCollectionViewFlowLayoutUsage() {
         storage.configureForCollectionViewFlowLayoutUsage()
         
-        expect(self.storage.supplementaryHeaderKind) == DTCollectionViewElementSectionHeader
-        expect(self.storage.supplementaryFooterKind) == DTCollectionViewElementSectionFooter
+        XCTAssertEqual(self.storage.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
+        XCTAssertEqual(self.storage.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
         
         storage.configureForTableViewUsage()
         
-        expect(self.storage.supplementaryHeaderKind) == DTTableViewElementSectionHeader
-        expect(self.storage.supplementaryFooterKind) == DTTableViewElementSectionFooter
+        XCTAssertEqual(self.storage.supplementaryHeaderKind, DTTableViewElementSectionHeader)
+        XCTAssertEqual(self.storage.supplementaryFooterKind, DTTableViewElementSectionFooter)
     }
 }

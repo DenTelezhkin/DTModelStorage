@@ -9,7 +9,6 @@
 import UIKit
 import XCTest
 @testable import DTModelStorage
-import Nimble
 
 class TableCell: UITableViewCell, ModelTransfer
 {
@@ -50,11 +49,11 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.addItems(["3", "4"], toSection: 1)
         var model = storage.item(at: indexPath(1, 1))
      
-        expect(model as? String) == "4"
+        XCTAssertEqual(model as? String, "4")
         
         model = storage.item(at: indexPath(0, 0))
         
-        expect(model as? String) == "1"
+        XCTAssertEqual(model as? String, "1")
     }
     
     func testShouldReturnIndexPathOfItem()
@@ -64,9 +63,9 @@ class MemoryStorageSearchSpec: XCTestCase {
         
         let indexPath = storage.indexPath(forItem: 3)
         
-        expect(indexPath) == IndexPath(item: 0, section: 1)
+        XCTAssertEqual(indexPath, IndexPath(item: 0, section: 1))
         
-        expect(self.storage.indexPath(forItem: 5)).to(beNil())
+        XCTAssertNil(storage.indexPath(forItem: 5))
     }
     
     func testShouldReturnItemsInSection()
@@ -77,8 +76,8 @@ class MemoryStorageSearchSpec: XCTestCase {
         let section0 = storage.items(inSection: 0)?.map{ $0 as! Int }
         let section1 = storage.items(inSection: 1)?.map{ $0 as! Int }
         
-        expect(section0) == [1, 2]
-        expect(section1) == [3, 4]
+        XCTAssertEqual(section0, [1, 2])
+        XCTAssertEqual(section1, [3, 4])
     }
     
     func testTableItemIndexPath()
@@ -88,7 +87,7 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.addItems([7, 8, 9], toSection: 2)
         
         let indexPathArray = storage.indexPathArray(forItems: [1, 5, 9])
-        expect(indexPathArray) == [indexPath(0, 0), indexPath(1, 1), indexPath(2, 2)]
+        XCTAssertEqual(indexPathArray, [indexPath(0, 0), indexPath(1, 1), indexPath(2, 2)])
     }
     
     func testUpdateWithoutAnimations() {
@@ -96,23 +95,23 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.updateWithoutAnimations {
             storage.addItems([1,2])
         }
-        expect((self.storage.items(inSection: 0) ?? []).compactMap { $0 as? Int } ) == [1,2]
+        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1,2])
         
         storage.updateWithoutAnimations {
             storage.addItems([3,4])
             storage.addItems([5,6])
         }
-        expect((self.storage.items(inSection: 0) ?? []).compactMap { $0 as? Int }) == [1,2,3,4,5,6]
+        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1,2,3,4,5,6])
     }
     
     func testEmptySection()
     {
-        expect(self.storage.section(atIndex: 0)).to(beNil())
+        XCTAssertNil(storage.section(atIndex: 0))
     }
     
     func testNilEmptySectionItems()
     {
-        expect(self.storage.items(inSection: 0)).to(beNil())
+        XCTAssertNil(storage.items(inSection: 0))
     }
     
     func testRemoveAllItems()
@@ -121,15 +120,15 @@ class MemoryStorageSearchSpec: XCTestCase {
         storage.delegate = storageNeedsReloading
         storage.addItems([12, 3, 5, 6])
         
-        expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beFalse())
+        XCTAssertFalse(storageNeedsReloading.storageNeedsReloadingCalled)
         storage.removeAllItems()
-        expect(storageNeedsReloading.storageNeedsReloadingCalled).to(beTrue())
-        expect(self.storage.section(atIndex: 0)?.items.count) == 0
+        XCTAssert(storageNeedsReloading.storageNeedsReloadingCalled)
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 0)
     }
     
     func testSectionModelIsAwareOfItsLocation() {
         storage.addItem(3)
         let section = storage.section(atIndex: 0)! as SectionModel
-        expect(section.currentSectionIndex) == 0
+        XCTAssertEqual(section.currentSectionIndex, 0)
     }
 }
