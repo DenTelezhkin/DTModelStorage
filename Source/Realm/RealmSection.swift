@@ -67,9 +67,4 @@ open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Sect
     open var numberOfItems: Int {
         return results.count
     }
-    
-    /// Returns the object at the given index.
-    public subscript(_ index: Int) -> Any {
-        return results[index]
-    }
 }

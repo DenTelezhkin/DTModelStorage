@@ -35,14 +35,4 @@ public protocol Section
     
     ///  Number of items in current section.
     var numberOfItems: Int { get }
-    
-    ///  Returns the object at the given index
-    subscript(_ index: Int) -> Any { get }
-}
-
-extension Section {
-    ///  Returns the object at the given index
-    public subscript(_ index: Int) -> Any {
-        return items[index]
-    }
 }
