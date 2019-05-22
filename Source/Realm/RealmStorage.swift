@@ -203,7 +203,8 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
             return nil
         }
         guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
-        return sections[indexPath.section].items[indexPath.item]
+        guard let section = section(at: indexPath.section) else { return nil }
+        return section[indexPath.item]
     }
     
     // MARK: - SupplementaryStorage
