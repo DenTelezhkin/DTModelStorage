@@ -92,7 +92,7 @@ open class ViewModelMapping
     public let viewClass: AnyClass
     
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.
-    public let xibName: String?
+    public var xibName: String?
     
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool

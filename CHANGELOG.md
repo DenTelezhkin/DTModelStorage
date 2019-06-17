@@ -9,8 +9,9 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-* Slightly improve RealmStorage `item(at:)` method perfomance.
+* Slightly improved RealmStorage `item(at:)` method perfomance.
 * Improved StorageUpdate description.
+* `ViewModelMapping.xibName` can now be changed inside of mapping blocks to allow changing xibName per mapping.
 
 ## [7.3.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.3.0)
 
