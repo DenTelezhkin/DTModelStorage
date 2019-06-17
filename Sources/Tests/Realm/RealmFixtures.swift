@@ -7,6 +7,7 @@
 //
 
 import Foundation
+#if canImport(RealmSwift)
 import RealmSwift
 
 class Dog: Object {
@@ -28,3 +29,4 @@ class Person: Object {
 class Swarmer: Object {
     @objc dynamic var id = 0
 }
+#endif

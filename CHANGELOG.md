@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Support for Swift Package Manager in Xcode 11
+
 ### Changed
 
 * Slightly improve RealmStorage `item(at:)` method perfomance.
@@ -24,13 +28,13 @@ All notable changes to this project will be documented in this file.
 
 ## [7.2.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.1)
 
-* Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates. 
+* Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates.
 
 ## [7.2.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.0)
 
 ### Added
 
-* Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section. 
+* Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section.
 
 Read more about it [in README](https://github.com/DenTelezhkin/DTModelStorage#singlesectionstorage).
 
@@ -52,7 +56,7 @@ memoryStorage.anomalyHandler.silenceAnomaly(.moveItemFailedItemNotFound(indexPat
 Alternatively, you may want to silence anomaly using closure, if anomaly contents are only calculatable at runtime:
 
 ```swift
-memoryStorage.anomalyHandler.silenceAnomaly { anomaly in 
+memoryStorage.anomalyHandler.silenceAnomaly { anomaly in
     switch anomaly {
     case .replaceItemFailedItemNotFound: return true
     default: return false

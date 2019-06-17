@@ -53,7 +53,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 2, 3])
         storage.setItems([4, 5, 6])
         
-        XCTAssertEqual(storage.section(atIndex: 0)?.items(ofType: Int.self), [4,5,6])
+        XCTAssertEqual(storage.section(atIndex: 0)?.items(ofType: Int.self), [4, 5, 6])
     }
     
     func testSetSectionSupplementariesModel()
@@ -93,8 +93,8 @@ class MemoryStorageEditSpecs: XCTestCase {
         let exp = expectation(description: "Insert into not that large section")
         let anomaly = MemoryStorageAnomaly.insertionIndexPathTooBig(indexPath: indexPath(10, 1), countOfElementsInSection: 5)
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        storage.addItems([1,2,3])
-        storage.addItems([4,5,6,7,8], toSection: 1)
+        storage.addItems([1, 2, 3])
+        storage.addItems([4, 5, 6, 7, 8], toSection: 1)
         try? storage.insertItem(7, to: indexPath(10, 1))
         waitForExpectations(timeout: 0.1)
         
@@ -228,7 +228,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1, 3], toSection: 0)
         storage.addItems([2, 4], toSection: 1)
         
-        storage.removeItems([2,4,1])
+        storage.removeItems([2, 4, 1])
         
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 1)]),

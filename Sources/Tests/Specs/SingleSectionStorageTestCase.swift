@@ -13,6 +13,7 @@ import Dwifft
 import Dwifft_tvOS
 #endif
 import DTModelStorage
+#if canImport(HeckelDiff)
 import HeckelDiff
 
 class DwifftDiffer: EquatableDiffingAlgorithm {
@@ -102,7 +103,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         
         observer.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
-            (.insert, [indexPath(1, 0)]),
+            (.insert, [indexPath(1, 0)])
         ])
 
         observer.update?.applyDeferredDatasourceUpdates()
@@ -117,7 +118,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         stringStorage.setItems(["bar", "foo"])
 
         observer.verifyObjectChanges([
-            (.move,  [indexPath(1, 0), indexPath(0, 0)]),
+            (.move, [indexPath(1, 0), indexPath(0, 0)]),
             (.move, [indexPath(0, 0), indexPath(1, 0)])
         ])
 
@@ -141,7 +142,7 @@ class SingleSectionStorageTestCase: XCTestCase {
 
         observer.verifyObjectChanges([
             (.insert, [indexPath(2, 0)]),
-            (.insert, [indexPath(3, 0)]),
+            (.insert, [indexPath(3, 0)])
         ])
     }
 
@@ -187,7 +188,7 @@ class SingleSectionStorageTestCase: XCTestCase {
         observer.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
             (.insert, [indexPath(1, 0)]),
-            (.insert, [indexPath(2, 0)]),
+            (.insert, [indexPath(2, 0)])
             ])
 
         observer.update?.applyDeferredDatasourceUpdates()
@@ -200,7 +201,7 @@ class SingleSectionStorageTestCase: XCTestCase {
     }
 
     func testItemsAreSettableAndGettable() {
-        let storage = SingleSectionEquatableStorage(items: ["1","2","3"], differ: DwifftDiffer())
+        let storage = SingleSectionEquatableStorage(items: ["1", "2", "3"], differ: DwifftDiffer())
 
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? String, "1")
         XCTAssertEqual(storage.item(at: indexPath(2, 0)) as? String, "3")
@@ -226,3 +227,5 @@ class SingleSectionStorageTestCase: XCTestCase {
         XCTAssertEqual(storage.items.count, 3)
     }
 }
+
+#endif
