@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
+
 ### Added
 
 * Support for Swift Package Manager in Xcode 11
