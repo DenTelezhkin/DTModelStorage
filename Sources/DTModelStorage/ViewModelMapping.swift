@@ -94,6 +94,10 @@ open class ViewModelMapping
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.
     public var xibName: String?
     
+    /// Bundle in which resources for this mapping will be searched for. For example, `DTTableViewManager` uses this property to get bundle, from which xib file for `UITableViewCell` will be retrieved. Defaults to `Bundle(for: T.self)`.
+    /// When used for events that rely on modelClass(`.eventsModelMapping(viewType: modelClass:` method) defaults to `Bundle.main`.
+    public var bundle: Bundle
+    
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool
     
@@ -117,6 +121,7 @@ open class ViewModelMapping
             guard let view = view as? T, let model = model as? T.ModelType else { return }
             view.update(with: model)
         }
+        bundle = Bundle(for: T.self)
         mappingBlock?(self)
     }
     
@@ -132,6 +137,7 @@ open class ViewModelMapping
         updateBlock = { _, _ in }
         reuseIdentifier = ""
         xibName = nil
+        bundle = Bundle.main
     }
 }
 

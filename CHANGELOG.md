@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
+
 ## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
 
 ### Added
