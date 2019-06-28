@@ -542,19 +542,6 @@ class SectionSupplementariesTestCase : XCTestCase
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2, 3])
     }
     
-    func testWrongCountsRaisesException() {
-        do {
-            try storage.insertItems([1, 2], to: [indexPath(0, 0)])
-        } catch let error as MemoryStorageError  {
-            guard case MemoryStorageError.batchInsertionFailed(reason: _) = error else {
-                XCTFail()
-                return
-            }
-        } catch {
-            XCTFail()
-        }
-    }
-    
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
         try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
         

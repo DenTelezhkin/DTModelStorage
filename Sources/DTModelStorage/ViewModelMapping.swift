@@ -141,17 +141,6 @@ open class ViewModelMapping
     }
 }
 
-@available(*, deprecated, message: "ViewModelMappingCustomizing protocol is deprecated and will be removed in future versions. Please switch to using mapping conditions instead.")
-/// Adopt this protocol on your `DTTableViewManageable` or `DTCollectionViewManageable` instance to be able to select mapping from available candidates.
-public protocol ViewModelMappingCustomizing : class {
-    
-    /// Select `ViewModelMapping` from candidates or return your own mapping
-    /// - Parameter candidates: mapping candidates, that were found for this model
-    /// - Parameter model: model to search candidates for
-    /// - Returns: `ViewModelMapping` instance, or nil if no mapping is required
-    func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping?
-}
-
 extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
     
     /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.

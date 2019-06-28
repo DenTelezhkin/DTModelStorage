@@ -107,14 +107,6 @@ public enum MemoryStorageError: LocalizedError
         case indexPathTooBig(IndexPath)
     }
     
-    @available(*, deprecated, message: "BatchInsertionReason is being replaced by `AnomalyHandler` implementation on MemoryStorage and will be removed in future versions.")
-    /// Errors that can be thrown, when calling `insertItems(_:to:)` method
-    public enum BatchInsertionReason
-    {
-        /// Is thrown, if length of batch inserted array is different from length of array of index paths.
-        case itemsCountMismatch
-    }
-    
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:with:)` method
     public enum SearchReason
     {
@@ -129,7 +121,6 @@ public enum MemoryStorageError: LocalizedError
     }
     
     case insertionFailed(reason: InsertionReason)
-    case batchInsertionFailed(reason: BatchInsertionReason)
     case searchFailed(reason: SearchReason)
     
     /// Description of error 
@@ -137,8 +128,6 @@ public enum MemoryStorageError: LocalizedError
         switch self {
         case .insertionFailed(reason: _):
             return "IndexPath provided was bigger then existing section or item"
-        case .batchInsertionFailed(reason: _):
-            return "While inserting batch of items, length of provided array differs from index path array length"
         case .searchFailed(reason: let reason):
             return reason.localizedDescription
         }
@@ -374,7 +363,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         if items.count != indexPaths.count {
             anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))
-            throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
+            return
         }
         if defersDatasourceUpdates {
             performDatasourceUpdate { [weak self] update in
