@@ -12,10 +12,10 @@
       },
       {
         "package": "HeckelDiff",
-        "repositoryURL": "https://github.com/DenTelezhkin/HeckelDiff",
+        "repositoryURL": "https://github.com/mcudich/HeckelDiff",
         "state": {
-          "branch": "swift-pm",
-          "revision": "6f26baf9cccf079a0295c9845004f1bdcc41aeff",
+          "branch": "master",
+          "revision": "8abdc7ffbecd4f2009d31e22d254eb159af80c4c",
           "version": null
         }
       },

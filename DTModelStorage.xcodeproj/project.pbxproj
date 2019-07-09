@@ -51,11 +51,11 @@
 		3E375A7222B7CD0D0064A762 /* MemoryStorageRemovingItemsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E375A2522B7CCC40064A762 /* MemoryStorageRemovingItemsSpecs.swift */; };
 		3E375A7322B7CD0D0064A762 /* MemoryStorageAddTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E375A2622B7CCC40064A762 /* MemoryStorageAddTestCase.swift */; };
 		3E375A7422B7CD0D0064A762 /* MemoryStorageDeferredUpdatesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E375A2722B7CCC40064A762 /* MemoryStorageDeferredUpdatesTestCase.swift */; };
+		3E8B6E1522D4F9D800928612 /* HeckelDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 3E8B6E1422D4F9D800928612 /* HeckelDiff */; };
 		9A4C1B032286D30500F64865 /* RealmStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */; };
 		9A4C1B0A2286D4C100F64865 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E59693221468684009C3DE8 /* DTModelStorage.framework */; };
 		9A4C1B0D2286DA8B00F64865 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E59693221468684009C3DE8 /* DTModelStorage.framework */; };
 		9AD03B6C22D48A53008F48C6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B6B22D48A53008F48C6 /* RealmSwift */; };
-		9AD03B6F22D4907F008F48C6 /* HeckelDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B6E22D4907F008F48C6 /* HeckelDiff */; };
 		9AD03B7222D492CE008F48C6 /* Dwifft in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B7122D492CE008F48C6 /* Dwifft */; };
 /* End PBXBuildFile section */
 
@@ -162,9 +162,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4C1B0A2286D4C100F64865 /* DTModelStorage.framework in Frameworks */,
-				9AD03B6F22D4907F008F48C6 /* HeckelDiff in Frameworks */,
 				9AD03B7222D492CE008F48C6 /* Dwifft in Frameworks */,
 				9A4C1B032286D30500F64865 /* RealmStorage.framework in Frameworks */,
+				3E8B6E1522D4F9D800928612 /* HeckelDiff in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,8 +398,8 @@
 			);
 			name = Tests;
 			packageProductDependencies = (
-				9AD03B6E22D4907F008F48C6 /* HeckelDiff */,
 				9AD03B7122D492CE008F48C6 /* Dwifft */,
+				3E8B6E1422D4F9D800928612 /* HeckelDiff */,
 			);
 			productName = DTModelStorageTests;
 			productReference = 3E59693B21468684009C3DE8 /* Tests.xctest */;
@@ -437,8 +437,8 @@
 			mainGroup = 3E59692821468684009C3DE8;
 			packageReferences = (
 				9AD03B6A22D48A53008F48C6 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
-				9AD03B6D22D4907F008F48C6 /* XCRemoteSwiftPackageReference "HeckelDiff" */,
 				9AD03B7022D492CE008F48C6 /* XCRemoteSwiftPackageReference "Dwifft" */,
+				3E8B6E1322D4F9D800928612 /* XCRemoteSwiftPackageReference "HeckelDiff" */,
 			);
 			productRefGroup = 3E59693321468684009C3DE8 /* Products */;
 			projectDirPath = "";
@@ -892,19 +892,19 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9AD03B6A22D48A53008F48C6 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+		3E8B6E1322D4F9D800928612 /* XCRemoteSwiftPackageReference "HeckelDiff" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa";
+			repositoryURL = "https://github.com/mcudich/HeckelDiff";
 			requirement = {
 				branch = master;
 				kind = branch;
 			};
 		};
-		9AD03B6D22D4907F008F48C6 /* XCRemoteSwiftPackageReference "HeckelDiff" */ = {
+		9AD03B6A22D48A53008F48C6 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/DenTelezhkin/HeckelDiff";
+			repositoryURL = "https://github.com/realm/realm-cocoa";
 			requirement = {
-				branch = "swift-pm";
+				branch = master;
 				kind = branch;
 			};
 		};
@@ -919,15 +919,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E8B6E1422D4F9D800928612 /* HeckelDiff */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E8B6E1322D4F9D800928612 /* XCRemoteSwiftPackageReference "HeckelDiff" */;
+			productName = HeckelDiff;
+		};
 		9AD03B6B22D48A53008F48C6 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9AD03B6A22D48A53008F48C6 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
 			productName = RealmSwift;
-		};
-		9AD03B6E22D4907F008F48C6 /* HeckelDiff */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9AD03B6D22D4907F008F48C6 /* XCRemoteSwiftPackageReference "HeckelDiff" */;
-			productName = HeckelDiff;
 		};
 		9AD03B7122D492CE008F48C6 /* Dwifft */ = {
 			isa = XCSwiftPackageProductDependency;
