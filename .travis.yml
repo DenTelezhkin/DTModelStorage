@@ -17,7 +17,8 @@ matrix:
     - env: ACTION=carthage_build PLATFORM="iOS,tvOS"
 
 script:
-  - bundle exec fastlane $ACTION
+  - instruments -s devices # List all available simulators
+  - FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=10 bundle exec fastlane $ACTION
 
 env:
   global:
