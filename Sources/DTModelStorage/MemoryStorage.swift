@@ -273,6 +273,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     ///
     /// - Note: This will reload UI after updating.
     open func setItemsForAllSections<T>(_ items: [[T]]) {
+        sections.removeAll()
         for (index, array) in items.enumerated() {
             let section = getValidSection(index, collectChangesIn: nil)
             section.items.removeAll()

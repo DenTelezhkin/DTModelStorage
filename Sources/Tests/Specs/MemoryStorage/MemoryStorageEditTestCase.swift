@@ -437,6 +437,16 @@ class MemoryStorageEditSpecs: XCTestCase {
         XCTAssertEqual(storage.sections.count, 3)
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
     }
+    
+    func testSetItemsForAllSectionsResetsPreviousSections() {
+        storage.setItemsForAllSections([[1],[2]])
+        
+        storage.setItemsForAllSections([[3,4,5]])
+        
+        XCTAssertEqual(storage.totalNumberOfItems, 3)
+        XCTAssertEqual(storage.sections.count, 1)
+        XCTAssertEqual(storage.item(at: indexPath(1, 0)) as? Int, 4)
+    }
 }
 
 class SectionSupplementariesTestCase : XCTestCase

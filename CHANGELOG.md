@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 * `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
 
+### Fixed
+
+* `setItemsForAllSections` method now properly removes all sections prior to setting new ones. This prevents a bug, where old sections could stay, if this method was called with fewer number of sections.
+
 ## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
 
 ### Added
