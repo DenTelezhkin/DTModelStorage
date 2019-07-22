@@ -27,17 +27,6 @@ import Foundation
 import CoreData
 import UIKit
 
-/// Private wrapper around `NSFetchedResultsSectionInfo` to conform to `Section` protocol
-private struct DTFetchedResultsSectionInfoWrapper: Section
-{
-    let fetchedObjects: [AnyObject]
-    let numberOfItems: Int
-    
-    var items : [Any] {
-        return fetchedObjects.map { $0 }
-    }
-}
-
 #if swift(>=4.2)
 /// Compatibility constant to support Swift 4.2 and higher
 public let DTCollectionViewElementSectionHeader = UICollectionView.elementKindSectionHeader
@@ -71,16 +60,18 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Supp
         self.fetchedResultsController.delegate = self
     }
     
-    /// Sections of fetched results controller as required by Storage
-    /// - SeeAlso: `Storage`
-    /// - SeeAlso: `MemoryStorage`
-    open var sections: [Section]
-    {
-        if let sections = self.fetchedResultsController.sections
-        {
-            return sections.map { DTFetchedResultsSectionInfoWrapper(fetchedObjects: $0.objects as [AnyObject]? ?? [], numberOfItems: $0.numberOfObjects) }
+    /// Returns number of sections in storage.
+    open func numberOfSections() -> Int {
+        return fetchedResultsController.sections?.count ?? 0
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: given section.
+    open func numberOfItems(inSection section: Int) -> Int {
+        if (fetchedResultsController.sections?.count ?? 0) > section {
+            return fetchedResultsController.sections?[section].numberOfObjects ?? 0
         }
-        return []
+        return 0
     }
     
     // MARK: - Storage

@@ -29,8 +29,11 @@ import UIKit
 /// `Storage` protocol is used to define common interface for storage classes.
 public protocol Storage : class
 {
-    /// Array of sections, conforming to `Section` protocol.
-    var sections: [Section] { get }
+    /// Returns number of sections in storage.
+    func numberOfSections() -> Int
+    
+    /// Returns number of items in section.
+    func numberOfItems(inSection section: Int) -> Int
     
     /// Returns item at concrete indexPath.
     func item(at indexPath: IndexPath) -> Any?

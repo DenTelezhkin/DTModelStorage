@@ -6,11 +6,16 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
+* Setter for `SingleSectionStorage.items` property.
+* `Section.item(at:)` method.
 
 ### Removed
 
 * Deprecated `MemoryStorageError.BatchInsertionReason` enum.
 * Deprecated `ViewModelMappingCustomizing` protocol.
+* `sections` method on `Storage` protocol. It is replaced by more perfomant `numberOfSections()` and `numberOfItems(inSection:)` methods.
+* `sections` method on `CoreDataStorage` and `SingleSectionStorage`
+* `items` property on `Section` protocol. It is replaced by `item(at:)` method.
 
 ## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
 

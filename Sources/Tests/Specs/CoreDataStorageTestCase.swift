@@ -43,7 +43,7 @@ class CoreDataStorageTestCase: XCTestCase {
     
     func testCoreDataStack()
     {
-        XCTAssertEqual(storage.sections.first?.numberOfItems, 0)
+        XCTAssertEqual(storage.numberOfItems(inSection: 0), 0)
     }
     
     func testInsertion()
@@ -111,11 +111,13 @@ class CoreDataStorageTestCase: XCTestCase {
     func testGettingAllObjects() {
         _ = [1, 2, 3, 4, 5].map { ListItem.createItemWithValue($0) }
         
-        let items = storage.sections.first?.items
+        XCTAssertEqual(storage.numberOfItems(inSection: 0), 5)
+        XCTAssertEqual((storage.item(at: indexPath(0, 0)) as? ListItem)?.value, 1)
+        XCTAssertEqual((storage.item(at: indexPath(4, 0)) as? ListItem)?.value, 5)
         
-        XCTAssertEqual(items?.count, 5)
-        XCTAssertEqual((items?.first as? ListItem)?.value, 1)
-        XCTAssertEqual((items?.last as? ListItem)?.value, 5)
+        XCTAssertEqual(storage.numberOfSections(), 1)
+        XCTAssertEqual(storage.numberOfItems(inSection: 0), 5)
+        XCTAssertEqual(storage.numberOfItems(inSection: 1), 0)
     }
     
     func testHeaderModel() {

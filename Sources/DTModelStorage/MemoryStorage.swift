@@ -159,6 +159,18 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         }
     }
     
+    /// Returns number of sections in storage
+    open func numberOfSections() -> Int {
+        return sections.count
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: given section
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard sections.count > section else { return 0 }
+        return sections[section].numberOfItems
+    }
+    
     func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
         if defersDatasourceUpdates {
             currentUpdate?.enqueueDatasourceUpdate(block)
@@ -188,8 +200,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
         guard indexPath.section < sections.count else { return nil }
-        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
-        return sections[indexPath.section].items[indexPath.item]
+        guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
+        return sections[indexPath.section].item(at: indexPath.item)
     }
     
     /// Sets section header `model` for section at `sectionIndex`
@@ -610,8 +622,13 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns items in section with section `index`, or nil if section does not exist
     open func items(inSection index: Int) -> [Any]?
     {
-        if self.sections.count > index {
-            return self.sections[index].items
+        if sections.count > index {
+            let indexes = (0...sections[index].numberOfItems)
+            return indexes.reduce(into: []) { result, row in
+                item(at: IndexPath(row: row, section: index)).map {
+                    result?.append($0)
+                }
+            }
         }
         return nil
     }
@@ -619,9 +636,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns indexPath of `searchableItem` in MemoryStorage or nil, if it's not found.
     open func indexPath<T: Equatable>(forItem searchableItem: T) -> IndexPath?
     {
-        for sectionIndex in 0..<self.sections.count
+        for sectionIndex in 0..<sections.count
         {
-            let rows = self.sections[sectionIndex].items
+            let rows = items(inSection: sectionIndex) ?? []
             
             for rowIndex in 0..<rows.count {
                 if let item = rows[rowIndex] as? T, item == searchableItem {

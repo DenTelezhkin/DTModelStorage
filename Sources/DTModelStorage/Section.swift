@@ -30,8 +30,9 @@ import Foundation
 /// For `CoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` object, that also conforms to current protocol.
 public protocol Section
 {
-    ///  Array of items in section.
-    var items : [Any] { get }
+    /// Returns an item at index, if it exists in Section.
+    /// - Parameter index: index to search for.
+    func item(at index: Int) -> Any?
     
     ///  Number of items in current section.
     var numberOfItems: Int { get }

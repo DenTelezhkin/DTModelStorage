@@ -54,6 +54,18 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         })
     }
     
+    /// Returns number of sections in storage.
+    open func numberOfSections() -> Int {
+        return sections.count
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: section index
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard sections.count > section else { return 0 }
+        return sections[section].numberOfItems
+    }
+    
     /// Storage for notification tokens of `Realm`
     private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
     
@@ -203,7 +215,7 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
             return nil
         }
         guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
-        return sections[indexPath.section].items[indexPath.item]
+        return sections[indexPath.section].item(at: indexPath.item)
     }
     
     // MARK: - SupplementaryStorage

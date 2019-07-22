@@ -80,8 +80,23 @@ open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSecti
 /// - SeeAlso: `SingleSectionEquatableStorage`
 open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, SupplementaryStorage, HeaderFooterSettable {
     
+    /// Returns number of sections in a storage
+    open func numberOfSections() -> Int {
+        return 1
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: given section index.
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard section == 0 else { return 0 }
+        return items.count
+    }
+    
     /// Array of items, that section contains.
-    open var items : [T] { return section.items(ofType: T.self) }
+    open var items : [T] {
+        get { return section.items(ofType: T.self) }
+        set { section.setItems(newValue) }
+    }
     
     /// Internal representation of a single section
     private var section : SectionModel
@@ -105,22 +120,6 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
         guard indexPath.section == 0 else { return nil }
         guard indexPath.item < section.items.count else { return nil }
         return section.items[indexPath.item]
-    }
-    
-    /// Array of sections in storage. This method will always return array with single section. Attempting to set any amount of sections different from one, or a section that is not `SectionModel` does nothing.
-    public var sections: [Section] {
-        get {
-            return [section]
-        }
-        set {
-            if newValue.count > 1 {
-                print("Attempt to set more than 1 section to SingleSectionStorage. If you need more than 1 section, consider using MemoryStorage.")
-            } else if let compatibleSection = newValue.first as? SectionModel {
-                section = compatibleSection
-            } else {
-                print("Attempt to set empty or incompatible section to SingleSectionStorage. Please use SectionModel object for SingleSectionStorage section.")
-            }
-        }
     }
     
     // SupplementaryStorage

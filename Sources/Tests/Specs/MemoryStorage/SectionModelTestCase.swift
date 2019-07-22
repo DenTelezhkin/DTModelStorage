@@ -35,5 +35,7 @@ class SectionModelTestCase: XCTestCase {
         section.setItems([1, 2, 3])
         
         XCTAssertEqual(section.items(ofType: Int.self), [1, 2, 3])
+        XCTAssertEqual(section.item(at: 2) as? Int, 3)
+        XCTAssertNil(section.item(at: 3))
     }
 }

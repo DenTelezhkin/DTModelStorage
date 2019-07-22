@@ -59,9 +59,11 @@ open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Sect
     
     // MARK: - Section
     
-    /// Items in `RealmSection`
-    open var items: [Any] {
-        return results.map { $0 }
+    /// Returns item at given index
+    /// - Parameter index: index to search for.
+    public func item(at index: Int) -> Any? {
+        guard results.count > index else { return nil }
+        return results[index]
     }
     
     /// Number of items in `RealmSection`
