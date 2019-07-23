@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "name" : "Configuration 1",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : true
+        }
+      }
+    },
+    {
+      "name" : "Configuration 2",
+      "options" : {
+        "threadSanitizerEnabled" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DTModelStorage.xcodeproj",
+        "identifier" : "3E59693A21468684009C3DE8",
+        "name" : "Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -138,6 +138,7 @@
 		3E375A4922B7CCC40064A762 /* UINib+Existance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Existance.swift"; sourceTree = "<group>"; };
 		3E59693221468684009C3DE8 /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EBF90DE22E74B5500135C10 /* Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Tests.xctestplan; path = "Supporting files/Tests.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +303,7 @@
 		3E59692821468684009C3DE8 = {
 			isa = PBXGroup;
 			children = (
+				3EBF90DE22E74B5500135C10 /* Tests.xctestplan */,
 				3E11409F21565FA1005336A7 /* Documentation */,
 				3E59693321468684009C3DE8 /* Products */,
 				3E375A1422B7CCC40064A762 /* Sources */,
