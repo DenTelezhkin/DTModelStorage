@@ -32,7 +32,7 @@ public let DTTableViewElementSectionHeader = "DTTableViewElementSectionHeader"
 public let DTTableViewElementSectionFooter = "DTTableViewElementSectionFooter"
 
 /// Base class for storage classes
-open class BaseStorage: NSObject, HeaderFooterStorage
+open class BaseStorage: NSObject
 {
     /// Supplementary kind for header in current storage
     open var supplementaryHeaderKind: String?
@@ -83,41 +83,5 @@ open class BaseStorage: NSObject, HeaderFooterStorage
             }
             delegate?.storageDidPerformUpdate(update)
         }
-    }
-    
-    /// Configures storage for using with UITableView
-    open func configureForTableViewUsage()
-    {
-        self.supplementaryHeaderKind = DTTableViewElementSectionHeader
-        self.supplementaryFooterKind = DTTableViewElementSectionFooter
-    }
-    
-    /// Configures storage for using with UICollectionViewFlowLayout
-    open func configureForCollectionViewFlowLayoutUsage()
-    {
-        self.supplementaryHeaderKind = DTCollectionViewElementSectionHeader
-        self.supplementaryFooterKind = DTCollectionViewElementSectionFooter
-    }
-    
-    // MARK: - HeaderFooterStorage
-    
-    /// Returns header model from section with section `index` or nil, if it was not set.
-    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
-    open func headerModel(forSection index: Int) -> Any? {
-        guard let kind = supplementaryHeaderKind else {
-            assertionFailure("supplementaryHeaderKind property was not set before calling headerModelForSectionIndex: method")
-            return nil
-        }
-        return (self as? SupplementaryStorage)?.supplementaryModel(ofKind:kind, forSectionAt: IndexPath(item: 0, section: index))
-    }
-    
-    /// Returns footer model from section with section `index` or nil, if it was not set.
-    /// - Requires: supplementaryFooterKind to be set prior to calling this method
-    open func footerModel(forSection index: Int) -> Any? {
-        guard let kind = supplementaryFooterKind else {
-            assertionFailure("supplementaryFooterKind property was not set before calling footerModelForSectionIndex: method")
-            return nil
-        }
-        return (self as? SupplementaryStorage)?.supplementaryModel(ofKind:kind, forSectionAt: IndexPath(item: 0, section: index))
     }
 }

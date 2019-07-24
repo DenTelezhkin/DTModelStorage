@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 * Setter for `SingleSectionStorage.items` property.
 * `Section.item(at:)` method.
 
+### Changed
+
+* `configureForTableViewUsage`, `configureForCollectionViewUsage`, `headerModel(forSection:)`, `footerModel(forSection:)`, have been moved to protocol extensions instead of being implemented in `BaseStorage` class. As a consequence, `BaseStorage` no longer confirms to HeaderFooterStorage protocol.
+
 ### Removed
 
 * Deprecated `MemoryStorageError.BatchInsertionReason` enum.

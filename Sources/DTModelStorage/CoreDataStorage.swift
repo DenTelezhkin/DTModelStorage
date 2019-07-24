@@ -41,7 +41,7 @@ public let DTCollectionViewElementSectionFooter = UICollectionElementKindSection
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, SupplementaryStorage, NSFetchedResultsControllerDelegate
+open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, HeaderFooterStorage, SupplementaryStorage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
     public let fetchedResultsController: NSFetchedResultsController<T>
