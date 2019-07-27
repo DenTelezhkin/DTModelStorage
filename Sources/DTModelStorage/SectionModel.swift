@@ -26,7 +26,7 @@
 import Foundation
 
 /// Data holder for single section in `MemoryStorage`.
-open class SectionModel: Section, SupplementaryAccessible
+open class SectionModel: Section, SectionLocatable
 {
     
     /// Returns item at index, if it exists, nil otherwise.
@@ -49,6 +49,7 @@ open class SectionModel: Section, SupplementaryAccessible
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
 
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider as a replacement.")
     /// Supplementaries dictionary.
     open var supplementaries = [String: [Int: Any]]()
     

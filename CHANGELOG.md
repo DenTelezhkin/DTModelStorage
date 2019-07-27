@@ -13,6 +13,31 @@ All notable changes to this project will be documented in this file.
 
 * `configureForTableViewUsage`, `configureForCollectionViewUsage`, `headerModel(forSection:)`, `footerModel(forSection:)`, have been moved to protocol extensions instead of being implemented in `BaseStorage` class. As a consequence, `BaseStorage` no longer confirms to HeaderFooterStorage protocol.
 
+### Breaking
+
+Complete rewrite of header/footer/supplementary model handling. Instead of several implementations and model storages, the API now consists of three closure based properties on `SupplementaryStorage` protocol : `headerModelProvider`, `footerModelProvider` and `supplementaryModelProvider`. All storage classes implement this protocol (`MemoryStorage`, `CoreDataStorage`, `RealmStorage`, `SingleSectionStorage`). 
+
+Storage protocols and classes have been restructured:
+
+* `SupplementaryAccessible` renamed to `SectionLocatable`
+* `HeaderFooterStorage`  and `HeaderFooterSettable` have been removed
+* `HeaderFooterStorage` functionality mostly has been merged into new protocol `SupplementaryStorage`
+* `BaseStorage` has been split into `BaseSupplementaryStorage` and `BaseUpdateDeliveringStorage` that inherits from it.
+
+Several methods continue to work, but are now briding to new closure-based API:
+
+* `setSectionHeaderModels`
+* `setSectionFooterModels`
+* `headerModel(forSection:)`
+* `footerModel(forSection:)`
+* `supplementaryModel(ofKind:forSectionAt:)`
+
+`setSectionHeaderModels` and `setSectionFooterModels`, as well as new closure-based API **do not call reloadData method, as they were doing before**. If you need to reset section headers/footers/supplementaries, consider calling `StorageUpdating.storageNeedsReloading()` method manually.
+
+All methods that allowed to set header/footer/supplementary models partially, for a specific section or specific supplementary kind, have been made unavailable or removed.
+
+`CoreDataStorage` now sets `headerModelProvider` closure to allow using FetchedResultsController section name as header instead of having arbitrary logic that compared supplementaryKind to `displaySectionNameForSupplementaryKinds` property, which is also made unavailable.
+
 ### Removed
 
 * Deprecated `MemoryStorageError.BatchInsertionReason` enum.

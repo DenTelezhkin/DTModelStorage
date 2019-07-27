@@ -72,7 +72,7 @@ class AnomaliesTestCase: XCTestCase {
     func testNotSilencedAnomaliesAreStillTriggered() {
         let exp = expectation(description: "Should receive item event anomaly")
         sut.anomalyAction = exp.expect(anomaly: .itemEventCalledWithCellType(ObjectIdentifier(MemoryStorage.self)))
-        sut.silenceAnomaly(.itemEventCalledWithCellType(ObjectIdentifier(BaseStorage.self)))
+        sut.silenceAnomaly(.itemEventCalledWithCellType(ObjectIdentifier(BaseUpdateDeliveringStorage.self)))
         sut.reportAnomaly(.itemEventCalledWithCellType(ObjectIdentifier(MemoryStorage.self)))
         waitForExpectations(timeout: 0.1)
     }

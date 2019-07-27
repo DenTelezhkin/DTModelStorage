@@ -131,11 +131,6 @@ class CoreDataStorageTestCase: XCTestCase {
         XCTAssertNil(storage.footerModel(forSection: 0))
     }
     
-    func testSettingDifferentSupplementaryKindAllowsUsingSectionName() {
-        storage.displaySectionNameForSupplementaryKinds = ["Foo"]
-        XCTAssertEqual(storage.supplementaryModel(ofKind: "Foo", forSectionAt: indexPath(0, 0)) as? String, "")
-    }
-    
     func createSwarm(size: Int) {
         CoreDataManager.sharedInstance.context.performAndWait {
             let context = CoreDataManager.sharedInstance.context
@@ -150,11 +145,11 @@ class CoreDataStorageTestCase: XCTestCase {
     }
     
     func testItemAtIndexPathPerfomance() {
-        createSwarm(size: 10000)
+        createSwarm(size: 5000)
         configureStorage()
         
         measure {
-            _ = storage.item(at: indexPath(5000, 0))
+            _ = storage.item(at: indexPath(2500, 0))
         }
     }
 }

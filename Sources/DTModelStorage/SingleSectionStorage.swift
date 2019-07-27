@@ -78,7 +78,7 @@ open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSecti
 /// Abstract base class that represents a single section of items. Supports supplementary items to allow representing supplementary views in section.
 /// - SeeAlso: `SingleSectionHashableStorage`
 /// - SeeAlso: `SingleSectionEquatableStorage`
-open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, SupplementaryStorage, HeaderFooterSettable {
+open class SingleSectionStorage<T: Identifiable> : BaseUpdateDeliveringStorage, Storage {
     
     /// Returns number of sections in a storage
     open func numberOfSections() -> Int {
@@ -120,36 +120,6 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
         guard indexPath.section == 0 else { return nil }
         guard indexPath.item < section.items.count else { return nil }
         return section.items[indexPath.item]
-    }
-    
-    // SupplementaryStorage
-    
-    /// Retrieve supplementary model of `kind` for section at `indexPath`.
-    ///
-    /// - Parameters:
-    ///   - kind: supplementary kind
-    ///   - indexPath: indexPath for determining supplementary location
-    /// - Returns: supplementary model, or nil if indexPath is out of bounds, or section is different from 0.
-    public func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
-        guard indexPath.section == 0 else { return nil }
-        return section.supplementaryModel(ofKind: kind, atIndex: indexPath.item)
-    }
-    
-    /// Set supplementaries for specific `kind`. Attempting to set any amount of models that is more than 1 does nothing.
-    ///
-    /// - Parameters:
-    ///   - models: array of models. Must consist of zero or one element, otherwise is ignored.
-    ///   - kind: supplementary kind
-    public func setSupplementaries(_ models: [[Int : Any]], forKind kind: String) {
-        guard models.count <= 1 else {
-            print("Attempt to set more than 1 section of supplementaries to SingleSectionStorage.")
-            return
-        }
-        if models.count == 0 {
-            section.supplementaries[kind] = nil
-        } else {
-            section.supplementaries[kind] = models[0]
-        }
     }
     
     // Diffing and updates

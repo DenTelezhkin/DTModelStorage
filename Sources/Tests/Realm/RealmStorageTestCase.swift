@@ -278,29 +278,6 @@ class RealmStorageTestCase: XCTestCase {
         XCTAssertNil(storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: indexPath(0, 3)))
     }
     
-    func testSupplementariesCanBeClearedOut() {
-        storage.configureForTableViewUsage()
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionFooterModels([1, 2, 3])
-        
-        storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: DTTableViewElementSectionFooter)
-        XCTAssertNil(storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: indexPath(0, 0)))
-    }
-    
-    func testSettingSupplementaryModelForSectionIndex() {
-        storage.configureForTableViewUsage()
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionHeaderModel(1, forSectionIndex: 0)
-    
-        XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
-        
-        storage.setSectionFooterModel(2, forSectionIndex: 0)
-        
-        XCTAssertEqual(storage.footerModel(forSection: 0) as? Int, 2)
-    }
-    
     func testSectionModelIsAwareOfItsLocation() {
         addDogNamed("Rex")
         

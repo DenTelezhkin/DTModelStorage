@@ -41,11 +41,12 @@ public let DTCollectionViewElementSectionFooter = UICollectionElementKindSection
 
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
-open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, HeaderFooterStorage, SupplementaryStorage, NSFetchedResultsControllerDelegate
+open class CoreDataStorage<T: NSFetchRequestResult> : BaseUpdateDeliveringStorage, Storage, NSFetchedResultsControllerDelegate
 {
     /// Fetched results controller of storage
     public let fetchedResultsController: NSFetchedResultsController<T>
     
+    @available(*, unavailable, message: "Please use storage.supplementaryModel closure to customize section supplementaries")
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
     /// - Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.
@@ -58,6 +59,13 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Head
         self.fetchedResultsController = fetchedResultsController
         super.init()
         self.fetchedResultsController.delegate = self
+        headerModelProvider = { index in
+            if let sections = self.fetchedResultsController.sections
+            {
+                return sections[index].name
+            }
+            return nil
+        }
     }
     
     /// Returns number of sections in storage.
@@ -81,26 +89,6 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseStorage, Storage, Head
     /// - Returns: model at indexPath or nil, if item not found
     open func item(at indexPath: IndexPath) -> Any? {
         return fetchedResultsController.object(at: indexPath)
-    }
-    
-    // MARK: - SupplementaryStorage
-    
-    /// Retrieve supplementary model of specific kind for section.
-    /// - Parameter kind: kind of supplementary model
-    /// - Parameter sectionIndexPath: index of section
-    /// - SeeAlso: `headerModelForSectionIndex`
-    /// - SeeAlso: `footerModelForSectionIndex`
-    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any?
-    {
-        if displaySectionNameForSupplementaryKinds.contains(kind)
-        {
-            if let sections = self.fetchedResultsController.sections
-            {
-                return sections[sectionIndexPath.section].name
-            }
-            return nil
-        }
-        return nil
     }
     
     // MARK: - NSFetchedResultsControllerDelegate

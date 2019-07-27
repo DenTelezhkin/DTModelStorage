@@ -21,8 +21,6 @@ class StorageProtocolTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         storage.configureForTableViewUsage()
-        storage.setSectionHeaderModels(["Foo"])
-        storage.setSectionFooterModels(["Bar"])
     }
     
     func testCollectionViewFlowLayoutUsage() {
