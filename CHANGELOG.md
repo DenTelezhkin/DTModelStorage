@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 * `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
 * Setter for `SingleSectionStorage.items` property.
 * `Section.item(at:)` method.
+* `ProxyDiffableDataSourceStorage` that serves as a bridge between `DTTableViewManager`/`DTCollectionViewManager` and diffable datasource classes(`UITableViewDiffableDataSource`\`UICollectionViewDiffableDataSource`).
 
 ### Changed
 

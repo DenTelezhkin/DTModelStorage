@@ -57,6 +57,7 @@
 		9A4C1B0D2286DA8B00F64865 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E59693221468684009C3DE8 /* DTModelStorage.framework */; };
 		9AD03B6C22D48A53008F48C6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B6B22D48A53008F48C6 /* RealmSwift */; };
 		9AD03B7222D492CE008F48C6 /* Dwifft in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B7122D492CE008F48C6 /* Dwifft */; };
+		9AE9E16922EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		3E59693221468684009C3DE8 /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBF90DE22E74B5500135C10 /* Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Tests.xctestplan; path = "Supporting files/Tests.xctestplan"; sourceTree = "<group>"; };
+		9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyDiffableDataSourceStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +298,7 @@
 				3E375A3E22B7CCC40064A762 /* StorageUpdate.swift */,
 				3E375A4922B7CCC40064A762 /* UINib+Existance.swift */,
 				3E375A3822B7CCC40064A762 /* ViewModelMapping.swift */,
+				9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */,
 			);
 			path = DTModelStorage;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				3E375A5A22B7CCD60064A762 /* SingleSectionStorage.swift in Sources */,
 				3E375A5822B7CCD60064A762 /* BaseStorage.swift in Sources */,
 				3E375A5122B7CCD60064A762 /* StorageProtocols.swift in Sources */,
+				9AE9E16922EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift in Sources */,
 				3E375A5322B7CCD60064A762 /* RuntimeHelper.swift in Sources */,
 				3E375A5522B7CCD60064A762 /* AnomalyHandler.swift in Sources */,
 				3E375A4E22B7CCD60064A762 /* CoreDataStorage.swift in Sources */,
