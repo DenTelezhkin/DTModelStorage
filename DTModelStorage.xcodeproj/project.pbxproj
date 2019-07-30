@@ -288,6 +288,7 @@
 				3E375A3B22B7CCC40064A762 /* MemoryStorage.swift */,
 				3E375A4022B7CCC40064A762 /* MemoryStorage+UpdateWithoutAnimations.swift */,
 				3E375A4822B7CCC40064A762 /* ModelTransfer.swift */,
+				9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */,
 				3E375A3F22B7CCC40064A762 /* RuntimeHelper.swift */,
 				3E375A4322B7CCC40064A762 /* Section.swift */,
 				3E375A3C22B7CCC40064A762 /* SectionModel.swift */,
@@ -298,7 +299,6 @@
 				3E375A3E22B7CCC40064A762 /* StorageUpdate.swift */,
 				3E375A4922B7CCC40064A762 /* UINib+Existance.swift */,
 				3E375A3822B7CCC40064A762 /* ViewModelMapping.swift */,
-				9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */,
 			);
 			path = DTModelStorage;
 			sourceTree = "<group>";

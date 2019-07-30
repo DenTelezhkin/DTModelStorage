@@ -40,7 +40,15 @@ open class BaseSupplementaryStorage: NSObject, SupplementaryStorage {
     /// Returns a footer model for specified section index or nil
     open var footerModelProvider: ((Int) -> Any?)?
 
-    private var _supplementaryModelProvider: ((String, IndexPath) -> Any?)?
+    private lazy var _supplementaryModelProvider: ((String, IndexPath) -> Any?)? = { [weak self] kind, indexPath in
+        if let headerModel = self?.headerModelProvider, self?.supplementaryHeaderKind == kind {
+            return headerModel(indexPath.section)
+        }
+        if let footerModel = self?.footerModelProvider, self?.supplementaryFooterKind == kind {
+            return footerModel(indexPath.section)
+        }
+        return nil
+    }
     
     /// Returns supplementary model for specified section indexPath and supplementary kind, or nil. Setter for this property is overridden to allow calling `headerModelProvider` and `footerModelProvider` closures.
     open var supplementaryModelProvider: ((String, IndexPath) -> Any?)? {
