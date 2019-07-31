@@ -34,6 +34,6 @@ class SectionModelTestCase: XCTestCase {
         let section = SectionModel()
         section.setItems([1, 2, 3])
         
-        XCTAssertEqual(section.items(ofType: Int.self), [1,2,3])
+        XCTAssertEqual(section.items(ofType: Int.self), [1, 2, 3])
     }
 }

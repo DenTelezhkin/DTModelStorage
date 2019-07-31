@@ -46,6 +46,6 @@ class MemoryStorageDeferredUpdatesTestCase: XCTestCase {
         self.delegate.update?.applyDeferredDatasourceUpdates()
         XCTAssertEqual(self.delegate.update?.objectChanges.count, 4)
         XCTAssertEqual(storage.totalNumberOfItems, 4)
-        XCTAssertEqual(storage.items(inSection: 0) as? [Int] ?? [], [2,3,4,6])
+        XCTAssertEqual(storage.items(inSection: 0) as? [Int] ?? [], [2, 3, 4, 6])
     }
 }

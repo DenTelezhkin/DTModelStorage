@@ -93,15 +93,15 @@ class MemoryStorageSearchSpec: XCTestCase {
     func testUpdateWithoutAnimations() {
         storage.defersDatasourceUpdates = true
         storage.updateWithoutAnimations {
-            storage.addItems([1,2])
+            storage.addItems([1, 2])
         }
-        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1,2])
+        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1, 2])
         
         storage.updateWithoutAnimations {
-            storage.addItems([3,4])
-            storage.addItems([5,6])
+            storage.addItems([3, 4])
+            storage.addItems([5, 6])
         }
-        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1,2,3,4,5,6])
+        XCTAssertEqual(storage.items(inSection: 0)?.compactMap { $0 as? Int }, [1, 2, 3, 4, 5, 6])
     }
     
     func testEmptySection()

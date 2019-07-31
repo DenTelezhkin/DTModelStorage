@@ -48,7 +48,7 @@ class UIReactionsTestCase: XCTestCase {
         XCTAssertNotNil(foundReaction)
     }
     
-    func makeCellBlock<T, U>(_ block: @escaping ()->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U
+    func makeCellBlock<T, U>(_ block: @escaping () -> Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U
         where T: ModelTransfer
     {
         return { one, two, three in
@@ -57,7 +57,7 @@ class UIReactionsTestCase: XCTestCase {
         }
     }
     
-    func makeSupplementaryBlock<T, U>(_ block: @escaping ()->Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U where T: ModelTransfer {
+    func makeSupplementaryBlock<T, U>(_ block: @escaping () -> Void, cell: T, returnValue: U) -> (T?, T.ModelType, IndexPath) -> U where T: ModelTransfer {
         return { one, two, three in
             block()
             return returnValue
