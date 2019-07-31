@@ -3,10 +3,27 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.4.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.1)
+
+### Added
+
+* `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
+
+### Fixed
+
+* `setItemsForAllSections` method now properly removes all sections prior to setting new ones. This prevents a bug, where old sections could stay, if this method was called with fewer number of sections. 
+
+## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
+
+### Added
+
+* Support for Swift Package Manager in Xcode 11
+
 ### Changed
 
-* Slightly improve RealmStorage `item(at:)` method perfomance.
+* Slightly improved RealmStorage `item(at:)` method perfomance.
 * Improved StorageUpdate description.
+* `ViewModelMapping.xibName` can now be changed inside of mapping blocks to allow changing xibName per mapping.
 
 ## [7.3.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.3.0)
 
@@ -24,13 +41,13 @@ All notable changes to this project will be documented in this file.
 
 ## [7.2.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.1)
 
-* Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates. 
+* Make `enqueueDatasourceUpdate` method and `enqueuedDatasourceUpdates` property public to allow building custom storages that defer datasource updates.
 
 ## [7.2.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.2.0)
 
 ### Added
 
-* Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section. 
+* Single section storage classes that encapsulate single section of models with automatic diffing to animate changes. For a lot of use cases this approach is more suitable than `MemoryStorage` and is now a recommended way of handling items in single section.
 
 Read more about it [in README](https://github.com/DenTelezhkin/DTModelStorage#singlesectionstorage).
 
@@ -52,7 +69,7 @@ memoryStorage.anomalyHandler.silenceAnomaly(.moveItemFailedItemNotFound(indexPat
 Alternatively, you may want to silence anomaly using closure, if anomaly contents are only calculatable at runtime:
 
 ```swift
-memoryStorage.anomalyHandler.silenceAnomaly { anomaly in 
+memoryStorage.anomalyHandler.silenceAnomaly { anomaly in
     switch anomaly {
     case .replaceItemFailedItemNotFound: return true
     default: return false

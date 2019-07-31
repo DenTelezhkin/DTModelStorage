@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+#if canImport(RealmSwift)
 import RealmSwift
 import RealmStorage
 import DTModelStorage
@@ -316,3 +317,5 @@ class RealmStorageTestCase: XCTestCase {
         }
     }
 }
+
+#endif

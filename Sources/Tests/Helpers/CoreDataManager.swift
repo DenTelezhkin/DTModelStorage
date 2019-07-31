@@ -13,14 +13,14 @@ import CoreData
 class CoreDataManager {
     static let sharedInstance = CoreDataManager()
     
-    fileprivate let managedObjectModel : NSManagedObjectModel = {
+    fileprivate let managedObjectModel : NSManagedObjectModel? = {
         let modelURL = Bundle(for:CoreDataManager.self).url(forResource:"DTModelStorageDatabase", withExtension: "momd")
-        return NSManagedObjectModel(contentsOf: modelURL!)!
+        return modelURL.flatMap { NSManagedObjectModel(contentsOf: $0) }
     }()
     
-    fileprivate lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator = {
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        _ = try? coordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+    fileprivate lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator? = {
+        let coordinator = self.managedObjectModel.flatMap { NSPersistentStoreCoordinator(managedObjectModel: $0) }
+        _ = try? coordinator?.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         return coordinator
     }()
     
@@ -31,7 +31,7 @@ class CoreDataManager {
     }()
     
     func deleteAllObjects() {
-        for entity in managedObjectModel.entities {
+        for entity in managedObjectModel?.entities ?? [] {
             let request = NSFetchRequest<NSManagedObject>()
             request.entity = entity
             request.includesPropertyValues = false
