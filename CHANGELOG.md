@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Breaking
 
-Complete rewrite of header/footer/supplementary model handling. Instead of several implementations and model storages, the API now consists of three closure based properties on `SupplementaryStorage` protocol : `headerModelProvider`, `footerModelProvider` and `supplementaryModelProvider`. All storage classes implement this protocol (`MemoryStorage`, `CoreDataStorage`, `RealmStorage`, `SingleSectionStorage`). 
+Complete rewrite of header/footer/supplementary model handling. Instead of several implementations and model storages, the API now consists of three closure based properties on `SupplementaryStorage` protocol : `headerModelProvider`, `footerModelProvider` and `supplementaryModelProvider`. All storage classes implement this protocol (`MemoryStorage`, `CoreDataStorage`, `RealmStorage`, `SingleSectionStorage`, `ProxyDiffableDataSourceStorage`). 
 
 Storage protocols and classes have been restructured:
 
@@ -25,7 +25,7 @@ Storage protocols and classes have been restructured:
 * `HeaderFooterStorage` functionality mostly has been merged into new protocol `SupplementaryStorage`
 * `BaseStorage` has been split into `BaseSupplementaryStorage` and `BaseUpdateDeliveringStorage` that inherits from it.
 
-Several methods continue to work, but are now briding to new closure-based API:
+Several methods continue to work, but are now bridging to new closure-based API:
 
 * `setSectionHeaderModels`
 * `setSectionFooterModels`

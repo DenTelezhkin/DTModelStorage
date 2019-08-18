@@ -140,6 +140,7 @@
 		3E59693221468684009C3DE8 /* DTModelStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTModelStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBF90DE22E74B5500135C10 /* Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Tests.xctestplan; path = "Supporting files/Tests.xctestplan"; sourceTree = "<group>"; };
+		3EC219D823082FDC0056D504 /* 8.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "8.0 Migration Guide.md"; sourceTree = "<group>"; };
 		9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyDiffableDataSourceStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,11 +307,12 @@
 		3E59692821468684009C3DE8 = {
 			isa = PBXGroup;
 			children = (
-				3EBF90DE22E74B5500135C10 /* Tests.xctestplan */,
 				3E11409F21565FA1005336A7 /* Documentation */,
+				3EC219D723082F6A0056D504 /* Guides */,
 				3E59693321468684009C3DE8 /* Products */,
 				3E375A1422B7CCC40064A762 /* Sources */,
 				3E2ADD612146B7A20082B2E6 /* Supporting files */,
+				3EBF90DE22E74B5500135C10 /* Tests.xctestplan */,
 			);
 			sourceTree = "<group>";
 		};
@@ -322,6 +324,14 @@
 				3E2ADD94214922AE0082B2E6 /* RealmStorage.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3EC219D723082F6A0056D504 /* Guides */ = {
+			isa = PBXGroup;
+			children = (
+				3EC219D823082FDC0056D504 /* 8.0 Migration Guide.md */,
+			);
+			path = Guides;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
