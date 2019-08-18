@@ -17,7 +17,7 @@ import DTModelStorage
 import HeckelDiff
 
 class DwifftDiffer: EquatableDiffingAlgorithm {
-    func diff<T:Identifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation] {
+    func diff<T:EntityIdentifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation] {
         let diffs = Dwifft.diff(from, to)
         return diffs.map {
             switch $0 {
@@ -31,7 +31,7 @@ class DwifftDiffer: EquatableDiffingAlgorithm {
 }
 
 class HeckelDiffer : HashableDiffingAlgorithm {
-    func diff<T>(from: [T], to: [T]) -> [SingleSectionOperation] where T : Identifiable, T : Hashable {
+    func diff<T>(from: [T], to: [T]) -> [SingleSectionOperation] where T : EntityIdentifiable, T : Hashable {
         let diffs = HeckelDiff.diff(from, to)
         return diffs.map {
             switch $0 {
@@ -48,18 +48,18 @@ class HeckelDiffer : HashableDiffingAlgorithm {
     }
 }
 
-extension String: Identifiable {
+extension String: EntityIdentifiable {
     public var identifier: AnyHashable {
         return self
     }
 }
 
-struct AnyIdentifiableEquatable: Identifiable, Equatable {
+struct AnyIdentifiableEquatable: EntityIdentifiable, Equatable {
     let value : Any
     let equals: (Any) -> Bool
     let identifier: AnyHashable
 
-    init<T:Identifiable & Equatable>(_ value: T) {
+    init<T:EntityIdentifiable & Equatable>(_ value: T) {
         self.value = value
         equals = {
             guard let instance = $0 as? T else { return false }
@@ -73,15 +73,15 @@ struct AnyIdentifiableEquatable: Identifiable, Equatable {
     }
 }
 
-struct Foo: Identifiable, Equatable {
+struct Foo: EntityIdentifiable, Equatable {
     var identifier: AnyHashable { return 1 }
 }
 
-struct Bar: Identifiable, Equatable {
+struct Bar: EntityIdentifiable, Equatable {
     var identifier: AnyHashable { return 2 }
 }
 
-struct UpdatableData : Equatable, Identifiable, Hashable {
+struct UpdatableData : Equatable, EntityIdentifiable, Hashable {
     let id: Int
     let data: String
     

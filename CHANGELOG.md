@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file.
 
 ### Breaking
 
+`Identifiable` protocol has been renamed to `EntityIdentifiable` protocol to avoid unwanted clashes with `Foundation.Identifiable` protocol, that is available on iOS 13 and higher.
+
 Complete rewrite of header/footer/supplementary model handling. Instead of several implementations and model storages, the API now consists of three closure based properties on `SupplementaryStorage` protocol : `headerModelProvider`, `footerModelProvider` and `supplementaryModelProvider`. All storage classes implement this protocol (`MemoryStorage`, `CoreDataStorage`, `RealmStorage`, `SingleSectionStorage`, `ProxyDiffableDataSourceStorage`). 
 
 Storage protocols and classes have been restructured:

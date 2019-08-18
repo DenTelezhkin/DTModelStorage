@@ -26,7 +26,7 @@
 import Foundation
 
 /// `SingleSectionStorage` that requires all it's elements to be `Equatable`.
-open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSectionStorage<T> {
+open class SingleSectionEquatableStorage<T:EntityIdentifiable & Equatable> : SingleSectionStorage<T> {
     
     /// Diffing algorithm that requires all it's elements to be `Equatable`.
     public let differ: EquatableDiffingAlgorithm
@@ -51,7 +51,7 @@ open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSec
 }
 
 /// `SingleSectionStorage` that requires all it's elements to be `Hashable`.
-open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSectionStorage<T> {
+open class SingleSectionHashableStorage<T:EntityIdentifiable & Hashable> : SingleSectionStorage<T> {
     
     /// Diffing algorithm that requires all it's elements to be `Hashable`.
     public let differ: HashableDiffingAlgorithm
@@ -78,7 +78,7 @@ open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSecti
 /// Abstract base class that represents a single section of items. Supports supplementary items to allow representing supplementary views in section.
 /// - SeeAlso: `SingleSectionHashableStorage`
 /// - SeeAlso: `SingleSectionEquatableStorage`
-open class SingleSectionStorage<T: Identifiable> : BaseUpdateDeliveringStorage, Storage {
+open class SingleSectionStorage<T: EntityIdentifiable> : BaseUpdateDeliveringStorage, Storage {
     
     /// Returns number of sections in a storage
     open func numberOfSections() -> Int {
