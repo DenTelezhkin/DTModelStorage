@@ -172,7 +172,6 @@ class RealmStorageTestCase: XCTestCase {
         }
         let exp = expectation(description: "Update notification expectation")
         observer.onUpdate = { observer, update in
-            print(update)
             if update.objectChanges.first?.1.first == indexPath(0, 0), update.objectChanges.first?.0 == .insert { return } // skip first update
             observer.verifyObjectChanges([
                 (.update, [indexPath(0, 0)])

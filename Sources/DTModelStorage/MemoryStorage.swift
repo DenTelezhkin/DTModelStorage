@@ -89,7 +89,11 @@ public enum MemoryStorageAnomaly: Equatable, CustomStringConvertible, CustomDebu
 open class MemoryStorageAnomalyHandler : AnomalyHandler {
     
     /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
-    public static var defaultAction : (MemoryStorageAnomaly) -> Void = { print($0.debugDescription) }
+    public static var defaultAction : (MemoryStorageAnomaly) -> Void = {
+        #if DEBUG
+            print($0.debugDescription)
+        #endif
+    }
     
     /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
     open var anomalyAction: (MemoryStorageAnomaly) -> Void = MemoryStorageAnomalyHandler.defaultAction
