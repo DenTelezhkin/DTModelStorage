@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
-**This is a major release with some breaking changes, please read [DTModelStorage 8.0 Migration Guide](https://github.com/DenTelezhkin/DTModelStorage/blob/next/Guides/8.0%20Migration%20Guide.md)**
+**This is a major release with some breaking changes, please read [DTModelStorage 8.0 Migration Guide](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Guides/8.0%20Migration%20Guide.md)**
 
 ### Added
 
