@@ -26,7 +26,7 @@
 import Foundation
 
 /// `SingleSectionStorage` that requires all it's elements to be `Equatable`.
-open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSectionStorage<T> {
+open class SingleSectionEquatableStorage<T:EntityIdentifiable & Equatable> : SingleSectionStorage<T> {
     
     /// Diffing algorithm that requires all it's elements to be `Equatable`.
     public let differ: EquatableDiffingAlgorithm
@@ -51,7 +51,7 @@ open class SingleSectionEquatableStorage<T:Identifiable & Equatable> : SingleSec
 }
 
 /// `SingleSectionStorage` that requires all it's elements to be `Hashable`.
-open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSectionStorage<T> {
+open class SingleSectionHashableStorage<T:EntityIdentifiable & Hashable> : SingleSectionStorage<T> {
     
     /// Diffing algorithm that requires all it's elements to be `Hashable`.
     public let differ: HashableDiffingAlgorithm
@@ -78,10 +78,25 @@ open class SingleSectionHashableStorage<T:Identifiable & Hashable> : SingleSecti
 /// Abstract base class that represents a single section of items. Supports supplementary items to allow representing supplementary views in section.
 /// - SeeAlso: `SingleSectionHashableStorage`
 /// - SeeAlso: `SingleSectionEquatableStorage`
-open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, SupplementaryStorage, HeaderFooterSettable {
+open class SingleSectionStorage<T: EntityIdentifiable> : BaseUpdateDeliveringStorage, Storage {
+    
+    /// Returns number of sections in a storage
+    open func numberOfSections() -> Int {
+        return 1
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: given section index.
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard section == 0 else { return 0 }
+        return items.count
+    }
     
     /// Array of items, that section contains.
-    open var items : [T] { return section.items(ofType: T.self) }
+    open var items : [T] {
+        get { return section.items(ofType: T.self) }
+        set { section.setItems(newValue) }
+    }
     
     /// Internal representation of a single section
     private var section : SectionModel
@@ -105,52 +120,6 @@ open class SingleSectionStorage<T: Identifiable> : BaseStorage, Storage, Supplem
         guard indexPath.section == 0 else { return nil }
         guard indexPath.item < section.items.count else { return nil }
         return section.items[indexPath.item]
-    }
-    
-    /// Array of sections in storage. This method will always return array with single section. Attempting to set any amount of sections different from one, or a section that is not `SectionModel` does nothing.
-    public var sections: [Section] {
-        get {
-            return [section]
-        }
-        set {
-            if newValue.count > 1 {
-                print("Attempt to set more than 1 section to SingleSectionStorage. If you need more than 1 section, consider using MemoryStorage.")
-            } else if let compatibleSection = newValue.first as? SectionModel {
-                section = compatibleSection
-            } else {
-                print("Attempt to set empty or incompatible section to SingleSectionStorage. Please use SectionModel object for SingleSectionStorage section.")
-            }
-        }
-    }
-    
-    // SupplementaryStorage
-    
-    /// Retrieve supplementary model of `kind` for section at `indexPath`.
-    ///
-    /// - Parameters:
-    ///   - kind: supplementary kind
-    ///   - indexPath: indexPath for determining supplementary location
-    /// - Returns: supplementary model, or nil if indexPath is out of bounds, or section is different from 0.
-    public func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
-        guard indexPath.section == 0 else { return nil }
-        return section.supplementaryModel(ofKind: kind, atIndex: indexPath.item)
-    }
-    
-    /// Set supplementaries for specific `kind`. Attempting to set any amount of models that is more than 1 does nothing.
-    ///
-    /// - Parameters:
-    ///   - models: array of models. Must consist of zero or one element, otherwise is ignored.
-    ///   - kind: supplementary kind
-    public func setSupplementaries(_ models: [[Int : Any]], forKind kind: String) {
-        guard models.count <= 1 else {
-            print("Attempt to set more than 1 section of supplementaries to SingleSectionStorage.")
-            return
-        }
-        if models.count == 0 {
-            section.supplementaries[kind] = nil
-        } else {
-            section.supplementaries[kind] = models[0]
-        }
     }
     
     // Diffing and updates

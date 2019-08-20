@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "5FC0E9D3-6857-40DA-8AEF-06FA3CE002CA",
+      "name" : "Configuration 1",
+      "options" : {
+        "addressSanitizer" : {
+          "enabled" : true
+        }
+      }
+    },
+    {
+      "id" : "811325DC-4F20-470E-8FC4-DF2D0C8CF58E",
+      "name" : "Configuration 2",
+      "options" : {
+        "threadSanitizerEnabled" : true
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DTModelStorage.xcodeproj",
+        "identifier" : "3E59693A21468684009C3DE8",
+        "name" : "Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -89,7 +89,11 @@ public enum MemoryStorageAnomaly: Equatable, CustomStringConvertible, CustomDebu
 open class MemoryStorageAnomalyHandler : AnomalyHandler {
     
     /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
-    public static var defaultAction : (MemoryStorageAnomaly) -> Void = { print($0.debugDescription) }
+    public static var defaultAction : (MemoryStorageAnomaly) -> Void = {
+        #if DEBUG
+            print($0.debugDescription)
+        #endif
+    }
     
     /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
     open var anomalyAction: (MemoryStorageAnomaly) -> Void = MemoryStorageAnomalyHandler.defaultAction
@@ -107,14 +111,6 @@ public enum MemoryStorageError: LocalizedError
         case indexPathTooBig(IndexPath)
     }
     
-    @available(*, deprecated, message: "BatchInsertionReason is being replaced by `AnomalyHandler` implementation on MemoryStorage and will be removed in future versions.")
-    /// Errors that can be thrown, when calling `insertItems(_:to:)` method
-    public enum BatchInsertionReason
-    {
-        /// Is thrown, if length of batch inserted array is different from length of array of index paths.
-        case itemsCountMismatch
-    }
-    
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:with:)` method
     public enum SearchReason
     {
@@ -129,7 +125,6 @@ public enum MemoryStorageError: LocalizedError
     }
     
     case insertionFailed(reason: InsertionReason)
-    case batchInsertionFailed(reason: BatchInsertionReason)
     case searchFailed(reason: SearchReason)
     
     /// Description of error 
@@ -137,8 +132,6 @@ public enum MemoryStorageError: LocalizedError
         switch self {
         case .insertionFailed(reason: _):
             return "IndexPath provided was bigger then existing section or item"
-        case .batchInsertionFailed(reason: _):
-            return "While inserting batch of items, length of provided array differs from index path array length"
         case .searchFailed(reason: let reason):
             return reason.localizedDescription
         }
@@ -150,7 +143,7 @@ public enum MemoryStorageError: LocalizedError
 /// `MemoryStorage` stores data models using array of `SectionModel` instances. It has various methods for changing storage contents - add, remove, insert, replace e.t.c.
 /// - Note: It also notifies it's delegate about underlying changes so that delegate can update interface accordingly
 /// - SeeAlso: `SectionModel`
-open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
+open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
     /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
     /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
@@ -168,6 +161,18 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
                 ($0 as? SectionModel)?.sectionLocationDelegate = self
             }
         }
+    }
+    
+    /// Returns number of sections in storage
+    open func numberOfSections() -> Int {
+        return sections.count
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: given section
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard sections.count > section else { return 0 }
+        return sections[section].numberOfItems
     }
     
     func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
@@ -199,63 +204,8 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns item at `indexPath` or nil, if it is not found.
     open func item(at indexPath: IndexPath) -> Any? {
         guard indexPath.section < sections.count else { return nil }
-        guard indexPath.item < sections[indexPath.section].items.count else { return nil }
-        return sections[indexPath.section].items[indexPath.item]
-    }
-    
-    /// Sets section header `model` for section at `sectionIndex`
-    ///
-    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
-    /// - SeeAlso: `configureForTableViewUsage`
-    /// - SeeAlso: `configureForCollectionViewUsage`
-    open func setSectionHeaderModel<T>(_ model: T?, forSection sectionIndex: Int)
-    {
-        guard let headerKind = supplementaryHeaderKind else {
-            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
-        }
-        let section = getValidSection(sectionIndex, collectChangesIn: nil)
-        section.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
-        delegate?.storageNeedsReloading()
-    }
-    
-    /// Sets section footer `model` for section at `sectionIndex`
-    ///
-    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
-    /// - SeeAlso: `configureForTableViewUsage`
-    /// - SeeAlso: `configureForCollectionViewUsage`
-    open func setSectionFooterModel<T>(_ model: T?, forSection sectionIndex: Int)
-    {
-        guard let footerKind = supplementaryFooterKind else {
-            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
-        }
-        let section = getValidSection(sectionIndex, collectChangesIn: nil)
-        section.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
-        delegate?.storageNeedsReloading()
-    }
-    
-    /// Sets supplementary `models` for supplementary of `kind`.
-    ///
-    /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
-    open func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
-    {
-        defer {
-            self.delegate?.storageNeedsReloading()
-        }
-        
-        if models.count == 0 {
-            for index in 0..<self.sections.count {
-                let section = self.sections[index] as? SupplementaryAccessible
-                section?.supplementaries[kind] = nil
-            }
-            return
-        }
-        
-        _ = getValidSection(models.count - 1, collectChangesIn: nil)
-        
-        for index in 0 ..< models.count {
-            let section = self.sections[index] as? SupplementaryAccessible
-            section?.supplementaries[kind] = models[index]
-        }
+        guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
+        return sections[indexPath.section].item(at: indexPath.item)
     }
     
     /// Sets `items` for section at `index`.
@@ -375,7 +325,7 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     {
         if items.count != indexPaths.count {
             anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))
-            throw MemoryStorageError.batchInsertionFailed(reason: .itemsCountMismatch)
+            return
         }
         if defersDatasourceUpdates {
             performDatasourceUpdate { [weak self] update in
@@ -622,8 +572,13 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns items in section with section `index`, or nil if section does not exist
     open func items(inSection index: Int) -> [Any]?
     {
-        if self.sections.count > index {
-            return self.sections[index].items
+        if sections.count > index {
+            let indexes = (0...sections[index].numberOfItems)
+            return indexes.reduce(into: []) { result, row in
+                item(at: IndexPath(row: row, section: index)).map {
+                    result?.append($0)
+                }
+            }
         }
         return nil
     }
@@ -631,9 +586,9 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
     /// Returns indexPath of `searchableItem` in MemoryStorage or nil, if it's not found.
     open func indexPath<T: Equatable>(forItem searchableItem: T) -> IndexPath?
     {
-        for sectionIndex in 0..<self.sections.count
+        for sectionIndex in 0..<sections.count
         {
-            let rows = self.sections[sectionIndex].items
+            let rows = items(inSection: sectionIndex) ?? []
             
             for rowIndex in 0..<rows.count {
                 if let item = rows[rowIndex] as? T, item == searchableItem {
@@ -701,18 +656,5 @@ open class MemoryStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoc
         let unsorted = NSMutableArray(array: indexPaths)
         let descriptor = NSSortDescriptor(key: "self", ascending: ascending)
         return unsorted.sortedArray(using: [descriptor]) as? [IndexPath] ?? []
-    }
-    
-    // MARK: - SupplementaryStorage
-    
-    /// Returns supplementary model of supplementary `kind` for section at `sectionIndexPath`. Returns nil if not found.
-    ///
-    /// - SeeAlso: `headerModelForSectionIndex`
-    /// - SeeAlso: `footerModelForSectionIndex`
-    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any? {
-        guard sectionIndexPath.section < sections.count else {
-            return nil
-        }
-        return (self.sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModel(ofKind:kind, atIndex: sectionIndexPath.item)
     }
 }

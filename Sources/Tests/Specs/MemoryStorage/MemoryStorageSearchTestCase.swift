@@ -54,6 +54,9 @@ class MemoryStorageSearchSpec: XCTestCase {
         model = storage.item(at: indexPath(0, 0))
         
         XCTAssertEqual(model as? String, "1")
+        XCTAssertEqual(storage.numberOfSections(), 2)
+        XCTAssertEqual(storage.numberOfItems(inSection: 0), 2)
+        XCTAssertEqual(storage.numberOfItems(inSection: 2), 0)
     }
     
     func testShouldReturnIndexPathOfItem()

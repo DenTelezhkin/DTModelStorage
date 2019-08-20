@@ -59,8 +59,8 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testSetSectionSupplementariesModel()
     {
         storage.configureForTableViewUsage()
-        storage.setSectionHeaderModel(1, forSection: 0)
-        storage.setSectionFooterModel(2, forSection: 1)
+        storage.setSectionHeaderModels([1])
+        storage.setSectionFooterModels([nil, 2])
         XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
         XCTAssertEqual(storage.footerModel(forSection: 1) as? Int, 2)
     }
@@ -270,14 +270,6 @@ class MemoryStorageEditSpecs: XCTestCase {
         XCTAssertEqual(storage.sections.count, 2)
     }
     
-    func testShouldSafelySetAndRetrieveSupplementaryModel()
-    {
-        let section = SectionModel()
-        section.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
-        
-        XCTAssertEqual(section.supplementaryModel(ofKind: "bar", atIndex: 0) as? String, "foo")
-    }
-    
     func testShouldNotCallDelegateForOptionalMethod()
     {
         _ = storage.supplementaryModel(ofKind: "foo", forSectionAt: indexPath(0, 1))
@@ -286,30 +278,12 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldBeAbleToRetrieveSupplementaryModelViaStorageMethod()
     {
         storage.addItem(1)
-        storage.section(atIndex: 0)?.setSupplementaryModel("foo", forKind: "bar", atIndex: 0)
+        storage.supplementaryModelProvider = { kind, indexPath in
+            guard kind == "bar" else { return nil }
+            guard indexPath.section == 0, indexPath.item == 0 else { return nil }
+            return "foo"
+        }
         XCTAssertEqual(storage.supplementaryModel(ofKind: "bar", forSectionAt: indexPath(0, 0)) as? String, "foo")
-    }
-    
-    func testShouldSetSupplementaries()
-    {
-        let kind = "foo"
-        storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
-        
-        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 1)
-        XCTAssertEqual(storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 2)
-        XCTAssertEqual(storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0) as? Int, 3)
-    }
-    
-    func testShouldNilOutSupplementaries()
-    {
-        let kind = "foo"
-        storage.setSupplementaries([[0: 1], [0: 2], [0: 3]], forKind: kind)
-        
-        storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: kind)
-        
-        XCTAssertNil(storage.section(atIndex: 0)?.supplementaryModel(ofKind: kind, atIndex: 0))
-        XCTAssertNil(storage.section(atIndex: 1)?.supplementaryModel(ofKind: kind, atIndex: 0))
-        XCTAssertNil(storage.section(atIndex: 2)?.supplementaryModel(ofKind: kind, atIndex: 0))
     }
     
     func testShouldGetItemCorrectly()
@@ -466,7 +440,7 @@ class SectionSupplementariesTestCase : XCTestCase
     {
         storage.setSectionHeaderModels([1, 2, 3])
         
-        XCTAssertEqual(storage.sections.count, 3)
+        XCTAssertEqual(storage.sections.count, 0)
         XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
         XCTAssertEqual(storage.headerModel(forSection: 1) as? Int, 2)
         XCTAssertEqual(storage.headerModel(forSection: 2) as? Int, 3)
@@ -474,9 +448,9 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testSectionFooterModelsSetter()
     {
-        storage.setSectionFooterModels([1, 2, 3])
+        storage.setSectionFooterModels([1,2,3])
         
-        XCTAssertEqual(storage.sections.count, 3)
+        XCTAssertEqual(storage.sections.count, 0)
         XCTAssertEqual(storage.footerModel(forSection: 0) as? Int, 1)
         XCTAssertEqual(storage.footerModel(forSection: 1) as? Int, 2)
         XCTAssertEqual(storage.footerModel(forSection: 2) as? Int, 3)
@@ -484,38 +458,18 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testNillifySectionHeaders()
     {
-        storage.setSectionHeaderModels([1, 2, 3])
-        storage.setSectionHeaderModels([Int]())
+        storage.headerModelProvider = { [1,2,3][$0] }
+        storage.headerModelProvider = { _ in nil }
         
         XCTAssertNil(storage.headerModel(forSection: 1))
     }
     
     func testNillifySectionFooters()
     {
-        storage.setSectionFooterModels([1, 2, 3])
-        storage.setSectionFooterModels([Int]())
+        storage.footerModelProvider = { [1,2,3][$0] }
+        storage.footerModelProvider = { _ in nil }
         
         XCTAssertNil(storage.footerModel(forSection: 1))
-    }
-    
-    func testInsertingSection()
-    {
-        let section = SectionModel()
-        section.setSupplementaryModel("Foo", forKind: DTCollectionViewElementSectionHeader, atIndex: 0)
-        section.setSupplementaryModel("Bar", forKind: DTCollectionViewElementSectionFooter, atIndex: 0)
-        section.setItems([1, 2, 3])
-        storage.insertSection(section, atIndex: 0)
-        updatesObserver.verifySectionChanges([(.insert, [0])])
-        updatesObserver.verifyObjectChanges([
-            (.insert, [indexPath(0, 0)]),
-            (.insert, [indexPath(1, 0)]),
-            (.insert, [indexPath(2, 0)])
-        ])
-        
-        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionHeader, atIndex: 0) as? String, "Foo")
-        XCTAssertEqual(storage.section(atIndex: 0)?.supplementaryModel(ofKind: DTCollectionViewElementSectionFooter, atIndex: 0) as? String, "Bar")
-        XCTAssertEqual(storage.section(atIndex: 0)?.items.first as? Int, 1)
-        XCTAssertEqual(storage.section(atIndex: 0)?.items.last as? Int, 3)
     }
     
     func testInsertingSectionAtWrongIndexPathDoesNotWork()
@@ -550,19 +504,6 @@ class SectionSupplementariesTestCase : XCTestCase
         
         XCTAssertEqual(self.storage.items(inSection: 0)?.count, 3)
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2, 3])
-    }
-    
-    func testWrongCountsRaisesException() {
-        do {
-            try storage.insertItems([1, 2], to: [indexPath(0, 0)])
-        } catch let error as MemoryStorageError  {
-            guard case MemoryStorageError.batchInsertionFailed(reason: _) = error else {
-                XCTFail()
-                return
-            }
-        } catch {
-            XCTFail()
-        }
     }
     
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {

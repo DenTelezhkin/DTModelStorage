@@ -19,21 +19,12 @@ class SectionModelTestCase: XCTestCase {
         section = SectionModel()
     }
     
-    func testSectionModelSupplementaryModelChange()
-    {
-        section.setSupplementaryModel("bar", forKind: "foo", atIndex: 0)
-        
-        XCTAssertEqual(section.supplementaryModel(ofKind: "foo", atIndex: 0) as? String ?? "", "bar")
-        
-        section.setSupplementaryModel(nil, forKind: "foo", atIndex: 0)
-        XCTAssert(section.supplementaryModel(ofKind: "foo", atIndex: 0) == nil)
-    }
-    
     func testItemsOfTypeWorks()
     {
-        let section = SectionModel()
         section.setItems([1, 2, 3])
         
         XCTAssertEqual(section.items(ofType: Int.self), [1, 2, 3])
+        XCTAssertEqual(section.item(at: 2) as? Int, 3)
+        XCTAssertNil(section.item(at: 3))
     }
 }

@@ -32,36 +32,31 @@ public protocol SectionLocationIdentifyable : class {
 }
 
 /// Allows access to supplementaries for specific section
-public protocol SupplementaryAccessible : class {
+public protocol SectionLocatable : class {
     
     /// Section index for current section
     var currentSectionIndex: Int? { get }
     
     /// delegate, that knows about current section index in storage.
     var sectionLocationDelegate: SectionLocationIdentifyable? { get set }
-    
-    /// Supplementaries dictionary
-    var supplementaries: [String: [Int:Any]] { get set }
-    
-    /// Returns supplementary model of `kind` at `index` or nil, if it was not found
-    func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
-    
-    /// Sets supplementary `model` for `kind` at `index`
-    func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
 }
 
-extension SupplementaryAccessible {
+extension SectionLocatable {
+    
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")
+    /// Supplementaries dictionary
+    var supplementaries: [String: [Int:Any]] { return [:] }
+    
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")
     /// Returns supplementary model of `kind` at `index` or nil, if it was not found
     public func supplementaryModel(ofKind kind: String, atIndex index: Int) -> Any?
     {
-        return self.supplementaries[kind]?[index]
+        return nil
     }
     
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")
     /// Sets supplementary `model` for `kind` at `index`
     public func setSupplementaryModel(_ model : Any?, forKind kind: String, atIndex index: Int)
     {
-        var dictionary: [Int:Any] = supplementaries[kind] ?? [:]
-        dictionary[index] = model
-        self.supplementaries[kind] = dictionary
     }
 }

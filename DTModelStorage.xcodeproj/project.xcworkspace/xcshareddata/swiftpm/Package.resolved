@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Dwifft",
+        "repositoryURL": "https://github.com/DenTelezhkin/Dwifft",
+        "state": {
+          "branch": "swift-pm",
+          "revision": "4fcb62b0a96780606589beac00f74f317be5e0e0",
+          "version": null
+        }
+      },
+      {
+        "package": "HeckelDiff",
+        "repositoryURL": "https://github.com/mcudich/HeckelDiff",
+        "state": {
+          "branch": "master",
+          "revision": "8abdc7ffbecd4f2009d31e22d254eb159af80c4c",
+          "version": null
+        }
+      },
+      {
+        "package": "Realm",
+        "repositoryURL": "https://github.com/realm/realm-cocoa",
+        "state": {
+          "branch": "master",
+          "revision": "ae9ad9a08c13d98f01f6984175a8adbf6e04df20",
+          "version": null
+        }
+      },
+      {
+        "package": "RealmCore",
+        "repositoryURL": "https://github.com/realm/realm-core",
+        "state": {
+          "branch": "master",
+          "revision": "34bbde3cb641e8fd4246fc1e41ea4ff71514f1b7",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -34,7 +34,7 @@ public protocol AccumulationStrategy {
     ///   - oldItems: array of items, already present in storage
     ///   - newItems: array of items, that will be accumulated
     /// - Returns: Accumulated items array.
-    func accumulate<T:Identifiable>(oldItems: [T], newItems: [T]) -> [T]
+    func accumulate<T:EntityIdentifiable>(oldItems: [T], newItems: [T]) -> [T]
 }
 
 /// Strategy, that adds new items to old items, without comparing their identifiers.
@@ -50,7 +50,7 @@ public struct AdditiveAccumulationStrategy: AccumulationStrategy {
     ///   - oldItems: array of items, already present in storage
     ///   - newItems: array of items, that will be accumulated
     /// - Returns: Array, that consists of old items and new items.
-    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
+    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : EntityIdentifiable {
         return oldItems + newItems
     }
 }
@@ -68,7 +68,7 @@ public struct UpdateOldValuesAccumulationStrategy: AccumulationStrategy {
     ///   - oldItems: array of items, already present in storage
     ///   - newItems: array of items, that will be accumulated
     /// - Returns: Accumulated items array, that contains old items updated with new values and new unique values.
-    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
+    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : EntityIdentifiable {
         var newArray = oldItems
         var existingIdentifiers = [AnyHashable:Int]()
         for (index, oldItem) in oldItems.enumerated() {
@@ -101,7 +101,7 @@ public struct DeleteOldValuesAccumulationStrategy: AccumulationStrategy {
     ///   - oldItems: array of items, already present in storage
     ///   - newItems: array of items, that will be accumulated
     /// - Returns: Accumulated items array.
-    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : Identifiable {
+    public func accumulate<T>(oldItems: [T], newItems: [T]) -> [T] where T : EntityIdentifiable {
         var newArray = oldItems
         var existingIdentifiers = [AnyHashable:Int]()
         var indexesToDelete = [Int]()

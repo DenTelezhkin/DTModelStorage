@@ -36,13 +36,13 @@ let error = "RealmSwift framework is needed for RealmStorage to work, which is c
 
 /// Storage class, that handles multiple `RealmSection` instances with Realm.Results<T>. It is similar with CoreDataStorage, but for Realm database. 
 /// When created, it automatically subscribes for Realm notifications and notifies delegate when it's sections change.
-open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLocationIdentifyable, HeaderFooterSettable
+open class RealmStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
     /// Array of `RealmSection` objects
     open var sections = [Section]() {
         didSet {
             sections.forEach {
-                ($0 as? SupplementaryAccessible)?.sectionLocationDelegate = self
+                ($0 as? SectionLocatable)?.sectionLocationDelegate = self
             }
         }
     }
@@ -52,6 +52,18 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
         return sections.firstIndex(where: {
             return ($0 as AnyObject) === (section as AnyObject)
         })
+    }
+    
+    /// Returns number of sections in storage.
+    open func numberOfSections() -> Int {
+        return sections.count
+    }
+    
+    /// Returns number of items in a given section
+    /// - Parameter section: section index
+    open func numberOfItems(inSection section: Int) -> Int {
+        guard sections.count > section else { return 0 }
+        return sections[section].numberOfItems
     }
     
     /// Storage for notification tokens of `Realm`
@@ -145,55 +157,6 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
             currentUpdate?.sectionChanges.append((.delete, [$0]))
         }
     }
-    
-    /// Sets section header `model` for section at `sectionIndex`
-    ///
-    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
-    /// - SeeAlso: `configureForTableViewUsage`
-    /// - SeeAlso: `configureForCollectionViewUsage`
-    open func setSectionHeaderModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
-    {
-        guard let headerKind = supplementaryHeaderKind else {
-            assertionFailure("supplementaryHeaderKind property was not set before calling setSectionHeaderModel: forSectionIndex: method"); return
-        }
-        let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: headerKind, atIndex: 0)
-    }
-    
-    /// Sets section footer `model` for section at `sectionIndex`
-    ///
-    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
-    /// - SeeAlso: `configureForTableViewUsage`
-    /// - SeeAlso: `configureForCollectionViewUsage`
-    open func setSectionFooterModel<T>(_ model: T?, forSectionIndex sectionIndex: Int)
-    {
-        guard let footerKind = supplementaryFooterKind else {
-            assertionFailure("supplementaryFooterKind property was not set before calling setSectionFooterModel: forSectionIndex: method"); return
-        }
-        let section = (self.section(at: sectionIndex) as? SupplementaryAccessible)
-        section?.setSupplementaryModel(model, forKind: footerKind, atIndex: 0)
-    }
-    
-    /// Sets supplementary `models` for supplementary of `kind`.
-    ///
-    /// - Note: This method can be used to clear all supplementaries of specific kind, just pass an empty array as models.
-    open func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
-    {
-        if models.count == 0 {
-            for index in 0 ..< self.sections.count {
-                let section = self.sections[index] as? SupplementaryAccessible
-                section?.supplementaries[kind] = nil
-            }
-            return
-        }
-        
-        assert(sections.count >= models.count, "The section should be set before setting supplementaries")
-        
-        for index in 0 ..< models.count {
-            let section = self.sections[index] as? SupplementaryAccessible
-            section?.supplementaries[kind] = models[index]
-        }
-    }
         
     // MARK: - Storage
     
@@ -203,18 +166,6 @@ open class RealmStorage: BaseStorage, Storage, SupplementaryStorage, SectionLoca
             return nil
         }
         guard indexPath.item < sections[indexPath.section].numberOfItems else { return nil }
-        return sections[indexPath.section].items[indexPath.item]
-    }
-    
-    // MARK: - SupplementaryStorage
-    
-    /// Returns supplementary model of supplementary `kind` for section at `sectionIndexPath`. Returns nil if not found.
-    ///
-    /// - SeeAlso: `headerModelForSectionIndex`
-    /// - SeeAlso: `footerModelForSectionIndex`
-    open func supplementaryModel(ofKind kind: String, forSectionAt sectionIndexPath: IndexPath) -> Any? {
-        guard sectionIndexPath.section < sections.count else { return nil }
-        
-        return (sections[sectionIndexPath.section] as? SupplementaryAccessible)?.supplementaryModel(ofKind:kind, atIndex: sectionIndexPath.item)
+        return sections[indexPath.section].item(at: indexPath.item)
     }
 }

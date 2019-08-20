@@ -35,7 +35,7 @@ let error = "RealmSwift framework is needed for RealmStorage to work, which is c
 #endif
 
 /// Data holder for single section in `RealmStorage`.
-open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Section {
+open class RealmSection<T: RealmCollectionValue> : SectionLocatable, Section {
     
     /// Results object
     open var results: AnyRealmCollection<T>
@@ -48,6 +48,7 @@ open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Sect
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
     
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider as a replacement.")
     /// Supplementaries dictionary
     open var supplementaries = [String: [Int: Any]]()
     
@@ -59,9 +60,11 @@ open class RealmSection<T: RealmCollectionValue> : SupplementaryAccessible, Sect
     
     // MARK: - Section
     
-    /// Items in `RealmSection`
-    open var items: [Any] {
-        return results.map { $0 }
+    /// Returns item at given index
+    /// - Parameter index: index to search for.
+    public func item(at index: Int) -> Any? {
+        guard results.count > index else { return nil }
+        return results[index]
     }
     
     /// Number of items in `RealmSection`

@@ -3,15 +3,59 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
-## [7.4.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.1)
+**This is a major release with some breaking changes, please read [DTModelStorage 8.0 Migration Guide](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Guides/8.0%20Migration%20Guide.md)**
 
 ### Added
 
 * `bundle` property on `ViewModelMapping`, that exposes recommended bundle to be used when searching for resources of given mapping.
+* Setter for `SingleSectionStorage.items` property.
+* `Section.item(at:)` method.
+* `ProxyDiffableDataSourceStorage` that serves as a bridge between `DTTableViewManager`/`DTCollectionViewManager` and diffable datasource classes(`UITableViewDiffableDataSource`\`UICollectionViewDiffableDataSource`).
+
+### Changed
+
+* `configureForTableViewUsage`, `configureForCollectionViewUsage`, `headerModel(forSection:)`, `footerModel(forSection:)`, have been moved to protocol extensions instead of being implemented in `BaseStorage` class. As a consequence, `BaseStorage` no longer confirms to HeaderFooterStorage protocol.
+
+### Breaking
+
+`Identifiable` protocol has been renamed to `EntityIdentifiable` protocol to avoid unwanted clashes with `Foundation.Identifiable` protocol, that is available on iOS 13 and higher.
+
+Complete rewrite of header/footer/supplementary model handling. Instead of several implementations and model storages, the API now consists of three closure based properties on `SupplementaryStorage` protocol : `headerModelProvider`, `footerModelProvider` and `supplementaryModelProvider`. All storage classes implement this protocol (`MemoryStorage`, `CoreDataStorage`, `RealmStorage`, `SingleSectionStorage`, `ProxyDiffableDataSourceStorage`).
+
+Storage protocols and classes have been restructured:
+
+* `SupplementaryAccessible` renamed to `SectionLocatable`
+* `HeaderFooterStorage`  and `HeaderFooterSettable` have been removed
+* `HeaderFooterStorage` functionality mostly has been merged into new protocol `SupplementaryStorage`
+* `BaseStorage` has been split into `BaseSupplementaryStorage` and `BaseUpdateDeliveringStorage` that inherits from it.
+
+Several methods continue to work, but are now bridging to new closure-based API:
+
+* `setSectionHeaderModels`
+* `setSectionFooterModels`
+* `headerModel(forSection:)`
+* `footerModel(forSection:)`
+* `supplementaryModel(ofKind:forSectionAt:)`
+
+`setSectionHeaderModels` and `setSectionFooterModels`, as well as new closure-based API **do not call reloadData method, as they were doing before**. If you need to reset section headers/footers/supplementaries, consider calling `StorageUpdating.storageNeedsReloading()` method manually.
+
+All methods that allowed to set header/footer/supplementary models partially, for a specific section or specific supplementary kind, have been made unavailable or removed.
+
+`CoreDataStorage` now sets `headerModelProvider` closure to allow using FetchedResultsController section name as header instead of having arbitrary logic that compared supplementaryKind to `displaySectionNameForSupplementaryKinds` property, which is also made unavailable.
+
+### Removed
+
+* Deprecated `MemoryStorageError.BatchInsertionReason` enum.
+* Deprecated `ViewModelMappingCustomizing` protocol.
+* `sections` method on `Storage` protocol. It is replaced by more perfomant `numberOfSections()` and `numberOfItems(inSection:)` methods.
+* `sections` method on `CoreDataStorage` and `SingleSectionStorage`
+* `items` property on `Section` protocol. It is replaced by `item(at:)` method.
+
+## [7.4.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.1)
 
 ### Fixed
 
-* `setItemsForAllSections` method now properly removes all sections prior to setting new ones. This prevents a bug, where old sections could stay, if this method was called with fewer number of sections. 
+* `setItemsForAllSections` method now properly removes all sections prior to setting new ones. This prevents a bug, where old sections could stay, if this method was called with fewer number of sections.
 
 ## [7.4.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/7.4.0)
 

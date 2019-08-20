@@ -29,31 +29,27 @@ import UIKit
 /// `Storage` protocol is used to define common interface for storage classes.
 public protocol Storage : class
 {
-    /// Array of sections, conforming to `Section` protocol.
-    var sections: [Section] { get }
+    /// Returns number of sections in storage.
+    func numberOfSections() -> Int
+    
+    /// Returns number of items in section.
+    func numberOfItems(inSection section: Int) -> Int
     
     /// Returns item at concrete indexPath.
     func item(at indexPath: IndexPath) -> Any?
-    
-    /// Delegate property used to notify about current data storage changes.
-    var delegate: StorageUpdating? { get set }
 }
 
-/// `SupplementaryStorage` protocol defines interface for storages, that can hold supplementary objects(like header and footer models).
+/// `SupplementaryStorage` is used to handle header/footer and supplementary models in storage.
 public protocol SupplementaryStorage : class
 {
-    /// Returns supplementary model of `kind` for section at `indexPath`.
-    func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any?
-}
-
-/// `HeaderFooterStorage` protocol defines interface for storages, that can hold header and footer objects of specific supplementary type(for example like UICollectionElementKindSectionHeader)
-public protocol HeaderFooterStorage : class
-{
-    /// Returns header model for section with section `index` or nil if not found.
-    func headerModel(forSection index: Int) -> Any?
+    /// Returns a header model for specified section index or nil.
+    var headerModelProvider: ((_ sectionIndex: Int) -> Any?)? { get set }
     
-    /// Returns footer model for section with section `index` or nil if not found.
-    func footerModel(forSection index: Int) -> Any?
+    /// Returns a footer model for specified section index or nil
+    var footerModelProvider: ((_ sectionIndex: Int) -> Any?)? { get set }
+    
+    /// Returns supplementary model for specified section indexPath and supplementary kind, or nil.
+    var supplementaryModelProvider: ((_ kind: String, _ sectionIndexPath: IndexPath) -> Any?)? { get set }
     
     /// Supplementary kind for header in current storage
     var supplementaryHeaderKind: String? { get set }
@@ -62,52 +58,81 @@ public protocol HeaderFooterStorage : class
     var supplementaryFooterKind: String?  { get set }
 }
 
-
-/// Allows setting supplementaries for kind for various storage subclasses. 
-public protocol HeaderFooterSettable : HeaderFooterStorage {
-    func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
+extension SupplementaryStorage {
+    /// Configures storage for using with UITableView
+    public func configureForTableViewUsage()
+    {
+        supplementaryHeaderKind = DTTableViewElementSectionHeader
+        supplementaryFooterKind = DTTableViewElementSectionFooter
+    }
+    
+    /// Configures storage for using with UICollectionViewFlowLayout
+    public func configureForCollectionViewFlowLayoutUsage()
+    {
+        supplementaryHeaderKind = DTCollectionViewElementSectionHeader
+        supplementaryFooterKind = DTCollectionViewElementSectionFooter
+    }
+    
+/// Returns header model from section with section `index` or nil, if it was not set.
+    /// - Requires: supplementaryHeaderKind to be set prior to calling this method
+    public func headerModel(forSection index: Int) -> Any? {
+        return headerModelProvider?(index)
+    }
+    
+    /// Returns footer model from section with section `index` or nil, if it was not set.
+    /// - Requires: supplementaryFooterKind to be set prior to calling this method
+    public func footerModel(forSection index: Int) -> Any? {
+        return footerModelProvider?(index)
+    }
+    
+    /// Returns supplementary model of `kind` for section at `indexPath`.
+    public func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
+        return supplementaryModelProvider?(kind, indexPath)
+    }
 }
 
-extension HeaderFooterSettable {
+extension SupplementaryStorage {
+    @available(*, unavailable, message: "Please use storage.supplementaryModel closure instead.")
+    /// Sets supplementaries `models`, using `kind`.
+    public func setSupplementaries(_ models: [[Int: Any]], forKind kind: String)
+    {
+    }
+    
     /// Sets section header `models`, using `supplementaryHeaderKind`.
-    ///
-    /// - Note: `supplementaryHeaderKind` property should be set before calling this method.
     public func setSectionHeaderModels<T>(_ models: [T])
     {
-        guard let headerKind = supplementaryHeaderKind else {
-            assertionFailure("Please set supplementaryHeaderKind property before setting section header models"); return
+        headerModelProvider = { index in
+            guard index < models.count else { return nil }
+            return models[index]
         }
-        var supplementaries = [[Int: Any]]()
-        for model in models {
-            supplementaries.append([0: model])
-        }
-        setSupplementaries(supplementaries, forKind: headerKind)
     }
     
     /// Sets section footer `models`, using `supplementaryFooterKind`.
-    ///
-    /// - Note: `supplementaryFooterKind` property should be set before calling this method.
     public func setSectionFooterModels<T>(_ models: [T])
     {
-        guard let footerKind = supplementaryFooterKind else {
-            assertionFailure("Please set supplementaryFooterKind property before setting section footer models"); return
+        footerModelProvider = { index in
+            guard index < models.count else { return nil }
+            return models[index]
         }
-        var supplementaries = [[Int: Any]]()
-        for model in models {
-            supplementaries.append([0: model])
-        }
-        setSupplementaries(supplementaries, forKind: footerKind)
     }
-}
-
-/// `StorageUpdating` protocol is used to transfer data storage updates.
-public protocol StorageUpdating : class
-{
-    /// Transfers data storage updates. 
-    ///
-    /// Object, that implements this method, may react to received update by updating UI for current storage.
-    func storageDidPerformUpdate(_ update: StorageUpdate)
     
-    /// Method is called when UI needs to be fully updated for data storage changes.
-    func storageNeedsReloading()
+    @available(*, unavailable, message: "Please use storage.headerModelProvider closure instead.")
+    /// Sets section header `model` for section at `sectionIndex`
+    ///
+    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
+    /// - SeeAlso: `configureForTableViewUsage`
+    /// - SeeAlso: `configureForCollectionViewUsage`
+    public func setSectionHeaderModel<T>(_ model: T?, forSection sectionIndex: Int)
+    {
+    }
+    
+    @available(*, unavailable, message: "Please use storage.footerModelProvider closure instead.")
+    /// Sets section footer `model` for section at `sectionIndex`
+    ///
+    /// This method calls delegate?.storageNeedsReloading() method at the end, causing UI to be updated.
+    /// - SeeAlso: `configureForTableViewUsage`
+    /// - SeeAlso: `configureForCollectionViewUsage`
+    public func setSectionFooterModel<T>(_ model: T?, forSection sectionIndex: Int)
+    {
+    }
 }

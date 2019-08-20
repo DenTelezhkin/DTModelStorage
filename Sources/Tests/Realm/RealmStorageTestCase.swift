@@ -172,7 +172,6 @@ class RealmStorageTestCase: XCTestCase {
         }
         let exp = expectation(description: "Update notification expectation")
         observer.onUpdate = { observer, update in
-            print(update)
             if update.objectChanges.first?.1.first == indexPath(0, 0), update.objectChanges.first?.0 == .insert { return } // skip first update
             observer.verifyObjectChanges([
                 (.update, [indexPath(0, 0)])
@@ -195,7 +194,8 @@ class RealmStorageTestCase: XCTestCase {
         let section = storage.section(at: 0)
         
         XCTAssertEqual(section?.numberOfItems, 1)
-        XCTAssertEqual((section?.items.first as? Dog)?.name, "Rex")
+        XCTAssertEqual((section?.item(at: 0) as? Dog)?.name, "Rex")
+        XCTAssertNil(section?.item(at: 1))
     }
     
     func testItemAtIndexPathIsSafe() {
@@ -232,7 +232,9 @@ class RealmStorageTestCase: XCTestCase {
         storage.setSection(with: realm.objects(Dog.self), forSection: 0)
         
         XCTAssertEqual(storage.sections.count, 1)
-        XCTAssertEqual(storage.section(at: 0)?.items.count, 2)
+        XCTAssertEqual(storage.section(at: 0)?.numberOfItems, 2)
+        XCTAssertEqual(storage.numberOfItems(inSection: 0), 2)
+        XCTAssertEqual(storage.numberOfItems(inSection: 1), 0)
     }
     
     func testSectionShouldBeReplaced() {
@@ -243,7 +245,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.setSection(with: realm.objects(Dog.self), forSection: 0)
         
         XCTAssertEqual(storage.sections.count, 1)
-        XCTAssertEqual(storage.section(at: 0)?.items.count, 2)
+        XCTAssertEqual(storage.section(at: 0)?.numberOfItems, 2)
     }
     
     func testShouldDisallowSettingWrongSection() {
@@ -258,6 +260,7 @@ class RealmStorageTestCase: XCTestCase {
         storage.addSection(with: realm.objects(Dog.self))
         storage.addSection(with: realm.objects(Dog.self))
         storage.setSectionHeaderModels([1, 2, 3])
+        XCTAssertEqual(storage.numberOfSections(), 3)
         
         XCTAssertEqual(storage.headerModel(forSection: 2) as? Int, 3)
         XCTAssertNil(storage.supplementaryModel(ofKind: DTTableViewElementSectionHeader, forSectionAt: indexPath(0, 3)))
@@ -272,29 +275,6 @@ class RealmStorageTestCase: XCTestCase {
         
         XCTAssertEqual(storage.footerModel(forSection: 2) as? Int, 3)
         XCTAssertNil(storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: indexPath(0, 3)))
-    }
-    
-    func testSupplementariesCanBeClearedOut() {
-        storage.configureForTableViewUsage()
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionFooterModels([1, 2, 3])
-        
-        storage.setSupplementaries([[Int:Int]]().compactMap { $0 }, forKind: DTTableViewElementSectionFooter)
-        XCTAssertNil(storage.supplementaryModel(ofKind: DTTableViewElementSectionFooter, forSectionAt: indexPath(0, 0)))
-    }
-    
-    func testSettingSupplementaryModelForSectionIndex() {
-        storage.configureForTableViewUsage()
-        storage.addSection(with: realm.objects(Dog.self))
-        storage.setSectionHeaderModel(1, forSectionIndex: 0)
-    
-        XCTAssertEqual(storage.headerModel(forSection: 0) as? Int, 1)
-        
-        storage.setSectionFooterModel(2, forSectionIndex: 0)
-        
-        XCTAssertEqual(storage.footerModel(forSection: 0) as? Int, 2)
     }
     
     func testSectionModelIsAwareOfItsLocation() {

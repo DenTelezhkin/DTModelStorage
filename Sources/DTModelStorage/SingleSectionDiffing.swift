@@ -26,7 +26,7 @@
 import Foundation
 
 /// A type that can be identified by `identifier`.
-public protocol Identifiable {
+public protocol EntityIdentifiable {
     
     /// Unique identifier of object. It must never change for this specific object.
     var identifier: AnyHashable { get }
@@ -47,10 +47,10 @@ public enum SingleSectionOperation {
 
 /// Algorithm that requires elements in collection to be `Hashable`
 public protocol HashableDiffingAlgorithm {
-    func diff<T: Identifiable & Hashable>(from: [T], to: [T]) -> [SingleSectionOperation]
+    func diff<T: EntityIdentifiable & Hashable>(from: [T], to: [T]) -> [SingleSectionOperation]
 }
 
 /// Algorithm that requires elements in collection to be `Equatable`
 public protocol EquatableDiffingAlgorithm {
-    func diff<T: Identifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation]
+    func diff<T: EntityIdentifiable & Equatable>(from: [T], to: [T]) -> [SingleSectionOperation]
 }
