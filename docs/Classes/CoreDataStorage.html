@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           DTModelStorage Docs
         </a>
-         (88% documented)
+         (90% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -60,7 +60,10 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/BaseStorage.html">BaseStorage</a>
+                <a class="nav-group-task-link" href="../Classes/BaseSupplementaryStorage.html">BaseSupplementaryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CoreDataStorage.html">CoreDataStorage</a>
@@ -79,6 +82,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ProxyDiffableDataSourceStorage.html">ProxyDiffableDataSourceStorage</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/SectionModel.html">SectionModel</a>
@@ -142,9 +148,6 @@
                 <a class="nav-group-task-link" href="../Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
               </li>
               <li class="nav-group-task">
@@ -182,25 +185,22 @@
                 <a class="nav-group-task-link" href="../Protocols/AnomalyHandler.html">AnomalyHandler</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EntityIdentifiable.html">EntityIdentifiable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/Identifiable.html">Identifiable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ModelTransfer.html">ModelTransfer</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SectionLocatable.html">SectionLocatable</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
@@ -212,13 +212,7 @@
                 <a class="nav-group-task-link" href="../Protocols/StorageUpdating.html">StorageUpdating</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
               </li>
             </ul>
           </li>
@@ -245,7 +239,7 @@
             <h1>CoreDataStorage</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CoreDataStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes/BaseStorage.html">BaseStorage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span><span class="p">,</span> <span class="kt">NSFetchedResultsControllerDelegate</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">NSFetchRequestResult</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CoreDataStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt">NSFetchedResultsControllerDelegate</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">NSFetchRequestResult</span></code></pre>
 
                 </div>
               </div>
@@ -280,38 +274,6 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">fetchedResultsController</span><span class="p">:</span> <span class="kt">NSFetchedResultsController</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14DTModelStorage08CoreDataB0C39displaySectionNameForSupplementaryKindsSaySSGvp"></a>
-                    <a name="//apple_ref/swift/Property/displaySectionNameForSupplementaryKinds" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage08CoreDataB0C39displaySectionNameForSupplementaryKindsSaySSGvp">displaySectionNameForSupplementaryKinds</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
-Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]</p>
-
-<ul>
-<li>Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">displaySectionNameForSupplementaryKinds</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -367,9 +329,9 @@ Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeade
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage08CoreDataB0C8sectionsSayAA7Section_pGvp"></a>
-                    <a name="//apple_ref/swift/Property/sections" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage08CoreDataB0C8sectionsSayAA7Section_pGvp">sections</a>
+                    <a name="/s:14DTModelStorage08CoreDataB0C16numberOfSectionsSiyF"></a>
+                    <a name="//apple_ref/swift/Method/numberOfSections()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage08CoreDataB0C16numberOfSectionsSiyF">numberOfSections()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -377,26 +339,62 @@ Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeade
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sections of fetched results controller as required by Storage</p>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <code><a href="../Protocols/Storage.html">Storage</a></code>
-
-</div>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <code><a href="../Classes/MemoryStorage.html">MemoryStorage</a></code>
-
-</div>
+                        <p>Returns number of sections in storage.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">sections</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/Section.html">Section</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">numberOfSections</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage08CoreDataB0C13numberOfItems9inSectionS2i_tF"></a>
+                    <a name="//apple_ref/swift/Method/numberOfItems(inSection:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage08CoreDataB0C13numberOfItems9inSectionS2i_tF">numberOfItems(inSection:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns number of items in a given section</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">numberOfItems</span><span class="p">(</span><span class="n">inSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>section</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>given section.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -458,85 +456,6 @@ Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeade
                       <div>
                         <h4>Return Value</h4>
                         <p>model at indexPath or nil, if item not found</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/SupplementaryStorage"></a>
-                <a name="//apple_ref/swift/Section/SupplementaryStorage" class="dashAnchor"></a>
-                <a href="#/SupplementaryStorage">
-                  <h3 class="section-name">SupplementaryStorage</h3>
-                </a>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14DTModelStorage08CoreDataB0C18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF"></a>
-                    <a name="//apple_ref/swift/Method/supplementaryModel(ofKind:forSectionAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage08CoreDataB0C18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF">supplementaryModel(ofKind:forSectionAt:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Retrieve supplementary model of specific kind for section.</p>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <code>headerModelForSectionIndex</code>
-
-</div>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <code>footerModelForSectionIndex</code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">supplementaryModel</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forSectionAt</span> <span class="nv">sectionIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>kind</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>kind of supplementary model</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>sectionIndexPath</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>index of section</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -676,8 +595,8 @@ Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeade
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-07-16)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-08-20)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

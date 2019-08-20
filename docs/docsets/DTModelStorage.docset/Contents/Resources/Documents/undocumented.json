@@ -191,7 +191,7 @@
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
-      "line": 140,
+      "line": 146,
       "symbol": "ViewModelMappingCustomizing",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"

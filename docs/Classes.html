@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           DTModelStorage Docs
         </a>
-         (88% documented)
+         (90% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -60,7 +60,10 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/BaseStorage.html">BaseStorage</a>
+                <a class="nav-group-task-link" href="Classes/BaseSupplementaryStorage.html">BaseSupplementaryStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CoreDataStorage.html">CoreDataStorage</a>
@@ -79,6 +82,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/MemoryStorageAnomalyHandler.html">MemoryStorageAnomalyHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ProxyDiffableDataSourceStorage.html">ProxyDiffableDataSourceStorage</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/SectionModel.html">SectionModel</a>
@@ -142,9 +148,6 @@
                 <a class="nav-group-task-link" href="Enums/MemoryStorageError/InsertionReason.html">– InsertionReason</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/MemoryStorageError/BatchInsertionReason.html">– BatchInsertionReason</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/MemoryStorageError/SearchReason.html">– SearchReason</a>
               </li>
               <li class="nav-group-task">
@@ -182,25 +185,22 @@
                 <a class="nav-group-task-link" href="Protocols/AnomalyHandler.html">AnomalyHandler</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/EntityIdentifiable.html">EntityIdentifiable</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/EquatableDiffingAlgorithm.html">EquatableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/HashableDiffingAlgorithm.html">HashableDiffingAlgorithm</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/Identifiable.html">Identifiable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ModelTransfer.html">ModelTransfer</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Section.html">Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SectionLocatable.html">SectionLocatable</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a>
@@ -212,13 +212,7 @@
                 <a class="nav-group-task-link" href="Protocols/StorageUpdating.html">StorageUpdating</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/ViewModelMappingCustomizing.html">ViewModelMappingCustomizing</a>
               </li>
             </ul>
           </li>
@@ -255,9 +249,37 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@DTModelStorage@objc(cs)BaseStorage"></a>
-                    <a name="//apple_ref/swift/Class/BaseStorage" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@DTModelStorage@objc(cs)BaseStorage">BaseStorage</a>
+                    <a name="/c:@M@DTModelStorage@objc(cs)BaseSupplementaryStorage"></a>
+                    <a name="//apple_ref/swift/Class/BaseSupplementaryStorage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@DTModelStorage@objc(cs)BaseSupplementaryStorage">BaseSupplementaryStorage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>BaseSupplementaryStorage</code> is a base class, that implements common functionality for <code><a href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a></code> protocol and serves as a base class for <code><a href="Classes/MemoryStorage.html">MemoryStorage</a></code>, <code><a href="Classes/CoreDataStorage.html">CoreDataStorage</a></code>, <code><a href="Classes/SingleSectionStorage.html">SingleSectionStorage</a></code>, <code>RealmStorage</code>.</p>
+
+                        <a href="Classes/BaseSupplementaryStorage.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">BaseSupplementaryStorage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@DTModelStorage@objc(cs)BaseUpdateDeliveringStorage"></a>
+                    <a name="//apple_ref/swift/Class/BaseUpdateDeliveringStorage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@DTModelStorage@objc(cs)BaseUpdateDeliveringStorage">BaseUpdateDeliveringStorage</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -267,13 +289,13 @@
                       <div class="abstract">
                         <p>Base class for storage classes</p>
 
-                        <a href="Classes/BaseStorage.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/BaseUpdateDeliveringStorage.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">BaseStorage</span> <span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt"><a href="Protocols/HeaderFooterStorage.html">HeaderFooterStorage</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">BaseUpdateDeliveringStorage</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseSupplementaryStorage.html">BaseSupplementaryStorage</a></span></code></pre>
 
                         </div>
                       </div>
@@ -306,7 +328,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CoreDataStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseStorage.html">BaseStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span><span class="p">,</span> <span class="kt">NSFetchedResultsControllerDelegate</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">NSFetchRequestResult</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CoreDataStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt">NSFetchedResultsControllerDelegate</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">NSFetchRequestResult</span></code></pre>
 
                         </div>
                       </div>
@@ -438,7 +460,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">MemoryStorage</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseStorage.html">BaseStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">MemoryStorage</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -480,6 +502,38 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@DTModelStorage@objc(cs)ProxyDiffableDataSourceStorage"></a>
+                    <a name="//apple_ref/swift/Class/ProxyDiffableDataSourceStorage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@DTModelStorage@objc(cs)ProxyDiffableDataSourceStorage">ProxyDiffableDataSourceStorage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/ProxyDiffableDataSourceStorage.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ProxyDiffableDataSourceStorage</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseSupplementaryStorage.html">BaseSupplementaryStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14DTModelStorage12SectionModelC"></a>
                     <a name="//apple_ref/swift/Class/SectionModel" class="dashAnchor"></a>
                     <a class="token" href="#/s:14DTModelStorage12SectionModelC">SectionModel</a>
@@ -498,7 +552,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SectionModel</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Section.html">Section</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SupplementaryAccessible.html">SupplementaryAccessible</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SectionModel</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Section.html">Section</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SectionLocatable.html">SectionLocatable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -530,7 +584,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionEquatableStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/SingleSectionStorage.html">SingleSectionStorage</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Identifiable.html">Identifiable</a></span><span class="p">,</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionEquatableStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/SingleSectionStorage.html">SingleSectionStorage</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EntityIdentifiable.html">EntityIdentifiable</a></span><span class="p">,</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -558,7 +612,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionHashableStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/SingleSectionStorage.html">SingleSectionStorage</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Identifiable.html">Identifiable</a></span><span class="p">,</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionHashableStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/SingleSectionStorage.html">SingleSectionStorage</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EntityIdentifiable.html">EntityIdentifiable</a></span><span class="p">,</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -596,7 +650,7 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseStorage.html">BaseStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/SupplementaryStorage.html">SupplementaryStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/HeaderFooterSettable.html">HeaderFooterSettable</a></span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Identifiable.html">Identifiable</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">SingleSectionStorage</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a></span><span class="p">,</span> <span class="kt"><a href="Protocols/Storage.html">Storage</a></span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EntityIdentifiable.html">EntityIdentifiable</a></span></code></pre>
 
                         </div>
                       </div>
@@ -675,8 +729,8 @@ It uses NSFetchedResultsController to monitor all changes in CoreData and automa
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-07-16)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-08-20)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.10.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
