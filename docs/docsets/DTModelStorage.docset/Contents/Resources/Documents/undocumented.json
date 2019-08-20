@@ -30,51 +30,44 @@
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/CoreDataStorage.swift",
-      "line": 166,
+      "line": 145,
       "symbol": "CoreDataStorage.controller(_:didChange:atSectionIndex:for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 107,
+      "line": 111,
       "symbol": "MemoryStorageError.InsertionReason.indexPathTooBig(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 112,
-      "symbol": "MemoryStorageError.BatchInsertionReason",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 121,
+      "line": 117,
       "symbol": "MemoryStorageError.SearchReason.itemNotFound(item:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 131,
+      "line": 127,
       "symbol": "MemoryStorageError.insertionFailed(reason:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 132,
-      "symbol": "MemoryStorageError.batchInsertionFailed(reason:)",
+      "line": 128,
+      "symbol": "MemoryStorageError.searchFailed(reason:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 133,
-      "symbol": "MemoryStorageError.searchFailed(reason:)",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/ProxyDiffableDataSourceStorage.swift",
+      "line": 31,
+      "symbol": "ProxyDiffableDataSourceStorage",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
@@ -116,13 +109,6 @@
       "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
       "line": 55,
       "symbol": "EquatableDiffingAlgorithm.diff(from:to:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/StorageProtocols.swift",
-      "line": 68,
-      "symbol": "HeaderFooterSettable.setSupplementaries(_:forKind:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -187,13 +173,6 @@
       "line": 67,
       "symbol": "MappingCondition.custom(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/denystelezkin/Developer/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
-      "line": 146,
-      "symbol": "ViewModelMappingCustomizing",
-      "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     }
   ],
