@@ -26,6 +26,7 @@
 import Foundation
 import UIKit
 
+#if compiler(>=5.1)
 @available(iOS 13, tvOS 13, *)
 /// `ProxyDiffableDataSourceStorage` serves as a bridge between `DTTableViewManager`/`DTCollectionViewManager` and diffable datasource classes for UITableView/UICollectionView(`UITableViewDiffableDataSource`\`UICollectionViewDiffableDataSource`).
 public class ProxyDiffableDataSourceStorage: BaseSupplementaryStorage, Storage {
@@ -110,3 +111,4 @@ public class ProxyDiffableDataSourceStorage: BaseSupplementaryStorage, Storage {
         }
     }
 }
+#endif
