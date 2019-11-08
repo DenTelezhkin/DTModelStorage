@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "Dwifft",
-        "repositoryURL": "https://github.com/DenTelezhkin/Dwifft",
+        "repositoryURL": "https://github.com/jflinter/Dwifft",
         "state": {
-          "branch": "swift-pm",
-          "revision": "4fcb62b0a96780606589beac00f74f317be5e0e0",
+          "branch": "master",
+          "revision": "6fec2bc0246091b3e17a9d42e722fb98e05ac3ff",
           "version": null
         }
       },
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/realm/realm-cocoa",
         "state": {
           "branch": "master",
-          "revision": "ae9ad9a08c13d98f01f6984175a8adbf6e04df20",
+          "revision": "fd597db0eea5eaeaebe97032ef93fdb6e756cfa1",
           "version": null
         }
       },
@@ -32,9 +32,9 @@
         "package": "RealmCore",
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
-          "branch": "master",
-          "revision": "34bbde3cb641e8fd4246fc1e41ea4ff71514f1b7",
-          "version": null
+          "branch": null,
+          "revision": "512dfaa4f59930e193c92e00ba1924bde69b19de",
+          "version": "5.23.5"
         }
       }
     ]
