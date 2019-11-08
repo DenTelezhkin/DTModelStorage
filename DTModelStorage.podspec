@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'DTModelStorage'
-  s.version      = "8.0.0-beta.2"
+  s.version      = "8.0.0"
   s.license  = 'MIT'
   s.summary  = 'Storage classes for datasource based controls.'
   s.homepage = 'https://github.com/DenTelezhkin/DTModelStorage'

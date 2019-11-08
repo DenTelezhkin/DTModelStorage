@@ -55,15 +55,15 @@ Installation
 
 ### [CocoaPods](https://cocoapods.org):
 
-pod 'DTModelStorage', '~> 8.0.0-beta.1'
+pod 'DTModelStorage', '~> 8.0'
 
 ### [Carthage](https://github.com/Carthage/Carthage)
 
-github "DenTelezhkin/DTModelStorage" "8.0.0-beta.1"
+github "DenTelezhkin/DTModelStorage" "8.0"
 
 MemoryStorage
 ================
-`MemoryStorage` encapsulates storage of data models in memory. It's basically Array of `SectionModel` items, which contain array of items for current section. 
+`MemoryStorage` encapsulates storage of data models in memory. It's basically Array of `SectionModel` items, which contain array of items for current section.
 
 ```swift
 let storage = MemoryStorage()
@@ -154,7 +154,7 @@ storage.supplementaryModel(ofKind: "Bar", forSectionAt: IndexPath(item: 0, secti
 ProxyDiffableDataSourceStorage
 ================
 
-`ProxyDiffableDataSourceStorage` is a proxy class used by `DTTableViewManager/DTCollectionViewManager` frameworks to support diffable datasources in iOS 13. 
+`ProxyDiffableDataSourceStorage` is a proxy class used by `DTTableViewManager/DTCollectionViewManager` frameworks to support diffable datasources in iOS 13.
 
 All it does, it contain wrapper closures, that redirect datasource questions to diffable datasource object. Additionally, It has the same supplementary model provider logic that all storages have.
 
@@ -308,4 +308,3 @@ That's it! Results are automatically monitored, and refreshed, if Realm objects 
 **Note** You should not use RealmStorage with multiple sections, because it may lead to crashes when simultaneous UI updates make UI state inconsistent(https://github.com/DenTelezhkin/DTModelStorage/issues/21).
 
 One possible solution to this are diffable datasources in iOS 13, where you should be able to construct all sections manually thus avoiding crashes.
-

@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [8.0.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.0.0)
+
 ## [8.0.0-beta.2](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.0.0-beta.2)
 
 * Added support for Xcode versions, that are older than Xcode 11.

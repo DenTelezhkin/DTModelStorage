@@ -1,6 +1,180 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/AnomalyHandler.swift",
+      "line": 31,
+      "symbol": "AnomalyHandler.Anomaly",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/AnomalyHandler.swift",
+      "line": 32,
+      "symbol": "AnomalyHandler.anomalyAction",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/AnomalyHandler.swift",
+      "line": 33,
+      "symbol": "AnomalyHandler.reportAnomaly(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/AnomalyHandler.swift",
+      "line": 34,
+      "symbol": "AnomalyHandler.silenceAnomaly(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/CoreDataStorage.swift",
+      "line": 145,
+      "symbol": "CoreDataStorage.controller(_:didChange:atSectionIndex:for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
+      "line": 111,
+      "symbol": "MemoryStorageError.InsertionReason.indexPathTooBig(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
+      "line": 117,
+      "symbol": "MemoryStorageError.SearchReason.itemNotFound(item:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
+      "line": 127,
+      "symbol": "MemoryStorageError.insertionFailed(reason:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
+      "line": 128,
+      "symbol": "MemoryStorageError.searchFailed(reason:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ProxyDiffableDataSourceStorage.swift",
+      "line": 32,
+      "symbol": "ProxyDiffableDataSourceStorage",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 42,
+      "symbol": "SingleSectionOperation.delete(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 43,
+      "symbol": "SingleSectionOperation.insert(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 44,
+      "symbol": "SingleSectionOperation.move(from:to:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 45,
+      "symbol": "SingleSectionOperation.update(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 50,
+      "symbol": "HashableDiffingAlgorithm.diff(from:to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/SingleSectionDiffing.swift",
+      "line": 55,
+      "symbol": "EquatableDiffingAlgorithm.diff(from:to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/StorageUpdate.swift",
+      "line": 30,
+      "symbol": "ChangeType.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/StorageUpdate.swift",
+      "line": 31,
+      "symbol": "ChangeType.move",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/StorageUpdate.swift",
+      "line": 32,
+      "symbol": "ChangeType.insert",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/StorageUpdate.swift",
+      "line": 33,
+      "symbol": "ChangeType.update",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
+      "line": 32,
+      "symbol": "ViewType.cell",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
+      "line": 33,
+      "symbol": "ViewType.supplementaryView(kind:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
+      "line": 61,
+      "symbol": "MappingCondition.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
+      "line": 64,
+      "symbol": "MappingCondition.section(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
+      "line": 67,
+      "symbol": "MappingCondition.custom(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/Denys/Projects/DTModelStorage"
 }
