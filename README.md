@@ -1,7 +1,8 @@
-[![Build Status](https://travis-ci.org/DenTelezhkin/DTModelStorage.svg?branch=master)](https://travis-ci.org/DenTelezhkin/DTModelStorage)
+![CI](https://github.com/DenTelezhkin/DTModelStorage/workflows/CI/badge.svg)
 [![codecov.io](http://codecov.io/github/DenTelezhkin/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenTelezhkin/DTModelStorage?branch=master)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/DTModelStorage.svg)](https://cocoapods.org/pods/DTModelStorage)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/cocoapods/p/DTModelStorage.svg?style=flat)](https://dentelezhkin.github.io/DTModelStorage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
 DTModelStorage
@@ -55,11 +56,7 @@ Installation
 
 ### [CocoaPods](https://cocoapods.org):
 
-pod 'DTModelStorage', '~> 8.0'
-
-### [Carthage](https://github.com/Carthage/Carthage)
-
-github "DenTelezhkin/DTModelStorage" "8.0"
+pod 'DTModelStorage'
 
 MemoryStorage
 ================
