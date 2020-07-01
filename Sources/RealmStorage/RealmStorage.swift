@@ -106,9 +106,9 @@ open class RealmStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationId
         }
         if results.realm?.configuration.readOnly == false {
             let sectionIndex = sections.count - 1
-            notificationTokens[index] = results.observe({ [weak self] change in
+            notificationTokens[index] = results.observe(on: nil) { [weak self] change in
                 self?.handleChange(change, inSection: sectionIndex)
-                })
+            }
         }
         delegate?.storageNeedsReloading()
     }
