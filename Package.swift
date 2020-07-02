@@ -29,7 +29,7 @@ import PackageDescription
 let package = Package(
     name: "DTModelStorage",
     platforms: [
-        .iOS(.v8),
+        .iOS(.v11),
         .tvOS(.v9)
     ],
     products: [
