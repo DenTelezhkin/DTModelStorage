@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [8.1.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.1.0)
+
 ### Changed
 
 * Deployment targets - iOS 11 / tvOS 11.
