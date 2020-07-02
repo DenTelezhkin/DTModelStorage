@@ -8,6 +8,7 @@
 
 import XCTest
 import DTModelStorage
+import UIKit
 
 class FooView : UIView, ModelTransfer {
     func update(with model: String) {
@@ -26,8 +27,8 @@ class StorageProtocolTestCase: XCTestCase {
     func testCollectionViewFlowLayoutUsage() {
         storage.configureForCollectionViewFlowLayoutUsage()
         
-        XCTAssertEqual(self.storage.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
-        XCTAssertEqual(self.storage.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
+        XCTAssertEqual(self.storage.supplementaryHeaderKind, UICollectionView.elementKindSectionHeader)
+        XCTAssertEqual(self.storage.supplementaryFooterKind, UICollectionView.elementKindSectionFooter)
         
         storage.configureForTableViewUsage()
         

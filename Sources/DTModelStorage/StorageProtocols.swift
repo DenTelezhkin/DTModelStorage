@@ -69,8 +69,8 @@ extension SupplementaryStorage {
     /// Configures storage for using with UICollectionViewFlowLayout
     public func configureForCollectionViewFlowLayoutUsage()
     {
-        supplementaryHeaderKind = DTCollectionViewElementSectionHeader
-        supplementaryFooterKind = DTCollectionViewElementSectionFooter
+        supplementaryHeaderKind = UICollectionView.elementKindSectionHeader
+        supplementaryFooterKind = UICollectionView.elementKindSectionFooter
     }
     
 /// Returns header model from section with section `index` or nil, if it was not set.

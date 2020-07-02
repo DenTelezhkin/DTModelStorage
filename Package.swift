@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 //
 //  Package.swift
 //  DTModelStorage
@@ -30,7 +30,7 @@ let package = Package(
     name: "DTModelStorage",
     platforms: [
         .iOS(.v11),
-        .tvOS(.v9)
+        .tvOS(.v11)
     ],
     products: [
         .library(name: "DTModelStorage", targets: ["DTModelStorage"])
@@ -41,5 +41,5 @@ let package = Package(
          // Also resources are not supported as for Xcode 11 beta 3, so test target in SPM is currently pointless.
          // .testTarget(name: "Tests", dependencies: ["DTModelStorage"])
     ],
-    swiftLanguageVersions: [.v5, .v4_2]
+    swiftLanguageVersions: [.v5]
 )

@@ -27,18 +27,6 @@ import Foundation
 import CoreData
 import UIKit
 
-#if swift(>=4.2)
-/// Compatibility constant to support Swift 4.2 and higher
-public let DTCollectionViewElementSectionHeader = UICollectionView.elementKindSectionHeader
-/// Compatibility constant to support Swift 4.2 and higher
-public let DTCollectionViewElementSectionFooter = UICollectionView.elementKindSectionFooter
-#else
-/// Compatibility constant to support Swift 4.1 and lower
-public let DTCollectionViewElementSectionHeader = UICollectionElementKindSectionHeader
-/// Compatibility constant to support Swift 4.1 and lower
-public let DTCollectionViewElementSectionFooter = UICollectionElementKindSectionFooter
-#endif
-
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
 open class CoreDataStorage<T: NSFetchRequestResult> : BaseUpdateDeliveringStorage, Storage, NSFetchedResultsControllerDelegate
@@ -50,7 +38,7 @@ open class CoreDataStorage<T: NSFetchRequestResult> : BaseUpdateDeliveringStorag
     /// Property, which defines, for which supplementary kinds NSFetchedResultsController section name should be used.
     /// Defaults to [DTTableViewElementSectionHeader,UICollectionElementKindSectionHeader]
     /// - Discussion: This is useful, for example, if you want section footers intead of headers to have section name in them.
-    open var displaySectionNameForSupplementaryKinds = [DTTableViewElementSectionHeader, DTCollectionViewElementSectionHeader]
+    open var displaySectionNameForSupplementaryKinds = [""]
     
     /// Initialize CoreDataStorage with NSFetchedResultsController
     /// - Parameter fetchedResultsController: fetch results controller
