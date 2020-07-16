@@ -125,7 +125,7 @@ open class ViewModelMapping
     
     public init<T: UICollectionViewCell, U>(cellClass: T.Type,
                                  modelType: U.Type,
-                                 cellConfiguration: @escaping ((T, IndexPath, Any?) -> Void),
+                                 cellConfiguration: @escaping ((T, IndexPath, U) -> Void),
                                  mappingBlock: ((ViewModelMapping) -> Void)?)
     {
         viewType = .cell
@@ -165,7 +165,7 @@ open class ViewModelMapping
     }
     
     public init<T: ModelTransfer>(cellClass: T.Type,
-                                 cellConfiguration: @escaping ((T, IndexPath, Any?) -> Void),
+                                  cellConfiguration: @escaping ((T, IndexPath, T.ModelType) -> Void),
                                  mappingBlock: ((ViewModelMapping) -> Void)?)
         where T: UICollectionViewCell
     {
