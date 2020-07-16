@@ -212,8 +212,8 @@ open class ViewModelMapping
     }
     
     public init<T: UICollectionReusableView, U>(supplementaryClass: T.Type,
+                                                modelType: U.Type,
                                                 kind: String,
-                                 modelType: U.Type,
                                  supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
                                  mapping: ((ViewModelMapping) -> Void)?)
     {
