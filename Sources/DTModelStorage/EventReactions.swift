@@ -44,7 +44,7 @@ open class EventReaction {
     /// Creates reaction with `signature`.
     public init<T: ModelTransfer>(signature: String, viewType: ViewType, viewClass: T.Type) {
         self.methodSignature = signature
-        viewModelMapping = ViewModelMapping(viewType: viewType, viewClass: T.self, mappingBlock: nil)
+        viewModelMapping = ViewModelMapping.eventsViewMapping(viewType: viewType, viewClass: T.self)
     }
     
     /// Creates reaction with `signature`, `viewType` and `modelType`.

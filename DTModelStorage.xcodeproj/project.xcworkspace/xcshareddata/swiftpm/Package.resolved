@@ -3,19 +3,19 @@
     "pins": [
       {
         "package": "Dwifft",
-        "repositoryURL": "https://github.com/jflinter/Dwifft",
+        "repositoryURL": "https://github.com/DenTelezhkin/Dwifft",
         "state": {
-          "branch": "master",
-          "revision": "6fec2bc0246091b3e17a9d42e722fb98e05ac3ff",
+          "branch": "xcode12",
+          "revision": "c5786ace953392a440f409ca6e53d790643f6fd9",
           "version": null
         }
       },
       {
         "package": "HeckelDiff",
-        "repositoryURL": "https://github.com/mcudich/HeckelDiff",
+        "repositoryURL": "https://github.com/DenTelezhkin/HeckelDiff",
         "state": {
-          "branch": "master",
-          "revision": "8abdc7ffbecd4f2009d31e22d254eb159af80c4c",
+          "branch": "xcode12",
+          "revision": "4ed83f754df046df73d5cfd00ceda04ebfd68336",
           "version": null
         }
       },

@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import UIKit
 
 /// ViewType enum allows differentiating between mappings for different kinds of views. For example, UICollectionView headers might use ViewType.supplementaryView(UICollectionElementKindSectionHeader) value.
 public enum ViewType: Equatable
@@ -40,15 +41,6 @@ public enum ViewType: Equatable
         {
         case .cell: return nil
         case .supplementaryView(let kind): return kind
-        }
-    }
-    
-    // Compares view types, `Equatable` protocol.
-    static public func == (left: ViewType, right: ViewType) -> Bool {
-        switch (left, right) {
-        case (.cell, .cell): return true
-        case (.supplementaryView(let leftKind), .supplementaryView(let rightKind)): return leftKind == rightKind
-        default: return false
         }
     }
 }
@@ -110,6 +102,12 @@ open class ViewModelMapping
     /// Reuse identifier to be used for reusable views.
     public var reuseIdentifier : String
     
+    public var cellRegisteredByStoryboard: Bool = false
+    
+    private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
+    private var _supplementaryDequeueClosure: ((_ containerView: Any, _ supplementaryKind: String, _ indexPath: IndexPath) -> Any)?
+    
+    @available(*, deprecated, message: "Please use other constructors to create ViewModelMapping.")
     /// Creates `ViewModelMapping` for `viewClass`
     public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil, mappingBlock: ((ViewModelMapping) -> Void)?) {
         self.viewType = viewType
@@ -125,14 +123,216 @@ open class ViewModelMapping
         mappingBlock?(self)
     }
     
-    /// Creates `ViewModelMapping` for `modelType`
-    public static func eventsModelMapping<T>(viewType: ViewType, modelClass: T.Type) -> ViewModelMapping {
-        return ViewModelMapping(viewType: viewType, modelClass: modelClass)
+    public init<T: UICollectionViewCell, U>(cellClass: T.Type,
+                                 modelType: U.Type,
+                                 cellConfiguration: @escaping ((T, IndexPath, Any?) -> Void),
+                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+    {
+        viewType = .cell
+        viewClass = cellClass
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is U }
+        updateBlock = { _, _ in }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self else { return nil as Any? as Any }
+            if let collectionView = view as? UICollectionView {
+                if let model = model as? U, #available(iOS 14, tvOS 14, *) {
+                    #if compiler(>=5.3)
+                        let registration : UICollectionView.CellRegistration<T, U>
+                        
+                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                            registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
+                                cellConfiguration(cell, indexPath, model)
+                            })
+                        } else {
+                            registration = .init(handler: { cell, indexPath, model in
+                                cellConfiguration(cell, indexPath, model)
+                            })
+                        }
+                        return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
+                    #else
+                        return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    #endif
+                } else {
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                }
+            }
+            return nil as Any? as Any
+        }
+        mappingBlock?(self)
     }
     
-    private init<T>(viewType: ViewType, modelClass: T.Type) {
+    public init<T: ModelTransfer>(cellClass: T.Type,
+                                 cellConfiguration: @escaping ((T, IndexPath, Any?) -> Void),
+                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+        where T: UICollectionViewCell
+    {
+        viewType = .cell
+        viewClass = cellClass
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is T.ModelType }
+        updateBlock = { view, model in
+            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            view.update(with: model)
+        }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self else {
+                return nil as Any? as Any
+            }
+            if let collectionView = view as? UICollectionView {
+                if let model = model as? T.ModelType, #available(iOS 14, tvOS 14, *) {
+                    #if compiler(>=5.3)
+                    let registration : UICollectionView.CellRegistration<T, T.ModelType>
+                        
+                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                            registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
+                                cellConfiguration(cell, indexPath, model)
+                            })
+                        } else {
+                            registration = .init(handler: { cell, indexPath, model in
+                                cellConfiguration(cell, indexPath, model)
+                            })
+                        }
+                        return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
+                    #else
+                        return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    #endif
+                } else {
+                    return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                }
+            }
+            return nil as Any? as Any
+        }
+        mappingBlock?(self)
+    }
+    
+    public init<T: UICollectionReusableView, U>(supplementaryClass: T.Type,
+                                                kind: String,
+                                 modelType: U.Type,
+                                 supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+    {
+        viewType = .supplementaryView(kind: kind)
+        viewClass = supplementaryClass
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is U }
+        updateBlock = { _, _ in }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self else { return nil as Any? as Any }
+            if let collectionView = view as? UICollectionView {
+                if #available(iOS 14, tvOS 14, *) {
+                    #if compiler(>=5.3)
+                        let registration : UICollectionView.SupplementaryRegistration<T>
+                    
+                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                                supplementaryConfiguration(view, kind, indexPath)
+                            })
+                        } else {
+                            registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                                supplementaryConfiguration(view, kind, indexPath)
+                            })
+                        }
+                        return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
+                    #else
+                        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    #endif
+                } else {
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                }
+            }
+            return nil as Any? as Any
+        }
+        mappingBlock?(self)
+    }
+    
+    public init<T: ModelTransfer>(supplementaryClass: T.Type,
+                                  kind: String,
+                                 supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+        where T: UICollectionReusableView
+    {
+        viewType = .cell
+        viewClass = supplementaryClass
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is T.ModelType }
+        updateBlock = { view, model in
+            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            view.update(with: model)
+        }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self else {
+                return nil as Any? as Any
+            }
+            if let collectionView = view as? UICollectionView {
+                if #available(iOS 14, tvOS 14, *) {
+                    #if compiler(>=5.3)
+                    let registration : UICollectionView.SupplementaryRegistration<T>
+                        
+                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { cell, indexPath, model in
+                                supplementaryConfiguration(cell, indexPath, model)
+                            })
+                        } else {
+                            registration = .init(elementKind: kind, handler: { cell, indexPath, model in
+                                supplementaryConfiguration(cell, indexPath, model)
+                            })
+                        }
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
+                #else
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                #endif
+                } else {
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                }
+            }
+            return nil as Any? as Any
+        }
+        mappingBlock?(self)
+    }
+    
+    public func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
+        guard viewType == .cell else {
+            return nil
+        }
+        guard let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
+            return nil
+        }
+        updateBlock(cell, model)
+        return cell as? UICollectionViewCell
+    }
+    
+    public func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
+        guard viewType == .supplementaryView(kind: kind) else {
+            return nil
+        }
+        guard let view = _supplementaryDequeueClosure?(collectionView, kind, indexPath) else {
+            return nil
+        }
+        updateBlock(view, model)
+        return view as? UICollectionReusableView
+    }
+    
+    /// Creates `ViewModelMapping` for `modelType`
+    public static func eventsModelMapping<T>(viewType: ViewType, modelClass: T.Type) -> ViewModelMapping {
+        ViewModelMapping(viewType: viewType, modelClass: modelClass, viewClass: NSObject.self)
+    }
+    
+    public static func eventsViewMapping<T: AnyObject>(viewType: ViewType, viewClass: T.Type) -> ViewModelMapping {
+        ViewModelMapping(viewType: viewType, modelClass: NSObject.self, viewClass: T.self)
+    }
+    
+    private init<T, U: AnyObject>(viewType: ViewType, modelClass: T.Type, viewClass: U.Type) {
         self.viewType = viewType
-        viewClass = NSObject.self
+        self.viewClass = viewClass
         modelTypeCheckingBlock = { $0 is T }
         updateBlock = { _, _ in }
         reuseIdentifier = ""
