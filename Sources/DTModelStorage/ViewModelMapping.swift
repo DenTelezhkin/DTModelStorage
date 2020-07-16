@@ -127,7 +127,7 @@ open class ViewModelMapping
     public init<T: UICollectionViewCell, U>(cellClass: T.Type,
                                  modelType: U.Type,
                                  cellConfiguration: @escaping ((T, IndexPath, U) -> Void),
-                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+                                 mapping: ((ViewModelMapping) -> Void)?)
     {
         viewType = .cell
         viewClass = cellClass
@@ -162,12 +162,12 @@ open class ViewModelMapping
             }
             return nil as Any? as Any
         }
-        mappingBlock?(self)
+        mapping?(self)
     }
     
     public init<T: ModelTransfer>(cellClass: T.Type,
                                   cellConfiguration: @escaping ((T, IndexPath, T.ModelType) -> Void),
-                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+                                  mapping: ((ViewModelMapping) -> Void)?)
         where T: UICollectionViewCell
     {
         viewType = .cell
@@ -208,14 +208,14 @@ open class ViewModelMapping
             }
             return nil as Any? as Any
         }
-        mappingBlock?(self)
+        mapping?(self)
     }
     
     public init<T: UICollectionReusableView, U>(supplementaryClass: T.Type,
                                                 kind: String,
                                  modelType: U.Type,
                                  supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
-                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+                                 mapping: ((ViewModelMapping) -> Void)?)
     {
         viewType = .supplementaryView(kind: kind)
         viewClass = supplementaryClass
@@ -250,13 +250,13 @@ open class ViewModelMapping
             }
             return nil as Any? as Any
         }
-        mappingBlock?(self)
+        mapping?(self)
     }
     
     public init<T: ModelTransfer>(supplementaryClass: T.Type,
                                   kind: String,
                                  supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
-                                 mappingBlock: ((ViewModelMapping) -> Void)?)
+                                 mapping: ((ViewModelMapping) -> Void)?)
         where T: UICollectionReusableView
     {
         viewType = .cell
@@ -297,7 +297,7 @@ open class ViewModelMapping
             }
             return nil as Any? as Any
         }
-        mappingBlock?(self)
+        mapping?(self)
     }
     
     public func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
