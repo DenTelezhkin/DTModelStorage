@@ -103,6 +103,7 @@ open class ViewModelMapping
     public var reuseIdentifier : String
     
     public var cellRegisteredByStoryboard: Bool = false
+    public var supplementaryRegisteredByStoryboard : Bool = false
     
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ supplementaryKind: String, _ indexPath: IndexPath) -> Any)?
@@ -138,7 +139,7 @@ open class ViewModelMapping
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self else { return nil as Any? as Any }
             if let collectionView = view as? UICollectionView {
-                if let model = model as? U, #available(iOS 14, tvOS 14, *) {
+                if let model = model as? U, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                         let registration : UICollectionView.CellRegistration<T, U>
                         
@@ -184,7 +185,7 @@ open class ViewModelMapping
                 return nil as Any? as Any
             }
             if let collectionView = view as? UICollectionView {
-                if let model = model as? T.ModelType, #available(iOS 14, tvOS 14, *) {
+                if let model = model as? T.ModelType, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                     let registration : UICollectionView.CellRegistration<T, T.ModelType>
                         
@@ -226,7 +227,7 @@ open class ViewModelMapping
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self else { return nil as Any? as Any }
             if let collectionView = view as? UICollectionView {
-                if #available(iOS 14, tvOS 14, *) {
+                if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                         let registration : UICollectionView.SupplementaryRegistration<T>
                     
@@ -273,7 +274,7 @@ open class ViewModelMapping
                 return nil as Any? as Any
             }
             if let collectionView = view as? UICollectionView {
-                if #available(iOS 14, tvOS 14, *) {
+                if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                     let registration : UICollectionView.SupplementaryRegistration<T>
                         
