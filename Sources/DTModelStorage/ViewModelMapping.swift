@@ -224,7 +224,7 @@ open class ViewModelMapping
         modelTypeCheckingBlock = { $0 is U }
         updateBlock = { _, _ in }
         bundle = Bundle(for: T.self)
-        _cellDequeueClosure = { [weak self] view, model, indexPath in
+        _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self else { return nil as Any? as Any }
             if let collectionView = view as? UICollectionView {
                 if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
@@ -269,7 +269,7 @@ open class ViewModelMapping
             view.update(with: model)
         }
         bundle = Bundle(for: T.self)
-        _cellDequeueClosure = { [weak self] view, model, indexPath in
+        _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self else {
                 return nil as Any? as Any
             }
