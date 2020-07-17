@@ -259,7 +259,7 @@ open class ViewModelMapping
                                  mapping: ((ViewModelMapping) -> Void)?)
         where T: UICollectionReusableView
     {
-        viewType = .cell
+        viewType = .supplementaryView(kind: kind)
         viewClass = supplementaryClass
         xibName = String(describing: T.self)
         reuseIdentifier = String(describing: T.self)
