@@ -155,7 +155,7 @@ open class ViewModelMapping
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                        if let cell = cell as? T, let model = model as? U {
+                        if let cell = cell as? T {
                             cellConfiguration(cell, indexPath, model)
                         }
                         return cell
@@ -209,7 +209,7 @@ open class ViewModelMapping
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let cell = cell as? T, let model = model as? T.ModelType {
+                    if let cell = cell as? T {
                             cellConfiguration(cell, indexPath, model)
                         }
                         return cell
