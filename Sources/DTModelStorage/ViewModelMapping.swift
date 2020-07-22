@@ -154,10 +154,18 @@ open class ViewModelMapping
                         }
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
-                        return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                        if let cell = cell as? T, let model = model as? U {
+                            cellConfiguration(cell, indexPath, model)
+                        }
+                        return cell
                     #endif
                 } else {
-                    return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let cell = cell as? T, let model = model as? U {
+                        cellConfiguration(cell, indexPath, model)
+                    }
+                    return cell
                 }
             }
             return nil as Any? as Any
@@ -200,10 +208,18 @@ open class ViewModelMapping
                         }
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
-                        return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let cell = cell as? T, let model = model as? T.ModelType {
+                            cellConfiguration(cell, indexPath, model)
+                        }
+                        return cell
                     #endif
                 } else {
-                    return collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let cell = cell as? T, let model = model as? T.ModelType {
+                        cellConfiguration(cell, indexPath, model)
+                    }
+                    return cell
                 }
             }
             return nil as Any? as Any
@@ -242,10 +258,18 @@ open class ViewModelMapping
                         }
                         return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                     #else
-                        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                        let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                        if let supplementary = supplementary as? T {
+                            supplementaryConfiguration(supplementary, kind, indexPath)
+                        }
+                        return supplementary
                     #endif
                 } else {
-                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let supplementary = supplementary as? T {
+                        supplementaryConfiguration(supplementary, kind, indexPath)
+                    }
+                    return supplementary
                 }
             }
             return nil as Any? as Any
@@ -289,10 +313,18 @@ open class ViewModelMapping
                         }
                     return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                 #else
-                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let supplementary = supplementary as? T {
+                        supplementaryConfiguration(supplementary, kind, indexPath)
+                    }
+                    return supplementary
                 #endif
                 } else {
-                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                    if let supplementary = supplementary as? T {
+                        supplementaryConfiguration(supplementary, kind, indexPath)
+                    }
+                    return supplementary
                 }
             }
             return nil as Any? as Any
