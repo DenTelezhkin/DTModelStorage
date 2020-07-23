@@ -97,7 +97,7 @@ public protocol ViewModelMappingProtocol: class {
     var reuseIdentifier : String { get }
     var cellRegisteredByStoryboard: Bool { get }
     var supplementaryRegisteredByStoryboard : Bool { get }
-    var reactions: [EventReaction] { get }
+    var reactions: [EventReaction] { get set }
     
     func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell?
     func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView?
