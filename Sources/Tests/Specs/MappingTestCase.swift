@@ -20,7 +20,19 @@ class ProtocolTestableTableViewCell : UITableViewCell, ModelTransfer {
     }
 }
 
+class ProtocolTestableCollectionViewCell: UICollectionViewCell, ModelTransfer {
+    var model : MappingTestProtocol?
+    
+    func update(with model: MappingTestProtocol) {
+        self.model = model
+    }
+}
+
 class ProtocolTestableTableViewCellSubclass : ProtocolTestableTableViewCell {
+    
+}
+
+class ProtocolTestableCollectionViewCellSubclass : ProtocolTestableCollectionViewCell {
     
 }
 
@@ -37,7 +49,19 @@ class SubclassTestableTableViewCell : UITableViewCell, ModelTransfer {
     }
 }
 
+class SubclassTestableCollectionViewCell : UICollectionViewCell, ModelTransfer {
+    func update(with model: AncestorClass) {
+        
+    }
+}
+
 class IntTableViewCell : UITableViewCell, ModelTransfer {
+    func update(with model: Int) {
+        
+    }
+}
+
+class IntCollectionViewCell : UICollectionViewCell, ModelTransfer {
     func update(with model: Int) {
         
     }
@@ -49,9 +73,15 @@ class OtherIntTableViewCell : UITableViewCell, ModelTransfer {
     }
 }
 
+class OtherIntCollectionViewCell : UICollectionViewCell, ModelTransfer {
+    func update(with model: Int) {
+        
+    }
+}
+
 class MappingTestCase: XCTestCase {
     
-    var mappings : [ViewModelMapping]!
+    var mappings : [ViewModelMappingProtocol]!
     
     override func setUp() {
         super.setUp()
@@ -59,35 +89,35 @@ class MappingTestCase: XCTestCase {
     }
     
     func testProtocolModelIsFindable() {
-        let mapping = ViewModelMapping(viewType: .cell, viewClass: ProtocolTestableTableViewCell.self, mappingBlock: nil)
+        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         
         let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
-        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
     }
     
     func testOptionalModelOfProtocolIsFindable() {
-        let mapping = ViewModelMapping(viewType: .cell, viewClass: ProtocolTestableTableViewCell.self, mappingBlock: nil)
+        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         let optional: ConformingClass? = ConformingClass()
         let candidates = mappings.mappingCandidates(for: .cell, withModel: optional ?? 0, at: indexPath(0, 0))
         XCTAssertEqual(candidates.count, 1)
-        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
     }
     
     func testSubclassModelMappingIsFindable() {
-        let mapping = ViewModelMapping(viewType: .cell, viewClass: SubclassTestableTableViewCell.self, mappingBlock: nil)
+        let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         let candidates = mappings.mappingCandidates(for: .cell, withModel: Subclass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
-        XCTAssert(candidates.first?.viewClass == SubclassTestableTableViewCell.self)
+        XCTAssert(candidates.first?.viewClass == SubclassTestableCollectionViewCell.self)
     }
     
     func testNilModelDoesNotReturnMappingCandidates() {
-        let mapping = ViewModelMapping(viewType: .cell, viewClass: SubclassTestableTableViewCell.self, mappingBlock: nil)
+        let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         let model : AncestorClass? = nil
         let candidates = mappings.mappingCandidates(for: .cell, withModel: model as Any, at: indexPath(0, 0))
@@ -96,82 +126,79 @@ class MappingTestCase: XCTestCase {
     }
     
     func testUpdateBlockCanBeSuccessfullyCalled() {
-        let mapping = ViewModelMapping(viewType: .cell, viewClass: ProtocolTestableTableViewCell.self, mappingBlock: nil)
+        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         
         let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
-        XCTAssert(candidates.first?.viewClass == ProtocolTestableTableViewCell.self)
+        XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
         
-        let cell = ProtocolTestableTableViewCell()
+        let cell = ProtocolTestableCollectionViewCell()
         candidates.first?.updateBlock(cell, ConformingClass())
         
         XCTAssertTrue(cell.model is ConformingClass)
     }
     
     func testSectionConditionIsVeryfiable() {
-        let firstMapping = ViewModelMapping(viewType: .cell, viewClass: ProtocolTestableTableViewCell.self) { mapping in
+        let firstMapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: { mapping in
             mapping.condition = .section(0)
-        }
-        
-        let secondMapping = ViewModelMapping(viewType: .cell, viewClass: ProtocolTestableTableViewCellSubclass.self) { mapping in
+        })
+        let secondMapping = ViewModelMapping<ProtocolTestableCollectionViewCellSubclass, ProtocolTestableCollectionViewCellSubclass.ModelType>(cellConfiguration: { _, _, _ in }, mapping: { mapping in
             mapping.condition = .section(1)
-        }
+        })
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
         let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
-        XCTAssert(firstCandidates.first?.viewClass === ProtocolTestableTableViewCell.self)
+        XCTAssert(firstCandidates.first?.viewClass === ProtocolTestableCollectionViewCell.self)
         
         let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
-        XCTAssert(secondCandidates.first?.viewClass === ProtocolTestableTableViewCellSubclass.self)
+        XCTAssert(secondCandidates.first?.viewClass === ProtocolTestableCollectionViewCellSubclass.self)
     }
     
     func testCustomConditionIsVeryfiable() {
-        let firstMapping = ViewModelMapping(viewType: .cell, viewClass: IntTableViewCell.self) { mapping in
+        let firstMapping = ViewModelMapping<IntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
             mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) > 5
             })
-        }
-        
-        let secondMapping = ViewModelMapping(viewType: .cell, viewClass: OtherIntTableViewCell.self) { mapping in
+        })
+        let secondMapping = ViewModelMapping<OtherIntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
             mapping.condition = .custom({ _, model  in
                 return (model as? Int ?? 0) <= 5
             })
-        }
+        })
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
         let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: 3, at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
-        XCTAssert(firstCandidates.first?.viewClass === OtherIntTableViewCell.self)
+        XCTAssert(firstCandidates.first?.viewClass === OtherIntCollectionViewCell.self)
         
         let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: 6, at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
-        XCTAssert(secondCandidates.first?.viewClass === IntTableViewCell.self)
+        XCTAssert(secondCandidates.first?.viewClass === IntCollectionViewCell.self)
     }
     
     func testModelMappingInferringModelType() {
-        let firstMapping = ViewModelMapping(viewType: .cell, viewClass: IntTableViewCell.self) { mapping in
-            mapping.condition = IntTableViewCell.modelCondition { _, model in model > 5 }
-        }
-        
-        let secondMapping = ViewModelMapping(viewType: .cell, viewClass: OtherIntTableViewCell.self) { mapping in
-            mapping.condition = OtherIntTableViewCell.modelCondition { _, model in model <= 5 }
-        }
+        let firstMapping = ViewModelMapping<IntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
+            mapping.condition = IntCollectionViewCell.modelCondition { _, model in model > 5 }
+        })
+        let secondMapping = ViewModelMapping<OtherIntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
+            mapping.condition = OtherIntCollectionViewCell.modelCondition { _, model in model <= 5 }
+        })
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
         let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: 3, at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
-        XCTAssert(firstCandidates.first?.viewClass === OtherIntTableViewCell.self)
+        XCTAssert(firstCandidates.first?.viewClass === OtherIntCollectionViewCell.self)
         
         let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: 6, at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
-        XCTAssert(secondCandidates.first?.viewClass === IntTableViewCell.self)
+        XCTAssert(secondCandidates.first?.viewClass === IntCollectionViewCell.self)
     }
 }
 

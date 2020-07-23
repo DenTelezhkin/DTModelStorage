@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Breaking
+
+* `ViewModelMapping` has been reworked to generic class to capture both View and Model type.
+* `ViewModelMappingProtocol` protocol has been introduced to represent type-erased interface for `ViewModelMapping` so that `ViewModelMappingProtocol` instances can be stored in array, and be called without generic information.
+* `EventReaction` class has been reworked to not contain `ViewModelMapping` instance. `ViewModelMapping` class will now instead have an array of `EventReaction` instances attached to it. This way it's now possible to restrict events to only happen if current `ViewModelMapping` is compatible for requested model/view/location/mapping condition.
+* `ViewModelMapping` convenience methods `eventsModelMapping` and `eventsViewMapping` have been removed.
+* `mappingCandidates` method now returns `ViewModelMappingProtocol` instead of `ViewModelMapping`
+* `performReaction` methods now accept `IndexPath` for `location` parameter instead of `Any`.
+
 ## [8.1.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.1.0)
 
 ### Changed

@@ -74,8 +74,25 @@ public enum MappingCondition {
     }
 }
 
-/// `ViewModelMapping` struct serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
-open class ViewModelMapping
+public protocol ViewModelMappingProtocol: class {
+    var xibName: String? { get }
+    var bundle: Bundle { get }
+    var viewType : ViewType { get }
+    var modelTypeCheckingBlock: (Any) -> Bool { get }
+    var updateBlock : (Any, Any) -> Void { get }
+    var viewClass: AnyClass { get }
+    var condition: MappingCondition { get }
+    var reuseIdentifier : String { get }
+    var cellRegisteredByStoryboard: Bool { get }
+    var supplementaryRegisteredByStoryboard : Bool { get }
+    var reactions: [EventReaction] { get }
+    
+    func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell?
+    func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView?
+}
+
+/// `ViewModelMapping` class serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
+open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
 {
     /// View type for this mapping
     public let viewType: ViewType
@@ -105,6 +122,8 @@ open class ViewModelMapping
     public var cellRegisteredByStoryboard: Bool = false
     public var supplementaryRegisteredByStoryboard : Bool = false
     
+    public var reactions: [EventReaction] = []
+    
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ supplementaryKind: String, _ indexPath: IndexPath) -> Any)?
     
@@ -124,13 +143,12 @@ open class ViewModelMapping
         mappingBlock?(self)
     }
     
-    public init<T: UICollectionViewCell, U>(cellClass: T.Type,
-                                 modelType: U.Type,
-                                 cellConfiguration: @escaping ((T, IndexPath, U) -> Void),
-                                 mapping: ((ViewModelMapping) -> Void)?)
+    public init(cellConfiguration: @escaping ((T, IndexPath, U) -> Void),
+                          mapping: ((ViewModelMapping<T, U>) -> Void)?)
+        where T: UICollectionViewCell
     {
         viewType = .cell
-        viewClass = cellClass
+        viewClass = T.self
         xibName = String(describing: T.self)
         reuseIdentifier = String(describing: T.self)
         modelTypeCheckingBlock = { $0 is U }
@@ -173,13 +191,12 @@ open class ViewModelMapping
         mapping?(self)
     }
     
-    public init<T: ModelTransfer>(cellClass: T.Type,
-                                  cellConfiguration: @escaping ((T, IndexPath, T.ModelType) -> Void),
-                                  mapping: ((ViewModelMapping) -> Void)?)
-        where T: UICollectionViewCell
+    public init(cellConfiguration: @escaping ((T, IndexPath, T.ModelType) -> Void),
+                mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?)
+        where T: UICollectionViewCell, T: ModelTransfer, T.ModelType == U
     {
         viewType = .cell
-        viewClass = cellClass
+        viewClass = T.self
         xibName = String(describing: T.self)
         reuseIdentifier = String(describing: T.self)
         modelTypeCheckingBlock = { $0 is T.ModelType }
@@ -227,14 +244,13 @@ open class ViewModelMapping
         mapping?(self)
     }
     
-    public init<T: UICollectionReusableView, U>(supplementaryClass: T.Type,
-                                                modelType: U.Type,
-                                                kind: String,
-                                 supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
-                                 mapping: ((ViewModelMapping) -> Void)?)
+    public init(kind: String,
+                supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<T, U>) -> Void)?)
+        where T: UICollectionReusableView
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = supplementaryClass
+        viewClass = T.self
         xibName = String(describing: T.self)
         reuseIdentifier = String(describing: T.self)
         modelTypeCheckingBlock = { $0 is U }
@@ -277,14 +293,13 @@ open class ViewModelMapping
         mapping?(self)
     }
     
-    public init<T: ModelTransfer>(supplementaryClass: T.Type,
-                                  kind: String,
-                                 supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
-                                 mapping: ((ViewModelMapping) -> Void)?)
-        where T: UICollectionReusableView
+    public init(kind: String,
+                supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<T, U>) -> Void)?)
+    where T: UICollectionReusableView, T: ModelTransfer, U == T.ModelType
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = supplementaryClass
+        viewClass = T.self
         xibName = String(describing: T.self)
         reuseIdentifier = String(describing: T.self)
         modelTypeCheckingBlock = { $0 is T.ModelType }
@@ -354,19 +369,10 @@ open class ViewModelMapping
         return view as? UICollectionReusableView
     }
     
-    /// Creates `ViewModelMapping` for `modelType`
-    public static func eventsModelMapping<T>(viewType: ViewType, modelClass: T.Type) -> ViewModelMapping {
-        ViewModelMapping(viewType: viewType, modelClass: modelClass, viewClass: NSObject.self)
-    }
-    
-    public static func eventsViewMapping<T: AnyObject>(viewType: ViewType, viewClass: T.Type) -> ViewModelMapping {
-        ViewModelMapping(viewType: viewType, modelClass: NSObject.self, viewClass: T.self)
-    }
-    
-    private init<T, U: AnyObject>(viewType: ViewType, modelClass: T.Type, viewClass: U.Type) {
+    internal init(viewType: ViewType, modelClass: U.Type, viewClass: T.Type) {
         self.viewType = viewType
-        self.viewClass = viewClass
-        modelTypeCheckingBlock = { $0 is T }
+        self.viewClass = T.self
+        modelTypeCheckingBlock = { $0 is U }
         updateBlock = { _, _ in }
         reuseIdentifier = ""
         xibName = nil
@@ -374,13 +380,12 @@ open class ViewModelMapping
     }
 }
 
-extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMapping {
-    
+extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMappingProtocol {
     /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.
     /// - Returns: Array of view model mappings
     /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
     /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    public func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMapping] {
+    public func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMappingProtocol] {
         return filter { mapping -> Bool in
             guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
             return viewType == mapping.viewType &&
