@@ -43,6 +43,18 @@ public enum ViewType: Equatable
         case .supplementaryView(let kind): return kind
         }
     }
+    
+    /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.
+    /// - Returns: Array of view model mappings
+    /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
+    public func mappingCandidates(for mappings: [ViewModelMappingProtocol], withModel model: Any, at indexPath: IndexPath) -> [ViewModelMappingProtocol] {
+        return mappings.filter { mapping -> Bool in
+            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
+            return self == mapping.viewType &&
+                mapping.modelTypeCheckingBlock(unwrappedModel) &&
+                mapping.condition.isCompatible(with: indexPath, model: model)
+        }
+    }
 }
 
 
@@ -377,20 +389,5 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         reuseIdentifier = ""
         xibName = nil
         bundle = Bundle.main
-    }
-}
-
-extension RangeReplaceableCollection where Self.Iterator.Element == ViewModelMappingProtocol {
-    /// Returns mappings candidates of correct `viewType`, for which `modelTypeCheckingBlock` with `model` returns true.
-    /// - Returns: Array of view model mappings
-    /// - Note: Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
-    /// - SeeAlso: `addMappingForViewType(_:viewClass:)`
-    public func mappingCandidates(for viewType: ViewType, withModel model: Any, at indexPath: IndexPath) -> [ViewModelMappingProtocol] {
-        return filter { mapping -> Bool in
-            guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return false }
-            return viewType == mapping.viewType &&
-                mapping.modelTypeCheckingBlock(unwrappedModel) &&
-                mapping.condition.isCompatible(with: indexPath, model: model)
-        }
     }
 }

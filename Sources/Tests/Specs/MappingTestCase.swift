@@ -92,7 +92,7 @@ class MappingTestCase: XCTestCase {
         let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         
-        let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
+        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
         XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
@@ -102,7 +102,7 @@ class MappingTestCase: XCTestCase {
         let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         let optional: ConformingClass? = ConformingClass()
-        let candidates = mappings.mappingCandidates(for: .cell, withModel: optional ?? 0, at: indexPath(0, 0))
+        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: optional ?? 0, at: indexPath(0, 0))
         XCTAssertEqual(candidates.count, 1)
         XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
     }
@@ -110,7 +110,7 @@ class MappingTestCase: XCTestCase {
     func testSubclassModelMappingIsFindable() {
         let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
-        let candidates = mappings.mappingCandidates(for: .cell, withModel: Subclass(), at: indexPath(0, 0))
+        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: Subclass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
         XCTAssert(candidates.first?.viewClass == SubclassTestableCollectionViewCell.self)
@@ -120,7 +120,7 @@ class MappingTestCase: XCTestCase {
         let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         let model : AncestorClass? = nil
-        let candidates = mappings.mappingCandidates(for: .cell, withModel: model as Any, at: indexPath(0, 0))
+        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: model as Any, at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 0)
     }
@@ -129,7 +129,7 @@ class MappingTestCase: XCTestCase {
         let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
         mappings.append(mapping)
         
-        let candidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
+        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 0))
         
         XCTAssertEqual(candidates.count, 1)
         XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
@@ -150,11 +150,11 @@ class MappingTestCase: XCTestCase {
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
-        let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 0))
+        let firstCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
         XCTAssert(firstCandidates.first?.viewClass === ProtocolTestableCollectionViewCell.self)
         
-        let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: ConformingClass(), at: indexPath(0, 1))
+        let secondCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
         XCTAssert(secondCandidates.first?.viewClass === ProtocolTestableCollectionViewCellSubclass.self)
     }
@@ -173,11 +173,11 @@ class MappingTestCase: XCTestCase {
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
-        let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: 3, at: indexPath(0, 0))
+        let firstCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: 3, at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
         XCTAssert(firstCandidates.first?.viewClass === OtherIntCollectionViewCell.self)
         
-        let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: 6, at: indexPath(0, 1))
+        let secondCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: 6, at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
         XCTAssert(secondCandidates.first?.viewClass === IntCollectionViewCell.self)
     }
@@ -192,11 +192,11 @@ class MappingTestCase: XCTestCase {
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
-        let firstCandidates = mappings.mappingCandidates(for: .cell, withModel: 3, at: indexPath(0, 0))
+        let firstCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: 3, at: indexPath(0, 0))
         XCTAssertEqual(firstCandidates.count, 1)
         XCTAssert(firstCandidates.first?.viewClass === OtherIntCollectionViewCell.self)
         
-        let secondCandidates = mappings.mappingCandidates(for: .cell, withModel: 6, at: indexPath(0, 1))
+        let secondCandidates = ViewType.cell.mappingCandidates(for: mappings, withModel: 6, at: indexPath(0, 1))
         XCTAssertEqual(secondCandidates.count, 1)
         XCTAssert(secondCandidates.first?.viewClass === IntCollectionViewCell.self)
     }

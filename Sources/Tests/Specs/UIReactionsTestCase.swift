@@ -12,7 +12,7 @@ import DTModelStorage
 
 class UIReactionsTestCase: XCTestCase {
     
-    var mapping : ViewModelMapping<CollectionCell, Int>!
+    var mapping : ViewModelMappingProtocol!
     
     override func setUp() {
         super.setUp()
@@ -24,10 +24,6 @@ class UIReactionsTestCase: XCTestCase {
         mapping.reactions.removeAll()
     }
     
-    func testReactionTypeEquatable() {
-        XCTAssertEqual(ViewType.cell, ViewType.cell)
-    }
-    
     func testReactionTypeSupplementaryEquatable() {
         XCTAssertEqual(ViewType.supplementaryView(kind: "foo"), ViewType.supplementaryView(kind: "foo"))
         XCTAssertNotEqual(ViewType.supplementaryView(kind: "foo"), ViewType.supplementaryView(kind: "bar"))
@@ -35,7 +31,7 @@ class UIReactionsTestCase: XCTestCase {
     
     func testReactionsAreSearchable() {
         mapping.reactions.append(EventReaction(CollectionCell.self, Int.self, signature: "foo") { _,_,_ in })
-        let foundReaction = [mapping].reaction(of: .cell, signature: "foo", forModel: 5, at: indexPath(0, 0), view: nil)
+        let foundReaction = EventReaction.reaction(from: [mapping], of: .cell, signature: "foo", forModel: 5, at: indexPath(0, 0), view: nil)
         XCTAssertNotNil(foundReaction)
     }
     
@@ -44,7 +40,7 @@ class UIReactionsTestCase: XCTestCase {
         
         let nilModel: Int? = 5
         
-        let foundReaction = [mapping].reaction(of: .cell, signature: "foo", forModel: nilModel as Any, at: indexPath(0, 0), view: nil)
+        let foundReaction = EventReaction.reaction(from: [mapping], of: .cell, signature: "foo", forModel: nilModel as Any, at: indexPath(0, 0), view: nil)
         XCTAssertNotNil(foundReaction)
     }
     
@@ -67,7 +63,7 @@ class UIReactionsTestCase: XCTestCase {
             return 3
         }
         mapping.reactions.append(reaction)
-        let result = [mapping].performReaction(of: .cell, signature: "foo", view: CollectionCell(), model: 5, location: indexPath(0, 0))
+        let result = EventReaction.performReaction(from: [mapping], of: .cell, signature: "foo", view: CollectionCell(), model: 5, location: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
         XCTAssertEqual(result as? Int, 3)
     }

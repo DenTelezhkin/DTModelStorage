@@ -162,28 +162,29 @@ open class FiveArgumentsEventReaction: EventReaction {
     }
 }
 
-extension Sequence where Self.Iterator.Element: ViewModelMappingProtocol {
+//swiftlint:disable function_parameter_count
+public extension EventReaction {
     /// Searches for reaction using specified parameters.
-    public func reaction(of type: ViewType,
+    static func reaction(from mappings: [ViewModelMappingProtocol],
+                        of type: ViewType,
                          signature: String,
                          forModel model: Any,
                          at indexPath: IndexPath,
                          view: UIView?) -> EventReaction? {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return nil }
-        return filter { mapping in
+        return mappings.first(where: { mapping in
             // Find all compatible mappings
             mapping.modelTypeCheckingBlock(unwrappedModel) &&
             mapping.viewType == type &&
             (view?.isKind(of: mapping.viewClass) ?? true) &&
             mapping.condition.isCompatible(with: indexPath, model: unwrappedModel) &&
                 mapping.reactions.contains { $0.methodSignature == signature }
-        }
-        .first?.reactions.first(where: { $0.methodSignature == signature })
+        })?.reactions.first(where: { $0.methodSignature == signature })
     }
     
     /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
-    public func performReaction(of type: ViewType, signature: String, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(of: type, signature: signature, forModel: model, at: location, view: view as? UIView) else {
+    static func performReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) else {
             return 0
         }
         return reaction.performWithArguments((view ?? 0, model, location))
@@ -191,14 +192,14 @@ extension Sequence where Self.Iterator.Element: ViewModelMappingProtocol {
     
     //swiftlint:disable function_parameter_count
     /// Performs reaction of `type`, `signature`, with `argument`, `view`, `model` in `location`.
-    public func perform4ArgumentsReaction(of type: ViewType, signature: String, argument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
+    static func perform4ArgumentsReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, argument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((argument, view ?? 0, model, location))
     }
     
     /// Performs reaction of `type`, `signature`, with `firstArgument`, `secondArgument`, `view`, `model` in `location`.
-    public func perform5ArgumentsReaction(of type: ViewType, signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
+    static func perform5ArgumentsReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((firstArgument, secondArgument, view ?? 0, model, location))
     }
 }
