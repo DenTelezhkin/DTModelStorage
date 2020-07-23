@@ -73,7 +73,7 @@ jobs:
     name: Lint podspec
     runs-on: macOS-latest
     env:
-      DEVELOPER_DIR: /Applications/Xcode_11.5.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12_beta.app/Contents/Developer
     steps:
       - uses: actions/checkout@v2
       - name: Install gems
