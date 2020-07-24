@@ -35,6 +35,8 @@ open class EventReaction {
     /// 3 arguments reaction block with all arguments type-erased.
     open var reaction : ((Any, Any, Any) -> Any)?
     
+    let modelTypeCheckingBlock: ((Any) -> Bool)?
+    
     /// Objective-C method signature
     public let methodSignature: String
     
@@ -44,6 +46,7 @@ open class EventReaction {
                                             signature: String,
                                             _ block: @escaping (View, ModelType, IndexPath) -> ReturnType) {
         self.methodSignature = signature
+        modelTypeCheckingBlock = nil
         reaction = { view, model, indexPath in
             guard let model = model as? ModelType,
                 let indexPath = indexPath as? IndexPath,
@@ -58,6 +61,7 @@ open class EventReaction {
     /// Creates reaction with `signature`, `viewType` and `modelType`.
     public init<Argument, ReturnType>(_ modelType: Argument.Type, signature: String, _ block: @escaping (Argument, IndexPath) -> ReturnType) {
         self.methodSignature = signature
+        modelTypeCheckingBlock = { $0 is Argument }
         reaction = { cell, model, indexPath in
             guard let model = model as? Argument,
                 let indexPath = indexPath as? IndexPath else {
@@ -162,11 +166,33 @@ open class FiveArgumentsEventReaction: EventReaction {
     }
 }
 
-//swiftlint:disable function_parameter_count
 public extension EventReaction {
     /// Searches for reaction using specified parameters.
+    static func unmappedReaction(from reactions: [EventReaction],
+                         signature: String,
+                         forModel model: Any) -> EventReaction? {
+        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return nil }
+        return reactions.first { reaction in
+            reaction.methodSignature == signature &&
+                (reaction.modelTypeCheckingBlock?(unwrappedModel) ?? false)
+        }
+    }
+    
+    static func performUnmappedReaction(from reactions: [EventReaction],
+                                        _ signature: String) -> Any? {
+        unmappedReaction(from: reactions, signature: signature, forModel: Void())?.performWithArguments((0, 0, 0))
+    }
+    
+    static func performUnmappedReaction<T>(from reactions: [EventReaction], _ signature: String, argument: T) -> Any? {
+        unmappedReaction(from: reactions, signature: signature, forModel: argument)?.performWithArguments((argument, 0, 0))
+    }
+    
+    static func performUnmappedReaction<T, U>(from reactions: [EventReaction], _ signature: String, argumentOne: T, argumentTwo: U) -> Any? {
+        unmappedReaction(from: reactions, signature: signature, forModel: argumentOne)?.performWithArguments((argumentOne, argumentTwo, 0))
+    }
+    
+    /// Searches for reaction using specified parameters.
     static func reaction(from mappings: [ViewModelMappingProtocol],
-                        of type: ViewType,
                          signature: String,
                          forModel model: Any,
                          at indexPath: IndexPath,
@@ -175,7 +201,6 @@ public extension EventReaction {
         return mappings.first(where: { mapping in
             // Find all compatible mappings
             mapping.modelTypeCheckingBlock(unwrappedModel) &&
-            mapping.viewType == type &&
             (view?.isKind(of: mapping.viewClass) ?? true) &&
             mapping.condition.isCompatible(with: indexPath, model: unwrappedModel) &&
                 mapping.reactions.contains { $0.methodSignature == signature }
@@ -183,8 +208,8 @@ public extension EventReaction {
     }
     
     /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
-    static func performReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) else {
+    static func performReaction(from mappings: [ViewModelMappingProtocol], signature: String, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, signature: signature, forModel: model, at: location, view: view as? UIView) else {
             return 0
         }
         return reaction.performWithArguments((view ?? 0, model, location))
@@ -192,14 +217,14 @@ public extension EventReaction {
     
     //swiftlint:disable function_parameter_count
     /// Performs reaction of `type`, `signature`, with `argument`, `view`, `model` in `location`.
-    static func perform4ArgumentsReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, argument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
+    static func perform4ArgumentsReaction(from mappings: [ViewModelMappingProtocol], signature: String, argument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, signature: signature, forModel: model, at: location, view: view as? UIView) as? FourArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((argument, view ?? 0, model, location))
     }
     
     /// Performs reaction of `type`, `signature`, with `firstArgument`, `secondArgument`, `view`, `model` in `location`.
-    static func perform5ArgumentsReaction(from mappings: [ViewModelMappingProtocol], of type: ViewType, signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(from: mappings, of: type, signature: signature, forModel: model, at: location, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
+    static func perform5ArgumentsReaction(from mappings: [ViewModelMappingProtocol], signature: String, firstArgument: Any, secondArgument: Any, view: Any?, model: Any, location: IndexPath) -> Any {
+        guard let reaction = reaction(from: mappings, signature: signature, forModel: model, at: location, view: view as? UIView) as? FiveArgumentsEventReaction else { return 0 }
         return reaction.performWithArguments((firstArgument, secondArgument, view ?? 0, model, location))
     }
 }
