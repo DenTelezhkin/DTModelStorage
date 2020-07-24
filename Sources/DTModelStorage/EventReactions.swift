@@ -168,7 +168,7 @@ open class FiveArgumentsEventReaction: EventReaction {
 
 public extension EventReaction {
     /// Searches for reaction using specified parameters.
-    static func unmappedReaction(from reactions: ContiguousArray<EventReaction>,
+    static func unmappedReaction(from reactions: [EventReaction],
                          signature: String,
                          forModel model: Any) -> EventReaction? {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return nil }
@@ -178,16 +178,16 @@ public extension EventReaction {
         }
     }
     
-    static func performUnmappedReaction(from reactions: ContiguousArray<EventReaction>,
+    static func performUnmappedReaction(from reactions: [EventReaction],
                                         _ signature: String) -> Any? {
         unmappedReaction(from: reactions, signature: signature, forModel: Void())?.performWithArguments((0, 0, 0))
     }
     
-    static func performUnmappedReaction<T>(from reactions: ContiguousArray<EventReaction>, _ signature: String, argument: T) -> Any? {
+    static func performUnmappedReaction<T>(from reactions: [EventReaction], _ signature: String, argument: T) -> Any? {
         unmappedReaction(from: reactions, signature: signature, forModel: argument)?.performWithArguments((argument, 0, 0))
     }
     
-    static func performUnmappedReaction<T, U>(from reactions: ContiguousArray<EventReaction>, _ signature: String, argumentOne: T, argumentTwo: U) -> Any? {
+    static func performUnmappedReaction<T, U>(from reactions: [EventReaction], _ signature: String, argumentOne: T, argumentTwo: U) -> Any? {
         unmappedReaction(from: reactions, signature: signature, forModel: argumentOne)?.performWithArguments((argumentOne, argumentTwo, 0))
     }
     
