@@ -97,7 +97,7 @@ public protocol ViewModelMappingProtocol: class {
     var reuseIdentifier : String { get }
     var cellRegisteredByStoryboard: Bool { get }
     var supplementaryRegisteredByStoryboard : Bool { get }
-    var reactions: [EventReaction] { get set }
+    var reactions: ContiguousArray<EventReaction> { get set }
     
     func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell?
     func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView?
@@ -134,7 +134,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     public var cellRegisteredByStoryboard: Bool = false
     public var supplementaryRegisteredByStoryboard : Bool = false
     
-    public var reactions: [EventReaction] = []
+    public var reactions: ContiguousArray<EventReaction> = []
     
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ supplementaryKind: String, _ indexPath: IndexPath) -> Any)?
