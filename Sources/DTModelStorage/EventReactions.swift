@@ -71,6 +71,14 @@ open class EventReaction {
         }
     }
     
+    public init<ReturnType>(signature: String, _ block: @escaping () -> ReturnType) {
+        self.methodSignature = signature
+        modelTypeCheckingBlock = { _ in true }
+        reaction = { _, _, _ in
+            block()
+        }
+    }
+    
     public init<Argument, ReturnType>(argument: Argument.Type, signature: String, _ block: @escaping (Argument) -> ReturnType) {
         self.methodSignature = signature
         modelTypeCheckingBlock = { _ in true }
