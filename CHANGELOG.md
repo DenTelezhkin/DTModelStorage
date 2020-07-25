@@ -19,6 +19,7 @@ Some context: this release heavily relies on where clauses on contextually gener
 * `performReaction` methods now accept `IndexPath` for `location` parameter instead of `Any`.
 * Event reactions are moved from extension on `[ViewModelMapping]` to static methods on `EventReaction` due to Swift inability to call methods on sequences that contain protocols.
 * `mappingCandidates` method has been moved to `ViewType` type.
+* `EventReaction` has new initializers with more specific names.
 
 ## [8.1.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.1.0)
 

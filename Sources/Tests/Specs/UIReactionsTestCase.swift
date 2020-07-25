@@ -30,13 +30,13 @@ class UIReactionsTestCase: XCTestCase {
     }
     
     func testReactionsAreSearchable() {
-        mapping.reactions.append(EventReaction(CollectionCell.self, Int.self, signature: "foo") { _,_,_ in })
+        mapping.reactions.append(EventReaction(viewType: CollectionCell.self, modelType: Int.self, signature: "foo") { _,_,_ in })
         let foundReaction = EventReaction.reaction(from: [mapping], signature: "foo", forModel: 5, at: indexPath(0, 0), view: nil)
         XCTAssertNotNil(foundReaction)
     }
     
     func testReactionsForOptionalModelsAreSearchable() {
-        mapping.reactions.append(EventReaction(CollectionCell.self, Int.self, signature: "foo") { _,_,_ in })
+        mapping.reactions.append(EventReaction(viewType: CollectionCell.self, modelType: Int.self, signature: "foo") { _,_,_ in })
         
         let nilModel: Int? = 5
         
@@ -46,7 +46,7 @@ class UIReactionsTestCase: XCTestCase {
     
     func testCellReactionIsExecutable() {
         let exp = expectation(description: "executeCell")
-        let reaction = EventReaction(CollectionCell.self, Int.self, signature: "foo") { _,_,_ -> Int in
+        let reaction = EventReaction(viewType: CollectionCell.self, modelType: Int.self, signature: "foo") { _,_,_ -> Int in
             exp.fulfill()
             return 3
         }
@@ -58,7 +58,7 @@ class UIReactionsTestCase: XCTestCase {
     
     func testReactionOfTypeIsPerformable() {
         let exp = expectation(description: "executeCell")
-        let reaction = EventReaction(CollectionCell.self, Int.self, signature: "foo") { _,_,_ -> Int in
+        let reaction = EventReaction(viewType: CollectionCell.self, modelType: Int.self, signature: "foo") { _,_,_ -> Int in
             exp.fulfill()
             return 3
         }

@@ -41,8 +41,8 @@ open class EventReaction {
     public let methodSignature: String
     
     /// Creates reaction with `signature`.
-    public init<View, ModelType, ReturnType>(_ viewType: View.Type,
-                                            _ modelType: ModelType.Type,
+    public init<View, ModelType, ReturnType>(viewType: View.Type,
+                                            modelType: ModelType.Type,
                                             signature: String,
                                             _ block: @escaping (View, ModelType, IndexPath) -> ReturnType) {
         self.methodSignature = signature
@@ -59,15 +59,40 @@ open class EventReaction {
     }
     
     /// Creates reaction with `signature`, `viewType` and `modelType`.
-    public init<Argument, ReturnType>(_ modelType: Argument.Type, signature: String, _ block: @escaping (Argument, IndexPath) -> ReturnType) {
+    public init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
         self.methodSignature = signature
-        modelTypeCheckingBlock = { $0 is Argument }
-        reaction = { cell, model, indexPath in
-            guard let model = model as? Argument,
+        modelTypeCheckingBlock = { $0 is ModelType }
+        reaction = { model, indexPath, _ in
+            guard let model = model as? ModelType,
                 let indexPath = indexPath as? IndexPath else {
                     return 0
             }
             return block(model, indexPath)
+        }
+    }
+    
+    public init<Argument, ReturnType>(argument: Argument.Type, signature: String, _ block: @escaping (Argument) -> ReturnType) {
+        self.methodSignature = signature
+        modelTypeCheckingBlock = { _ in true }
+        reaction = { argument, _, _ in
+            guard let argument = argument as? Argument else {
+                return 0
+            }
+            return block(argument)
+        }
+    }
+    
+    public init<ArgumentOne, ArgumentTwo, ReturnType>(argumentOne: ArgumentOne.Type,
+                                                      argumentTwo: ArgumentTwo.Type,
+                                                      signature: String,
+                                                      _ block: @escaping (ArgumentOne, ArgumentTwo) -> ReturnType) {
+        self.methodSignature = signature
+        modelTypeCheckingBlock = { _ in true }
+        reaction = { arg1, arg2, _ in
+            guard let arg1 = arg1 as? ArgumentOne, let arg2 = arg2 as? ArgumentTwo else {
+                return 0
+            }
+            return block(arg1, arg2)
         }
     }
     
@@ -84,13 +109,13 @@ open class FourArgumentsEventReaction: EventReaction {
     open var reaction4Arguments : ((Any, Any, Any, Any) -> Any)?
    
     @available(*, unavailable)
-    public override init<Argument, ReturnType>(_ modelType: Argument.Type, signature: String, _ block: @escaping (Argument, IndexPath) -> ReturnType) {
-        super.init(modelType, signature: signature, block)
+    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
+        super.init(modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
-    public override init<View, Argument, ReturnType>(_ viewType: View.Type, _ modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
-        super.init(viewType, modelType, signature: signature, block)
+    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
+        super.init(viewType: viewType, modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
@@ -98,12 +123,26 @@ open class FourArgumentsEventReaction: EventReaction {
         fatalError("This method should not be called. Please call 4 argument version of this method")
     }
     
+    @available(*, unavailable)
+    public override init<Argument, ReturnType>(argument: Argument.Type, signature: String, _ block: @escaping (Argument) -> ReturnType) {
+        fatalError("This initializer should not be called. Please Use EventReaction class instead")
+    }
+    
+    @available(*, unavailable)
+    public override init<ArgumentOne, ArgumentTwo, ReturnType>(argumentOne: ArgumentOne.Type,
+                                                      argumentTwo: ArgumentTwo.Type,
+                                                      signature: String,
+                                                      _ block: @escaping (ArgumentOne, ArgumentTwo) -> ReturnType)
+    {
+        fatalError("This initializer should not be called. Please Use EventReaction class instead")
+    }
+    
     public init<View, ModelType, Argument, ReturnType>(_ viewType: View.Type,
                                                          modelType: ModelType.Type,
                                                          argument: Argument.Type,
                                                          signature: String,
                                                          _ block: @escaping (Argument, View, ModelType, IndexPath) -> ReturnType) {
-        super.init(viewType, modelType, signature: signature) { _, _, _ in
+        super.init(viewType: viewType, modelType: modelType, signature: signature) { _, _, _ in
             fatalError("This closure should not be called by FourArgumentsEventReaction")
         }
         reaction4Arguments = { argument, view, model, indexPath in
@@ -128,13 +167,13 @@ open class FiveArgumentsEventReaction: EventReaction {
     open var reaction5Arguments : ((Any, Any, Any, Any, Any) -> Any)?
     
     @available(*, unavailable)
-    public override init<Argument, ReturnType>(_ modelType: Argument.Type, signature: String, _ block: @escaping (Argument, IndexPath) -> ReturnType) {
-        super.init(modelType, signature: signature, block)
+    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
+        super.init(modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
-    public override init<View, Argument, ReturnType>(_ viewType: View.Type, _ modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
-        super.init(viewType, modelType, signature: signature, block)
+    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
+        super.init(viewType: viewType, modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
@@ -142,12 +181,26 @@ open class FiveArgumentsEventReaction: EventReaction {
         fatalError("This method should not be called. Please call 4 argument version of this method")
     }
     
+    @available(*, unavailable)
+    public override init<Argument, ReturnType>(argument: Argument.Type, signature: String, _ block: @escaping (Argument) -> ReturnType) {
+        fatalError("This initializer should not be called. Please Use EventReaction class instead")
+    }
+    
+    @available(*, unavailable)
+    public override init<ArgumentOne, ArgumentTwo, ReturnType>(argumentOne: ArgumentOne.Type,
+                                                      argumentTwo: ArgumentTwo.Type,
+                                                      signature: String,
+                                                      _ block: @escaping (ArgumentOne, ArgumentTwo) -> ReturnType)
+    {
+        fatalError("This initializer should not be called. Please Use EventReaction class instead")
+    }
+    
     public init<View, ModelType, ArgumentOne, ArgumentTwo, ReturnType>(_ viewType: View.Type,
                                                                        modelType: ModelType.Type,
                                                                        argumentOne: ArgumentOne.Type,
                                                                        argumentTwo: ArgumentTwo.Type,
                                                                        signature: String, _ block: @escaping (ArgumentOne, ArgumentTwo, View, ModelType, IndexPath) -> ReturnType) {
-        super.init(viewType, modelType, signature: signature) { _, _, _ in
+        super.init(viewType: viewType, modelType: modelType, signature: signature) { _, _, _ in
             fatalError("This closure should not be called by FiveArgumentsEventReaction")
         }
         reaction5Arguments = { argumentOne, argumentTwo, view, model, indexPath in
