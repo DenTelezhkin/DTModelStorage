@@ -37,6 +37,8 @@ open class EventReaction {
     
     let modelTypeCheckingBlock: ((Any) -> Bool)?
     
+    public let supplementaryKind: String?
+    
     /// Objective-C method signature
     public let methodSignature: String
     
@@ -44,9 +46,11 @@ open class EventReaction {
     public init<View, ModelType, ReturnType>(viewType: View.Type,
                                             modelType: ModelType.Type,
                                             signature: String,
+                                            supplementaryKind: String? = nil,
                                             _ block: @escaping (View, ModelType, IndexPath) -> ReturnType) {
         self.methodSignature = signature
         modelTypeCheckingBlock = nil
+        self.supplementaryKind = supplementaryKind
         reaction = { view, model, indexPath in
             guard let model = model as? ModelType,
                 let indexPath = indexPath as? IndexPath,
@@ -59,9 +63,11 @@ open class EventReaction {
     }
     
     /// Creates reaction with `signature`, `viewType` and `modelType`.
-    public init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
+    public init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, supplementaryKind: String? = nil,
+                                       _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
         self.methodSignature = signature
         modelTypeCheckingBlock = { $0 is ModelType }
+        self.supplementaryKind = supplementaryKind
         reaction = { model, indexPath, _ in
             guard let model = model as? ModelType,
                 let indexPath = indexPath as? IndexPath else {
@@ -73,6 +79,7 @@ open class EventReaction {
     
     public init<ReturnType>(signature: String, _ block: @escaping () -> ReturnType) {
         self.methodSignature = signature
+        supplementaryKind = nil
         modelTypeCheckingBlock = { _ in true }
         reaction = { _, _, _ in
             block()
@@ -82,6 +89,7 @@ open class EventReaction {
     public init<Argument, ReturnType>(argument: Argument.Type, signature: String, _ block: @escaping (Argument) -> ReturnType) {
         self.methodSignature = signature
         modelTypeCheckingBlock = { _ in true }
+        supplementaryKind = nil
         reaction = { argument, _, _ in
             guard let argument = argument as? Argument else {
                 return 0
@@ -96,6 +104,7 @@ open class EventReaction {
                                                       _ block: @escaping (ArgumentOne, ArgumentTwo) -> ReturnType) {
         self.methodSignature = signature
         modelTypeCheckingBlock = { _ in true }
+        supplementaryKind = nil
         reaction = { arg1, arg2, _ in
             guard let arg1 = arg1 as? ArgumentOne, let arg2 = arg2 as? ArgumentTwo else {
                 return 0
@@ -117,12 +126,12 @@ open class FourArgumentsEventReaction: EventReaction {
     open var reaction4Arguments : ((Any, Any, Any, Any) -> Any)?
    
     @available(*, unavailable)
-    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
+    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, supplementaryKind: String? = nil, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
         super.init(modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
-    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
+    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, supplementaryKind: String? = nil, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
         super.init(viewType: viewType, modelType: modelType, signature: signature, block)
     }
     
@@ -175,12 +184,12 @@ open class FiveArgumentsEventReaction: EventReaction {
     open var reaction5Arguments : ((Any, Any, Any, Any, Any) -> Any)?
     
     @available(*, unavailable)
-    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
+    public override init<ModelType, ReturnType>(modelType: ModelType.Type, signature: String, supplementaryKind: String? = nil, _ block: @escaping (ModelType, IndexPath) -> ReturnType) {
         super.init(modelType: modelType, signature: signature, block)
     }
     
     @available(*, unavailable)
-    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
+    public override init<View, Argument, ReturnType>(viewType: View.Type, modelType: Argument.Type, signature: String, supplementaryKind: String? = nil, _ block: @escaping (View, Argument, IndexPath) -> ReturnType) {
         super.init(viewType: viewType, modelType: modelType, signature: signature, block)
     }
     
@@ -231,11 +240,13 @@ public extension EventReaction {
     /// Searches for reaction using specified parameters.
     static func unmappedReaction(from reactions: [EventReaction],
                          signature: String,
-                         forModel model: Any) -> EventReaction? {
+                         forModel model: Any,
+                         supplementaryKind: String? = nil) -> EventReaction? {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return nil }
         return reactions.first { reaction in
             reaction.methodSignature == signature &&
-                (reaction.modelTypeCheckingBlock?(unwrappedModel) ?? false)
+                (reaction.modelTypeCheckingBlock?(unwrappedModel) ?? false) &&
+                reaction.supplementaryKind == supplementaryKind
         }
     }
     
@@ -257,7 +268,8 @@ public extension EventReaction {
                          signature: String,
                          forModel model: Any,
                          at indexPath: IndexPath,
-                         view: UIView?) -> EventReaction? {
+                         view: UIView?,
+                         supplementaryKind: String? = nil) -> EventReaction? {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return nil }
         return mappings.first(where: { mapping in
             // Find all compatible mappings
@@ -265,12 +277,12 @@ public extension EventReaction {
             (view?.isKind(of: mapping.viewClass) ?? true) &&
             mapping.condition.isCompatible(with: indexPath, model: unwrappedModel) &&
                 mapping.reactions.contains { $0.methodSignature == signature }
-        })?.reactions.first(where: { $0.methodSignature == signature })
+        })?.reactions.first(where: { $0.methodSignature == signature && $0.supplementaryKind == supplementaryKind })
     }
     
     /// Performs reaction of `type`, `signature`, with `view`, `model` in `location`.
-    static func performReaction(from mappings: [ViewModelMappingProtocol], signature: String, view: Any?, model: Any, location: IndexPath) -> Any {
-        guard let reaction = reaction(from: mappings, signature: signature, forModel: model, at: location, view: view as? UIView) else {
+    static func performReaction(from mappings: [ViewModelMappingProtocol], signature: String, view: Any?, model: Any, location: IndexPath, supplementaryKind: String? = nil) -> Any {
+        guard let reaction = reaction(from: mappings, signature: signature, forModel: model, at: location, view: view as? UIView, supplementaryKind: supplementaryKind) else {
             return 0
         }
         return reaction.performWithArguments((view ?? 0, model, location))
