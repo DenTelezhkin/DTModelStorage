@@ -259,8 +259,8 @@ public extension EventReaction {
         unmappedReaction(from: reactions, signature: signature, forModel: argument)?.performWithArguments((argument, 0, 0))
     }
     
-    static func performUnmappedReaction<T, U>(from reactions: [EventReaction], _ signature: String, argumentOne: T, argumentTwo: U) -> Any? {
-        unmappedReaction(from: reactions, signature: signature, forModel: argumentOne)?.performWithArguments((argumentOne, argumentTwo, 0))
+    static func performUnmappedReaction<T, U>(from reactions: [EventReaction], _ signature: String, argumentOne: T, argumentTwo: U, supplementaryKind: String? = nil) -> Any? {
+        unmappedReaction(from: reactions, signature: signature, forModel: argumentOne, supplementaryKind: supplementaryKind)?.performWithArguments((argumentOne, argumentTwo, 0))
     }
     
     /// Searches for reaction using specified parameters.
