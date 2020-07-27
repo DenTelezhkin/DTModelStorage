@@ -12,10 +12,10 @@
       },
       {
         "package": "HeckelDiff",
-        "repositoryURL": "https://github.com/DenTelezhkin/HeckelDiff",
+        "repositoryURL": "https://github.com/mcudich/HeckelDiff",
         "state": {
-          "branch": "xcode12",
-          "revision": "4ed83f754df046df73d5cfd00ceda04ebfd68336",
+          "branch": "master",
+          "revision": "4e2cbd918c961733632e0df3078951a3541dcd64",
           "version": null
         }
       },
