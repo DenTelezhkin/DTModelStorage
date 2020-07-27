@@ -37,9 +37,6 @@ let package = Package(
     ],
     targets: [
          .target(name: "DTModelStorage")
-         // Test target causes conflicts with other targets named the same, even if they are in different projects
-         // Also resources are not supported as for Xcode 11 beta 3, so test target in SPM is currently pointless.
-         // .testTarget(name: "Tests", dependencies: ["DTModelStorage"])
     ],
     swiftLanguageVersions: [.v5]
 )
