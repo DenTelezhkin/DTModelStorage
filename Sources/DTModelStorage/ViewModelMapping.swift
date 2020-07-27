@@ -137,7 +137,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     public var reactions: [EventReaction] = []
     
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
-    private var _supplementaryDequeueClosure: ((_ containerView: Any, _ supplementaryKind: String, _ indexPath: IndexPath) -> Any)?
+    private var _supplementaryDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     
     @available(*, deprecated, message: "Please use other constructors to create ViewModelMapping.")
     /// Creates `ViewModelMapping` for `viewClass`
@@ -268,9 +268,9 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         modelTypeCheckingBlock = { $0 is U }
         updateBlock = { _, _ in }
         bundle = Bundle(for: T.self)
-        _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
+        _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self, let model = model as? U else { return nil as Any? as Any }
-            if let collectionView = view as? UICollectionView {
+            if let collectionView = collectionView as? UICollectionView {
                 if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                         let registration : UICollectionView.SupplementaryRegistration<T>
@@ -320,11 +320,11 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
             view.update(with: model)
         }
         bundle = Bundle(for: T.self)
-        _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
+        _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self, let model = model as? T.ModelType else {
                 return nil as Any? as Any
             }
-            if let collectionView = view as? UICollectionView {
+            if let collectionView = collectionView as? UICollectionView {
                 if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
                     let registration : UICollectionView.SupplementaryRegistration<T>
@@ -374,7 +374,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         guard viewType == .supplementaryView(kind: kind) else {
             return nil
         }
-        guard let view = _supplementaryDequeueClosure?(collectionView, kind, indexPath) else {
+        guard let view = _supplementaryDequeueClosure?(collectionView, model, indexPath) else {
             return nil
         }
         updateBlock(view, model)
