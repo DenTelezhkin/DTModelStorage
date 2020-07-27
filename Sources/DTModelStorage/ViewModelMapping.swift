@@ -155,7 +155,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mappingBlock?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, IndexPath, U) -> Void),
+    public init(cellConfiguration: @escaping ((T, U, IndexPath) -> Void),
                           mapping: ((ViewModelMapping<T, U>) -> Void)?)
         where T: UICollectionViewCell
     {
@@ -175,25 +175,25 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                         
                         if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                             registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
-                                cellConfiguration(cell, indexPath, model)
+                                cellConfiguration(cell, model, indexPath)
                             })
                         } else {
                             registration = .init(handler: { cell, indexPath, model in
-                                cellConfiguration(cell, indexPath, model)
+                                cellConfiguration(cell, model, indexPath)
                             })
                         }
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                         if let cell = cell as? T {
-                            cellConfiguration(cell, indexPath, model)
+                            cellConfiguration(cell, model, indexPath)
                         }
                         return cell
                     #endif
                 } else {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let cell = cell as? T, let model = model as? U {
-                        cellConfiguration(cell, indexPath, model)
+                        cellConfiguration(cell, model, indexPath)
                     }
                     return cell
                 }
@@ -203,7 +203,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, IndexPath, T.ModelType) -> Void),
+    public init(cellConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
                 mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?)
         where T: UICollectionViewCell, T: ModelTransfer, T.ModelType == U
     {
@@ -228,25 +228,25 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                         
                         if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                             registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
-                                cellConfiguration(cell, indexPath, model)
+                                cellConfiguration(cell, model, indexPath)
                             })
                         } else {
                             registration = .init(handler: { cell, indexPath, model in
-                                cellConfiguration(cell, indexPath, model)
+                                cellConfiguration(cell, model, indexPath)
                             })
                         }
                         return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                     #else
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let cell = cell as? T {
-                            cellConfiguration(cell, indexPath, model)
+                            cellConfiguration(cell, model, indexPath)
                         }
                         return cell
                     #endif
                 } else {
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let cell = cell as? T, let model = model as? T.ModelType {
-                        cellConfiguration(cell, indexPath, model)
+                        cellConfiguration(cell, model, indexPath)
                     }
                     return cell
                 }
@@ -257,7 +257,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     }
     
     public init(kind: String,
-                supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                supplementaryConfiguration: @escaping ((T, U, IndexPath) -> Void),
                 mapping: ((ViewModelMapping<T, U>) -> Void)?)
         where T: UICollectionReusableView
     {
@@ -269,7 +269,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         updateBlock = { _, _ in }
         bundle = Bundle(for: T.self)
         _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self else { return nil as Any? as Any }
+            guard let self = self, let model = model as? U else { return nil as Any? as Any }
             if let collectionView = view as? UICollectionView {
                 if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                     #if compiler(>=5.3)
@@ -277,25 +277,25 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                     
                         if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                             registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, kind, indexPath)
+                                supplementaryConfiguration(view, model, indexPath)
                             })
                         } else {
                             registration = .init(elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, kind, indexPath)
+                                supplementaryConfiguration(view, model, indexPath)
                             })
                         }
                         return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                     #else
                         let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                         if let supplementary = supplementary as? T {
-                            supplementaryConfiguration(supplementary, kind, indexPath)
+                            supplementaryConfiguration(supplementary, model, indexPath)
                         }
                         return supplementary
                     #endif
                 } else {
                     let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let supplementary = supplementary as? T {
-                        supplementaryConfiguration(supplementary, kind, indexPath)
+                        supplementaryConfiguration(supplementary, model, indexPath)
                     }
                     return supplementary
                 }
@@ -306,7 +306,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     }
     
     public init(kind: String,
-                supplementaryConfiguration: @escaping ((T, String, IndexPath) -> Void),
+                supplementaryConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
                 mapping: ((ViewModelMapping<T, U>) -> Void)?)
     where T: UICollectionReusableView, T: ModelTransfer, U == T.ModelType
     {
@@ -321,7 +321,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         }
         bundle = Bundle(for: T.self)
         _supplementaryDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self else {
+            guard let self = self, let model = model as? T.ModelType else {
                 return nil as Any? as Any
             }
             if let collectionView = view as? UICollectionView {
@@ -330,26 +330,26 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                     let registration : UICollectionView.SupplementaryRegistration<T>
                         
                         if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { cell, indexPath, model in
-                                supplementaryConfiguration(cell, indexPath, model)
+                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                                supplementaryConfiguration(view, model, indexPath)
                             })
                         } else {
-                            registration = .init(elementKind: kind, handler: { cell, indexPath, model in
-                                supplementaryConfiguration(cell, indexPath, model)
+                            registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                                supplementaryConfiguration(view, model, indexPath)
                             })
                         }
                     return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                 #else
                     let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let supplementary = supplementary as? T {
-                        supplementaryConfiguration(supplementary, kind, indexPath)
+                        supplementaryConfiguration(supplementary, model, indexPath)
                     }
                     return supplementary
                 #endif
                 } else {
                     let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let supplementary = supplementary as? T {
-                        supplementaryConfiguration(supplementary, kind, indexPath)
+                        supplementaryConfiguration(supplementary, model, indexPath)
                     }
                     return supplementary
                 }
