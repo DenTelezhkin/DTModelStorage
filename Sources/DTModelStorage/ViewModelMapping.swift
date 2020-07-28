@@ -91,6 +91,7 @@ public protocol ViewModelMappingProtocol: class {
     var bundle: Bundle { get }
     var viewType : ViewType { get }
     var modelTypeCheckingBlock: (Any) -> Bool { get }
+    var modelTypeTypeCheckingBlock: (Any.Type) -> Bool { get }
     var updateBlock : (Any, Any) -> Void { get }
     var viewClass: AnyClass { get }
     var condition: MappingCondition { get }
@@ -121,6 +122,10 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool
+    
+    public var modelTypeTypeCheckingBlock: (Any.Type) -> Bool = {
+        $0 is U.Type
+    }
     
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
     public let updateBlock : (Any, Any) -> Void

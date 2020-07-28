@@ -230,4 +230,14 @@ class ViewModelMappingTestCase: XCTestCase {
         XCTAssertFalse(cellType == supplementaryType)
     }
     
+    func testModelTypeCanBeDeterminedByType() {
+        let mapping = ViewModelMapping<UICollectionViewCell, String> { (_, _, _) in
+            
+        } mapping: { _ in
+        }
+        
+        XCTAssert(mapping.modelTypeTypeCheckingBlock(String.self))
+
+    }
+    
 }
