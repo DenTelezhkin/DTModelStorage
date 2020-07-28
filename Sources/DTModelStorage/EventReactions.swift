@@ -68,7 +68,7 @@ open class EventReaction {
         self.methodSignature = signature
         modelTypeCheckingBlock = { $0 is ModelType }
         self.supplementaryKind = supplementaryKind
-        reaction = { model, indexPath, _ in
+        reaction = { _, model, indexPath in
             guard let model = model as? ModelType,
                 let indexPath = indexPath as? IndexPath else {
                     return 0
