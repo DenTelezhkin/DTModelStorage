@@ -167,38 +167,57 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         updateBlock = { _, _ in }
         bundle = Bundle(for: T.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self else { return nil as Any? as Any }
-            if let collectionView = view as? UICollectionView {
-                if let model = model as? U, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                    #if compiler(>=5.3)
-                        let registration : UICollectionView.CellRegistration<T, U>
-                        
-                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                            registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
-                                cellConfiguration(cell, model, indexPath)
-                            })
-                        } else {
-                            registration = .init(handler: { cell, indexPath, model in
-                                cellConfiguration(cell, model, indexPath)
-                            })
-                        }
-                        return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
-                    #else
-                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                        if let cell = cell as? T {
+            guard let self = self, let collectionView = view as? UICollectionView else { return nil as Any? as Any }
+            if let model = model as? U, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+                #if compiler(>=5.3)
+                    let registration : UICollectionView.CellRegistration<T, U>
+                    
+                    if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                        registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
                             cellConfiguration(cell, model, indexPath)
-                        }
-                        return cell
-                    #endif
-                } else {
+                        })
+                    } else {
+                        registration = .init(handler: { cell, indexPath, model in
+                            cellConfiguration(cell, model, indexPath)
+                        })
+                    }
+                    return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
+                #else
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let cell = cell as? T, let model = model as? U {
+                    if let cell = cell as? T {
                         cellConfiguration(cell, model, indexPath)
                     }
                     return cell
+                #endif
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                if let cell = cell as? T, let model = model as? U {
+                    cellConfiguration(cell, model, indexPath)
                 }
+                return cell
             }
-            return nil as Any? as Any
+        }
+        mapping?(self)
+    }
+    
+    public init(cellConfiguration: @escaping ((T, U, IndexPath) -> Void),
+                          mapping: ((ViewModelMapping<T, U>) -> Void)?)
+        where T: UITableViewCell
+    {
+        viewType = .cell
+        viewClass = T.self
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is U }
+        updateBlock = { _, _ in }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self, let model = model as? U, let tableView = view as? UITableView else { return nil as Any? as Any }
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+            if let cell = cell as? T {
+                cellConfiguration(cell, model, indexPath)
+            }
+            return cell
         }
         mapping?(self)
     }
@@ -218,40 +237,64 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         }
         bundle = Bundle(for: T.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self else {
+            guard let self = self, let model = model as? T.ModelType, let collectionView = view as? UICollectionView else {
                 return nil as Any? as Any
             }
-            if let collectionView = view as? UICollectionView {
-                if let model = model as? T.ModelType, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                    #if compiler(>=5.3)
-                    let registration : UICollectionView.CellRegistration<T, T.ModelType>
-                        
-                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                            registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
-                                cellConfiguration(cell, model, indexPath)
-                            })
-                        } else {
-                            registration = .init(handler: { cell, indexPath, model in
-                                cellConfiguration(cell, model, indexPath)
-                            })
-                        }
-                        return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
-                    #else
-                        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let cell = cell as? T {
+            if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+                #if compiler(>=5.3)
+                let registration : UICollectionView.CellRegistration<T, T.ModelType>
+                    
+                    if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                        registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
                             cellConfiguration(cell, model, indexPath)
-                        }
-                        return cell
-                    #endif
-                } else {
+                        })
+                    } else {
+                        registration = .init(handler: { cell, indexPath, model in
+                            cellConfiguration(cell, model, indexPath)
+                        })
+                    }
+                    return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
+                #else
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let cell = cell as? T, let model = model as? T.ModelType {
+                if let cell = cell as? T {
                         cellConfiguration(cell, model, indexPath)
                     }
                     return cell
+                #endif
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                if let cell = cell as? T {
+                    cellConfiguration(cell, model, indexPath)
                 }
+                return cell
             }
-            return nil as Any? as Any
+        }
+        mapping?(self)
+    }
+    
+    public init(cellConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?)
+        where T: UITableViewCell, T: ModelTransfer, T.ModelType == U
+    {
+        viewType = .cell
+        viewClass = T.self
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is T.ModelType }
+        updateBlock = { view, model in
+            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            view.update(with: model)
+        }
+        bundle = Bundle(for: T.self)
+        _cellDequeueClosure = { [weak self] view, model, indexPath in
+            guard let self = self, let model = model as? T.ModelType, let tableView = view as? UITableView else {
+                return nil as Any? as Any
+            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+            if let cell = cell as? T {
+                cellConfiguration(cell, model, indexPath)
+            }
+            return cell
         }
         mapping?(self)
     }
@@ -269,38 +312,67 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         updateBlock = { _, _ in }
         bundle = Bundle(for: T.self)
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? U else { return nil as Any? as Any }
-            if let collectionView = collectionView as? UICollectionView {
-                if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                    #if compiler(>=5.3)
-                        let registration : UICollectionView.SupplementaryRegistration<T>
-                    
-                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, model, indexPath)
-                            })
-                        } else {
-                            registration = .init(elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, model, indexPath)
-                            })
-                        }
-                        return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
-                    #else
-                        let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                        if let supplementary = supplementary as? T {
-                            supplementaryConfiguration(supplementary, model, indexPath)
-                        }
-                        return supplementary
-                    #endif
-                } else {
+            guard let self = self, let model = model as? U, let collectionView = collectionView as? UICollectionView else { return nil as Any? as Any }
+            if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+                #if compiler(>=5.3)
+                    let registration : UICollectionView.SupplementaryRegistration<T>
+                
+                    if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                            supplementaryConfiguration(view, model, indexPath)
+                        })
+                    } else {
+                        registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                            supplementaryConfiguration(view, model, indexPath)
+                        })
+                    }
+                    return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
+                #else
                     let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
                     if let supplementary = supplementary as? T {
                         supplementaryConfiguration(supplementary, model, indexPath)
                     }
                     return supplementary
+                #endif
+            } else {
+                let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                if let supplementary = supplementary as? T {
+                    supplementaryConfiguration(supplementary, model, indexPath)
                 }
+                return supplementary
             }
-            return nil as Any? as Any
+        }
+        mapping?(self)
+    }
+    
+    public init(kind: String,
+                headerFooterConfiguration: @escaping ((T, U, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<T, U>) -> Void)?)
+        where T: UIView
+    {
+        viewType = .supplementaryView(kind: kind)
+        viewClass = T.self
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is U }
+        updateBlock = { _, _ in }
+        bundle = Bundle(for: T.self)
+        _supplementaryDequeueClosure = { [weak self] tableView, model, indexPath in
+            guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
+            if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
+                if let typedHeaderFooterView = headerFooterView as? T {
+                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath)
+                }
+                return headerFooterView
+            } else {
+                if let type = self.viewClass as? UIView.Type {
+                    if let loadedFromXib = type.load(for: self) as? T {
+                        headerFooterConfiguration(loadedFromXib, model, indexPath)
+                        return loadedFromXib
+                    }
+                }
+                return nil as Any? as Any
+            }
         }
         mapping?(self)
     }
@@ -321,42 +393,96 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         }
         bundle = Bundle(for: T.self)
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? T.ModelType else {
+            guard let self = self, let model = model as? T.ModelType, let collectionView = collectionView as? UICollectionView else {
                 return nil as Any? as Any
             }
-            if let collectionView = collectionView as? UICollectionView {
-                if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                    #if compiler(>=5.3)
-                    let registration : UICollectionView.SupplementaryRegistration<T>
-                        
-                        if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                            registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, model, indexPath)
-                            })
-                        } else {
-                            registration = .init(elementKind: kind, handler: { view, kind, indexPath in
-                                supplementaryConfiguration(view, model, indexPath)
-                            })
-                        }
-                    return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
-                #else
-                    let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let supplementary = supplementary as? T {
-                        supplementaryConfiguration(supplementary, model, indexPath)
+            if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+                #if compiler(>=5.3)
+                let registration : UICollectionView.SupplementaryRegistration<T>
+                    
+                    if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
+                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                            supplementaryConfiguration(view, model, indexPath)
+                        })
+                    } else {
+                        registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                            supplementaryConfiguration(view, model, indexPath)
+                        })
                     }
-                    return supplementary
-                #endif
-                } else {
-                    let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                    if let supplementary = supplementary as? T {
-                        supplementaryConfiguration(supplementary, model, indexPath)
+                return collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
+            #else
+                let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                if let supplementary = supplementary as? T {
+                    supplementaryConfiguration(supplementary, model, indexPath)
+                }
+                return supplementary
+            #endif
+            } else {
+                let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
+                if let supplementary = supplementary as? T {
+                    supplementaryConfiguration(supplementary, model, indexPath)
+                }
+                return supplementary
+            }
+        }
+        mapping?(self)
+    }
+    
+    public init(kind: String,
+                headerFooterConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<T, U>) -> Void)?)
+    where T: UIView, T: ModelTransfer, U == T.ModelType
+    {
+        viewType = .supplementaryView(kind: kind)
+        viewClass = T.self
+        xibName = String(describing: T.self)
+        reuseIdentifier = String(describing: T.self)
+        modelTypeCheckingBlock = { $0 is T.ModelType }
+        updateBlock = { view, model in
+            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            view.update(with: model)
+        }
+        bundle = Bundle(for: T.self)
+        _supplementaryDequeueClosure = { [weak self] tableView, model, indexPath in
+            guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
+            if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
+                if let typedHeaderFooterView = headerFooterView as? T {
+                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath)
+                }
+                return headerFooterView
+            } else {
+                if let type = self.viewClass as? UIView.Type {
+                    if let loadedFromXib = type.load(for: self) as? T {
+                        headerFooterConfiguration(loadedFromXib, model, indexPath)
+                        return loadedFromXib
                     }
-                    return supplementary
                 }
             }
             return nil as Any? as Any
         }
         mapping?(self)
+    }
+    
+    public func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell? {
+        guard viewType == .cell else {
+            return nil
+        }
+        guard let cell = _cellDequeueClosure?(tableView, model, indexPath) else {
+            return nil
+        }
+        updateBlock(cell, model)
+        return cell as? UITableViewCell
+    }
+    
+    public func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView? {
+        guard viewType == .supplementaryView(kind: kind) else {
+            return nil
+        }
+        guard let view = _supplementaryDequeueClosure?(tableView, model, indexPath) else {
+            return nil
+        }
+        updateBlock(view, model)
+        return view as? UIView
     }
     
     public func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
