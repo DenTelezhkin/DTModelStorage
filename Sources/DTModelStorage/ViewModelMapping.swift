@@ -354,7 +354,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     }
     
     public init(kind: String,
-                headerFooterConfiguration: @escaping ((T, U, IndexPath) -> Void),
+                headerFooterConfiguration: @escaping ((T, U, Int) -> Void),
                 mapping: ((ViewModelMapping<T, U>) -> Void)?)
         where T: UIView
     {
@@ -369,13 +369,13 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
             guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
             if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
                 if let typedHeaderFooterView = headerFooterView as? T {
-                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath)
+                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath.section)
                 }
                 return headerFooterView
             } else {
                 if let type = self.viewClass as? UIView.Type {
                     if let loadedFromXib = type.load(for: self) as? T {
-                        headerFooterConfiguration(loadedFromXib, model, indexPath)
+                        headerFooterConfiguration(loadedFromXib, model, indexPath.section)
                         return loadedFromXib
                     }
                 }
@@ -437,7 +437,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     }
     
     public init(kind: String,
-                headerFooterConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
+                headerFooterConfiguration: @escaping ((T, T.ModelType, Int) -> Void),
                 mapping: ((ViewModelMapping<T, U>) -> Void)?)
     where T: UIView, T: ModelTransfer, U == T.ModelType
     {
@@ -455,13 +455,13 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
             guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
             if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
                 if let typedHeaderFooterView = headerFooterView as? T {
-                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath)
+                    headerFooterConfiguration(typedHeaderFooterView, model, indexPath.section)
                 }
                 return headerFooterView
             } else {
                 if let type = self.viewClass as? UIView.Type {
                     if let loadedFromXib = type.load(for: self) as? T {
-                        headerFooterConfiguration(loadedFromXib, model, indexPath)
+                        headerFooterConfiguration(loadedFromXib, model, indexPath.section)
                         return loadedFromXib
                     }
                 }
