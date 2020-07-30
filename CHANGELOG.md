@@ -21,6 +21,10 @@ Some context: this release heavily relies on where clauses on contextually gener
 * `mappingCandidates` method has been moved to `ViewType` type.
 * `EventReaction` has new initializers with more specific names.
 
+### Deprecated
+
+* `MemoryStorage.defersDatasourceUpdates` property. Deferring datasource updates and executing them inside of performBatchUpdates block turned out to be the only stable and correct way to apply updates to both UI and datasource. It's highly recommended to leave this property on. It is now deprecated, and may be removed in the future release, maintaining current default behaviour.
+
 ## [8.1.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/8.1.0)
 
 ### Changed

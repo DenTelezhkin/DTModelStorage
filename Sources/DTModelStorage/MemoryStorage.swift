@@ -145,6 +145,7 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
+    @available(*, deprecated, message: "Deferring datasource updates and executing them inside of performBatchUpdates block turned out to be the only stable and correct way to apply updates to both UI and datasource. It's highly recommended to leave this property on. It is now deprecated, and may be removed in the future release, maintaining current default behaviour.")
     /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
     /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
     /// Defaults to `true`.
