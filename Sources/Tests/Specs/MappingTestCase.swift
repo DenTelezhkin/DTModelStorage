@@ -187,7 +187,7 @@ class MappingTestCase: XCTestCase {
             mapping.condition = IntCollectionViewCell.modelCondition { _, model in model > 5 }
         })
         let secondMapping = ViewModelMapping<OtherIntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
-            mapping.condition = OtherIntCollectionViewCell.modelCondition { _, model in model <= 5 }
+            mapping.condition = mapping.modelCondition { _, model in model <= 5 }
         })
         mappings.append(firstMapping)
         mappings.append(secondMapping)

@@ -147,6 +147,13 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     
+    public func modelCondition(_ condition: @escaping (IndexPath, U) -> Bool) -> MappingCondition {
+        return .custom { indexPath, model in
+            guard let model = model as? U else { return false }
+            return condition(indexPath, model)
+        }
+    }
+    
     @available(*, deprecated, message: "Please use other constructors to create ViewModelMapping.")
     /// Creates `ViewModelMapping` for `viewClass`
     public init<T: ModelTransfer>(viewType: ViewType, viewClass: T.Type, xibName: String? = nil, mappingBlock: ((ViewModelMapping) -> Void)?) {
