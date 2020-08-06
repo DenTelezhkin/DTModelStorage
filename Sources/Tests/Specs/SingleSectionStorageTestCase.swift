@@ -106,7 +106,7 @@ class SingleSectionStorageTestCase: XCTestCase {
             (.insert, [indexPath(1, 0)])
         ])
 
-        observer.update?.applyDeferredDatasourceUpdates()
+        observer.lastUpdate?.applyDeferredDatasourceUpdates()
 
         XCTAssertEqual(stringStorage.items, ["bar", "foo"])
     }
@@ -122,7 +122,7 @@ class SingleSectionStorageTestCase: XCTestCase {
             (.move, [indexPath(0, 0), indexPath(1, 0)])
         ])
 
-        observer.update?.applyDeferredDatasourceUpdates()
+        observer.lastUpdate?.applyDeferredDatasourceUpdates()
 
         XCTAssertEqual(stringStorage.items, ["bar", "foo"])
     }
@@ -164,7 +164,7 @@ class SingleSectionStorageTestCase: XCTestCase {
                 (.insert, [indexPath(2, 0)])
             ])
 
-        observer.update?.applyDeferredDatasourceUpdates()
+        observer.lastUpdate?.applyDeferredDatasourceUpdates()
 
         XCTAssertEqual(stringStorage.items, [
                 UpdatableData(1, "bar"),
@@ -191,7 +191,7 @@ class SingleSectionStorageTestCase: XCTestCase {
             (.insert, [indexPath(2, 0)])
             ])
 
-        observer.update?.applyDeferredDatasourceUpdates()
+        observer.lastUpdate?.applyDeferredDatasourceUpdates()
 
         XCTAssertEqual(stringStorage.items, [
             UpdatableData(2, "bar"),
@@ -222,7 +222,7 @@ class SingleSectionStorageTestCase: XCTestCase {
             (.insert, [indexPath(2, 0)])
             ])
 
-        observer.update?.applyDeferredDatasourceUpdates()
+        observer.lastUpdate?.applyDeferredDatasourceUpdates()
 
         XCTAssertEqual(storage.items.count, 3)
     }

@@ -17,34 +17,55 @@ func indexPath(_ item:Int, _ section:Int) -> IndexPath
 
 class StorageUpdatesObserver : StorageUpdating
 {
-    var update : StorageUpdate?
-    var storageNeedsReloadingFlag = false
+    var updates: [StorageUpdate] = []
+    var lastUpdate : StorageUpdate?
+    var storageNeedsReloadingCalled = false
     var onUpdate: ((StorageUpdatesObserver, StorageUpdate) -> Void)?
     
     init(){}
     
     func storageNeedsReloading() {
-        storageNeedsReloadingFlag = true
+        storageNeedsReloadingCalled = true
     }
     
     func storageDidPerformUpdate(_ update: StorageUpdate) {
-        self.update = update
+        self.lastUpdate = update
+        updates.append(update)
         onUpdate?(self, update)
     }
     
+    func applyUpdates() {
+        updates.forEach {
+            $0.applyDeferredDatasourceUpdates()
+        }
+        updates = []
+    }
+    
+    func flushUpdates() {
+        updates = []
+    }
+    
     func verifyObjectChanges(_ changes: [(ChangeType, [IndexPath])]) {
-        XCTAssertEqual(update?.objectChanges.count, changes.count)
+        XCTAssertEqual(lastUpdate?.objectChanges.count, changes.count)
         for (index, change) in changes.enumerated() {
-            XCTAssertEqual(update?.objectChanges[index].0, change.0)
-            XCTAssertEqual(update?.objectChanges[index].1, change.1)
+            guard (lastUpdate?.objectChanges.count ?? 0) > index else {
+                XCTFail("object change not found!")
+                continue
+            }
+            XCTAssertEqual(lastUpdate?.objectChanges[index].0, change.0)
+            XCTAssertEqual(lastUpdate?.objectChanges[index].1, change.1)
         }
     }
     
     func verifySectionChanges(_ changes: [(ChangeType, [Int])]) {
-        XCTAssertEqual(update?.sectionChanges.count, changes.count)
+        XCTAssertEqual(lastUpdate?.sectionChanges.count, changes.count)
         for (index, change) in changes.enumerated() {
-            XCTAssertEqual(update?.sectionChanges[index].0, change.0)
-            XCTAssertEqual(update?.sectionChanges[index].1, change.1)
+            guard (lastUpdate?.sectionChanges.count ?? 0) > index else {
+                XCTFail("section not found!")
+                continue
+            }
+            XCTAssertEqual(lastUpdate?.sectionChanges[index].0, change.0)
+            XCTAssertEqual(lastUpdate?.sectionChanges[index].1, change.1)
         }
     }
 }

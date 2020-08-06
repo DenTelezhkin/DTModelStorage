@@ -12,29 +12,28 @@ import DTModelStorage
 
 class MemoryStorageEditSpecs: XCTestCase {
 
-    var storage : MemoryStorage!
-    var delegate : StorageUpdatesObserver!
+    var storage = MemoryStorage()
+    var delegate = StorageUpdatesObserver()
     
     override func setUp() {
         super.setUp()
-        delegate = StorageUpdatesObserver()
-        storage = MemoryStorage()
         storage.delegate = delegate
-        storage.defersDatasourceUpdates = false
     }
     
     func testShouldInsertItems()
     {
         storage.addItems([2, 4, 6], toSection: 0)
         storage.addItem(5, toSection: 1)
-        
+        delegate.applyUpdates()
         
         try! storage.insertItem(1, to: storage.indexPath(forItem: 6)!)
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.insert, [indexPath(2, 0)])
         ])
         
         try! storage.insertItem(3, to: storage.indexPath(forItem: 5)!)
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.insert, [indexPath(0, 1)])
         ])
@@ -51,7 +50,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     
     func testSetItems() {
         storage.addItems([1, 2, 3])
+        delegate.applyUpdates()
         storage.setItems([4, 5, 6])
+        delegate.applyUpdates()
         
         XCTAssertEqual(storage.section(atIndex: 0)?.items(ofType: Int.self), [4, 5, 6])
     }
@@ -68,9 +69,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testInsertionOfStructs()
     {
         storage.addItems([2, 4, 6], toSection: 0)
-        
+        delegate.applyUpdates()
         try! storage.insertItem(1, to: indexPath(0, 0))
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
         XCTAssertEqual(storage.item(at: indexPath(1, 0)) as? Int, 2)
     }
@@ -95,7 +96,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         storage.addItems([1, 2, 3])
         storage.addItems([4, 5, 6, 7, 8], toSection: 1)
+        delegate.applyUpdates()
         try? storage.insertItem(7, to: indexPath(10, 1))
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert item into IndexPath: [1, 10], count of elements in the section: 5")
@@ -104,9 +107,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldReloadRows()
     {
         storage.addItems([2, 4, 6])
-        
+        delegate.applyUpdates()
         storage.reloadItem(4)
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.update, [indexPath(1, 0)])
         ])
@@ -115,8 +118,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldReplaceRows()
     {
         storage.addItems([2, 4, 6])
+        delegate.applyUpdates()
         try! storage.replaceItem(4, with: 5)
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.update, [indexPath(1, 0)])
         ])
@@ -141,6 +145,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let anomaly = MemoryStorageAnomaly.replaceItemFailedItemNotFound(itemDescription: "3")
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         try? storage.replaceItem(3, with: "Foo")
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for replacement: 3")
@@ -149,14 +154,16 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testShouldRemoveItem()
     {
         storage.addItems([2, 4, 6], toSection: 0)
+        
         storage.addItem(5, toSection: 1)
-        
+        delegate.applyUpdates()
         try! storage.removeItem(2)
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 0)])
         ])
         try! storage.removeItem(5)
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 1)])
         ])
@@ -181,6 +188,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let anomaly = MemoryStorageAnomaly.removeItemFailedItemNotFound(itemDescription: "3")
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         try? storage.removeItem(3)
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for removal: 3")
@@ -192,11 +200,12 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(5, toSection: 1)
         
         storage.removeItems(at: [indexPath(0, 0)])
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 0)])
         ])
         storage.removeItems(at: [indexPath(0, 1)])
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 1)])
         ])
@@ -208,7 +217,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(5, toSection: 1)
         
         storage.removeItems(at: [indexPath(0, 0), indexPath(0, 1)])
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 1)]),
             (.delete, [indexPath(0, 0)])
@@ -229,7 +238,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([2, 4], toSection: 1)
         
         storage.removeItems([2, 4, 1])
-        
+        delegate.applyUpdates()
         delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 1)]),
             (.delete, [indexPath(1, 1)]),
@@ -247,9 +256,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(1, toSection: 0)
         storage.addItem(2, toSection: 1)
         storage.addItem(3, toSection: 2)
-        
+        delegate.applyUpdates()
         storage.deleteSections(IndexSet(integer: 1))
-        
+        delegate.applyUpdates()
         delegate.verifySectionChanges([(.delete, [1])])
     }
     
@@ -258,11 +267,11 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(2, toSection: 1)
         storage.addItem(3, toSection: 2)
         storage.addItem(4, toSection: 3)
-        
+        delegate.applyUpdates()
         let set = NSMutableIndexSet(index: 1)
         set.add(3)
         storage.deleteSections(set as IndexSet)
-        
+        delegate.applyUpdates()
         delegate.verifySectionChanges([
             (.delete, [1]),
             (.delete, [3])
@@ -291,7 +300,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItem(1, toSection: 0)
         storage.addItem(2, toSection: 1)
         storage.addItem(3, toSection: 2)
-        
+        delegate.applyUpdates()
         var model = storage.item(at: indexPath(0, 1))
         
         XCTAssertEqual(model as? Int, 2)
@@ -319,11 +328,12 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1])
         storage.addItems([1, 1], toSection: 1)
         storage.addItems([1, 1, 1], toSection: 2)
-        
+        delegate.applyUpdates()
         storage.moveSection(0, toSection: 1)
+        delegate.applyUpdates()
         XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 2)
         XCTAssertEqual(storage.section(atIndex: 1)?.items.count, 1)
-        let moves = delegate.update?.sectionChanges.filter { $0.0 == .move }
+        let moves = delegate.lastUpdate?.sectionChanges.filter { $0.0 == .move }
         XCTAssertEqual(moves?.first?.1, [0, 1])
     }
     
@@ -332,9 +342,9 @@ class MemoryStorageEditSpecs: XCTestCase {
         storage.addItems([1])
         storage.addItems([2, 3], toSection: 1)
         storage.addItems([4, 5, 6], toSection: 2)
-        
+        delegate.applyUpdates()
         storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 1))
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(1, 1)) as? Int, 1)
         
         delegate.verifyObjectChanges([(.move, [indexPath(0, 0), indexPath(1, 1)])])
@@ -343,9 +353,9 @@ class MemoryStorageEditSpecs: XCTestCase {
     func testMovingItemIntoNonExistingSection()
     {
         storage.addItems([1])
-        
+        delegate.applyUpdates()
         storage.moveItem(at: indexPath(0, 0), to: indexPath(0, 1))
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 1)
         
         delegate.verifySectionChanges([(.insert, [1])])
@@ -364,6 +374,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let anomaly = MemoryStorageAnomaly.moveItemFailedItemNotFound(indexPath: indexPath(0, 0))
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 0))
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to find item for moving at indexPath: [0, 0]")
@@ -373,8 +384,10 @@ class MemoryStorageEditSpecs: XCTestCase {
         let exp = expectation(description: "Moving unknown item")
         let anomaly = MemoryStorageAnomaly.moveItemFailedIndexPathTooBig(indexPath: indexPath(1, 0), countOfElementsInSection: 0)
         storage.addItem(1)
+        delegate.applyUpdates()
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         storage.moveItem(at: indexPath(0, 0), to: indexPath(1, 0))
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to move item, destination indexPath is too big: [0, 1], number of items in section after removing source item: 0")
@@ -385,8 +398,10 @@ class MemoryStorageEditSpecs: XCTestCase {
         let anomaly = MemoryStorageAnomaly.moveItemFailedInvalidIndexPaths(sourceIndexPath: indexPath(0, 0), destinationIndexPath: indexPath(3, 1), sourceElementsInSection: 1, destinationElementsInSection: 1)
         storage.addItem(1)
         storage.addItem(2, toSection: 1)
+        delegate.applyUpdates()
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         storage.moveItemWithoutAnimation(from: indexPath(0, 0), to: indexPath(3, 1))
+        delegate.applyUpdates()
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to move item, sourceIndexPath: [0, 0], destination indexPath: [1, 3], number of items in source section: 1, number of items in destination section after removing source item: 1")
@@ -425,15 +440,12 @@ class MemoryStorageEditSpecs: XCTestCase {
 
 class SectionSupplementariesTestCase : XCTestCase
 {
-    var storage : MemoryStorage!
-    var updatesObserver : StorageUpdatesObserver!
+    var storage = MemoryStorage()
+    var delegate = StorageUpdatesObserver()
     override func setUp() {
         super.setUp()
-        self.storage = MemoryStorage()
         self.storage.configureForTableViewUsage()
-        updatesObserver = StorageUpdatesObserver()
-        storage.delegate = updatesObserver
-        storage.defersDatasourceUpdates = false
+        storage.delegate = delegate
     }
     
     func testSectionHeaderModelsSetter()
@@ -501,14 +513,14 @@ class SectionSupplementariesTestCase : XCTestCase
     
     func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
         try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
-        
+        delegate.applyUpdates()
         XCTAssertEqual(self.storage.items(inSection: 0)?.count, 3)
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2, 3])
     }
     
     func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
         try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
-        
+        delegate.applyUpdates()
         XCTAssertEqual(self.storage.items(inSection: 0)?.count, 2)
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2])
     }

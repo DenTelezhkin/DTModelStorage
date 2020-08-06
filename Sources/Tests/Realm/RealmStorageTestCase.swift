@@ -105,7 +105,7 @@ class RealmStorageTestCase: XCTestCase {
         addDogNamed("Rex")
         
         XCTAssertEqual((self.storage.item(at: indexPath(0, 0)) as? Dog)?.name, "Rex")
-        XCTAssert(observer.storageNeedsReloadingFlag)
+        XCTAssert(observer.storageNeedsReloadingCalled)
     }
     
     func testInsertNotificationIsHandled() {
@@ -117,8 +117,8 @@ class RealmStorageTestCase: XCTestCase {
         XCTAssertEqual((self.storage.item(at: indexPath(0, 0)) as? Dog)?.name, "Rex")
         
         let exp = expectation(description: "Insert notification expectation")
-        observer.onUpdate = { observer, update in
-            if update.objectChanges.first?.1.first == indexPath(0, 0) { return } // skip first update
+        observer.onUpdate = { observer, lastUpdate in
+            if lastUpdate.objectChanges.first?.1.first == indexPath(0, 0) { return } // skip first update
             observer.verifyObjectChanges([
                 (.insert, [indexPath(1, 0)])
             ])
@@ -145,8 +145,8 @@ class RealmStorageTestCase: XCTestCase {
             realm.add(dog)
         }
         let exp = expectation(description: "Delete notification expectation")
-        observer.onUpdate = { observer, update in
-            if update.objectChanges.first?.1.first == indexPath(0, 0), update.objectChanges.first?.0 == .insert { return } // skip first update
+        observer.onUpdate = { observer, lastUpdate in
+            if lastUpdate.objectChanges.first?.1.first == indexPath(0, 0), lastUpdate.objectChanges.first?.0 == .insert { return } // skip first update
             observer.verifyObjectChanges([
                 (.delete, [indexPath(0, 0)])
                 ])
@@ -171,8 +171,8 @@ class RealmStorageTestCase: XCTestCase {
             realm.add(dog)
         }
         let exp = expectation(description: "Update notification expectation")
-        observer.onUpdate = { observer, update in
-            if update.objectChanges.first?.1.first == indexPath(0, 0), update.objectChanges.first?.0 == .insert { return } // skip first update
+        observer.onUpdate = { observer, lastUpdate in
+            if lastUpdate.objectChanges.first?.1.first == indexPath(0, 0), lastUpdate.objectChanges.first?.0 == .insert { return } // skip first update
             observer.verifyObjectChanges([
                 (.update, [indexPath(0, 0)])
                 ])

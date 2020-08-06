@@ -12,15 +12,12 @@ import DTModelStorage
 
 class MemoryStorageAddSpec: XCTestCase {
 
-    var storage : MemoryStorage!
-    var observer : StorageUpdatesObserver!
+    var storage = MemoryStorage()
+    var delegate = StorageUpdatesObserver()
     
     override func setUp() {
         super.setUp()
-        observer = StorageUpdatesObserver()
-        storage = MemoryStorage()
-        storage.delegate = observer
-        storage.defersDatasourceUpdates = false
+        storage.delegate = delegate
     }
 
     func testShouldReceiveCorrectUpdateCallWhenAddingItem() {
@@ -29,21 +26,21 @@ class MemoryStorageAddSpec: XCTestCase {
         update.objectChanges.append((.insert, [indexPath(0, 0)]))
         
         storage.addItem("")
-        
-        XCTAssertEqual(observer.update, update)
+        delegate.applyUpdates()
+        XCTAssertEqual(delegate.lastUpdate, update)
     }
     
     func testShouldReceiveCorrectUpdateCallWhenAddingItems()
     {
         let foo = [1, 2, 3]
         storage.addItems(foo, toSection: 1)
-        
-        observer.verifyObjectChanges([
+        delegate.applyUpdates()
+        delegate.verifyObjectChanges([
             (.insert, [indexPath(0, 1)]),
             (.insert, [indexPath(1, 1)]),
             (.insert, [indexPath(2, 1)])
         ])
-        observer.verifySectionChanges([
+        delegate.verifySectionChanges([
             (.insert, [0]),
             (.insert, [1])
         ])

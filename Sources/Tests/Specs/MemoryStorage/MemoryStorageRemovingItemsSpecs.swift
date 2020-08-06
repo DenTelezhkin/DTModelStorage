@@ -12,20 +12,18 @@ import XCTest
 
 class MemoryStorageRemovingItemsSpecs: XCTestCase {
 
-    var storage : MemoryStorage!
-    var storageUpdatesObserver : StorageUpdatesObserver!
+    var storage = MemoryStorage()
+    var delegate = StorageUpdatesObserver()
     
     override func setUp() {
         super.setUp()
-        self.storage = MemoryStorage()
-        storageUpdatesObserver = StorageUpdatesObserver()
-        storage.delegate = storageUpdatesObserver
-        storage.defersDatasourceUpdates = false
+        storage.delegate = delegate
     }
 
     func testRemovingTwoSubsequentItemsByIndexPathsWorksCorrectly() {
         storage.addItems([1, 2, 3], toSection: 0)
         storage.removeItems(at: [indexPath(0, 0), indexPath(1, 0)])
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 3)
     }
     
@@ -35,7 +33,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         storage.addItems([4, 5, 6], toSection: 1)
         
         self.storage.removeItems(at: [indexPath(1, 0), indexPath(2, 0), indexPath(0, 1), indexPath(2, 1)])
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
         XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 5)
         
@@ -49,7 +47,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
         self.storage.addItems([4, 5, 6], toSection: 1)
         
         self.storage.removeItems([2, 3, 4, 5])
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 1)
         XCTAssertEqual(storage.item(at: indexPath(0, 1)) as? Int, 6)
         
@@ -81,12 +79,12 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     {
         storage.addItems([1, 2, 3, 4, 5])
         storage.removeItems([1, 3, 4, 6])
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 2)
         XCTAssertEqual(storage.item(at: indexPath(0, 0)) as? Int, 2)
         XCTAssertEqual(storage.item(at: indexPath(1, 0)) as? Int, 5)
         
-        storageUpdatesObserver.verifyObjectChanges([
+        delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
             (.delete, [indexPath(2, 0)]),
             (.delete, [indexPath(3, 0)])
@@ -97,10 +95,10 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     {
         storage.addItems([1, 2, 3])
         storage.removeItems(fromSection: 0)
-        
+        delegate.applyUpdates()
         XCTAssertEqual(storage.section(atIndex: 0)?.items.count, 0)
         
-        storageUpdatesObserver.verifyObjectChanges([
+        delegate.verifyObjectChanges([
             (.delete, [indexPath(0, 0)]),
             (.delete, [indexPath(1, 0)]),
             (.delete, [indexPath(2, 0)])

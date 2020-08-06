@@ -145,6 +145,7 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
+    //swiftlint:disable:next line_length
     @available(*, deprecated, message: "Deferring datasource updates and executing them inside of performBatchUpdates block turned out to be the only stable and correct way to apply updates to both UI and datasource. It's highly recommended to leave this property on. It is now deprecated, and may be removed in the future release, maintaining current default behaviour.")
     /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
     /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
@@ -329,6 +330,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
             return
         }
         if defersDatasourceUpdates {
+            startUpdate()
             performDatasourceUpdate { [weak self] update in
                 indexPaths.enumerated().forEach { (arg) in
                     let (itemIndex, indexPath) = arg
@@ -340,6 +342,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
                     update.objectChanges.append((.insert, [indexPath]))
                 }
             }
+            finishUpdate()
         } else {
             performUpdates {
                 indexPaths.enumerated().forEach { (arg) in

@@ -86,6 +86,7 @@ public enum MappingCondition {
     }
 }
 
+/// Type-erased interface for `ViewModelMapping` generic class.
 public protocol ViewModelMappingProtocol: class {
     var xibName: String? { get }
     var bundle: Bundle { get }
@@ -108,7 +109,7 @@ public protocol ViewModelMappingProtocol: class {
 }
 
 /// `ViewModelMapping` class serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
-open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
+open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
 {
     /// View type for this mapping
     public let viewType: ViewType
@@ -126,8 +127,9 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     /// Type checking block, that will verify whether passed model should be mapped to `viewClass`.
     public let modelTypeCheckingBlock: (Any) -> Bool
     
+    /// Closure, that can be used to check model type when model is not available(generic context for example, when model Type is available only).
     public var modelTypeTypeCheckingBlock: (Any.Type) -> Bool = {
-        $0 is U.Type
+        $0 is Model.Type
     }
     
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
@@ -139,17 +141,22 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
     /// Reuse identifier to be used for reusable views.
     public var reuseIdentifier : String
     
+    /// If cell is designed in storyboard, and thus don't require explicit UITableView/UICollectionView registration, please set this property to true. Defaults to false.
     public var cellRegisteredByStoryboard: Bool = false
+    
+    /// If supplementary view is designed in storyboard, and thus don't require explicit UITableView/UICollectionView registration, please set this property to true. Defaults to false.
     public var supplementaryRegisteredByStoryboard : Bool = false
     
+    /// Event reactions, attached to current mapping instance
     public var reactions: [EventReaction] = []
     
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     
-    public func modelCondition(_ condition: @escaping (IndexPath, U) -> Bool) -> MappingCondition {
+    /// Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.
+    public func modelCondition(_ condition: @escaping (IndexPath, Model) -> Bool) -> MappingCondition {
         return .custom { indexPath, model in
-            guard let model = model as? U else { return false }
+            guard let model = model as? Model else { return false }
             return condition(indexPath, model)
         }
     }
@@ -170,22 +177,26 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mappingBlock?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, U, IndexPath) -> Void),
-                          mapping: ((ViewModelMapping<T, U>) -> Void)?)
-        where T: UICollectionViewCell
+    /// Creates `ViewModelMapping` for UICollectionViewCell registration.
+    /// - Parameters:
+    ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
+    public init(cellConfiguration: @escaping ((View, Model, IndexPath) -> Void),
+                          mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+        where View: UICollectionViewCell
     {
         viewType = .cell
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is U }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let collectionView = view as? UICollectionView else { return nil as Any? as Any }
-            if let model = model as? U, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+            if let model = model as? Model, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 #if compiler(>=5.3)
-                    let registration : UICollectionView.CellRegistration<T, U>
+                    let registration : UICollectionView.CellRegistration<View, Model>
                     
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                         registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
@@ -206,7 +217,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                 #endif
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                if let cell = cell as? T, let model = model as? U {
+                if let cell = cell as? View, let model = model as? Model {
                     cellConfiguration(cell, model, indexPath)
                 }
                 return cell
@@ -215,21 +226,25 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, U, IndexPath) -> Void),
-                          mapping: ((ViewModelMapping<T, U>) -> Void)?)
-        where T: UITableViewCell
+    /// Creates `ViewModelMapping` for UITableViewCell registration.
+    /// - Parameters:
+    ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
+    public init(cellConfiguration: @escaping ((View, Model, IndexPath) -> Void),
+                          mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+        where View: UITableViewCell
     {
         viewType = .cell
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is U }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self, let model = model as? U, let tableView = view as? UITableView else { return nil as Any? as Any }
+            guard let self = self, let model = model as? Model, let tableView = view as? UITableView else { return nil as Any? as Any }
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-            if let cell = cell as? T {
+            if let cell = cell as? View {
                 cellConfiguration(cell, model, indexPath)
             }
             return cell
@@ -237,27 +252,31 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
-                mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?)
-        where T: UICollectionViewCell, T: ModelTransfer, T.ModelType == U
+    /// Creates `ViewModelMapping` for UICollectionViewCell registration. This initializer is used, when UICollectionViewCell conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
+    public init(cellConfiguration: @escaping ((View, View.ModelType, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)?)
+        where View: UICollectionViewCell, View: ModelTransfer, View.ModelType == Model
     {
         viewType = .cell
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is T.ModelType }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is View.ModelType }
         updateBlock = { view, model in
-            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            guard let view = view as? View, let model = model as? View.ModelType else { return }
             view.update(with: model)
         }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self, let model = model as? T.ModelType, let collectionView = view as? UICollectionView else {
+            guard let self = self, let model = model as? View.ModelType, let collectionView = view as? UICollectionView else {
                 return nil as Any? as Any
             }
             if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 #if compiler(>=5.3)
-                let registration : UICollectionView.CellRegistration<T, T.ModelType>
+                let registration : UICollectionView.CellRegistration<View, View.ModelType>
                     
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                         registration = .init(cellNib: UINib(nibName: nibName, bundle: self.bundle), handler: { cell, indexPath, model in
@@ -278,7 +297,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                 #endif
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                if let cell = cell as? T {
+                if let cell = cell as? View {
                     cellConfiguration(cell, model, indexPath)
                 }
                 return cell
@@ -287,26 +306,30 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
-    public init(cellConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
-                mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?)
-        where T: UITableViewCell, T: ModelTransfer, T.ModelType == U
+    /// Creates `ViewModelMapping` for UITableViewCell registration. This initializer is used, when UICollectionViewCell conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
+    public init(cellConfiguration: @escaping ((View, View.ModelType, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)?)
+        where View: UITableViewCell, View: ModelTransfer, View.ModelType == Model
     {
         viewType = .cell
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is T.ModelType }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is View.ModelType }
         updateBlock = { view, model in
-            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            guard let view = view as? View, let model = model as? View.ModelType else { return }
             view.update(with: model)
         }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _cellDequeueClosure = { [weak self] view, model, indexPath in
-            guard let self = self, let model = model as? T.ModelType, let tableView = view as? UITableView else {
+            guard let self = self, let model = model as? View.ModelType, let tableView = view as? UITableView else {
                 return nil as Any? as Any
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-            if let cell = cell as? T {
+            if let cell = cell as? View {
                 cellConfiguration(cell, model, indexPath)
             }
             return cell
@@ -314,23 +337,28 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
+    /// Creates `ViewModelMapping` for UICollectionReusableView registration.
+    /// - Parameters:
+    ///   - kind: kind of supplementary view
+    ///   - supplementaryConfiguration: Supplementary handler closure to be executed when supplementary view is dequeued
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
     public init(kind: String,
-                supplementaryConfiguration: @escaping ((T, U, IndexPath) -> Void),
-                mapping: ((ViewModelMapping<T, U>) -> Void)?)
-        where T: UICollectionReusableView
+                supplementaryConfiguration: @escaping ((View, Model, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+        where View: UICollectionReusableView
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is U }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? U, let collectionView = collectionView as? UICollectionView else { return nil as Any? as Any }
+            guard let self = self, let model = model as? Model, let collectionView = collectionView as? UICollectionView else { return nil as Any? as Any }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 #if compiler(>=5.3)
-                    let registration : UICollectionView.SupplementaryRegistration<T>
+                    let registration : UICollectionView.SupplementaryRegistration<View>
                 
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                         registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
@@ -351,7 +379,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
                 #endif
             } else {
                 let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                if let supplementary = supplementary as? T {
+                if let supplementary = supplementary as? View {
                     supplementaryConfiguration(supplementary, model, indexPath)
                 }
                 return supplementary
@@ -360,28 +388,33 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
+    /// Creates `ViewModelMapping` for UITableView header/footer registration.
+    /// - Parameters:
+    ///   - kind: kind of supplementary view. `DTTableViewElementSectionHeader` for headers and `DTTableViewElementSectionFooter` for footers.
+    ///   - headerFooterConfiguration: Header/footer handler closure to be executed when header/footer is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
     public init(kind: String,
-                headerFooterConfiguration: @escaping ((T, U, Int) -> Void),
-                mapping: ((ViewModelMapping<T, U>) -> Void)?)
-        where T: UIView
+                headerFooterConfiguration: @escaping ((View, Model, Int) -> Void),
+                mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+        where View: UIView
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is U }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _supplementaryDequeueClosure = { [weak self] tableView, model, indexPath in
-            guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
+            guard let self = self, let tableView = tableView as? UITableView, let model = model as? Model else { return nil as Any? as Any }
             if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
-                if let typedHeaderFooterView = headerFooterView as? T {
+                if let typedHeaderFooterView = headerFooterView as? View {
                     headerFooterConfiguration(typedHeaderFooterView, model, indexPath.section)
                 }
                 return headerFooterView
             } else {
                 if let type = self.viewClass as? UIView.Type {
-                    if let loadedFromXib = type.load(for: self) as? T {
+                    if let loadedFromXib = type.load(for: self) as? View {
                         headerFooterConfiguration(loadedFromXib, model, indexPath.section)
                         return loadedFromXib
                     }
@@ -392,28 +425,33 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
+    /// Creates `ViewModelMapping` for UICollectionReusableView registration. This initializer is used, when UICollectionSupplementaryView conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - kind: kind of supplementary view
+    ///   - supplementaryConfiguration: Supplementary handler closure to be executed when supplementary view is dequeued
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
     public init(kind: String,
-                supplementaryConfiguration: @escaping ((T, T.ModelType, IndexPath) -> Void),
-                mapping: ((ViewModelMapping<T, U>) -> Void)?)
-    where T: UICollectionReusableView, T: ModelTransfer, U == T.ModelType
+                supplementaryConfiguration: @escaping ((View, View.ModelType, IndexPath) -> Void),
+                mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+    where View: UICollectionReusableView, View: ModelTransfer, Model == View.ModelType
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is T.ModelType }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is View.ModelType }
         updateBlock = { view, model in
-            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            guard let view = view as? View, let model = model as? View.ModelType else { return }
             view.update(with: model)
         }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? T.ModelType, let collectionView = collectionView as? UICollectionView else {
+            guard let self = self, let model = model as? View.ModelType, let collectionView = collectionView as? UICollectionView else {
                 return nil as Any? as Any
             }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 #if compiler(>=5.3)
-                let registration : UICollectionView.SupplementaryRegistration<T>
+                let registration : UICollectionView.SupplementaryRegistration<View>
                     
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
                         registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
@@ -434,7 +472,7 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
             #endif
             } else {
                 let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-                if let supplementary = supplementary as? T {
+                if let supplementary = supplementary as? View {
                     supplementaryConfiguration(supplementary, model, indexPath)
                 }
                 return supplementary
@@ -443,31 +481,36 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
+    /// Creates `ViewModelMapping` for UITableView header/footer registration. This initializer is used when header/footer conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - kind: kind of supplementary view. `DTTableViewElementSectionHeader` for headers and `DTTableViewElementSectionFooter` for footers.
+    ///   - headerFooterConfiguration: Header/footer handler closure to be executed when header/footer is dequeued.
+    ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
     public init(kind: String,
-                headerFooterConfiguration: @escaping ((T, T.ModelType, Int) -> Void),
-                mapping: ((ViewModelMapping<T, U>) -> Void)?)
-    where T: UIView, T: ModelTransfer, U == T.ModelType
+                headerFooterConfiguration: @escaping ((View, View.ModelType, Int) -> Void),
+                mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+    where View: UIView, View: ModelTransfer, Model == View.ModelType
     {
         viewType = .supplementaryView(kind: kind)
-        viewClass = T.self
-        xibName = String(describing: T.self)
-        reuseIdentifier = String(describing: T.self)
-        modelTypeCheckingBlock = { $0 is T.ModelType }
+        viewClass = View.self
+        xibName = String(describing: View.self)
+        reuseIdentifier = String(describing: View.self)
+        modelTypeCheckingBlock = { $0 is View.ModelType }
         updateBlock = { view, model in
-            guard let view = view as? T, let model = model as? T.ModelType else { return }
+            guard let view = view as? View, let model = model as? View.ModelType else { return }
             view.update(with: model)
         }
-        bundle = Bundle(for: T.self)
+        bundle = Bundle(for: View.self)
         _supplementaryDequeueClosure = { [weak self] tableView, model, indexPath in
-            guard let self = self, let tableView = tableView as? UITableView, let model = model as? U else { return nil as Any? as Any }
+            guard let self = self, let tableView = tableView as? UITableView, let model = model as? Model else { return nil as Any? as Any }
             if let headerFooterView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.reuseIdentifier) {
-                if let typedHeaderFooterView = headerFooterView as? T {
+                if let typedHeaderFooterView = headerFooterView as? View {
                     headerFooterConfiguration(typedHeaderFooterView, model, indexPath.section)
                 }
                 return headerFooterView
             } else {
                 if let type = self.viewClass as? UIView.Type {
-                    if let loadedFromXib = type.load(for: self) as? T {
+                    if let loadedFromXib = type.load(for: self) as? View {
                         headerFooterConfiguration(loadedFromXib, model, indexPath.section)
                         return loadedFromXib
                     }
@@ -478,6 +521,12 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         mapping?(self)
     }
     
+    /// Dequeues reusable cell for `model`, `indexPath` from `tableView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this cell conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - tableView: UITableView instance to dequeue cell from
+    ///   - model: model object, that was mapped to cell type.
+    ///   - indexPath: IndexPath, at which cell is going to be displayed.
+    /// - Returns: dequeued configured UITableViewCell instance.
     public func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell? {
         guard viewType == .cell else {
             return nil
@@ -489,6 +538,13 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         return cell as? UITableViewCell
     }
     
+    /// Dequeues reusable supplementary view for `model`, `indexPath` from `tableView`. Calls `headerFooterConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this header/footer conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - tableView: UITableView instance to dequeue header/footer from
+    ///   - kind: kind of supplementary view. `DTTableViewElementSectionHeader` for headers and `DTTableViewElementSectionFooter` for footers.
+    ///   - model: model object, that was mapped to header/footer type.
+    ///   - indexPath: IndexPath, at which header/footer is going to be displayed. IndexPath.row of this IndexPath is ignored.
+    /// - Returns: dequeued configured header/footer.
     public func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView? {
         guard viewType == .supplementaryView(kind: kind) else {
             return nil
@@ -500,6 +556,12 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         return view as? UIView
     }
     
+    /// Dequeues reusable cell for `model`, `indexPath` from `collectionView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this cell conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - collectionView: UICollectionView instance to dequeue cell from
+    ///   - model: model object, that was mapped to cell type.
+    ///   - indexPath: IndexPath, at which cell is going to be displayed.
+    /// - Returns: dequeued configured UICollectionViewCell instance.
     public func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
         guard viewType == .cell else {
             return nil
@@ -511,6 +573,13 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         return cell as? UICollectionViewCell
     }
     
+    /// Dequeues reusable supplementary view for `model`, `indexPath` from `tableView`. Calls `supplementaryConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this header/footer conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - collectionView: UICollectionView instance to dequeue supplementary view from
+    ///   - kind: kind of supplementary view.
+    ///   - model: model object, that was mapped to supplementary view type.
+    ///   - indexPath: IndexPath, at which supplementary view is going to be displayed.
+    /// - Returns: dequeued configured supplementary view.
     public func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
         guard viewType == .supplementaryView(kind: kind) else {
             return nil
@@ -522,10 +591,10 @@ open class ViewModelMapping<T: AnyObject, U> : ViewModelMappingProtocol
         return view as? UICollectionReusableView
     }
     
-    internal init(viewType: ViewType, modelClass: U.Type, viewClass: T.Type) {
+    internal init(viewType: ViewType, modelClass: Model.Type, viewClass: View.Type) {
         self.viewType = viewType
-        self.viewClass = T.self
-        modelTypeCheckingBlock = { $0 is U }
+        self.viewClass = View.self
+        modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
         reuseIdentifier = ""
         xibName = nil

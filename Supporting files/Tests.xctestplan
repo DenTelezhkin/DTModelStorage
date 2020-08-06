@@ -8,13 +8,6 @@
           "enabled" : true
         }
       }
-    },
-    {
-      "id" : "811325DC-4F20-470E-8FC4-DF2D0C8CF58E",
-      "name" : "Configuration 2",
-      "options" : {
-        "threadSanitizerEnabled" : true
-      }
     }
   ],
   "defaultOptions" : {

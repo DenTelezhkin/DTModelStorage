@@ -49,7 +49,6 @@ class CoreDataStorageTestCase: XCTestCase {
     func testInsertion()
     {
         _ = ListItem.createItemWithValue(5)
-        
         updateObserver.verifyObjectChanges([(.insert, [indexPath(0, 0)])])
     }
     
@@ -145,11 +144,11 @@ class CoreDataStorageTestCase: XCTestCase {
     }
     
     func testItemAtIndexPathPerfomance() {
-        createSwarm(size: 5000)
+        createSwarm(size: 500)
         configureStorage()
         
         measure {
-            _ = storage.item(at: indexPath(2500, 0))
+            _ = storage.item(at: indexPath(250, 0))
         }
     }
 }
