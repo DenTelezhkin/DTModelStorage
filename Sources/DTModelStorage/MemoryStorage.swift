@@ -106,7 +106,7 @@ open class MemoryStorageAnomalyHandler : AnomalyHandler {
 public enum MemoryStorageError: LocalizedError
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:to:)` method
-    public enum InsertionReason
+    public enum InsertionReason: Equatable
     {
         case indexPathTooBig(IndexPath)
     }
@@ -319,11 +319,34 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
         finishUpdate()
     }
     
+    /// Inserts contents of `items` at `indexPath`.
+    ///
+    /// This method creates all sections prior to indexPath.section, unless they are already created.
+    /// - Throws: if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
+    open func insertItems<T>(_ items: [T], at indexPath: IndexPath) throws {
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            guard let section = self?.getValidSection(indexPath.section, collectChangesIn: update) else {
+                return
+            }
+            guard section.items.count >= indexPath.item else {
+                self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.insertionIndexPathTooBig(indexPath: indexPath, countOfElementsInSection: section.items.count))
+                throw MemoryStorageError.insertionFailed(reason: .indexPathTooBig(indexPath))
+            }
+            
+            section.items.insert(contentsOf: items, at: indexPath.item)
+            update.objectChanges.append(contentsOf:
+                                            (indexPath.item..<indexPath.item + items.count)
+                                            .map { (.insert, [IndexPath(item: $0, section: indexPath.section)]) }
+            )
+        }
+        finishUpdate()
+    }
+    
     /// Inserts `items` to `indexPaths`
     ///
     /// This method creates sections prior to maximum indexPath.section in `indexPaths`, unless they are already created.
-    /// - Throws: if items.count is different from indexPaths.count, will throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
-    open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath]) throws
+    open func insertItems<T>(_ items: [T], to indexPaths: [IndexPath])
     {
         if items.count != indexPaths.count {
             anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))

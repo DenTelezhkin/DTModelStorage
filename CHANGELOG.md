@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `ViewModelMapping.modelCondition` method, that allows to create custom mapping condition, but infers model type from mapping. Behavior of this method is identical to `ModelTransfer.modelCondition` method, except that new method does not require cell or view to implement `ModelTransfer` protocol.
+* `MemoryStorage.insertItems(_:at:)` method, that allows inserting collection starting from provided indexPath. This is useful, for example, if you are using pagination, and want to insert new page of items between old pages and loading indicator.
 
 ### Changed
 
@@ -24,6 +25,7 @@ Some context: this release heavily relies on where clauses on contextually gener
 * Event reactions are moved from extension on `[ViewModelMapping]` to static methods on `EventReaction` due to Swift inability to call methods on sequences that contain protocols.
 * `mappingCandidates` method has been moved to `ViewType` type.
 * `EventReaction` has new initializers with more specific names.
+* `insertItems(_:to:)` method is no longer throwing. Anomaly is still produced, if count of models differs from count of indexPaths.
 
 ### Deprecated
 

@@ -42,7 +42,7 @@ class MemoryStorageEditSpecs: XCTestCase {
         let exp = expectation(description: "Insert with different counts")
         let anomaly = MemoryStorageAnomaly.batchInsertionItemCountMismatch(itemsCount: 1, indexPathsCount: 2)
         storage.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        try? storage.insertItems([1], to: [indexPath(0, 0), indexPath(1, 0)])
+        storage.insertItems([1], to: [indexPath(0, 0), indexPath(1, 0)])
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️ [MemoryStorage] Failed to insert batch of items, items count: 1, indexPaths count: 2")
@@ -511,15 +511,53 @@ class SectionSupplementariesTestCase : XCTestCase
         XCTAssertEqual(self.storage.section(atIndex: 1)?.items(ofType: Int.self), [7, 8, 9])
     }
     
-    func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() {
-        try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
+    func testInsertItemsAtIndexPathsSuccessfullyInsertsItems() throws {
+        storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(2, 0)])
         delegate.applyUpdates()
         XCTAssertEqual(self.storage.items(inSection: 0)?.count, 3)
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2, 3])
     }
     
-    func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount() {
-        try! storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
+    func testInsertingSeveralItemsAtIndexPathDeliversCorrectUpdates() {
+        storage.setItems([1,2,3])
+        delegate.applyUpdates()
+        
+        try? storage.insertItems([4,5], at: IndexPath(item: 2, section: 0))
+        delegate.applyUpdates()
+        delegate.verifyObjectChanges([
+            (.insert, [indexPath(2, 0)]),
+            (.insert, [indexPath(3, 0)])
+        ])
+        delegate.applyUpdates()
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.compactMap { $0 as? Int}, [1,2,4,5,3])
+    }
+    
+    func testInsertingSeveralItemsAtTheEndWorks() {
+        storage.setItems([1,2,3])
+        delegate.applyUpdates()
+        
+        try? storage.insertItems([4,5], at: IndexPath(item: 3, section: 0))
+        delegate.applyUpdates()
+        delegate.verifyObjectChanges([
+            (.insert, [indexPath(3, 0)]),
+            (.insert, [indexPath(4, 0)])
+        ])
+        delegate.applyUpdates()
+        XCTAssertEqual(storage.section(atIndex: 0)?.items.compactMap { $0 as? Int}, [1,2,3,4,5])
+    }
+    
+    func testInsertingItemsBeyondSectionThrowsError() {
+        do {
+            try storage.insertItems([1,2], at: indexPath(1, 0))
+        } catch MemoryStorageError.insertionFailed(reason: let reason) {
+            XCTAssertEqual(reason, .indexPathTooBig(indexPath(1,0)))
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func testInsertItemsAtIndexPathsDoesNotTryToInsertItemsPastItemsCount()  {
+        storage.insertItems([1, 2, 3], to: [indexPath(0, 0), indexPath(1, 0), indexPath(3, 0)])
         delegate.applyUpdates()
         XCTAssertEqual(self.storage.items(inSection: 0)?.count, 2)
         XCTAssertEqual(self.storage.section(atIndex: 0)?.items(ofType: Int.self), [1, 2])
