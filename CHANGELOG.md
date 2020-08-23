@@ -14,6 +14,8 @@ This release requires Swift 5.3.
 
 Some context: this release heavily relies on where clauses on contextually generic declarations, that are only available in Swift 5.3 - [SE-0267](https://github.com/apple/swift-evolution/blob/master/proposals/0267-where-on-contextually-generic.md).
 
+* DTModelStorage/Realm subspec requires RealmSwift 5.2 and higher for minimum iOS 9 deployment target.
+
 ### Breaking
 
 * `ViewModelMapping` has been reworked to generic class to capture both View and Model type.

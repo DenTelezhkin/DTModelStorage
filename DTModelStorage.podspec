@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Realm' do |realm|
       realm.dependency 'DTModelStorage/Core'
-      realm.dependency 'RealmSwift', '~> 5.0'
+      realm.dependency 'RealmSwift', '~> 5.2'
       realm.source_files = 'Sources/RealmStorage/*.swift'
   end
 
