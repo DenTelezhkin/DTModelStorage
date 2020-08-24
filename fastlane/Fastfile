@@ -10,6 +10,7 @@ lane :test_tvos14 do
 end
 
 lane :pod_lint do
+  sh "bundle exec pod repo update"
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
 

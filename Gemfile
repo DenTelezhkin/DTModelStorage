@@ -5,7 +5,7 @@ gem "fastlane"
 gem 'octokit'
 gem 'netrc'
 gem 'jazzy'
-gem 'cocoapods'
+gem 'cocoapods', '>= 1.10.0.beta.2'
 gem 'mime-types'
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
