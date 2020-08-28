@@ -138,7 +138,7 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
     /// Mapping condition, under which this mapping is going to work. Defaults to .none.
     public var condition: MappingCondition = .none
     
-    /// Reuse identifier to be used for reusable views.
+    /// Reuse identifier to be used for reusable views. Mappings for UICollectionViewCell and UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter.
     public var reuseIdentifier : String
     
     /// If cell is designed in storyboard, and thus don't require explicit UITableView/UICollectionView registration, please set this property to true. Defaults to false.
