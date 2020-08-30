@@ -28,6 +28,6 @@ manager.tableViewUpdater = manager.coreDataUpdater()
 This special version of updater has two important differences from default behavior:
 
 1. Moving items is animated as insert and delete
-2. When data model changes, `update(with:)` and `handler` closure are called to update visible cells without explicitly reloading them.
+2. When data model changes, `update(with:)` method and `handler` closure are called to update visible cells without explicitly reloading them.
 
 Those are [recommended by Apple](https://developer.apple.com/documentation/coredata/nsfetchedresultscontrollerdelegate) approaches to handle `NSFetchedResultsControllerDelegate` updates with `UITableView` and `UICollectionView`. Those behaviours can be configured on both `CollectionViewUpdater` and `TableViewUpdater` classes.
