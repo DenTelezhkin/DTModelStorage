@@ -101,6 +101,8 @@ public protocol ViewModelMappingProtocol: class {
     var supplementaryRegisteredByStoryboard : Bool { get }
     var reactions: [EventReaction] { get set }
     
+    func updateCell(cell: Any, at indexPath: IndexPath, with model: Any)
+    
     func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell?
     func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView?
     
@@ -150,6 +152,7 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
     /// Event reactions, attached to current mapping instance
     public var reactions: [EventReaction] = []
     
+    private var _cellConfigurationHandler: ((Any, Any, IndexPath) -> Void)?
     private var _cellDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     private var _supplementaryDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
     
@@ -192,6 +195,10 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
         bundle = Bundle(for: View.self)
+        _cellConfigurationHandler = { cell, model, indexPath in
+            guard let view = cell as? View, let model = model as? Model else { return }
+            cellConfiguration(view, model, indexPath)
+        }
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let collectionView = view as? UICollectionView else { return nil as Any? as Any }
             if let model = model as? Model, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
@@ -241,6 +248,10 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         modelTypeCheckingBlock = { $0 is Model }
         updateBlock = { _, _ in }
         bundle = Bundle(for: View.self)
+        _cellConfigurationHandler = { cell, model, indexPath in
+            guard let view = cell as? View, let model = model as? Model else { return }
+            cellConfiguration(view, model, indexPath)
+        }
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let model = model as? Model, let tableView = view as? UITableView else { return nil as Any? as Any }
             let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
@@ -270,6 +281,10 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             view.update(with: model)
         }
         bundle = Bundle(for: View.self)
+        _cellConfigurationHandler = { cell, model, indexPath in
+            guard let view = cell as? View, let model = model as? Model else { return }
+            cellConfiguration(view, model, indexPath)
+        }
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let model = model as? View.ModelType, let collectionView = view as? UICollectionView else {
                 return nil as Any? as Any
@@ -324,6 +339,10 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             view.update(with: model)
         }
         bundle = Bundle(for: View.self)
+        _cellConfigurationHandler = { cell, model, indexPath in
+            guard let view = cell as? View, let model = model as? Model else { return }
+            cellConfiguration(view, model, indexPath)
+        }
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let model = model as? View.ModelType, let tableView = view as? UITableView else {
                 return nil as Any? as Any
@@ -519,6 +538,17 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             return nil as Any? as Any
         }
         mapping?(self)
+    }
+    
+    /// Update `cell` at `indexPath` with `model`. This can be used in scenarios where you want to update a cell, but animations are not required.
+    /// For example, `DTCollectionViewManager.coreDataUpdater()` uses this technique. For details, read more in https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/CoreData%20storage.md
+    /// - Parameters:
+    ///   - cell: visible cell instance
+    ///   - indexPath: location of the cell
+    ///   - model: data model to update with
+    public func updateCell(cell: Any, at indexPath: IndexPath, with model: Any) {
+        _cellConfigurationHandler?(cell, model, indexPath)
+        updateBlock(cell, model)
     }
     
     /// Dequeues reusable cell for `model`, `indexPath` from `tableView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this cell conforms to `ModelTransfer` protocol.

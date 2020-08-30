@@ -6,147 +6,64 @@
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
 DTModelStorage
-================
-
-> This project is used as a dependency by [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager) and [DTCollectionViewManager](https://github.com/DenTelezhkin/DTCollectionViewManager) - great tools for UITableView and UICollectionView management.
-
-- [x] Support for any data structure - class, struct, enum, tuple
-- [x] Support for automatic diffing in section
-- [x] Support for diffable datasources in iOS 13
-- [x] Protocol-oriented implementation with generic and associated types
-- [x] Powerful events system for storage consumers.
-- [x] High test coverage
-- [x] [Complete documentation](https://dentelezhkin.github.io/DTModelStorage/)
-
-What this is all about?
 ==============
 
-The goal of the project is to provide storage classes for datasource based controls. Let's take UITableView, for example. It's datasource methods mostly relates on following:
+ Because this project main goal is to provide storage classes and mapping/event functionality for DTCollectionViewManager and DTTableViewManager, you should probably first read, why those two frameworks exist in the first place. This is described, for example, in [Why](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Documentation/Why.md) document of DTCollectionViewManager.
+
+ Requirements
+ ============
+
+ * Xcode 12+
+ * Swift 5.3+
+ * iOS 11+ / tvOS 11+ / macCatalyst 13.0+
+
+Installation
+============
+
+### Swift Package Manager
+
+ * Add package into Project settings -> Swift Packages
+
+### [CocoaPods](https://cocoapods.org):
+
+    pod 'DTModelStorage'
+
+## Storage classes
+
+The goal of storage classes is to provide datasource models for UITableView/UICollectionView. Let's take UITableView, for example. It's datasource methods mostly relates on following:
 
 * sections
 * items in sections
-* section headers and footers
+* section headers and footers / supplementary views
 
-Now, if we look on `UICollectionView`, that stuff does not change. And probably any kind of datasource based control can be adapted to use the same terminology. So, instead of reinventing the wheel every time, let's try to implement universal storage classes, that would fit any control.
+`Storage` protocol builds upon those elements to define common interface for all storage classes. `SupplementaryStorage` protocol extends `Storage` to provide methods on supplementary models / headers/ footers.
 
-`DTModelStorage` supports 5 storage classes:
-* Single section storage
-* Memory storage
-* CoreData storage
-* Realm storage
-* Storage for diffable datasources
+Here are five `Storage` implementations provided by `DTModelStorage` and links to detailed documentation on them:
+
+* [Memory storage](Documentation/Memory%20Storage.md)
+* [Single section storage](Documentation/Single%20section%20diffable%20storage.md)
+* [Storage for diffable datasources](Documentation/Diffable%20Datasource%20storage.md) ( iOS 13 / tvOS 13 and higher )
+* [CoreData storage](Documentation/CoreData%20storage.md)
+* [Realm storage](Documentation/Realm%20storage.md)
+
+Please note, that all five storages support the same interface for handling supplementary models - supplementary providers. You can read more about them in [dedicated document](Documentation/Supplementary%20providers.md).
+
+## ViewModelMapping and EventReaction
+
+`ViewModelMapping` and `EventReaction` classes are a part of mapping system between data models and reusable views. You can read about how they are used and why in [DTCollectionViewManager Mapping document](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Documentation/Mapping.md) as well as [DTCollectionViewManager Events document](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Documentation/Events.md)
+
+
+
+
+
+
+
+
 
 `DTModelStorage` provides convenience methods to be used with `UITableView` or `UICollectionView`, but does not force any specific use, and does not imply, which UI components are compatible with it. However, storage classes are designed to work with "sections" and "items", which generally means some kind of table or collection of items.
 
 `DTModelStorage` defines `ModelTransfer` protocol, that allows transferring your data model to interested parties. This can be used for example for updating `UITableViewCell`. Thanks to associated `ModelType` of the protocol it is possible to transfer your model without any type casts.
 
-Requirements
-============
-
-* Xcode 10 and higher
-* Swift 4.1 and higher
-* iOS 8 and higher / tvOS 9.0 and higher
-
-Installation
-===========
-
-### Swift Package Manager (requires Xcode 11)
-
-* Add package into Project settings -> Swift Packages
-
-### [CocoaPods](https://cocoapods.org):
-
-pod 'DTModelStorage'
-
-MemoryStorage
-================
-`MemoryStorage` encapsulates storage of data models in memory. It's basically Array of `SectionModel` items, which contain array of items for current section.
-
-```swift
-let storage = MemoryStorage()
-```
-
-#### Adding items
-
-```swift
-storage.addItem(model)
-storage.addItem(model, toSection: 0)
-
-storage.addItems([model1,model2])
-storage.addItems([model1,model2], toSection:0)
-
-try? storage.insertItem(model, to: indexPath)
-```
-
-#### Remove / replace / Reload
-
-```swift
-try? storage.removeItem(model)
-storage.removeItems([model1,model2])
-storage.removeItems(at:indexPaths)
-
-try? storage.replaceItem(model1, with: model2)
-
-storage.reloadItem(model1)
-```
-
-#### Managing sections
-
-```swift
-storage.deleteSections(NSIndexSet(index: 1))
-```
-
-#### Retrieving items
-
-```swift
-let item = storage.item(at:NSIndexPath(forItem:1, inSection:0)
-
-let indexPath = storage.indexPath(forItem:model)
-
-let itemsInSection = storage.items(inSection:0)
-
-let section = storage.section(atIndex:0)
-```
-
-#### Updating manually
-
-Sometimes you may need to update batch of sections, remove all items, and add new ones. For those massive updates you don't actually need to update interface until update is finished. Wrap your updates in single block and pass it to updateWithoutAnimations method:
-
-```swift
-storage.updateWithoutAnimations {
-    // Add multiple rows, or another batch of edits
-}
-// Calling reloadData is mandatory after calling this method. or you will get crash runtime
-```
-
-For reordering of items, when animation is not needed, you can call `moveItemWithoutAnimation(from:to:)` method:
-
-```swift
-storage.moveItemWithoutAnimation(from: sourceIndexPath, to: destinationIndexPath)
-```
-
-## Supplementary model providers
-
-All 5 implemented storages have a single supplementary model provider API, that consists of three closures:
-
-* `headerModelProvider`
-* `footerModelProvider`
-* `supplementaryModelProvider`
-
-`supplementaryModelProvider` closure setter has been overridden to allow calling `headerModelProvider` and `footerModelProvider`. So, for example, if closures are setup in the following way:
-
-```swift
-storage.headerModelProvider = { index in [1,2,3][index] }
-storage.supplementaryModelProvider = { kind, index in [4,5,6][index.item] }
-storage.supplementaryHeaderKind = "Foo"
-```
-
-Then supplementary providers will work as shown below:
-
-```swift
-storage.supplementaryModel(ofKind: "Foo", forSectionAt: IndexPath(item: 0, section:0)) // 1
-storage.supplementaryModel(ofKind: "Bar", forSectionAt: IndexPath(item: 0, section:0)) // 4
-```
 
 ProxyDiffableDataSourceStorage
 ================
@@ -275,17 +192,6 @@ let storage = SingleSectionEquatableStorage(items: typeErasedInstances, differ: 
 ```
 
 Quite ugly, I know. But that seems like the only option that is possible today.
-
-CoreDataStorage
-================
-
-`CoreDataStorage` is meant to be used with `NSFetchedResultsController`. It automatically monitors all `NSFetchedResultsControllerDelegate` methods and and calls delegate with appropriate updates.
-
-```swift
-let storage = CoreDataStorage(fetchedResultsController: controller)
-```
-
-Any section in `CoreDataStorage` conform to `NSFetchedResultsSectionInfo` protocol, however `DTModelStorage` extends them to be `Section` protocol compatible. This way CoreData sections and memory sections have the same interface.
 
 ## RealmStorage
 

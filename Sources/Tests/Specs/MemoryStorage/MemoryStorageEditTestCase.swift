@@ -505,7 +505,7 @@ class SectionSupplementariesTestCase : XCTestCase
         storage.addItems([4, 5, 6], toSection: 1)
         
         let section = SectionModel()
-        section.setItems([7, 8, 9])
+        section.items = [7, 8, 9]
         storage.setSection(section, forSection: 1)
         
         XCTAssertEqual(self.storage.section(atIndex: 1)?.items(ofType: Int.self), [7, 8, 9])

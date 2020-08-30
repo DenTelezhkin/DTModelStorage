@@ -21,7 +21,7 @@ class SectionModelTestCase: XCTestCase {
     
     func testItemsOfTypeWorks()
     {
-        section.setItems([1, 2, 3])
+        section.items = [1, 2, 3]
         
         XCTAssertEqual(section.items(ofType: Int.self), [1, 2, 3])
         XCTAssertEqual(section.item(at: 2) as? Int, 3)
