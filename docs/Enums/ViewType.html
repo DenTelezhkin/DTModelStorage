@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          DTModelStorage 8.1.0 Docs
+          DTModelStorage 9.0.0-beta.1 Docs
         </a>
-         (89% documented)
+         (84% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -153,12 +153,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
               </li>
             </ul>
@@ -202,6 +196,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -227,6 +224,7 @@
             <h1>ViewType</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ViewType</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
@@ -324,9 +322,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                    <a name="/s:14DTModelStorage8ViewTypeO17mappingCandidates3for9withModel2atSayAA0cI15MappingProtocol_pGAI_yp10Foundation9IndexPathVtF"></a>
+                    <a name="//apple_ref/swift/Method/mappingCandidates(for:withModel:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage8ViewTypeO17mappingCandidates3for9withModel2atSayAA0cI15MappingProtocol_pGAI_yp10Foundation9IndexPathVtF">mappingCandidates(for:<wbr>withModel:<wbr>at:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -334,15 +332,25 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Returns mappings candidates of correct <code>viewType</code>, for which <code>modelTypeCheckingBlock</code> with <code>model</code> returns true.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Usually returned array will consist of 0 or 1 element. Multiple candidates will be returned when several mappings correspond to current model - this can happen in case of protocol or subclassed model.
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">ViewType</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ViewType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mappingCandidates</span><span class="p">(</span><span class="k">for</span> <span class="nv">mappings</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a></span><span class="p">],</span> <span class="n">withModel</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a></span><span class="p">]</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array of view model mappings</p>
                       </div>
                     </section>
                   </div>
@@ -355,8 +363,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

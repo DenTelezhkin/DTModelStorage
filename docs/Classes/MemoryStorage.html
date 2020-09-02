@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          DTModelStorage 8.1.0 Docs
+          DTModelStorage 9.0.0-beta.1 Docs
         </a>
-         (89% documented)
+         (84% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -153,12 +153,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
               </li>
             </ul>
@@ -202,6 +196,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -227,6 +224,7 @@
             <h1>MemoryStorage</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">MemoryStorage</span> <span class="p">:</span> <span class="kt"><a href="../Classes/BaseUpdateDeliveringStorage.html">BaseUpdateDeliveringStorage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Storage.html">Storage</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/SectionLocationIdentifyable.html">SectionLocationIdentifyable</a></span></code></pre>
 
                 </div>
@@ -264,14 +262,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>When enabled, datasource updates are not applied immediately and saved inside <code><a href="../Classes/StorageUpdate.html">StorageUpdate</a></code> <code>enqueuedDatasourceUpdates</code> property.
-Call <code>StorageUpdate.applyDeferredDatasourceUpdates</code> method to apply all deferred changes.
-Defaults to <code>true</code>.</p>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <a href="https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27">https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27</a>
-
-</div>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -810,9 +801,43 @@ Defaults to <code>true</code>.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtKlF"></a>
+                    <a name="/s:14DTModelStorage06MemoryB0C11insertItems_2atySayxG_10Foundation9IndexPathVtKlF"></a>
+                    <a name="//apple_ref/swift/Method/insertItems(_:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11insertItems_2atySayxG_10Foundation9IndexPathVtKlF">insertItems(_:<wbr>at:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts contents of <code>items</code> at <code>indexPath</code>.</p>
+
+<p>This method creates all sections prior to indexPath.section, unless they are already created.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    if indexPath is too big, will throw MemoryStorageErrors.Insertion.IndexPathTooBig
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">insertItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtlF"></a>
                     <a name="//apple_ref/swift/Method/insertItems(_:to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtKlF">insertItems(_:<wbr>to:<wbr>)</a>
+                    <a class="token" href="#/s:14DTModelStorage06MemoryB0C11insertItems_2toySayxG_Say10Foundation9IndexPathVGtlF">insertItems(_:<wbr>to:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -823,18 +848,13 @@ Defaults to <code>true</code>.</p>
                         <p>Inserts <code>items</code> to <code>indexPaths</code></p>
 
 <p>This method creates sections prior to maximum indexPath.section in <code>indexPaths</code>, unless they are already created.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    if items.count is different from indexPaths.count, will throw MemoryStorageErrors.BatchInsertion.ItemsCountMismatch
-
-</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">insertItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">to</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">insertItems</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">],</span> <span class="n">to</span> <span class="nv">indexPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">IndexPath</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -1351,8 +1371,8 @@ Defaults to <code>true</code>.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

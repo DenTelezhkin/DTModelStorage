@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SupplementaryStorage Protocol Reference</title>
+    <title>ViewModelMappingProtocol Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/SupplementaryStorage" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/ViewModelMappingProtocol" class="dashAnchor"></a>
 
-    <a title="SupplementaryStorage Protocol Reference"></a>
+    <a title="ViewModelMappingProtocol Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -50,7 +50,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DTModelStorage Reference</a>
       <img class="carat" src="../img/carat.png" />
-      SupplementaryStorage Protocol Reference
+      ViewModelMappingProtocol Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -221,15 +221,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>SupplementaryStorage</h1>
+            <h1>ViewModelMappingProtocol</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SupplementaryStorage</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ViewModelMappingProtocol</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
 
                 </div>
               </div>
-            <p><code>SupplementaryStorage</code> is used to handle header/footer and supplementary models in storage.</p>
+            <p>Type-erased interface for <code><a href="../Classes/ViewModelMapping.html">ViewModelMapping</a></code> generic class.</p>
 
           </div>
         </section>
@@ -241,9 +241,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0P19headerModelProviderypSgSicSgvp"></a>
-                    <a name="//apple_ref/swift/Property/headerModelProvider" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0P19headerModelProviderypSgSicSgvp">headerModelProvider</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP7xibNameSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/xibName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP7xibNameSSSgvp">xibName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -251,14 +251,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a header model for specified section index or nil.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">headerModelProvider</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">xibName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -268,9 +268,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0P19footerModelProviderypSgSicSgvp"></a>
-                    <a name="//apple_ref/swift/Property/footerModelProvider" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0P19footerModelProviderypSgSicSgvp">footerModelProvider</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP6bundleSo8NSBundleCvp"></a>
+                    <a name="//apple_ref/swift/Property/bundle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP6bundleSo8NSBundleCvp">bundle</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -278,14 +278,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns a footer model for specified section index or nil</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">footerModelProvider</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">sectionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">Bundle</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -295,9 +295,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0P26supplementaryModelProviderypSgSS_10Foundation9IndexPathVtcSgvp"></a>
-                    <a name="//apple_ref/swift/Property/supplementaryModelProvider" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0P26supplementaryModelProviderypSgSS_10Foundation9IndexPathVtcSgvp">supplementaryModelProvider</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP8viewTypeAA0cH0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/viewType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP8viewTypeAA0cH0Ovp">viewType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -305,14 +305,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns supplementary model for specified section indexPath and supplementary kind, or nil.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supplementaryModelProvider</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">sectionIndexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?)?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">viewType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ViewType.html">ViewType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -322,9 +322,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0P23supplementaryHeaderKindSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/supplementaryHeaderKind" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0P23supplementaryHeaderKindSSSgvp">supplementaryHeaderKind</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP22modelTypeCheckingBlockySbypcvp"></a>
+                    <a name="//apple_ref/swift/Property/modelTypeCheckingBlock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP22modelTypeCheckingBlockySbypcvp">modelTypeCheckingBlock</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -332,14 +332,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Supplementary kind for header in current storage</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supplementaryHeaderKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">modelTypeCheckingBlock</span><span class="p">:</span> <span class="p">(</span><span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -349,9 +349,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0P23supplementaryFooterKindSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/supplementaryFooterKind" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0P23supplementaryFooterKindSSSgvp">supplementaryFooterKind</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP09modelTypeH13CheckingBlockySbypXpcvp"></a>
+                    <a name="//apple_ref/swift/Property/modelTypeTypeCheckingBlock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP09modelTypeH13CheckingBlockySbypXpcvp">modelTypeTypeCheckingBlock</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -359,14 +359,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Supplementary kind for footer in current storage</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supplementaryFooterKind</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">modelTypeTypeCheckingBlock</span><span class="p">:</span> <span class="p">(</span><span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -376,27 +376,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE26configureForTableViewUsageyyF"></a>
-                    <a name="//apple_ref/swift/Method/configureForTableViewUsage()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE26configureForTableViewUsageyyF">configureForTableViewUsage()</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP11updateBlockyyyp_yptcvp"></a>
+                    <a name="//apple_ref/swift/Property/updateBlock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP11updateBlockyyyp_yptcvp">updateBlock</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Configures storage for using with UITableView</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">configureForTableViewUsage</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">updateBlock</span><span class="p">:</span> <span class="p">(</span><span class="kt">Any</span><span class="p">,</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -406,27 +403,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE41configureForCollectionViewFlowLayoutUsageyyF"></a>
-                    <a name="//apple_ref/swift/Method/configureForCollectionViewFlowLayoutUsage()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE41configureForCollectionViewFlowLayoutUsageyyF">configureForCollectionViewFlowLayoutUsage()</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP9viewClassyXlXpvp"></a>
+                    <a name="//apple_ref/swift/Property/viewClass" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP9viewClassyXlXpvp">viewClass</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Configures storage for using with UICollectionViewFlowLayout</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">configureForCollectionViewFlowLayoutUsage</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">viewClass</span><span class="p">:</span> <span class="kt">AnyClass</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -436,28 +430,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE11headerModel10forSectionypSgSi_tF"></a>
-                    <a name="//apple_ref/swift/Method/headerModel(forSection:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE11headerModel10forSectionypSgSi_tF">headerModel(forSection:<wbr>)</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP9conditionAA0E9ConditionOvp"></a>
+                    <a name="//apple_ref/swift/Property/condition" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP9conditionAA0E9ConditionOvp">condition</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns header model from section with section <code>index</code> or nil, if it was not set.
-    - Requires: supplementaryHeaderKind to be set prior to calling this method</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">headerModel</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">condition</span><span class="p">:</span> <span class="kt"><a href="../Enums/MappingCondition.html">MappingCondition</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -467,32 +457,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE11footerModel10forSectionypSgSi_tF"></a>
-                    <a name="//apple_ref/swift/Method/footerModel(forSection:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE11footerModel10forSectionypSgSi_tF">footerModel(forSection:<wbr>)</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP15reuseIdentifierSSvp"></a>
+                    <a name="//apple_ref/swift/Property/reuseIdentifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP15reuseIdentifierSSvp">reuseIdentifier</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns footer model from section with section <code>index</code> or nil, if it was not set.</p>
-<div class="aside aside-requires">
-    <p class="aside-title">Requires</p>
-    supplementaryFooterKind to be set prior to calling this method
-
-</div>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">footerModel</span><span class="p">(</span><span class="n">forSection</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">reuseIdentifier</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -502,27 +484,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF"></a>
-                    <a name="//apple_ref/swift/Method/supplementaryModel(ofKind:forSectionAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE18supplementaryModel6ofKind12forSectionAtypSgSS_10Foundation9IndexPathVtF">supplementaryModel(ofKind:<wbr>forSectionAt:<wbr>)</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP26cellRegisteredByStoryboardSbvp"></a>
+                    <a name="//apple_ref/swift/Property/cellRegisteredByStoryboard" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP26cellRegisteredByStoryboardSbvp">cellRegisteredByStoryboard</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns supplementary model of <code>kind</code> for section at <code>indexPath</code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">supplementaryModel</span><span class="p">(</span><span class="n">ofKind</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">forSectionAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">cellRegisteredByStoryboard</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -532,27 +511,24 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE22setSectionHeaderModelsyySayqd__GlF"></a>
-                    <a name="//apple_ref/swift/Method/setSectionHeaderModels(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE22setSectionHeaderModelsyySayqd__GlF">setSectionHeaderModels(_:<wbr>)</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP35supplementaryRegisteredByStoryboardSbvp"></a>
+                    <a name="//apple_ref/swift/Property/supplementaryRegisteredByStoryboard" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP35supplementaryRegisteredByStoryboardSbvp">supplementaryRegisteredByStoryboard</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sets section header <code>models</code>, using <code><a href="../Protocols/SupplementaryStorage.html#/s:14DTModelStorage013SupplementaryB0P23supplementaryHeaderKindSSSgvp">supplementaryHeaderKind</a></code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">setSectionHeaderModels</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">models</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">supplementaryRegisteredByStoryboard</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -562,27 +538,159 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage013SupplementaryB0PAAE22setSectionFooterModelsyySayqd__GlF"></a>
-                    <a name="//apple_ref/swift/Method/setSectionFooterModels(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage013SupplementaryB0PAAE22setSectionFooterModelsyySayqd__GlF">setSectionFooterModels(_:<wbr>)</a>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP9reactionsSayAA13EventReactionCGvp"></a>
+                    <a name="//apple_ref/swift/Property/reactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP9reactionsSayAA13EventReactionCGvp">reactions</a>
                     </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sets section footer <code>models</code>, using <code><a href="../Protocols/SupplementaryStorage.html#/s:14DTModelStorage013SupplementaryB0P23supplementaryFooterKindSSSgvp">supplementaryFooterKind</a></code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">setSectionFooterModels</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">models</span><span class="p">:</span> <span class="p">[</span><span class="kt">T</span><span class="p">])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">reactions</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/EventReaction.html">EventReaction</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP10updateCell4cell2at4withyyp_10Foundation9IndexPathVyptF"></a>
+                    <a name="//apple_ref/swift/Method/updateCell(cell:at:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP10updateCell4cell2at4withyyp_10Foundation9IndexPathVyptF">updateCell(cell:<wbr>at:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">with</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP29dequeueConfiguredReusableCell3for5model9indexPathSo012UICollectioncJ0CSgSo0oC0C_yp10Foundation05IndexN0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableCell(for:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP29dequeueConfiguredReusableCell3for5model9indexPathSo012UICollectioncJ0CSgSo0oC0C_yp10Foundation05IndexN0VtF">dequeueConfiguredReusableCell(for:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dequeueConfiguredReusableCell</span><span class="p">(</span><span class="k">for</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo012UICollectioniC0CSgSo0pC0C_SSyp10Foundation05IndexO0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableSupplementaryView(for:kind:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo012UICollectioniC0CSgSo0pC0C_SSyp10Foundation05IndexO0VtF">dequeueConfiguredReusableSupplementaryView(for:<wbr>kind:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dequeueConfiguredReusableSupplementaryView</span><span class="p">(</span><span class="k">for</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionReusableView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP29dequeueConfiguredReusableCell3for5model9indexPathSo07UITablecJ0CSgSo0oC0C_yp10Foundation05IndexN0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableCell(for:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP29dequeueConfiguredReusableCell3for5model9indexPathSo07UITablecJ0CSgSo0oC0C_yp10Foundation05IndexN0VtF">dequeueConfiguredReusableCell(for:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dequeueConfiguredReusableCell</span><span class="p">(</span><span class="k">for</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UITableViewCell</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage24ViewModelMappingProtocolP038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo6UIViewCSgSo07UITableC0C_SSyp10Foundation05IndexO0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableSupplementaryView(for:kind:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage24ViewModelMappingProtocolP038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo6UIViewCSgSo07UITableC0C_SSyp10Foundation05IndexO0VtF">dequeueConfiguredReusableSupplementaryView(for:<wbr>kind:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">dequeueConfiguredReusableSupplementaryView</span><span class="p">(</span><span class="k">for</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>

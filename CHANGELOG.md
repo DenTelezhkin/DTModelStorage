@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.0.0-beta.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.0.0-beta.1)
+
 ### Added
 
 * `ViewModelMapping.modelCondition` method, that allows to create custom mapping condition, but infers model type from mapping. Behavior of this method is identical to `ModelTransfer.modelCondition` method, except that new method does not require cell or view to implement `ModelTransfer` protocol.

@@ -55,10 +55,6 @@ lane :release do |params|
     puts "Pushing to CocoaPods trunk."
     sh "bundle exec pod trunk push DTModelStorage.podspec --allow-warnings"
 
-    # puts "Preparing Carthage binary framework."
-    # sh "carthage build --no-skip-current --platform iOS,tvOS"
-    # sh "carthage archive DTModelStorage"
-
     puts "Pushing as a GitHub Release."
     fastlane_require 'octokit'
     stripped_changelog = changelog.split(/^## /)[1].split("\n")[1..-1].join("\n").strip
@@ -67,10 +63,5 @@ lane :release do |params|
                      version,
                      name: version,
                      body: stripped_changelog)
-
-    # puts "Attaching Carthage prebuilt binary to release."
-    # releases = client.releases('DenTelezhkin/DTModelStorage')
-    # client.upload_asset(releases[0].url, 'DTModelStorage.framework.zip')
-    # sh "rm -rf DTModelStorage.framework.zip"
   end
 end

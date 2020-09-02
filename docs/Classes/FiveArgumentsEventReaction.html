@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          DTModelStorage 8.1.0 Docs
+          DTModelStorage 9.0.0-beta.1 Docs
         </a>
-         (89% documented)
+         (84% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -153,12 +153,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
               </li>
             </ul>
@@ -202,6 +196,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -227,6 +224,7 @@
             <h1>FiveArgumentsEventReaction</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">FiveArgumentsEventReaction</span> <span class="p">:</span> <span class="kt"><a href="../Classes/EventReaction.html">EventReaction</a></span></code></pre>
 
                 </div>
@@ -270,9 +268,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage26FiveArgumentsEventReactionC05make5dF0yyq1_q__q0_x9ModelTypeQz10Foundation9IndexPathVtcAA0H8TransferRzr2_lF"></a>
-                    <a name="//apple_ref/swift/Method/make5ArgumentsReaction(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage26FiveArgumentsEventReactionC05make5dF0yyq1_q__q0_x9ModelTypeQz10Foundation9IndexPathVtcAA0H8TransferRzr2_lF">make5ArgumentsReaction(_:<wbr>)</a>
+                    <a name="/s:14DTModelStorage26FiveArgumentsEventReactionC_9modelType11argumentOne0I3Two9signature_ACxm_q_mq0_mq1_mSSq2_q0__q1_xq_10Foundation9IndexPathVtctcr3_lufc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:modelType:argumentOne:argumentTwo:signature:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage26FiveArgumentsEventReactionC_9modelType11argumentOne0I3Two9signature_ACxm_q_mq0_mq1_mSSq2_q0__q1_xq_10Foundation9IndexPathVtctcr3_lufc">init(_:<wbr>modelType:<wbr>argumentOne:<wbr>argumentTwo:<wbr>signature:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -280,70 +278,99 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Makes 5 argument reaction based on <code>View</code>.</p>
+                        <p>Creates five argument event reaction for View/Cell model mapped events.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">make5ArgumentsReaction</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">ArgumentOne</span><span class="p">,</span> <span class="kt">ArgumentTwo</span><span class="p">,</span> <span class="kt">ReturnType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">block</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ArgumentOne</span><span class="p">,</span> <span class="kt">ArgumentTwo</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ReturnType</span><span class="p">)</span> <span class="k">where</span> <span class="kt">View</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">ModelType</span><span class="p">,</span> <span class="kt">ArgumentOne</span><span class="p">,</span> <span class="kt">ArgumentTwo</span><span class="p">,</span> <span class="kt">ReturnType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">viewType</span><span class="p">:</span> <span class="kt">View</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+                                                                   <span class="nv">modelType</span><span class="p">:</span> <span class="kt">ModelType</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+                                                                   <span class="nv">argumentOne</span><span class="p">:</span> <span class="kt">ArgumentOne</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+                                                                   <span class="nv">argumentTwo</span><span class="p">:</span> <span class="kt">ArgumentTwo</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+                                                                   <span class="nv">signature</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">ArgumentOne</span><span class="p">,</span> <span class="kt">ArgumentTwo</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">ModelType</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ReturnType</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14DTModelStorage26FiveArgumentsEventReactionC9signature8viewType0H5ClassACSS_AA04ViewI0OxmtcAA13ModelTransferRzlufc"></a>
-                    <a name="//apple_ref/swift/Method/init(signature:viewType:viewClass:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage26FiveArgumentsEventReactionC9signature8viewType0H5ClassACSS_AA04ViewI0OxmtcAA13ModelTransferRzlufc">init(signature:<wbr>viewType:<wbr>viewClass:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates FiveArgumentsEventReaction for <code>viewClass</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">signature</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">viewType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ViewType.html">ViewType</a></span><span class="p">,</span> <span class="nv">viewClass</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14DTModelStorage26FiveArgumentsEventReactionC9signature8viewType05modelI0ACSS_AA04ViewI0Oxmtclufc"></a>
-                    <a name="//apple_ref/swift/Method/init(signature:viewType:modelType:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage26FiveArgumentsEventReactionC9signature8viewType05modelI0ACSS_AA04ViewI0Oxmtclufc">init(signature:<wbr>viewType:<wbr>modelType:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates FiveArgumentsEventReaction for <code>modelType</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">init</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">signature</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">viewType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ViewType.html">ViewType</a></span><span class="p">,</span> <span class="nv">modelType</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Type of the view to execute event on</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modelType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Type of Model Argument</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>argumentOne</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Type of first argument</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>argumentTwo</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Type of second argument</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>signature</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Event method signature</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>closure</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Closure to execute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -383,8 +410,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

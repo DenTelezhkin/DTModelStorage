@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          DTModelStorage 8.1.0 Docs
+          DTModelStorage 9.0.0-beta.1 Docs
         </a>
-         (89% documented)
+         (84% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -153,12 +153,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/RangeReplaceableCollection.html">RangeReplaceableCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Sequence.html">Sequence</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/UINib.html">UINib</a>
               </li>
             </ul>
@@ -202,6 +196,9 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SupplementaryStorage.html">SupplementaryStorage</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -227,11 +224,12 @@
             <h1>ViewModelMapping</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">ViewModelMapping</span></code></pre>
+                  
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ViewModelMappingProtocol.html">ViewModelMappingProtocol</a></span> <span class="k">where</span> <span class="kt">View</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
 
                 </div>
               </div>
-            <p><code>ViewModelMapping</code> struct serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.</p>
+            <p><code>ViewModelMapping</code> class serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.</p>
 
           </div>
         </section>
@@ -379,6 +377,33 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC09modelTypeG13CheckingBlockySbypXpcvp"></a>
+                    <a name="//apple_ref/swift/Property/modelTypeTypeCheckingBlock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC09modelTypeG13CheckingBlockySbypXpcvp">modelTypeTypeCheckingBlock</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Closure, that can be used to check model type when model is not available(generic context for example, when model Type is available only).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">modelTypeTypeCheckingBlock</span><span class="p">:</span> <span class="p">(</span><span class="kt">Any</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14DTModelStorage16ViewModelMappingC11updateBlockyyyp_yptcvp"></a>
                     <a name="//apple_ref/swift/Property/updateBlock" class="dashAnchor"></a>
                     <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC11updateBlockyyyp_yptcvp">updateBlock</a>
@@ -443,7 +468,7 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Reuse identifier to be used for reusable views.</p>
+                        <p>Reuse identifier to be used for reusable views. Mappings for UICollectionViewCell and UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter.</p>
 
                       </div>
                       <div class="declaration">
@@ -460,9 +485,9 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage16ViewModelMappingC8viewType0F5Class7xibName12mappingBlockAcA0cG0O_xmSSSgyACcSgtcAA0D8TransferRzlufc"></a>
-                    <a name="//apple_ref/swift/Method/init(viewType:viewClass:xibName:mappingBlock:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC8viewType0F5Class7xibName12mappingBlockAcA0cG0O_xmSSSgyACcSgtcAA0D8TransferRzlufc">init(viewType:<wbr>viewClass:<wbr>xibName:<wbr>mappingBlock:<wbr>)</a>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC26cellRegisteredByStoryboardSbvp"></a>
+                    <a name="//apple_ref/swift/Property/cellRegisteredByStoryboard" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC26cellRegisteredByStoryboardSbvp">cellRegisteredByStoryboard</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -470,7 +495,115 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates <code>ViewModelMapping</code> for <code><a href="../Classes/ViewModelMapping.html#/s:14DTModelStorage16ViewModelMappingC9viewClassyXlXpvp">viewClass</a></code></p>
+                        <p>If cell is designed in storyboard, and thus don&rsquo;t require explicit UITableView/UICollectionView registration, please set this property to true. Defaults to false.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cellRegisteredByStoryboard</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC35supplementaryRegisteredByStoryboardSbvp"></a>
+                    <a name="//apple_ref/swift/Property/supplementaryRegisteredByStoryboard" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC35supplementaryRegisteredByStoryboardSbvp">supplementaryRegisteredByStoryboard</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If supplementary view is designed in storyboard, and thus don&rsquo;t require explicit UITableView/UICollectionView registration, please set this property to true. Defaults to false.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">supplementaryRegisteredByStoryboard</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC9reactionsSayAA13EventReactionCGvp"></a>
+                    <a name="//apple_ref/swift/Property/reactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC9reactionsSayAA13EventReactionCGvp">reactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Event reactions, attached to current mapping instance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">reactions</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/EventReaction.html">EventReaction</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC14modelConditionyAA0eG0OSb10Foundation9IndexPathV_q_tcF"></a>
+                    <a name="//apple_ref/swift/Method/modelCondition(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC14modelConditionyAA0eG0OSb10Foundation9IndexPathV_q_tcF">modelCondition(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">modelCondition</span><span class="p">(</span><span class="n">_</span> <span class="nv">condition</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">IndexPath</span><span class="p">,</span> <span class="kt">Model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/MappingCondition.html">MappingCondition</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC8viewType0F5Class7xibName12mappingBlockACyxq_GAA0cG0O_qd__mSSSgyAHcSgtcAA0D8TransferRd__lufc"></a>
+                    <a name="//apple_ref/swift/Method/init(viewType:viewClass:xibName:mappingBlock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC8viewType0F5Class7xibName12mappingBlockACyxq_GAA0cG0O_qd__mSSSgyAHcSgtcAA0D8TransferRd__lufc">init(viewType:<wbr>viewClass:<wbr>xibName:<wbr>mappingBlock:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
@@ -487,9 +620,9 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14DTModelStorage16ViewModelMappingC06eventsdE08viewType10modelClassAcA0cH0O_xmtlFZ"></a>
-                    <a name="//apple_ref/swift/Method/eventsModelMapping(viewType:modelClass:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC06eventsdE08viewType10modelClassAcA0cH0O_xmtlFZ">eventsModelMapping(viewType:<wbr>modelClass:<wbr>)</a>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo012UICollectionC4CellCRbzrlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(cellConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo012UICollectionC4CellCRbzrlufc">init(cellConfiguration:<wbr>mapping:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -497,16 +630,912 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates <code>ViewModelMapping</code> for <code>modelType</code></p>
+                        <p>Creates <code>ViewModelMapping</code> for UICollectionViewCell registration.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="n">eventsModelMapping</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">viewType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ViewType.html">ViewType</a></span><span class="p">,</span> <span class="nv">modelClass</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ViewModelMapping</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cellConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+                      <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Cell handler closure to be executed when cell is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo07UITableC4CellCRbzrlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(cellConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo07UITableC4CellCRbzrlufc">init(cellConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UITableViewCell registration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cellConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+                      <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UITableViewCell</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Cell handler closure to be executed when cell is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo012UICollectionC4CellCRbzAA0D8TransferRz0D4TypeQzRs_rlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(cellConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo012UICollectionC4CellCRbzAA0D8TransferRz0D4TypeQzRs_rlufc">init(cellConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UICollectionViewCell registration. This initializer is used, when UICollectionViewCell conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cellConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span><span class="p">,</span> <span class="kt">View</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span> <span class="o">==</span> <span class="kt">Model</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Cell handler closure to be executed when cell is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo07UITableC4CellCRbzAA0D8TransferRz0D4TypeQzRs_rlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(cellConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC17cellConfiguration7mappingACyxq_Gyx_q_10Foundation9IndexPathVtc_yAFcSgtcSo07UITableC4CellCRbzAA0D8TransferRz0D4TypeQzRs_rlufc">init(cellConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UITableViewCell registration. This initializer is used, when UICollectionViewCell conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">cellConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UITableViewCell</span><span class="p">,</span> <span class="kt">View</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span> <span class="o">==</span> <span class="kt">Model</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cellConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Cell handler closure to be executed when cell is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC4kind26supplementaryConfiguration7mappingACyxq_GSS_yx_q_10Foundation9IndexPathVtcyAGcSgtcSo020UICollectionReusableC0CRbzrlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(kind:supplementaryConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC4kind26supplementaryConfiguration7mappingACyxq_GSS_yx_q_10Foundation9IndexPathVtcyAGcSgtcSo020UICollectionReusableC0CRbzrlufc">init(kind:<wbr>supplementaryConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UICollectionReusableView registration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">supplementaryConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionReusableView</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>supplementaryConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supplementary handler closure to be executed when supplementary view is dequeued</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC4kind25headerFooterConfiguration7mappingACyxq_GSS_yx_q_SitcyAGcSgtcSo6UIViewCRbzrlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(kind:headerFooterConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC4kind25headerFooterConfiguration7mappingACyxq_GSS_yx_q_SitcyAGcSgtcSo6UIViewCRbzrlufc">init(kind:<wbr>headerFooterConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UITableView header/footer registration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">headerFooterConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+    <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view. <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a></code> for headers and <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a></code> for footers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headerFooterConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Header/footer handler closure to be executed when header/footer is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC4kind26supplementaryConfiguration7mappingACyxq_GSS_yx_q_10Foundation9IndexPathVtcyAGcSgtcSo020UICollectionReusableC0CRbzAA0D8TransferRz0D4TypeQzRs_rlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(kind:supplementaryConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC4kind26supplementaryConfiguration7mappingACyxq_GSS_yx_q_10Foundation9IndexPathVtcyAGcSgtcSo020UICollectionReusableC0CRbzAA0D8TransferRz0D4TypeQzRs_rlufc">init(kind:<wbr>supplementaryConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UICollectionReusableView registration. This initializer is used, when UICollectionSupplementaryView conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">supplementaryConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+<span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionReusableView</span><span class="p">,</span> <span class="kt">View</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span><span class="p">,</span> <span class="kt">Model</span> <span class="o">==</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>supplementaryConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Supplementary handler closure to be executed when supplementary view is dequeued</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC4kind25headerFooterConfiguration7mappingACyxq_GSS_yx_q_SitcyAGcSgtcSo6UIViewCRbzAA0D8TransferRz0D4TypeQzRs_rlufc"></a>
+                    <a name="//apple_ref/swift/Method/init(kind:headerFooterConfiguration:mapping:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC4kind25headerFooterConfiguration7mappingACyxq_GSS_yx_q_SitcyAGcSgtcSo6UIViewCRbzAA0D8TransferRz0D4TypeQzRs_rlufc">init(kind:<wbr>headerFooterConfiguration:<wbr>mapping:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates <code>ViewModelMapping</code> for UITableView header/footer registration. This initializer is used when header/footer conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+            <span class="nv">headerFooterConfiguration</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">View</span><span class="p">,</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">),</span>
+            <span class="nv">mapping</span><span class="p">:</span> <span class="p">((</span><span class="kt">ViewModelMapping</span><span class="o">&lt;</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span>
+<span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span> <span class="kt">View</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></span><span class="p">,</span> <span class="kt">Model</span> <span class="o">==</span> <span class="kt">View</span><span class="o">.</span><span class="kt">ModelType</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view. <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a></code> for headers and <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a></code> for footers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headerFooterConfiguration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Header/footer handler closure to be executed when header/footer is dequeued.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mapping</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>mapping closure, that is executed at the end of initializer to allow mapping customization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC10updateCell4cell2at4withyyp_10Foundation9IndexPathVyptF"></a>
+                    <a name="//apple_ref/swift/Method/updateCell(cell:at:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC10updateCell4cell2at4withyyp_10Foundation9IndexPathVyptF">updateCell(cell:<wbr>at:<wbr>with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update <code>cell</code> at <code>indexPath</code> with <code>model</code>. This can be used in scenarios where you want to update a cell, but animations are not required.
+For example, <code>DTCollectionViewManager.coreDataUpdater()</code> uses this technique. For details, read more in <a href="https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/CoreData%20storage.md">https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/CoreData%20storage.md</a></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nv">cell</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="n">with</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cell</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>visible cell instance</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>location of the cell</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>model</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>data model to update with</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC29dequeueConfiguredReusableCell3for5model9indexPathSo07UITablecI0CSgSo0nC0C_yp10Foundation05IndexM0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableCell(for:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC29dequeueConfiguredReusableCell3for5model9indexPathSo07UITablecI0CSgSo0nC0C_yp10Foundation05IndexM0VtF">dequeueConfiguredReusableCell(for:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues reusable cell for <code>model</code>, <code>indexPath</code> from <code>tableView</code>. Calls <code>cellConfiguration</code> closure, that was passed to initializer, then calls <code><a href="../Protocols/ModelTransfer.html#/s:14DTModelStorage13ModelTransferP6update4withy0C4TypeQz_tF">ModelTransfer.update(with:)</a></code> if this cell conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dequeueConfiguredReusableCell</span><span class="p">(</span><span class="k">for</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UITableViewCell</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tableView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UITableView instance to dequeue cell from</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>model</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>model object, that was mapped to cell type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>IndexPath, at which cell is going to be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>dequeued configured UITableViewCell instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo6UIViewCSgSo07UITableC0C_SSyp10Foundation05IndexN0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableSupplementaryView(for:kind:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo6UIViewCSgSo07UITableC0C_SSyp10Foundation05IndexN0VtF">dequeueConfiguredReusableSupplementaryView(for:<wbr>kind:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues reusable supplementary view for <code>model</code>, <code>indexPath</code> from <code>tableView</code>. Calls <code>headerFooterConfiguration</code> closure, that was passed to initializer, then calls <code><a href="../Protocols/ModelTransfer.html#/s:14DTModelStorage13ModelTransferP6update4withy0C4TypeQz_tF">ModelTransfer.update(with:)</a></code> if this header/footer conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dequeueConfiguredReusableSupplementaryView</span><span class="p">(</span><span class="k">for</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>tableView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UITableView instance to dequeue header/footer from</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view. <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionHeaderSSvp">DTTableViewElementSectionHeader</a></code> for headers and <code><a href="../Global%20Variables.html#/s:14DTModelStorage31DTTableViewElementSectionFooterSSvp">DTTableViewElementSectionFooter</a></code> for footers.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>model</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>model object, that was mapped to header/footer type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>IndexPath, at which header/footer is going to be displayed. IndexPath.row of this IndexPath is ignored.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>dequeued configured header/footer.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC29dequeueConfiguredReusableCell3for5model9indexPathSo012UICollectioncI0CSgSo0nC0C_yp10Foundation05IndexM0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableCell(for:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC29dequeueConfiguredReusableCell3for5model9indexPathSo012UICollectioncI0CSgSo0nC0C_yp10Foundation05IndexM0VtF">dequeueConfiguredReusableCell(for:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues reusable cell for <code>model</code>, <code>indexPath</code> from <code>collectionView</code>. Calls <code>cellConfiguration</code> closure, that was passed to initializer, then calls <code><a href="../Protocols/ModelTransfer.html#/s:14DTModelStorage13ModelTransferP6update4withy0C4TypeQz_tF">ModelTransfer.update(with:)</a></code> if this cell conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dequeueConfiguredReusableCell</span><span class="p">(</span><span class="k">for</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UICollectionView instance to dequeue cell from</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>model</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>model object, that was mapped to cell type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>IndexPath, at which cell is going to be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>dequeued configured UICollectionViewCell instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo012UICollectionhC0CSgSo0oC0C_SSyp10Foundation05IndexN0VtF"></a>
+                    <a name="//apple_ref/swift/Method/dequeueConfiguredReusableSupplementaryView(for:kind:model:indexPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC038dequeueConfiguredReusableSupplementaryC03for4kind5model9indexPathSo012UICollectionhC0CSgSo0oC0C_SSyp10Foundation05IndexN0VtF">dequeueConfiguredReusableSupplementaryView(for:<wbr>kind:<wbr>model:<wbr>indexPath:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Dequeues reusable supplementary view for <code>model</code>, <code>indexPath</code> from <code>tableView</code>. Calls <code>supplementaryConfiguration</code> closure, that was passed to initializer, then calls <code><a href="../Protocols/ModelTransfer.html#/s:14DTModelStorage13ModelTransferP6update4withy0C4TypeQz_tF">ModelTransfer.update(with:)</a></code> if this header/footer conforms to <code><a href="../Protocols/ModelTransfer.html">ModelTransfer</a></code> protocol.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dequeueConfiguredReusableSupplementaryView</span><span class="p">(</span><span class="k">for</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="nv">kind</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionReusableView</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>collectionView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UICollectionView instance to dequeue supplementary view from</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>kind</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>kind of supplementary view.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>model</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>model object, that was mapped to supplementary view type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>indexPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>IndexPath, at which supplementary view is going to be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>dequeued configured supplementary view.</p>
                       </div>
                     </section>
                   </div>
@@ -519,8 +1548,8 @@ When used for events that rely on modelClass(<code>.eventsModelMapping(viewType:
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
