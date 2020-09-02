@@ -15,7 +15,7 @@ DTModelStorage
 
  * Xcode 12+
  * Swift 5.3+
- * iOS 11+ / tvOS 11+ / macCatalyst 13.0+
+ * iOS 11+ / tvOS 11+ / macCatalyst 13+
 
 Installation
 ============
