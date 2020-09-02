@@ -40,9 +40,9 @@ The goal of storage classes is to provide datasource models for UITableView/UICo
 
 Here are five `Storage` implementations provided by `DTModelStorage` and links to detailed documentation on them:
 
-* [Memory storage](Documentation/Memory%20Storage.md)
+* [Memory storage](Documentation/Memory%20storage.md)
 * [Single section storage](Documentation/Single%20section%20diffable%20storage.md)
-* [Storage for diffable datasources](Documentation/Diffable%20Datasource%20storage.md) ( iOS 13 / tvOS 13 and higher )
+* [Storage for diffable datasources](Documentation/Diffable%20datasource%20storage.md) ( iOS 13 / tvOS 13 and higher )
 * [CoreData storage](Documentation/CoreData%20storage.md)
 * [Realm storage](Documentation/Realm%20storage.md)
 
