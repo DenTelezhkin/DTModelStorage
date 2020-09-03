@@ -15,16 +15,12 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |core|
       core.source_files = 'Sources/DTModelStorage/*.swift'
   end
-
-#  Realm suspec has been temporarily disabled due to compilation issues in Xcode 12 beta.
-# Failed CI pod spec lint: https://github.com/DenTelezhkin/DTModelStorage/runs/1019109916?check_suite_focus=true
-# Realm related issue: https://github.com/realm/realm-cocoa/issues/6685
-
-  # s.subspec 'Realm' do |realm|
-  #     realm.dependency 'DTModelStorage/Core'
-  #     realm.dependency 'RealmSwift', '~> 5.2'
-  #     realm.source_files = 'Sources/RealmStorage/*.swift'
-  # end
+  
+  s.subspec 'Realm' do |realm|
+      realm.dependency 'DTModelStorage/Core'
+      realm.dependency 'RealmSwift', '~> 5.2'
+      realm.source_files = 'Sources/RealmStorage/*.swift'
+  end
 
   s.default_subspec = 'Core'
 end
