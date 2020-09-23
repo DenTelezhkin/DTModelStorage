@@ -26,9 +26,8 @@
 import Foundation
 
 extension SectionLocatable {
-    
-    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")
     /// Supplementaries dictionary
+    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")
     var supplementaries: [String: [Int:Any]] { return [:] }
     
     @available(*, unavailable, message: "Please use storage.supplementaryModelProvider closure to provide supplementaries.")

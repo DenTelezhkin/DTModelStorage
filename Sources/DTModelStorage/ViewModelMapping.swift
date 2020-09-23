@@ -110,7 +110,9 @@ public protocol ViewModelMappingProtocol: class {
     func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView?
 }
 
-/// `ViewModelMapping` class serves to store mappings, and capture model and cell types. Due to inability of moving from dynamic types to compile-time types, we are forced to use (Any,Any) closure and force cast types when mapping is performed.
+//swiftlint:disable type_body_length
+
+/// `ViewModelMapping` class serves to store mappings, and capture model and cell types.
 open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
 {
     /// View type for this mapping
