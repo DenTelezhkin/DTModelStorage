@@ -16,11 +16,12 @@ Pod::Spec.new do |s|
       core.source_files = 'Sources/DTModelStorage/*.swift'
   end
 
-  s.subspec 'Realm' do |realm|
-      realm.dependency 'DTModelStorage/Core'
-      realm.dependency 'RealmSwift', '~> 10.0'
-      realm.source_files = 'Sources/RealmStorage/*.swift'
-  end
+  # s.subspec 'Realm' do |realm|
+  # Subspec disabled due to https://github.com/realm/realm-cocoa/issues/6800
+  #     realm.dependency 'DTModelStorage/Core'
+  #     realm.dependency 'RealmSwift', '~> 10.0'
+  #     realm.source_files = 'Sources/RealmStorage/*.swift'
+  # end
 
   s.default_subspec = 'Core'
 end
