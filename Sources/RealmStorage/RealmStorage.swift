@@ -67,7 +67,7 @@ open class RealmStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationId
     }
     
     /// Storage for notification tokens of `Realm`
-    private var notificationTokens: [Int:RealmSwift.NotificationToken] = [:]
+    private var notificationTokens: [Int:NotificationToken] = [:]
     
     deinit {
         notificationTokens.values.forEach { token in
