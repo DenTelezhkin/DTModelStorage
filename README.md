@@ -1,5 +1,5 @@
 ![CI](https://github.com/DenTelezhkin/DTModelStorage/workflows/CI/badge.svg)
-[![codecov.io](http://codecov.io/github/DenTelezhkin/DTModelStorage/coverage.svg?branch=master)](http://codecov.io/github/DenTelezhkin/DTModelStorage?branch=master)
+[![codecov.io](http://codecov.io/github/DenTelezhkin/DTModelStorage/coverage.svg?branch=main)](http://codecov.io/github/DenTelezhkin/DTModelStorage?branch=main)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/DTModelStorage.svg)](https://cocoapods.org/pods/DTModelStorage)
 [![Platform](https://img.shields.io/cocoapods/p/DTModelStorage.svg?style=flat)](https://dentelezhkin.github.io/DTModelStorage)
 [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
