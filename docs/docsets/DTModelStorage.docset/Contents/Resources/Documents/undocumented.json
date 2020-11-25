@@ -310,7 +310,7 @@
     },
     {
       "file": "/Users/Denys/Projects/DTModelStorage/Sources/DTModelStorage/ViewModelMapping.swift",
-      "line": 169,
+      "line": 171,
       "symbol": "ViewModelMapping.init(viewType:viewClass:xibName:mappingBlock:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

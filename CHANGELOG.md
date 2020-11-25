@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.0.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.0.1)
+
+### Changed
+
+* Realm subspec has been reenabled.
+
 ## [9.0.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.0.0)
 
 ### Changed
