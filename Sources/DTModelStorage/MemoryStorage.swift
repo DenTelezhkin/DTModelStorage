@@ -145,7 +145,7 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
-    //swiftlint:disable:next line_length
+    // swiftlint:disable:next line_length
     @available(*, deprecated, message: "Deferring datasource updates and executing them inside of performBatchUpdates block turned out to be the only stable and correct way to apply updates to both UI and datasource. It's highly recommended to leave this property on. It is now deprecated, and may be removed in the future release, maintaining current default behaviour.")
     /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
     /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
@@ -644,7 +644,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
     {
         if sectionIndex < self.sections.count
         {
-            //swiftlint:disable:next force_cast
+            // swiftlint:disable:next force_cast
             return sections[sectionIndex] as! SectionModel
         } else {
             for i in sections.count...sectionIndex {
@@ -652,7 +652,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
                 update?.sectionChanges.append((.insert, [i]))
             }
         }
-        //swiftlint:disable:next force_cast
+        // swiftlint:disable:next force_cast
         return sections.last as! SectionModel
     }
     

@@ -110,7 +110,7 @@ public protocol ViewModelMappingProtocol: class {
     func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView?
 }
 
-//swiftlint:disable type_body_length
+// swiftlint:disable type_body_length
 
 /// `ViewModelMapping` class serves to store mappings, and capture model and cell types.
 open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
@@ -382,11 +382,11 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
                     let registration : UICollectionView.SupplementaryRegistration<View>
                 
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, _, indexPath in
                             supplementaryConfiguration(view, model, indexPath)
                         })
                     } else {
-                        registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                        registration = .init(elementKind: kind, handler: { view, _, indexPath in
                             supplementaryConfiguration(view, model, indexPath)
                         })
                     }
@@ -475,11 +475,11 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
                 let registration : UICollectionView.SupplementaryRegistration<View>
                     
                     if let nibName = self.xibName, UINib.nibExists(withNibName: nibName, inBundle: self.bundle) {
-                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, kind, indexPath in
+                        registration = .init(supplementaryNib: UINib(nibName: nibName, bundle: self.bundle), elementKind: kind, handler: { view, _, indexPath in
                             supplementaryConfiguration(view, model, indexPath)
                         })
                     } else {
-                        registration = .init(elementKind: kind, handler: { view, kind, indexPath in
+                        registration = .init(elementKind: kind, handler: { view, _, indexPath in
                             supplementaryConfiguration(view, model, indexPath)
                         })
                     }
