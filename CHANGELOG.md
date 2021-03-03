@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.1.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.1.0)
+
+### Changed
+
+* UICollectionView cell and supplementary registration from code and xib has been updated to only create `UICollectionView.CellRegistration` and `UICollectionView.SupplementaryRegistration` once per mapping. This is required for proper cell and supplementary reuse.
+
 ## [9.0.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.0.1)
 
 ### Changed
