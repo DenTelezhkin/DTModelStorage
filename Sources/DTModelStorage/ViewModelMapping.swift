@@ -87,7 +87,7 @@ public enum MappingCondition {
 }
 
 /// Type-erased interface for `ViewModelMapping` generic class.
-public protocol ViewModelMappingProtocol: class {
+public protocol ViewModelMappingProtocol: AnyObject {
     var xibName: String? { get }
     var bundle: Bundle { get }
     var viewType : ViewType { get }
