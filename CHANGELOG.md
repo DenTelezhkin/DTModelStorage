@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.1.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.1.1)
+
 ### Fixed
 
 * Xcode 12.5 / Swift 5.4 warnings
