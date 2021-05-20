@@ -27,4 +27,16 @@ class SectionModelTestCase: XCTestCase {
         XCTAssertEqual(section.item(at: 2) as? Int, 3)
         XCTAssertNil(section.item(at: 3))
     }
+    
+    func testCreatingSectionWithItemsWorks() {
+        let section = SectionModel(items: [1,2,3])
+        XCTAssertEqual(section.numberOfItems, 3)
+    }
+    
+    func testExplicitlySetSectionItemsCreateSectionModel() {
+        let items: [Int] = [1,2,3]
+        let section = SectionModel(items: items)
+        
+        XCTAssertEqual(section.numberOfItems, 3)
+    }
 }
