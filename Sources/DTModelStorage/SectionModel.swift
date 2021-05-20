@@ -50,8 +50,10 @@ open class SectionModel: Section, SectionLocatable
     /// Supplementaries dictionary.
     open var supplementaries = [String: [Int: Any]]()
     
-    /// Creates empty section model.
-    public init() {}
+    /// Creates section model.
+    public init(items: [Any] = []) {
+        self.items = items
+    }
     
     @available(*, deprecated, message: "Please assign items using .items property directly.")
     /// Set items of specific time to items property.
