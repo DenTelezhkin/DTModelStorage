@@ -79,7 +79,7 @@
     },
     {
       "file": "/Users/denystelezhkin/Projects/DTModelStorage/Sources/DTModelStorage/SectionModel.swift",
-      "line": 59,
+      "line": 61,
       "symbol": "SectionModel.setItems(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

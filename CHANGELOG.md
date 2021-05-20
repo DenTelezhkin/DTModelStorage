@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.1.2](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.1.2)
+
 ### Added
 
 * Ability to create `SectionModel` with array of items.
