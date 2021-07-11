@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [10.0.0-beta.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/10.0.0-beta.1)
+
 ### Removed
 
 * `defersDatasourceUpdates` on `MemoryStorage`. This property was deprecated in previous release and is now removed. `MemoryStorage` now always defers updates as if this property was turned on (which was the default).

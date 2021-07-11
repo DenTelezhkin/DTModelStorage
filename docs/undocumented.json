@@ -64,20 +64,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezhkin/Projects/DTModelStorage/Sources/DTModelStorage/MemoryStorage.swift",
-      "line": 154,
-      "symbol": "MemoryStorage.defersDatasourceUpdates",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/denystelezhkin/Projects/DTModelStorage/Sources/DTModelStorage/ProxyDiffableDataSourceStorage.swift",
-      "line": 32,
-      "symbol": "ProxyDiffableDataSourceStorage",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/denystelezhkin/Projects/DTModelStorage/Sources/DTModelStorage/SectionModel.swift",
       "line": 61,
       "symbol": "SectionModel.setItems(_:)",
