@@ -145,14 +145,6 @@ public enum MemoryStorageError: LocalizedError
 /// - SeeAlso: `SectionModel`
 open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationIdentifyable
 {
-    // swiftlint:disable:next line_length
-    @available(*, deprecated, message: "Deferring datasource updates and executing them inside of performBatchUpdates block turned out to be the only stable and correct way to apply updates to both UI and datasource. It's highly recommended to leave this property on. It is now deprecated, and may be removed in the future release, maintaining current default behaviour.")
-    /// When enabled, datasource updates are not applied immediately and saved inside `StorageUpdate` `enqueuedDatasourceUpdates` property.
-    /// Call `StorageUpdate.applyDeferredDatasourceUpdates` method to apply all deferred changes.
-    /// Defaults to `true`.
-    /// - SeeAlso: https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27
-    open var defersDatasourceUpdates: Bool = true
-
     /// Anomaly handler, that handles reported by `MemoryStorage` anomalies.
     open var anomalyHandler : MemoryStorageAnomalyHandler = .init()
 
@@ -178,13 +170,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
     }
     
     func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
-        if defersDatasourceUpdates {
-            currentUpdate?.enqueueDatasourceUpdate(block)
-        } else {
-            if let update = currentUpdate {
-                try? block(update)
-            }
-        }
+        currentUpdate?.enqueueDatasourceUpdate(block)
     }
     
     /// Returns index of `section` or nil, if section is now found
@@ -352,33 +338,19 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
             anomalyHandler.reportAnomaly(.batchInsertionItemCountMismatch(itemsCount: items.count, indexPathsCount: indexPaths.count))
             return
         }
-        if defersDatasourceUpdates {
-            startUpdate()
-            performDatasourceUpdate { [weak self] update in
-                indexPaths.enumerated().forEach { (arg) in
-                    let (itemIndex, indexPath) = arg
-                    let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
-                    guard (section?.items.count ?? 0) >= indexPath.item else {
-                        return
-                    }
-                    section?.items.insert(items[itemIndex], at: indexPath.item)
-                    update.objectChanges.append((.insert, [indexPath]))
+        startUpdate()
+        performDatasourceUpdate { [weak self] update in
+            indexPaths.enumerated().forEach { (arg) in
+                let (itemIndex, indexPath) = arg
+                let section = self?.getValidSection(indexPath.section, collectChangesIn: update)
+                guard (section?.items.count ?? 0) >= indexPath.item else {
+                    return
                 }
-            }
-            finishUpdate()
-        } else {
-            performUpdates {
-                indexPaths.enumerated().forEach { (arg) in
-                    let (itemIndex, indexPath) = arg
-                    let section = getValidSection(indexPath.section, collectChangesIn: currentUpdate)
-                    guard section.items.count >= indexPath.item else {
-                        return
-                    }
-                    section.items.insert(items[itemIndex], at: indexPath.item)
-                    currentUpdate?.objectChanges.append((.insert, [indexPath]))
-                }
+                section?.items.insert(items[itemIndex], at: indexPath.item)
+                update.objectChanges.append((.insert, [indexPath]))
             }
         }
+        finishUpdate()
     }
     
     /// Reloads `item`.

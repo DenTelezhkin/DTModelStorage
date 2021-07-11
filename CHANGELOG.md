@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+* `defersDatasourceUpdates` on `MemoryStorage`. This property was deprecated in previous release and is now removed. `MemoryStorage` now always defers updates as if this property was turned on (which was the default).
 * `ProxyDiffableDataSourceStorage`. Diffable datasource integration has been restructured in a way, that no longer requires this class.
 
 ## [9.1.2](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.1.2)
