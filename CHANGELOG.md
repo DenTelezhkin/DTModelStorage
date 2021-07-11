@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Removed
+
+* `ProxyDiffableDataSourceStorage`. Diffable datasource integration has been restructured in a way, that no longer requires this class.
+
 ## [9.1.2](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/9.1.2)
 
 ### Added

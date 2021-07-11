@@ -58,7 +58,6 @@
 		9AA52DB624C06B34002FFC89 /* Dwifft in Frameworks */ = {isa = PBXBuildFile; productRef = 9AA52DB524C06B34002FFC89 /* Dwifft */; };
 		9AD03B6C22D48A53008F48C6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD03B6B22D48A53008F48C6 /* RealmSwift */; };
 		9AD1B48C24CED2B9002BBAC6 /* HeckelDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 9AD1B48B24CED2B9002BBAC6 /* HeckelDiff */; };
-		9AE9E16922EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,7 +141,6 @@
 		3E59693B21468684009C3DE8 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBF90DE22E74B5500135C10 /* Tests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Tests.xctestplan; path = "Supporting files/Tests.xctestplan"; sourceTree = "<group>"; };
 		9A66DC1D24D3014C002AD705 /* BackwardsCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackwardsCompatibility.swift; sourceTree = "<group>"; };
-		9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyDiffableDataSourceStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +289,6 @@
 				3E375A3B22B7CCC40064A762 /* MemoryStorage.swift */,
 				3E375A4022B7CCC40064A762 /* MemoryStorage+UpdateWithoutAnimations.swift */,
 				3E375A4822B7CCC40064A762 /* ModelTransfer.swift */,
-				9AE9E16822EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift */,
 				3E375A3F22B7CCC40064A762 /* RuntimeHelper.swift */,
 				3E375A4322B7CCC40064A762 /* Section.swift */,
 				3E375A3C22B7CCC40064A762 /* SectionModel.swift */,
@@ -539,7 +536,6 @@
 				9A66DC1E24D3014C002AD705 /* BackwardsCompatibility.swift in Sources */,
 				3E375A5822B7CCD60064A762 /* BaseStorage.swift in Sources */,
 				3E375A5122B7CCD60064A762 /* StorageProtocols.swift in Sources */,
-				9AE9E16922EDD05500E653F0 /* ProxyDiffableDataSourceStorage.swift in Sources */,
 				3E375A5322B7CCD60064A762 /* RuntimeHelper.swift in Sources */,
 				3E375A5522B7CCD60064A762 /* AnomalyHandler.swift in Sources */,
 				3E375A4E22B7CCD60064A762 /* CoreDataStorage.swift in Sources */,
