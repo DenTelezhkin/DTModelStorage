@@ -16,6 +16,10 @@ lane :test_tvos14 do
   scan(device: "Apple TV 4K (14.5)")
 end
 
+lane :build_macos_catalyst do
+  sh "xcodebuild -configuration Debug -destination 'platform=macOS,variant=Mac Catalyst' -project ../DTModelStorage.xcodeproj -scheme DTModelStorage"
+end
+
 lane :pod_lint do
   sh "bundle exec pod repo update"
   pod_lib_lint(allow_warnings: true, verbose: true)
