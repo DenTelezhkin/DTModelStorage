@@ -40,6 +40,11 @@ open class RealmSection<T: RealmCollectionValue> : SectionLocatable, Section {
     /// Results object
     open var results: AnyRealmCollection<T>
     
+    /// Returns whether section does not contain any elements
+    public var isEmpty: Bool {
+        results.isEmpty
+    }
+    
     /// delegate, that knows about current section index in storage.
     open weak var sectionLocationDelegate: SectionLocationIdentifyable?
     

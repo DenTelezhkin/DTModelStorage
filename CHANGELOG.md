@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* `Section.isEmpty` property indicating that section does not contain any elements. Accessing this property is faster than accessing `Section.numberOfItems` property.
+
 ## [10.0.0-beta.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/10.0.0-beta.1)
 
 ### Removed

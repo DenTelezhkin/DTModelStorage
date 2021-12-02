@@ -35,6 +35,11 @@ open class SectionModel: Section, SectionLocatable
         return items[index]
     }
     
+    /// Returns whether section contains no elements.
+    public var isEmpty: Bool {
+        items.isEmpty
+    }
+    
     /// Items for current section
     open var items = [Any]()
     
