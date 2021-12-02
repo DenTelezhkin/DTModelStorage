@@ -126,4 +126,19 @@ class MemoryStorageSearchSpec: XCTestCase {
         let section = storage.section(atIndex: 0)
         XCTAssertEqual(section?.currentSectionIndex, 0)
     }
+    
+    func testSectionIsEmpty() {
+        XCTAssertEqual(storage.section(atIndex: 0)?.isEmpty, nil)
+        
+        storage.addItem(3)
+        updateRecordingDelegate.applyUpdates()
+        
+        XCTAssertEqual(storage.section(atIndex: 0)?.isEmpty, false)
+        
+        XCTAssertEqual(storage.section(atIndex: 1)?.isEmpty, nil)
+        
+        storage.removeAllItems()
+        
+        XCTAssertEqual(storage.section(atIndex: 0)?.isEmpty, true)
+    }
 }
