@@ -1,7 +1,7 @@
 fastlane_version "1.98.0"
 
 lane :test_ios15 do
-  scan(devices: ["iPad Pro (12.9-inch) (3rd generation) (15.5)"])
+  scan(devices: ["iPad Pro (12.9-inch) (5th generation) (15.5)"])
 end
 
 lane :test_ios14 do
@@ -9,7 +9,7 @@ lane :test_ios14 do
 end
 
 lane :test_tvos15 do
-  scan(device: "Apple TV 4K (15.5)")
+  scan(device: "Apple TV 4K (15.4)")
 end
 
 lane :test_tvos14 do

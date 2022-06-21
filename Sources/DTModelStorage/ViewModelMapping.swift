@@ -206,11 +206,9 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         _cellDequeueClosure = { [weak self] view, model, indexPath in
             guard let self = self, let collectionView = view as? UICollectionView else { return nil as Any? as Any }
             if let model = model as? Model, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                #if compiler(>=5.3)
                 if let registration = self._cellRegistration as? UICollectionView.CellRegistration<View, Model> {
                     return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                 }
-                #endif
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
             if let cell = cell as? View, let model = model as? Model {
@@ -219,7 +217,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             return cell
         }
         mapping?(self)
-        #if compiler(>=5.3)
         if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
             let registration : UICollectionView.CellRegistration<View, Model>
             
@@ -234,7 +231,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             }
             self._cellRegistration = registration
         }
-        #endif
     }
     
     /// Creates `ViewModelMapping` for UITableViewCell registration.
@@ -294,11 +290,9 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
                 return nil as Any? as Any
             }
             if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                #if compiler(>=5.3)
                 if let registration = self._cellRegistration as? UICollectionView.CellRegistration<View, Model> {
                     return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                 }
-                #endif
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
             if let cell = cell as? View {
@@ -308,7 +302,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         }
         mapping?(self)
         
-        #if compiler(>=5.3)
         if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
             let registration : UICollectionView.CellRegistration<View, Model>
             
@@ -323,7 +316,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             }
             self._cellRegistration = registration
         }
-        #endif
     }
     
     /// Creates `ViewModelMapping` for UITableViewCell registration. This initializer is used, when UICollectionViewCell conforms to `ModelTransfer` protocol.
@@ -381,13 +373,11 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self, let model = model as? Model, let collectionView = collectionView as? UICollectionView else { return nil as Any? as Any }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                #if compiler(>=5.3)
                 if let registration = self._supplementaryRegistration as? UICollectionView.SupplementaryRegistration<View> {
                     let supplementaryView = collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                     supplementaryConfiguration(supplementaryView, model, indexPath)
                     return supplementaryView
                 }
-                #endif
             }
             let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
             if let supplementary = supplementary as? View {
@@ -397,7 +387,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         }
         mapping?(self)
         
-        #if compiler(>=5.3)
         if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
             let registration : UICollectionView.SupplementaryRegistration<View>
         
@@ -413,7 +402,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             }
             self._supplementaryRegistration = registration
         }
-        #endif
     }
     
     /// Creates `ViewModelMapping` for UITableView header/footer registration.
@@ -478,13 +466,11 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
                 return nil as Any? as Any
             }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
-                #if compiler(>=5.3)
                 if let registration = self._supplementaryRegistration as? UICollectionView.SupplementaryRegistration<View> {
                     let supplementaryView = collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
                     supplementaryConfiguration(supplementaryView, model, indexPath)
                     return supplementaryView
                 }
-                #endif
             }
             let supplementary = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: self.reuseIdentifier, for: indexPath)
             if let supplementary = supplementary as? View {
@@ -494,7 +480,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
         }
         mapping?(self)
         
-        #if compiler(>=5.3)
         if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
             let registration : UICollectionView.SupplementaryRegistration<View>
         
@@ -510,7 +495,6 @@ open class ViewModelMapping<View: AnyObject, Model> : ViewModelMappingProtocol
             }
             self._supplementaryRegistration = registration
         }
-        #endif
     }
     
     /// Creates `ViewModelMapping` for UITableView header/footer registration. This initializer is used when header/footer conforms to `ModelTransfer` protocol.
