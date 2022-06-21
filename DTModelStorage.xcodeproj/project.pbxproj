@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -394,7 +394,6 @@
 			buildPhases = (
 				3E59693721468684009C3DE8 /* Sources */,
 				3E59693821468684009C3DE8 /* Frameworks */,
-				3E2ADD7C2146BB920082B2E6 /* Link Xibs */,
 				3E59693921468684009C3DE8 /* Resources */,
 			);
 			buildRules = (
@@ -419,7 +418,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Denys Telezhkin";
 				TargetAttributes = {
 					3E2ADD93214922AE0082B2E6 = {
@@ -483,22 +482,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3E2ADD7C2146BB920082B2E6 /* Link Xibs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Link Xibs";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nibtool --compilation-directory \"${TARGET_TEMP_DIR}\" \"${SRCROOT}/Sources/Tests/${DTPLATFORM_PREFIX}EmptyNib.xib\"\nibtool --link \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" \"${TARGET_TEMP_DIR}/${DTPLATFORM_PREFIX}EmptyNib.nib\"\n";
-		};
 		3E479353214F988400BE2A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

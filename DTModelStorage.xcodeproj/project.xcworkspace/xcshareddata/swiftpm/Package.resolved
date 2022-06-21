@@ -1,43 +1,41 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Dwifft",
-        "repositoryURL": "https://github.com/DenTelezhkin/Dwifft",
-        "state": {
-          "branch": "xcode12",
-          "revision": "c5786ace953392a440f409ca6e53d790643f6fd9",
-          "version": null
-        }
-      },
-      {
-        "package": "HeckelDiff",
-        "repositoryURL": "https://github.com/mcudich/HeckelDiff",
-        "state": {
-          "branch": "master",
-          "revision": "4e2cbd918c961733632e0df3078951a3541dcd64",
-          "version": null
-        }
-      },
-      {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/realm/realm-cocoa",
-        "state": {
-          "branch": null,
-          "revision": "7ca0ce1dd58553d5be1ec9cc7283b068c256979d",
-          "version": "10.17.0"
-        }
-      },
-      {
-        "package": "RealmDatabase",
-        "repositoryURL": "https://github.com/realm/realm-core",
-        "state": {
-          "branch": null,
-          "revision": "23f60515a00f076a9e3f2dc672fe1ae07601ee90",
-          "version": "11.4.1"
-        }
+  "pins" : [
+    {
+      "identity" : "dwifft",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DenTelezhkin/Dwifft",
+      "state" : {
+        "branch" : "xcode12",
+        "revision" : "c5786ace953392a440f409ca6e53d790643f6fd9"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "heckeldiff",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mcudich/HeckelDiff",
+      "state" : {
+        "branch" : "master",
+        "revision" : "4e2cbd918c961733632e0df3078951a3541dcd64"
+      }
+    },
+    {
+      "identity" : "realm-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-cocoa",
+      "state" : {
+        "revision" : "d3aaab84885e0de9a7a49955874cee160adee164",
+        "version" : "10.28.1"
+      }
+    },
+    {
+      "identity" : "realm-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-core",
+      "state" : {
+        "revision" : "fd48276f88f3d55dbdcdc9e8cbf32541811d5865",
+        "version" : "12.1.0"
+      }
+    }
+  ],
+  "version" : 2
 }

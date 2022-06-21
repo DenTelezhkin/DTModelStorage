@@ -15,10 +15,5 @@ class NibExistanceTestCase: XCTestCase {
     {
         let bundle = Bundle(for: type(of: self))
         XCTAssertFalse(UINib.nibExists(withNibName: "Foo", inBundle: bundle))
-        #if os(iOS)
-        XCTAssert(UINib.nibExists(withNibName: "iOSEmptyNib", inBundle: bundle))
-        #elseif os(tvOS)
-        XCTAssertTrue(UINib.nibExists(withNibName: "tvOSEmptyNib", inBundle: bundle))
-        #endif
     }
 }
