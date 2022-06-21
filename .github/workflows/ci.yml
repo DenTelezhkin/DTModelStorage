@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  env-details-Xcode-13:
+  env-details-Xcode-13-latest:
     name: Environment details Xcode 13
     runs-on: macOS-12
     env:
@@ -36,8 +36,8 @@ jobs:
           xcrun simctl delete unavailable
           xcrun simctl list
 
-  Xcode-13:
-    name: Xcode 13
+  Xcode-13-latest:
+    name: Xcode 13 latest
     runs-on: macOS-12
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.4.1.app/Contents/Developer
@@ -60,8 +60,8 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v3
 
-  Xcode-12:
-    name: Xcode 12
+  Xcode-13:
+    name: Xcode 13
     runs-on: macOS-11
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
