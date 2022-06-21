@@ -110,8 +110,6 @@
 		3E375A2822B7CCC40064A762 /* CoreDataStorageTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTestCase.swift; sourceTree = "<group>"; };
 		3E375A2922B7CCC40064A762 /* StorageUpdateTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUpdateTestCase.swift; sourceTree = "<group>"; };
 		3E375A2A22B7CCC40064A762 /* RuntimeHelperTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeHelperTestCase.swift; sourceTree = "<group>"; };
-		3E375A2B22B7CCC40064A762 /* tvOSEmptyNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = tvOSEmptyNib.xib; sourceTree = "<group>"; };
-		3E375A2C22B7CCC40064A762 /* iOSEmptyNib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iOSEmptyNib.xib; sourceTree = "<group>"; };
 		3E375A2E22B7CCC40064A762 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3E375A2F22B7CCC40064A762 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		3E375A3122B7CCC40064A762 /* DTModelStorageDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DTModelStorageDatabase.xcdatamodel; sourceTree = "<group>"; };
@@ -217,10 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				3E375A2D22B7CCC40064A762 /* Helpers */,
-				3E375A2C22B7CCC40064A762 /* iOSEmptyNib.xib */,
 				3E375A3422B7CCC40064A762 /* Realm */,
 				3E375A1922B7CCC40064A762 /* Specs */,
-				3E375A2B22B7CCC40064A762 /* tvOSEmptyNib.xib */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -808,9 +804,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DTPLATFORM_PREFIX = "";
-				"DTPLATFORM_PREFIX[sdk=appletv*]" = tvOS;
-				"DTPLATFORM_PREFIX[sdk=iphone*]" = iOS;
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -828,7 +821,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DTPLATFORM_PREFIX = "";
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
