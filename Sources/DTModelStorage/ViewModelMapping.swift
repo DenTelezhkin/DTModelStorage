@@ -106,9 +106,19 @@ public protocol CellViewModelMappingProtocol: ViewModelMappingProtocol {
     func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell?
 }
 
+public protocol CellViewModelMappingProtocolGeneric: CellViewModelMappingProtocol {
+    associatedtype Cell
+    associatedtype Model
+}
+
 public protocol SupplementaryViewModelMappingProtocol: ViewModelMappingProtocol {
     func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView?
     func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView?
+}
+
+public protocol SupplementaryViewModelMappingProtocolGeneric: SupplementaryViewModelMappingProtocol {
+    associatedtype View
+    associatedtype Model
 }
 
 open class CellViewModelMapping<View, Model> : CellViewModelMappingProtocol {
