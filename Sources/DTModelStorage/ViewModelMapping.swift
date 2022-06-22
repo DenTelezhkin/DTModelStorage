@@ -148,12 +148,12 @@ open class CellViewModelMapping<View, Model> : CellViewModelMappingProtocol {
 }
 
 open class SupplementaryViewModelMapping<View, Model> : SupplementaryViewModelMappingProtocol {
-    public func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
+    open func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
         assertionFailure("Subclasses of SupplementaryViewModelMapping must override this method")
         return nil
     }
     
-    public func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView? {
+    open func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView? {
         assertionFailure("Subclasses of SupplementaryViewModelMapping must override this method")
         return nil
     }
@@ -180,8 +180,6 @@ open class SupplementaryViewModelMapping<View, Model> : SupplementaryViewModelMa
         self.viewType = viewType
     }
 }
-
-// swiftlint:disable type_body_length
 
 /// `ViewModelMapping` class serves to store mappings, and capture model and cell types.
 // open class ViewModelMapping<View: AnyObject, Model> : CellViewModelMappingProtocol, SupplementaryViewModelMappingProtocol
