@@ -152,6 +152,14 @@ open class CellViewModelMapping<View, Model> : CellViewModelMappingProtocol {
     
     open var reactions: [EventReaction] = []
     
+    /// Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.
+    public func modelCondition(_ condition: @escaping (IndexPath, Model) -> Bool) -> MappingCondition {
+        return .custom { indexPath, model in
+            guard let model = model as? Model else { return false }
+            return condition(indexPath, model)
+        }
+    }
+    
     public init(viewClass: AnyClass) {
         self.viewClass = viewClass
     }
@@ -183,6 +191,14 @@ open class SupplementaryViewModelMapping<View, Model> : SupplementaryViewModelMa
     open var condition: MappingCondition = .none
     
     open var reactions: [EventReaction] = []
+    
+    /// Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.
+    public func modelCondition(_ condition: @escaping (IndexPath, Model) -> Bool) -> MappingCondition {
+        return .custom { indexPath, model in
+            guard let model = model as? Model else { return false }
+            return condition(indexPath, model)
+        }
+    }
     
     public init(viewClass: AnyClass, viewType: ViewType) {
         assert(viewType.supplementaryKind() != nil)
@@ -238,14 +254,7 @@ open class SupplementaryViewModelMapping<View, Model> : SupplementaryViewModelMa
 //    private var _supplementaryDequeueClosure: ((_ containerView: Any, _ model: Any, _ indexPath: IndexPath) -> Any)?
 //    private var _cellRegistration: Any?
 //    private var _supplementaryRegistration: Any?
-//    
-//    /// Returns custom MappingCondition that allows to customize mappings based on IndexPath and ModelType.
-//    public func modelCondition(_ condition: @escaping (IndexPath, Model) -> Bool) -> MappingCondition {
-//        return .custom { indexPath, model in
-//            guard let model = model as? Model else { return false }
-//            return condition(indexPath, model)
-//        }
-//    }
+//
 //    
 //    @available(*, deprecated, message: "Please use other constructors to create ViewModelMapping.")
 //    /// Creates `ViewModelMapping` for `viewClass`
