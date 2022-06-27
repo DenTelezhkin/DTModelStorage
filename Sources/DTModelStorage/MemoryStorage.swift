@@ -106,15 +106,15 @@ open class MemoryStorageAnomalyHandler : AnomalyHandler {
 public enum MemoryStorageError: LocalizedError
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:to:)` method
-    public enum InsertionReason: Equatable
+    public enum InsertionReason: Equatable, Sendable
     {
         case indexPathTooBig(IndexPath)
     }
     
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:with:)` method
-    public enum SearchReason
+    public enum SearchReason: Sendable
     {
-        case itemNotFound(item: Any)
+        case itemNotFound(item: String)
         
         var localizedDescription: String {
             guard case let SearchReason.itemNotFound(item: item) = self else {
@@ -377,7 +377,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
         performDatasourceUpdate { [weak self] update in
             guard let originalIndexPath = self?.indexPath(forItem: itemToReplace) else {
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.replaceItemFailedItemNotFound(itemDescription: String(describing: itemToReplace)))
-                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: itemToReplace))
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: "\(itemToReplace)"))
             }
             
             let section = self?.getValidSection(originalIndexPath.section, collectChangesIn: update)
@@ -399,7 +399,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
         performDatasourceUpdate { [weak self] update in
             guard let indexPath = self?.indexPath(forItem: item) else {
                 self?.anomalyHandler.reportAnomaly(MemoryStorageAnomaly.removeItemFailedItemNotFound(itemDescription: String(describing: item)))
-                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: item))
+                throw MemoryStorageError.searchFailed(reason: .itemNotFound(item: "\(item)"))
             }
             self?.getValidSection(indexPath.section, collectChangesIn: update).items.remove(at: indexPath.item)
             update.objectChanges.append((.delete, [indexPath]))

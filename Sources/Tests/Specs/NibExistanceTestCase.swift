@@ -9,6 +9,7 @@
 import XCTest
 import DTModelStorage
 
+@MainActor
 class NibExistanceTestCase: XCTestCase {
     
     func testNibDoesNotExist()
