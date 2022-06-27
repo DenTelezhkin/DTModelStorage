@@ -13,7 +13,10 @@ import RealmSwift
 import RealmStorage
 import DTModelStorage
 
-@MainActor
+func delay(_ delay:Double, _ closure:@escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+}
+
 class RealmStorageTestCase: XCTestCase {
     
     let realm = { Void -> Realm in
@@ -121,11 +124,11 @@ class RealmStorageTestCase: XCTestCase {
             ])
             exp.fulfill()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [realm] in
-            try! realm.write {
+        delay(0.1) {
+            try! self.realm.write {
                 let dog = Dog()
                 dog.name = "Rexxar"
-                realm.add(dog)
+                self.realm.add(dog)
             }
         }
         waitForExpectations(timeout: 1)
@@ -149,7 +152,7 @@ class RealmStorageTestCase: XCTestCase {
                 ])
             exp.fulfill()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        delay(0.1) {
             try! self.realm.write {
                 self.realm.delete(dog)
             }
@@ -175,7 +178,7 @@ class RealmStorageTestCase: XCTestCase {
                 ])
             exp.fulfill()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        delay(0.1) {
             try! self.realm.write {
                 dog.name = "Rex"
             }

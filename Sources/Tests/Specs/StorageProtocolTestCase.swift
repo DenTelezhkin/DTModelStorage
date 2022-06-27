@@ -16,7 +16,6 @@ class FooView : UIView, ModelTransfer {
     }
 }
 
-@MainActor
 class StorageProtocolTestCase: XCTestCase {
     
     let storage = MemoryStorage()

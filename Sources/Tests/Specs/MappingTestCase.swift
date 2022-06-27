@@ -79,7 +79,6 @@ class OtherIntCollectionViewCell : UICollectionViewCell, ModelTransfer {
     }
 }
 
-@MainActor
 class MappingTestCase: XCTestCase {
     
     var mappings : [ViewModelMappingProtocol]!

@@ -34,7 +34,7 @@ import Foundation
 ///     func update(with: Post) {
 ///     }
 /// }
-@MainActor public protocol ModelTransfer : AnyObject
+public protocol ModelTransfer : AnyObject
 {
     /// Type of model that is being transferred
     associatedtype ModelType

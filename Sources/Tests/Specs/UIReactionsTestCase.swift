@@ -10,7 +10,6 @@ import UIKit
 import XCTest
 import DTModelStorage
 
-@MainActor
 class UIReactionsTestCase: XCTestCase {
     
     var mapping : ViewModelMappingProtocol!

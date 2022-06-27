@@ -67,7 +67,7 @@ extension SupplementaryStorage {
     }
     
     /// Configures storage for using with UICollectionViewFlowLayout
-    @MainActor public func configureForCollectionViewFlowLayoutUsage()
+    public func configureForCollectionViewFlowLayoutUsage()
     {
         supplementaryHeaderKind = UICollectionView.elementKindSectionHeader
         supplementaryFooterKind = UICollectionView.elementKindSectionFooter
