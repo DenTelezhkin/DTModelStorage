@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* `CellViewModelMapping`, `SupplementaryViewModelMapping` base classes and several protocols to cover existing implementation of `ViewModelMapping`. Concrete implementation for those base class is now a part of `DTTableViewManager` / `DTCollectionViewManager`.
+
+### Removed
+
+* `ViewModelMapping` and `ViewModelMappingProtocol`. Their functionality has been moved into `CellViewModelMapping`, `SupplementaryViewModelMapping` and protocol extensions on those. Please note, that while technically those are breaking changes, usage of mappings in `DTTableViewManager` / `DTCollectionViewManager` is unchanged, and should not introduce breaking changes, unless those type names have been explicitly written in code.
+
+### Breaking
+
+* Package now requires Xcode 13.
+
 ## [10.0.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/10.0.0)
 
 ### Added
