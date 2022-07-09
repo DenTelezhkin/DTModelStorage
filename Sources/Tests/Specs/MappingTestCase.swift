@@ -89,7 +89,7 @@ class MappingTestCase: XCTestCase {
     }
     
     func testProtocolModelIsFindable() {
-        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
+        let mapping = CellViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(viewClass: ProtocolTestableCollectionViewCell.self)
         mappings.append(mapping)
         
         let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 0))
@@ -99,7 +99,7 @@ class MappingTestCase: XCTestCase {
     }
     
     func testOptionalModelOfProtocolIsFindable() {
-        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
+        let mapping = CellViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(viewClass: ProtocolTestableCollectionViewCell.self)
         mappings.append(mapping)
         let optional: ConformingClass? = ConformingClass()
         let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: optional ?? 0, at: indexPath(0, 0))
@@ -108,7 +108,7 @@ class MappingTestCase: XCTestCase {
     }
     
     func testSubclassModelMappingIsFindable() {
-        let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
+        let mapping = CellViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(viewClass: SubclassTestableCollectionViewCell.self)
         mappings.append(mapping)
         let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: Subclass(), at: indexPath(0, 0))
         
@@ -117,7 +117,7 @@ class MappingTestCase: XCTestCase {
     }
     
     func testNilModelDoesNotReturnMappingCandidates() {
-        let mapping = ViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
+        let mapping = CellViewModelMapping<SubclassTestableCollectionViewCell, SubclassTestableCollectionViewCell.ModelType>(viewClass: SubclassTestableTableViewCell.self)
         mappings.append(mapping)
         let model : AncestorClass? = nil
         let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: model as Any, at: indexPath(0, 0))
@@ -125,28 +125,12 @@ class MappingTestCase: XCTestCase {
         XCTAssertEqual(candidates.count, 0)
     }
     
-    func testUpdateBlockCanBeSuccessfullyCalled() {
-        let mapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: nil)
-        mappings.append(mapping)
-        
-        let candidates = ViewType.cell.mappingCandidates(for: mappings, withModel: ConformingClass(), at: indexPath(0, 0))
-        
-        XCTAssertEqual(candidates.count, 1)
-        XCTAssert(candidates.first?.viewClass == ProtocolTestableCollectionViewCell.self)
-        
-        let cell = ProtocolTestableCollectionViewCell()
-        candidates.first?.updateBlock(cell, ConformingClass())
-        
-        XCTAssertTrue(cell.model is ConformingClass)
-    }
-    
     func testSectionConditionIsVeryfiable() {
-        let firstMapping = ViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(cellConfiguration: { _, _, _ in }, mapping: { mapping in
-            mapping.condition = .section(0)
-        })
-        let secondMapping = ViewModelMapping<ProtocolTestableCollectionViewCellSubclass, ProtocolTestableCollectionViewCellSubclass.ModelType>(cellConfiguration: { _, _, _ in }, mapping: { mapping in
-            mapping.condition = .section(1)
-        })
+        let firstMapping = CellViewModelMapping<ProtocolTestableCollectionViewCell, ProtocolTestableCollectionViewCell.ModelType>(viewClass: ProtocolTestableCollectionViewCell.self)
+        firstMapping.condition = .section(0)
+        
+        let secondMapping = CellViewModelMapping<ProtocolTestableCollectionViewCellSubclass, ProtocolTestableCollectionViewCellSubclass.ModelType>(viewClass: ProtocolTestableCollectionViewCellSubclass.self)
+        secondMapping.condition = .section(1)
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
@@ -160,15 +144,13 @@ class MappingTestCase: XCTestCase {
     }
     
     func testCustomConditionIsVeryfiable() {
-        let firstMapping = ViewModelMapping<IntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
-            mapping.condition = .custom({ _, model  in
-                return (model as? Int ?? 0) > 5
-            })
+        let firstMapping = CellViewModelMapping<IntCollectionViewCell, Int>(viewClass: IntCollectionViewCell.self)
+        firstMapping.condition = .custom({ _, model  in
+            return (model as? Int ?? 0) > 5
         })
-        let secondMapping = ViewModelMapping<OtherIntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
-            mapping.condition = .custom({ _, model  in
-                return (model as? Int ?? 0) <= 5
-            })
+        let secondMapping = CellViewModelMapping<OtherIntCollectionViewCell, Int>(viewClass: OtherIntCollectionViewCell.self)
+        secondMapping.condition = .custom({ _, model  in
+            return (model as? Int ?? 0) <= 5
         })
         mappings.append(firstMapping)
         mappings.append(secondMapping)
@@ -183,12 +165,10 @@ class MappingTestCase: XCTestCase {
     }
     
     func testModelMappingInferringModelType() {
-        let firstMapping = ViewModelMapping<IntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
-            mapping.condition = IntCollectionViewCell.modelCondition { _, model in model > 5 }
-        })
-        let secondMapping = ViewModelMapping<OtherIntCollectionViewCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in
-            mapping.condition = mapping.modelCondition { _, model in model <= 5 }
-        })
+        let firstMapping = CellViewModelMapping<IntCollectionViewCell, Int>(viewClass: IntCollectionViewCell.self)
+        firstMapping.condition = IntCollectionViewCell.modelCondition { _, model in model > 5 }
+        let secondMapping = CellViewModelMapping<OtherIntCollectionViewCell, Int>(viewClass: OtherIntCollectionViewCell.self)
+        secondMapping.condition = OtherIntCollectionViewCell.modelCondition { _, model in model <= 5 }
         mappings.append(firstMapping)
         mappings.append(secondMapping)
         
@@ -231,10 +211,7 @@ class ViewModelMappingTestCase: XCTestCase {
     }
     
     func testModelTypeCanBeDeterminedByType() {
-        let mapping = ViewModelMapping<UICollectionViewCell, String> { (_, _, _) in
-            
-        } mapping: { _ in
-        }
+        let mapping = CellViewModelMapping<UICollectionViewCell, String>(viewClass: UICollectionViewCell.self)
         
         XCTAssert(mapping.modelTypeTypeCheckingBlock(String.self))
 

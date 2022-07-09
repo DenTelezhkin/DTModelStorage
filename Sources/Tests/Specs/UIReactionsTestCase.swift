@@ -16,7 +16,7 @@ class UIReactionsTestCase: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        mapping = ViewModelMapping<CollectionCell, Int>(cellConfiguration: { _,_,_ in }, mapping: { mapping in })
+        mapping = CellViewModelMapping<CollectionCell, Int>(viewClass: CollectionCell.self)
     }
     
     override func tearDown() {
