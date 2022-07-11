@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [11.0.0-beta.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.0-beta.1)
+
 ### Added
 
 * `CellViewModelMapping`, `SupplementaryViewModelMapping` base classes and several protocols to cover existing implementation of `ViewModelMapping`. Concrete implementation for those base class is now a part of `DTTableViewManager` / `DTCollectionViewManager`.
