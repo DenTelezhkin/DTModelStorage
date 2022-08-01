@@ -28,7 +28,7 @@ import Foundation
 import UIKit
 
 // swiftlint:disable large_tuple
-
+@MainActor
 /// Data holder for reaction
 open class EventReaction {
     

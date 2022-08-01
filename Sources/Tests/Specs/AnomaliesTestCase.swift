@@ -36,6 +36,7 @@ extension XCTestExpectation {
     }
 }
 
+@MainActor
 class AnomaliesTestCase: XCTestCase {
     
     var sut: DTTestAnomalyHandler!

@@ -25,6 +25,7 @@
 
 import Foundation
 
+@MainActor
 /// Protocol used to pass `model` data to your cell or supplementary view. Every cell or supplementary view you have should conform to this protocol.
 /// 
 /// `ModelType` is associated type, that works as generic constraint for specific cell or view. When implementing this method, use model type, that you wish to transfer to cell.

@@ -10,6 +10,7 @@ import XCTest
 import DTModelStorage
 import CoreData
 
+@MainActor
 class CoreDataStorageTestCase: XCTestCase {
     
     var storage : CoreDataStorage<ListItem>!
