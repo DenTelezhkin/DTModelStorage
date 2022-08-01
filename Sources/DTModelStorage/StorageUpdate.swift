@@ -33,6 +33,7 @@ public enum ChangeType: String {
     case update
 }
 
+@MainActor
 /// Object representing update in storage.
 public class StorageUpdate: Equatable, CustomStringConvertible
 {
@@ -55,7 +56,7 @@ public class StorageUpdate: Equatable, CustomStringConvertible
     
     /// Enqueued datasource updates for later execution. This can be used by `UICollectionView` and `UITableView` batch updates mechanisms to update datasources inside of `performBatchUpdates(_:completion:)` method.
     /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
-    public var enqueuedDatasourceUpdates = [(StorageUpdate) throws -> Void]()
+    public var enqueuedDatasourceUpdates = [@MainActor (StorageUpdate) throws -> Void]()
     
     /// Create an empty update.
     public init(){}
@@ -76,7 +77,7 @@ public class StorageUpdate: Equatable, CustomStringConvertible
     /// - Note: Appropriate way of doing so is checking `containsDeferredDatasourceUpdates` property and calling `applyDeferredDatasourceUpdates(_:)` method.
     ///
     /// - Parameter update: datasource update.
-    public func enqueueDatasourceUpdate(_ update: @escaping (StorageUpdate) throws -> Void) {
+    public func enqueueDatasourceUpdate(_ update: @MainActor @escaping (StorageUpdate) throws -> Void) {
         enqueuedDatasourceUpdates.append(update)
     }
     

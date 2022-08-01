@@ -75,6 +75,7 @@ open class SingleSectionHashableStorage<T:EntityIdentifiable & Hashable> : Singl
     }
 }
 
+@MainActor
 /// Abstract base class that represents a single section of items. Supports supplementary items to allow representing supplementary views in section.
 /// - SeeAlso: `SingleSectionHashableStorage`
 /// - SeeAlso: `SingleSectionEquatableStorage`

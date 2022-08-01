@@ -106,14 +106,12 @@ open class MemoryStorageAnomalyHandler : AnomalyHandler {
 /// This struct contains error types that can be thrown for various MemoryStorage errors
 public enum MemoryStorageError: LocalizedError
 {
-    @MainActor
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:to:)` method
     public enum InsertionReason: Equatable
     {
         case indexPathTooBig(IndexPath)
     }
     
-    @MainActor
     /// Errors that can happen when replacing item in memory storage - `replaceItem(_:with:)` method
     public enum SearchReason
     {
@@ -172,7 +170,7 @@ open class MemoryStorage: BaseUpdateDeliveringStorage, Storage, SectionLocationI
         return sections[section].numberOfItems
     }
     
-    func performDatasourceUpdate(_ block: @escaping (StorageUpdate) throws -> Void) {
+    func performDatasourceUpdate(_ block: @MainActor @escaping (StorageUpdate) throws -> Void) {
         currentUpdate?.enqueueDatasourceUpdate(block)
     }
     

@@ -27,6 +27,7 @@ import Foundation
 import CoreData
 import UIKit
 
+@MainActor
 /// This class represents model storage in CoreData
 /// It uses NSFetchedResultsController to monitor all changes in CoreData and automatically notify delegate of any changes
 open class CoreDataStorage<T: NSFetchRequestResult> : BaseUpdateDeliveringStorage, Storage, NSFetchedResultsControllerDelegate

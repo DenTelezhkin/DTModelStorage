@@ -25,6 +25,7 @@
 
 extension MemoryStorage
 {
+    @MainActor
     /// Runs `block` of actions without notifying self.delegate.
     ///
     /// You can think of this method as a way of "manual" management for memory storage. Typical usage would be multiple insertions/deletions etc., if you don't need any animations. You can batch any changes in block, and call reloadData on your UI component after this method was call.

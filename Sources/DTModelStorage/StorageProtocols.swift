@@ -26,6 +26,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 /// `Storage` protocol is used to define common interface for storage classes.
 public protocol Storage : AnyObject
 {
@@ -39,6 +40,7 @@ public protocol Storage : AnyObject
     func item(at indexPath: IndexPath) -> Any?
 }
 
+@MainActor
 /// `SupplementaryStorage` is used to handle header/footer and supplementary models in storage.
 public protocol SupplementaryStorage : AnyObject
 {
