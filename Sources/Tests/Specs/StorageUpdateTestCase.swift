@@ -9,6 +9,7 @@
 import XCTest
 import DTModelStorage
 
+@MainActor
 class StorageUpdateTestCase: XCTestCase {
     
     let emptyStorage = StorageUpdate()

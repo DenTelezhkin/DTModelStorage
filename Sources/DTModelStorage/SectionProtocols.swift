@@ -25,12 +25,14 @@
 
 import Foundation
 
+@MainActor
 /// Identifies index of section in storage
 public protocol SectionLocationIdentifyable : AnyObject {
     /// Returns section index for section, or nil if section was not found.
     func sectionIndex(for: Section) -> Int?
 }
 
+@MainActor
 /// Allows access to supplementaries for specific section
 public protocol SectionLocatable : AnyObject {
     

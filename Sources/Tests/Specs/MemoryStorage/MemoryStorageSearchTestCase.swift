@@ -22,6 +22,7 @@ class CollectionCell : UICollectionViewCell, ModelTransfer
     }
 }
 
+@MainActor
 class MemoryStorageSearchSpec: XCTestCase {
 
     var storage = MemoryStorage()

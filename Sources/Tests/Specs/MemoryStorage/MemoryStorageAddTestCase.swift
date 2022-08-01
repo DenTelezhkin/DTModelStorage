@@ -10,6 +10,7 @@ import UIKit
 import XCTest
 import DTModelStorage
 
+@MainActor
 class MemoryStorageAddSpec: XCTestCase {
 
     var storage = MemoryStorage()

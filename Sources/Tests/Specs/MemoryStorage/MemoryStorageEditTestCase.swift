@@ -439,6 +439,7 @@ class MemoryStorageEditSpecs: XCTestCase {
     }
 }
 
+@MainActor
 class SectionSupplementariesTestCase : XCTestCase
 {
     var storage = MemoryStorage()

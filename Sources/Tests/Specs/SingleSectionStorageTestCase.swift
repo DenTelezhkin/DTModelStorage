@@ -93,6 +93,7 @@ struct UpdatableData : Equatable, EntityIdentifiable, Hashable {
     }
 }
 
+@MainActor
 class SingleSectionStorageTestCase: XCTestCase {
 
     func testChangesAreCalculatableUsingEquatableDiffer() {

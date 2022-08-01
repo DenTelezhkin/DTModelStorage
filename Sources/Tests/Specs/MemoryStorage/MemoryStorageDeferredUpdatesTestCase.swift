@@ -10,6 +10,7 @@ import XCTest
 import XCTest
 @testable import DTModelStorage
 
+@MainActor
 class MemoryStorageDeferredUpdatesTestCase: XCTestCase {
     
     var storage : MemoryStorage!

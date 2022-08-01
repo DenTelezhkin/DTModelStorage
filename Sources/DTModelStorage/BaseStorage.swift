@@ -75,6 +75,7 @@ open class BaseSupplementaryStorage: NSObject, SupplementaryStorage {
     open var supplementaryFooterKind: String?
 }
 
+@MainActor
 /// `StorageUpdating` protocol is used to transfer data storage updates.
 public protocol StorageUpdating : AnyObject
 {

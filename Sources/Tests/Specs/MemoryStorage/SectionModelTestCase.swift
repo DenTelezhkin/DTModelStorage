@@ -10,6 +10,7 @@ import UIKit
 import XCTest
 import DTModelStorage
 
+@MainActor
 class SectionModelTestCase: XCTestCase {
 
     var section: SectionModel!

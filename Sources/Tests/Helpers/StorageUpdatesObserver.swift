@@ -15,6 +15,7 @@ func indexPath(_ item:Int, _ section:Int) -> IndexPath
     return IndexPath(item: item, section: section)
 }
 
+@MainActor
 class StorageUpdatesObserver : StorageUpdating
 {
     var updates: [StorageUpdate] = []

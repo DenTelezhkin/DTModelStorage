@@ -9,6 +9,7 @@
 import XCTest
 import DTModelStorage
 
+@MainActor
 class BaseStorageTestCase: XCTestCase {
 
     let storage = MemoryStorage()
