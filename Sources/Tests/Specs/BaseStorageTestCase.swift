@@ -15,7 +15,7 @@ class BaseStorageTestCase: XCTestCase {
     let storage = MemoryStorage()
     let updateObserver = StorageUpdatesObserver()
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         storage.delegate = updateObserver
     }

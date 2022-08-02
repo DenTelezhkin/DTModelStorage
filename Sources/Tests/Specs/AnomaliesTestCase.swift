@@ -41,7 +41,7 @@ class AnomaliesTestCase: XCTestCase {
     
     var sut: DTTestAnomalyHandler!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         sut = DTTestAnomalyHandler()
     }

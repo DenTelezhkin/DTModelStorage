@@ -15,7 +15,7 @@ class SectionModelTestCase: XCTestCase {
 
     var section: SectionModel!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         section = SectionModel()
     }

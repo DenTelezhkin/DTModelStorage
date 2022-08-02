@@ -23,7 +23,7 @@ class RealmStorageTestCase: XCTestCase, @unchecked Sendable {
     var storage: RealmStorage!
     var observer: StorageUpdatesObserver!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         storage = RealmStorage()
         try! realm.write {
@@ -33,7 +33,7 @@ class RealmStorageTestCase: XCTestCase, @unchecked Sendable {
         storage.delegate = observer
     }
     
-    override func tearDown() {
+    @MainActor override func tearDown() {
         super.tearDown()
         observer = nil
         storage = nil

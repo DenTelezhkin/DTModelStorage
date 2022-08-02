@@ -16,7 +16,7 @@ class MemoryStorageRemovingItemsSpecs: XCTestCase {
     var storage = MemoryStorage()
     var delegate = StorageUpdatesObserver()
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         storage.delegate = delegate
     }

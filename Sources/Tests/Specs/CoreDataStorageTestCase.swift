@@ -15,7 +15,7 @@ class CoreDataStorageTestCase: XCTestCase {
     
     var storage : CoreDataStorage<ListItem>!
     var updateObserver : StorageUpdatesObserver!
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         
         configureStorage()
@@ -35,7 +35,7 @@ class CoreDataStorageTestCase: XCTestCase {
         storage = CoreDataStorage(fetchedResultsController: fetchedResultsController)
     }
     
-    override func tearDown() {
+    @MainActor override func tearDown() {
         super.tearDown()
         updateObserver = nil
         storage = nil

@@ -102,9 +102,8 @@ open class MemoryStorageAnomalyHandler : AnomalyHandler {
     public init() {}
 }
 
-@MainActor
 /// This struct contains error types that can be thrown for various MemoryStorage errors
-public enum MemoryStorageError: LocalizedError
+public enum MemoryStorageError: LocalizedError, @unchecked Sendable
 {
     /// Errors that can happen when inserting items into memory storage - `insertItem(_:to:)` method
     public enum InsertionReason: Equatable

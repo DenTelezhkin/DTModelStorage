@@ -28,7 +28,7 @@ class MemoryStorageSearchSpec: XCTestCase {
     var storage = MemoryStorage()
     var updateRecordingDelegate = StorageUpdatesObserver()
 
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         self.storage = MemoryStorage()
         storage.delegate = updateRecordingDelegate

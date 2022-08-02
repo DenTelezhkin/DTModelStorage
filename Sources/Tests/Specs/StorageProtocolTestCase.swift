@@ -20,7 +20,8 @@ class FooView : UIView, ModelTransfer {
 class StorageProtocolTestCase: XCTestCase {
     
     let storage = MemoryStorage()
-    override func setUp() {
+    
+    @MainActor override func setUp() {
         super.setUp()
         storage.configureForTableViewUsage()
     }

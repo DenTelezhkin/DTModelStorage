@@ -15,7 +15,7 @@ class StorageUpdateTestCase: XCTestCase {
     let emptyStorage = StorageUpdate()
     var storage : StorageUpdate!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         storage = StorageUpdate()
     }

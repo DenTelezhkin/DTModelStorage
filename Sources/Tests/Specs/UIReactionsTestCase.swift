@@ -15,12 +15,12 @@ class UIReactionsTestCase: XCTestCase {
     
     var mapping : ViewModelMappingProtocol!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         mapping = CellViewModelMapping<CollectionCell, Int>(viewClass: CollectionCell.self)
     }
     
-    override func tearDown() {
+    @MainActor override func tearDown() {
         super.tearDown()
         mapping.reactions.removeAll()
     }

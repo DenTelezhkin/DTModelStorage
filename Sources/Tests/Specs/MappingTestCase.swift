@@ -84,7 +84,7 @@ class MappingTestCase: XCTestCase {
     
     var mappings : [ViewModelMappingProtocol]!
     
-    override func setUp() {
+    @MainActor override func setUp() {
         super.setUp()
         mappings = []
     }
