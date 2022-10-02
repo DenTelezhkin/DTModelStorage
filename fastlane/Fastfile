@@ -4,20 +4,20 @@ lane :test_ios15 do
   scan(devices: ["iPad Pro (12.9-inch) (5th generation) (15.5)"])
 end
 
-lane :test_ios14 do
-  scan(devices: ["iPhone 12 Pro (14.5)"])
+lane :test_ios16 do
+  scan(devices: ["iPhone 14 Pro (16.0)"])
 end
 
 lane :test_tvos15 do
   scan(device: "Apple TV(15.4)")
 end
 
-lane :test_tvos14 do
-  scan(device: "Apple TV 4K (14.5)")
+lane :test_tvos16 do
+  scan(device: "Apple TV (16.0)")
 end
 
-lane :build_macos_catalyst do
-  sh "xcodebuild -configuration Debug -destination 'platform=macOS,variant=Mac Catalyst' -project ../DTModelStorage.xcodeproj -scheme DTModelStorage"
+lane :test_catalyst do
+  scan(catalyst_platform: "macos", prelaunch_simulator: false, disable_slide_to_type: false)
 end
 
 lane :pod_lint do
