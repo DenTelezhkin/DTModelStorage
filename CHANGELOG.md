@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [11.0.0](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.0)
+
 ## [11.0.0-beta.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.0-beta.1)
 
 ### Added
