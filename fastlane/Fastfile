@@ -17,7 +17,7 @@ lane :test_tvos16 do
 end
 
 lane :test_catalyst do
-  scan(catalyst_platform: "macos", prelaunch_simulator: false, disable_slide_to_type: false)
+  scan(destination: "platform=macOS,variant=Mac Catalyst", prelaunch_simulator: false, disable_slide_to_type: false)
 end
 
 lane :pod_lint do
