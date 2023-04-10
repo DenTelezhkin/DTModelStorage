@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [11.0.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.1)
+
 ### Fixed 
 
 * Compilation issue with new Realm versions (@RenGate, https://github.com/DenTelezhkin/DTModelStorage/pull/36)
