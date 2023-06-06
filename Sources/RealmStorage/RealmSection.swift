@@ -52,10 +52,6 @@ open class RealmSection<T: RealmCollectionValue> : SectionLocatable, Section {
         return sectionLocationDelegate?.sectionIndex(for: self)
     }
     
-    @available(*, unavailable, message: "Please use storage.supplementaryModelProvider as a replacement.")
-    /// Supplementaries dictionary
-    open var supplementaries = [String: [Int: Any]]()
-    
     /// Creates RealmSection with Realm.Results
     /// - Parameter results: results of Realm objects query
     public init(results: AnyRealmCollection<T>) {

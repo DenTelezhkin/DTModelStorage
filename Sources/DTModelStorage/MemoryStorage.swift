@@ -130,7 +130,7 @@ public enum MemoryStorageError: LocalizedError
     /// Description of error 
     public var localizedDescription: String {
         switch self {
-        case .insertionFailed(reason: _):
+        case .insertionFailed:
             return "IndexPath provided was bigger then existing section or item"
         case .searchFailed(reason: let reason):
             return reason.localizedDescription

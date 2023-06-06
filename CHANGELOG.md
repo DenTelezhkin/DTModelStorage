@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Support for Xcode 15 (beta 1)
+
+### Removed
+
+* Previously deprecated and marked unavailable properties: `displaySectionNameForSupplementaryKinds`, `SectionModel.supplementaries`, `RealmSection.supplementaries`
+
 ## [11.0.1](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.1)
 
 ### Fixed 
