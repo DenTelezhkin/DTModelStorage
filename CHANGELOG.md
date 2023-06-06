@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [11.0.2](https://github.com/DenTelezhkin/DTModelStorage/releases/tag/11.0.2)
+
 ### Added
 
 * Support for Xcode 15 (beta 1)
